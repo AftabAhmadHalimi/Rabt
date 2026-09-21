@@ -1,0 +1,31 @@
+[
+  {
+    "id": "4dface30-3e9d-4ec3-b137-7557fe2b33dd",
+    "businessId": "4dface30-3e9d-4ec3-b137-7557fe2b33dd",
+    "name": "aftab",
+    "email": "aftabahmadhalimi119@gmail.com",
+    "passwordHash": "2ad6b1fd9aeb22df002f3c03137fdd4f3ee8ea1d36b771da27f8c84d88ae4f62baebe51b39c2ad37b16e31f10852a7184a6b511d329372f7bf79bf981be597f7",
+    "salt": "f25f52e8060050b3aa2f2ebccbb678a3",
+    "emailVerified": true,
+    "subscriptionStatus": "active",
+    "onboardingCompleted": true,
+    "inviteCode": "99cc012577",
+    "createdAt": "2026-09-21T13:41:36.617Z",
+    "signupIp": "127.0.0.1",
+    "verifyTokenHash": null,
+    "verifyExpires": null,
+    "verifyAttempts": 0,
+    "otpSentAt": null,
+    "verifyLinkHash": null,
+    "verifyLinkExpires": null,
+    "verifiedAt": "2026-09-21T13:43:42.101Z",
+    "phone": "0782331667",
+    "planId": "quarterly",
+    "planName": "3 Months",
+    "subscriptionAmount": 29,
+    "subscriptionStartedAt": "2026-09-21T13:48:03.962Z",
+    "subscriptionExpiresAt": "2026-12-21T13:48:03.962Z",
+    "paymentVerifiedAt": "2026-09-21T13:48:03.962Z",
+    "paymentVerifiedBy": "admin@localhost"
+  }
+]

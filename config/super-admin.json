@@ -1,0 +1,8 @@
+{
+  "email": "admin@localhost",
+  "name": "Super Admin",
+  "passwordHash": "d9afd276dd7d8129c759e5ad9701e8f4f376e4019620d633221391b440e103948d34f35d4d6e3f449ed13ab5641cc4a9e62261bd860bb5968f54294a65be1635",
+  "salt": "595ca764a38d46c87849210910a67a38",
+  "createdAt": "2026-09-15T10:14:41.059Z",
+  "updatedAt": "2026-09-15T10:14:41.059Z"
+}

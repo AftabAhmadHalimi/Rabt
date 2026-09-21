@@ -1,0 +1,11 @@
+{
+  "ownerUserId": "4dface30-3e9d-4ec3-b137-7557fe2b33dd",
+  "copied": [
+    "schedules.json",
+    "activity.json",
+    "tracking.json",
+    "apiConfig.json",
+    "telegramConfig.json"
+  ],
+  "migratedAt": "2026-09-21T16:25:56.380Z"
+}

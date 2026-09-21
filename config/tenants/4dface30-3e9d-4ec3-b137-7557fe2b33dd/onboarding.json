@@ -1,0 +1,27 @@
+{
+  "userId": "4dface30-3e9d-4ec3-b137-7557fe2b33dd",
+  "businessId": "4dface30-3e9d-4ec3-b137-7557fe2b33dd",
+  "completed": true,
+  "skipped": false,
+  "hearAbout": "facebook",
+  "hearAboutOther": "",
+  "interests": [
+    "whatsapp"
+  ],
+  "hobbies": [
+    "technology"
+  ],
+  "hobbyOther": "",
+  "role": "ceo",
+  "roleOther": "",
+  "goals": "marketing",
+  "goalOther": "",
+  "company": "",
+  "jobTitle": "",
+  "country": "",
+  "website": "",
+  "hasAvatar": false,
+  "avatarMime": "",
+  "updatedAt": "2026-09-21T13:48:51.156Z",
+  "completedAt": "2026-09-21T13:48:51.155Z"
+}

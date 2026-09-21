@@ -1,0 +1,27 @@
+{
+  "userId": "d27aea3f-9300-4f92-85c3-b7daeac59144",
+  "businessId": "d27aea3f-9300-4f92-85c3-b7daeac59144",
+  "completed": true,
+  "skipped": false,
+  "hearAbout": "telegram",
+  "hearAboutOther": "",
+  "interests": [
+    "automation"
+  ],
+  "hobbies": [
+    "travel"
+  ],
+  "hobbyOther": "",
+  "role": "sales",
+  "roleOther": "",
+  "goals": "campaigns",
+  "goalOther": "",
+  "company": "sand",
+  "jobTitle": "",
+  "country": "",
+  "website": "https://jhdasfs.com",
+  "hasAvatar": true,
+  "avatarMime": "image/png",
+  "updatedAt": "2026-09-21T12:36:45.250Z",
+  "completedAt": "2026-09-21T12:36:45.249Z"
+}

@@ -1,0 +1,15 @@
+[
+  {
+    "id": "bc-1789566247245-c08116",
+    "at": "2026-09-16T13:44:07.245Z",
+    "subject": "Hello",
+    "heading": "How are You",
+    "audience": "test",
+    "test": true,
+    "sent": 1,
+    "failed": 0,
+    "attachmentCount": 0,
+    "htmlTemplate": false,
+    "admin": "admin@localhost"
+  }
+]

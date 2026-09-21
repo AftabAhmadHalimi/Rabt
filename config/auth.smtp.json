@@ -1,0 +1,15 @@
+{
+  "provider": "custom",
+  "host": "mail.sandboxholding.com",
+  "port": 465,
+  "secure": true,
+  "auth": {
+    "user": "ceo@sandboxholding.com",
+    "pass": "enc:v1:fA5XKKbKrZlMoIkhaxXPyvRdekjnmUEbkMl56siQ7+3ANi0w1CZCdT3e1y0="
+  },
+  "fromName": "Rabط",
+  "rateLimit": 550,
+  "bccLimit": 500,
+  "systemName": "Rabط",
+  "backgroundColor": "#1d4ed8"
+}

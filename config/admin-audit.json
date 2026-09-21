@@ -1,0 +1,637 @@
+[
+  {
+    "id": "aud-1789998486489-28116c",
+    "at": "2026-09-21T13:48:06.489Z",
+    "action": "billing.approve",
+    "detail": {
+      "id": "pay-1789998280495-2c166a",
+      "userId": "4dface30-3e9d-4ec3-b137-7557fe2b33dd"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789994159893-3866ce",
+    "at": "2026-09-21T12:35:59.893Z",
+    "action": "billing.approve",
+    "detail": {
+      "id": "pay-1789994140541-d1832c",
+      "userId": "d27aea3f-9300-4f92-85c3-b7daeac59144"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789990782971-d5601e",
+    "at": "2026-09-21T11:39:42.971Z",
+    "action": "home-video.create",
+    "detail": {
+      "count": 5
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789983510083-fb96f2",
+    "at": "2026-09-21T09:38:30.083Z",
+    "action": "other-platform.update",
+    "detail": {
+      "enabled": true,
+      "name": false,
+      "url": false
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789983508218-e510c3",
+    "at": "2026-09-21T09:38:28.219Z",
+    "action": "other-platform.logo",
+    "detail": {
+      "name": "favicon.png"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789983485290-cf308a",
+    "at": "2026-09-21T09:38:05.290Z",
+    "action": "other-platform.update",
+    "detail": {
+      "enabled": true,
+      "name": false,
+      "url": false
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789983474664-2ac657",
+    "at": "2026-09-21T09:37:54.667Z",
+    "action": "other-platform.logo",
+    "detail": {
+      "name": "favicon.png"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789981275089-97e4cd",
+    "at": "2026-09-21T09:01:15.089Z",
+    "action": "marketing-database.upload",
+    "detail": {
+      "id": "55e73011-baa2-4f94-ae53-90b052b8a0e8",
+      "kind": "email",
+      "name": "Afghanistan Business Contact"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789981263584-138db4",
+    "at": "2026-09-21T09:01:03.587Z",
+    "action": "marketing-database.delete",
+    "detail": {
+      "id": "42090d3b-3191-4dbb-8f33-d9c855d09b4d"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789979892149-3ddfe1",
+    "at": "2026-09-21T08:38:12.149Z",
+    "action": "marketing-database.upload",
+    "detail": {
+      "id": "42090d3b-3191-4dbb-8f33-d9c855d09b4d",
+      "kind": "email",
+      "name": "Afghanistan Business Contact"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789971545362-61ff9f",
+    "at": "2026-09-21T06:19:05.362Z",
+    "action": "contact.reply",
+    "detail": {
+      "id": "cm-1789971521777-0d886d",
+      "email": "sandboxspace1@gmail.com"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789971285614-f71227",
+    "at": "2026-09-21T06:14:45.614Z",
+    "action": "contact.reply",
+    "detail": {
+      "id": "cm-1789971263060-8462bd",
+      "email": "sandboxspace1@gmail.com"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789736940338-c23455",
+    "at": "2026-09-18T13:09:00.338Z",
+    "action": "socialMedia.update",
+    "detail": {
+      "twitter": "https://chatgpt.com/",
+      "linkedin": "https://chatgpt.com/",
+      "facebook": "https://chatgpt.com/",
+      "instagram": "https://chatgpt.com/"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789736939955-114902",
+    "at": "2026-09-18T13:08:59.955Z",
+    "action": "socialMedia.update",
+    "detail": {
+      "twitter": "https://chatgpt.com/",
+      "linkedin": "https://chatgpt.com/",
+      "facebook": "https://chatgpt.com/",
+      "instagram": "https://chatgpt.com/"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789736939752-03fe0a",
+    "at": "2026-09-18T13:08:59.752Z",
+    "action": "socialMedia.update",
+    "detail": {
+      "twitter": "https://chatgpt.com/",
+      "linkedin": "https://chatgpt.com/",
+      "facebook": "https://chatgpt.com/",
+      "instagram": "https://chatgpt.com/"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789736939531-4fe518",
+    "at": "2026-09-18T13:08:59.531Z",
+    "action": "socialMedia.update",
+    "detail": {
+      "twitter": "https://chatgpt.com/",
+      "linkedin": "https://chatgpt.com/",
+      "facebook": "https://chatgpt.com/",
+      "instagram": "https://chatgpt.com/"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789736939188-7d53f5",
+    "at": "2026-09-18T13:08:59.189Z",
+    "action": "socialMedia.update",
+    "detail": {
+      "twitter": "https://chatgpt.com/",
+      "linkedin": "https://chatgpt.com/",
+      "facebook": "https://chatgpt.com/",
+      "instagram": "https://chatgpt.com/"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789736938715-a3942b",
+    "at": "2026-09-18T13:08:58.715Z",
+    "action": "socialMedia.update",
+    "detail": {
+      "twitter": "https://chatgpt.com/",
+      "linkedin": "https://chatgpt.com/",
+      "facebook": "https://chatgpt.com/",
+      "instagram": "https://chatgpt.com/"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789736928364-a3d6cb",
+    "at": "2026-09-18T13:08:48.397Z",
+    "action": "socialMedia.update",
+    "detail": {
+      "twitter": "https://chatgpt.com/",
+      "linkedin": "https://chatgpt.com/",
+      "facebook": "https://chatgpt.com/",
+      "instagram": "https://chatgpt.com/"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789732150356-9b5ff8",
+    "at": "2026-09-18T11:49:10.356Z",
+    "action": "socialMedia.update",
+    "detail": {
+      "twitter": "https://chatgpt.com/",
+      "linkedin": "https://chatgpt.com/",
+      "facebook": "https://chatgpt.com/",
+      "instagram": "https://chatgpt.com/"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789732150119-14b880",
+    "at": "2026-09-18T11:49:10.119Z",
+    "action": "socialMedia.update",
+    "detail": {
+      "twitter": "https://chatgpt.com/",
+      "linkedin": "https://chatgpt.com/",
+      "facebook": "https://chatgpt.com/",
+      "instagram": "https://chatgpt.com/"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789732149781-c55b15",
+    "at": "2026-09-18T11:49:09.781Z",
+    "action": "socialMedia.update",
+    "detail": {
+      "twitter": "https://chatgpt.com/",
+      "linkedin": "https://chatgpt.com/",
+      "facebook": "https://chatgpt.com/",
+      "instagram": "https://chatgpt.com/"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789732149581-38e9c3",
+    "at": "2026-09-18T11:49:09.582Z",
+    "action": "socialMedia.update",
+    "detail": {
+      "twitter": "https://chatgpt.com/",
+      "linkedin": "https://chatgpt.com/",
+      "facebook": "https://chatgpt.com/",
+      "instagram": "https://chatgpt.com/"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789732149365-976630",
+    "at": "2026-09-18T11:49:09.365Z",
+    "action": "socialMedia.update",
+    "detail": {
+      "twitter": "https://chatgpt.com/",
+      "linkedin": "https://chatgpt.com/",
+      "facebook": "https://chatgpt.com/",
+      "instagram": "https://chatgpt.com/"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789732149067-ae7bcb",
+    "at": "2026-09-18T11:49:09.067Z",
+    "action": "socialMedia.update",
+    "detail": {
+      "twitter": "https://chatgpt.com/",
+      "linkedin": "https://chatgpt.com/",
+      "facebook": "https://chatgpt.com/",
+      "instagram": "https://chatgpt.com/"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789732145789-d309c6",
+    "at": "2026-09-18T11:49:05.799Z",
+    "action": "socialMedia.update",
+    "detail": {
+      "twitter": "https://chatgpt.com/",
+      "linkedin": "https://chatgpt.com/",
+      "facebook": "https://chatgpt.com/",
+      "instagram": "https://chatgpt.com/"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789716844660-dc27eb",
+    "at": "2026-09-18T07:34:04.660Z",
+    "action": "home-video.update",
+    "detail": {
+      "id": "hv-mu6n71yj-cdad4e"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789716837564-bdaf2d",
+    "at": "2026-09-18T07:33:57.564Z",
+    "action": "home-video.create",
+    "detail": {
+      "count": 4
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789716641336-c807a8",
+    "at": "2026-09-18T07:30:41.340Z",
+    "action": "home-video.update",
+    "detail": {
+      "id": "hv-legacy-intro"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789716460747-89b146",
+    "at": "2026-09-18T07:27:40.754Z",
+    "action": "home-video.update",
+    "detail": {
+      "id": "hv-mu60vicl-eb102b"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789716195492-6fb582",
+    "at": "2026-09-18T07:23:15.494Z",
+    "action": "home-video.update",
+    "detail": {
+      "id": "hv-mu60ttsn-30a268"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789715907974-d0e0a6",
+    "at": "2026-09-18T07:18:27.987Z",
+    "action": "home-video.update",
+    "detail": {
+      "id": "hv-mu60ttsn-30a268"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789713479977-0319a4",
+    "at": "2026-09-18T06:37:59.977Z",
+    "action": "trusted-by.create",
+    "detail": {
+      "count": 2
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789713463471-129cd0",
+    "at": "2026-09-18T06:37:43.473Z",
+    "action": "trusted-by.create",
+    "detail": {
+      "count": 1
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789679347376-0d2d65",
+    "at": "2026-09-17T21:09:07.376Z",
+    "action": "home-video.create",
+    "detail": {
+      "count": 3
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789679268908-5c9edb",
+    "at": "2026-09-17T21:07:48.908Z",
+    "action": "home-video.create",
+    "detail": {
+      "count": 2
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789676931574-505366",
+    "at": "2026-09-17T20:28:51.574Z",
+    "action": "home-video.toggle",
+    "detail": {
+      "enabled": true
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789676926134-0fbd12",
+    "at": "2026-09-17T20:28:46.139Z",
+    "action": "home-video.upload",
+    "detail": {
+      "name": "From Klickpin.com- Save Stunning meal prep recipes that are trending right now across Pinterest boards for ideas worth saving right now-pin-id-896.mp4",
+      "size": 2373785
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789673126775-018c21",
+    "at": "2026-09-17T19:25:26.775Z",
+    "action": "billing.approve",
+    "detail": {
+      "id": "pay-1789673106878-bdefd5",
+      "userId": "c04c69d6-a54f-46a3-83f2-01658af79794"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789661116607-f35864",
+    "at": "2026-09-17T16:05:16.607Z",
+    "action": "billing.approve",
+    "detail": {
+      "id": "pay-1789661074987-20cd15",
+      "userId": "a6e27465-406a-49e9-99e0-6cff270a2791"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789566247258-42e4a0",
+    "at": "2026-09-16T13:44:07.258Z",
+    "action": "broadcast.test",
+    "detail": {
+      "subject": "Hello",
+      "to": "sandboxspace1@gmail.com"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789550046396-25e910",
+    "at": "2026-09-16T09:14:06.396Z",
+    "action": "billing.settings",
+    "detail": {
+      "accountNumber": true
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789550034533-3b3e6a",
+    "at": "2026-09-16T09:13:54.534Z",
+    "action": "billing.qr",
+    "detail": {
+      "name": "ChatGPT Image Sep 14, 2026, 04_50_46 PM.png"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789546453306-d238f5",
+    "at": "2026-09-16T08:14:13.306Z",
+    "action": "billing.approve",
+    "detail": {
+      "id": "pay-1789546352031-533d87",
+      "userId": "ca54b57d-6e78-4dc2-9a5a-a8d80a69d0fb"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789545301035-c7eac6",
+    "at": "2026-09-16T07:55:01.035Z",
+    "action": "billing.approve",
+    "detail": {
+      "id": "pay-1789545280801-c1e65a",
+      "userId": "c6c5c6df-72f4-4da8-a25c-69bebf78f83c"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789544408957-dece4e",
+    "at": "2026-09-16T07:40:08.957Z",
+    "action": "android-app.meta",
+    "detail": {
+      "version": "1.0.0"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789544397873-f00f7d",
+    "at": "2026-09-16T07:39:57.873Z",
+    "action": "android-app.toggle",
+    "detail": {
+      "enabled": true
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789544394835-032eec",
+    "at": "2026-09-16T07:39:54.837Z",
+    "action": "android-app.upload",
+    "detail": {
+      "name": "com.facebook.lite-v528.0.0.9.106_516401884-Android_5.0.apk",
+      "size": 3560157,
+      "version": ""
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789543459276-4a2db7",
+    "at": "2026-09-16T07:24:19.276Z",
+    "action": "billing.approve",
+    "detail": {
+      "id": "pay-1789543438988-86297c",
+      "userId": "7fffdf64-0d61-4191-adba-c83a6dee8e93"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789542774123-aaecf1",
+    "at": "2026-09-16T07:12:54.123Z",
+    "action": "billing.approve",
+    "detail": {
+      "id": "pay-1789542673895-271641",
+      "userId": "825fcfd8-9d87-426e-a303-1efd88cf8502"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789542529335-dfdb15",
+    "at": "2026-09-16T07:08:49.335Z",
+    "action": "billing.settings",
+    "detail": {
+      "accountNumber": false
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789542527846-35878f",
+    "at": "2026-09-16T07:08:47.846Z",
+    "action": "billing.qr",
+    "detail": {
+      "name": "Internship report.pdf.png"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789542522559-0ff872",
+    "at": "2026-09-16T07:08:42.559Z",
+    "action": "billing.settings",
+    "detail": {
+      "accountNumber": false
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789542522353-89d154",
+    "at": "2026-09-16T07:08:42.353Z",
+    "action": "billing.settings",
+    "detail": {
+      "accountNumber": false
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789542522109-b3ccd4",
+    "at": "2026-09-16T07:08:42.109Z",
+    "action": "billing.settings",
+    "detail": {
+      "accountNumber": false
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789542521465-26303a",
+    "at": "2026-09-16T07:08:41.465Z",
+    "action": "billing.settings",
+    "detail": {
+      "accountNumber": false
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789542520441-8ef8ce",
+    "at": "2026-09-16T07:08:40.441Z",
+    "action": "billing.settings",
+    "detail": {
+      "accountNumber": false
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789542518383-0c88a2",
+    "at": "2026-09-16T07:08:38.383Z",
+    "action": "billing.settings",
+    "detail": {
+      "accountNumber": false
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789542515411-bdfe74",
+    "at": "2026-09-16T07:08:35.415Z",
+    "action": "billing.qr",
+    "detail": {
+      "name": "Internship report.pdf.png"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789489614038-6bfcae",
+    "at": "2026-09-15T16:26:54.038Z",
+    "action": "user.update",
+    "detail": {
+      "id": "3d4ce70b-ebad-40f7-81fa-29f5ad4b92a4",
+      "email": "sandboxspace1@gmail.com"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789489601911-b64c8d",
+    "at": "2026-09-15T16:26:41.917Z",
+    "action": "user.update",
+    "detail": {
+      "id": "3d4ce70b-ebad-40f7-81fa-29f5ad4b92a4",
+      "email": "sandboxspace1@gmail.com"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789478140364-180ca5",
+    "at": "2026-09-15T13:15:40.364Z",
+    "action": "user.impersonate",
+    "detail": {
+      "id": "c62b923e-7a78-4c9d-88c0-6a04e073becd",
+      "email": "ads.center.af@gmail.com"
+    },
+    "admin": "admin@localhost"
+  },
+  {
+    "id": "aud-1789478133018-e57684",
+    "at": "2026-09-15T13:15:33.019Z",
+    "action": "user.impersonate",
+    "detail": {
+      "id": "b140953a-3abe-4bd7-b218-aa0c482b6554",
+      "email": "carsursusage@gmail.com"
+    },
+    "admin": "admin@localhost"
+  }
+]
