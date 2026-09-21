@@ -1,0 +1,2029 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram — Rabط</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/brand.css">
+    <script src="/i18n-dict.js"></script>
+    <script src="/i18n.js"></script>
+    <script src="/navbar.js"></script>
+    <script src="/ui-feedback.js"></script>
+    <script src="/saved-lists.js"></script>
+    <script src="/channel-status.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--telegram);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon i {
+            font-size: 20px;
+            color: #ffffff;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-left: 12px;
+        }
+
+        .status-indicator.configured {
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--success);
+        }
+
+        .status-indicator.not-configured {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--error);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link {
+            padding: 10px 20px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+            background: var(--accent-subtle);
+        }
+
+        .nav-link.active {
+            color: var(--telegram);
+            background: rgba(34, 158, 217, 0.1);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .theme-toggle {
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent-subtle);
+            border-color: var(--border-hover);
+        }
+
+        .container {
+            max-width: 1040px;
+            margin: 0 auto;
+            padding: 16px 16px 24px;
+        }
+
+        .page-header {
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            letter-spacing: -0.02em;
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 13px;
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                padding: 0 10px;
+            }
+            .header {
+                padding: 16px 20px;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .nav {
+                display: none;
+            }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 12px 14px;
+            transition: border-color 0.2s ease;
+            min-height: 0;
+        }
+
+        .card.logs-card {
+            min-height: 0;
+        }
+
+        .card:hover {
+            border-color: var(--border-hover);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title i {
+            color: var(--text-secondary);
+        }
+
+        .step-badge {
+            font-size: 11px;
+            padding: 4px 10px;
+            background: var(--telegram);
+            color: #ffffff;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .form-group {
+            margin-bottom: 28px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .form-label i {
+            margin-right: 8px;
+            width: 16px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 15px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus {
+            border-color: var(--telegram);
+            background: var(--bg-secondary);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-hint {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        .form-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .status-text {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .alert {
+            padding: 14px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            margin-top: 16px;
+            display: none;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-success {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: var(--success);
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: var(--error);
+        }
+
+        .logs-card {
+            position: sticky;
+            top: 40px;
+        }
+
+        .logs-empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+        }
+
+        .logs-empty i {
+            font-size: 40px;
+            margin-bottom: 16px;
+            opacity: 0.3;
+        }
+
+        .logs-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .logs-table th {
+            text-align: left;
+            padding: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logs-table td {
+            padding: 12px;
+            font-size: 13px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logs-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .status-badge.success {
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--success);
+        }
+
+        .status-badge.error {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--error);
+        }
+
+        .status-badge.pending {
+            background: var(--accent-subtle);
+            color: var(--text-secondary);
+        }
+
+        .status-badge i {
+            font-size: 8px;
+        }
+
+        .logs-footer {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: var(--border-color);
+            border-radius: 2px;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--telegram);
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--success);
+        }
+
+        .live-indicator .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .logs-footer i {
+            margin-right: 6px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .btn {
+            padding: 16px 28px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: var(--telegram);
+            color: #ffffff;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-subtle);
+            border-color: var(--border-hover);
+        }
+
+        .btn-telegram {
+            background: var(--telegram);
+            color: #ffffff;
+        }
+
+        .auth-tab-bar { margin-bottom: 10px; }
+        .auth-tab-bar .seg-btn.active {
+            background: var(--telegram);
+            color: #ffffff;
+        }
+
+        .btn-danger {
+            background: var(--error);
+            color: #ffffff;
+        }
+
+        .connection-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .connection-status.disconnected {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .connection-status.scanning {
+            background: rgba(34, 158, 217, 0.1);
+            color: var(--telegram);
+            border: 1px solid rgba(34, 158, 217, 0.35);
+        }
+
+        .connection-status.connected {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .connection-status i {
+            font-size: 20px;
+        }
+
+        .qr-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            background: var(--bg-tertiary);
+        }
+
+        .qr-container.has-qr {
+            border-style: solid;
+            border-color: var(--telegram);
+        }
+
+        .qr-code {
+            max-width: 250px;
+            border-radius: var(--radius-sm);
+        }
+
+        .qr-placeholder {
+            color: var(--text-muted);
+            font-size: 14px;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .qr-placeholder i {
+            font-size: 48px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .phone-display {
+            text-align: center;
+            padding: 16px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-sm);
+            margin-bottom: 20px;
+        }
+
+        .phone-display i {
+            color: var(--telegram);
+            margin-right: 8px;
+        }
+
+        .phone-number {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .connection-actions {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .connection-actions .btn {
+            flex: 1;
+        }
+
+        .drop-zone {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius);
+            padding: 48px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: var(--bg-tertiary);
+        }
+
+        .drop-zone:hover, .drop-zone.dragover {
+            border-color: var(--telegram);
+            background: rgba(34, 158, 217, 0.05);
+        }
+
+        .drop-zone.has-file {
+            border-style: solid;
+            border-color: var(--success);
+        }
+
+        .drop-zone-icon {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            transition: color 0.2s ease;
+        }
+
+        .drop-zone:hover .drop-zone-icon {
+            color: var(--text-primary);
+        }
+
+        .drop-zone-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .drop-zone-hint {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: var(--success);
+        }
+
+        .file-info i {
+            font-size: 24px;
+        }
+
+        .file-name {
+            font-weight: 500;
+        }
+
+        .message-editor {
+            min-height: 150px;
+            padding: 14px 16px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 15px;
+            line-height: 1.6;
+            outline: none;
+            transition: all 0.2s ease;
+            resize: vertical;
+        }
+
+        .message-editor:focus {
+            border-color: var(--telegram);
+            background: var(--bg-secondary);
+        }
+
+        .message-editor:empty:before {
+            content: attr(data-placeholder);
+            color: var(--text-muted);
+        }
+
+        .personalization-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .personalization-tag {
+            padding: 6px 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .personalization-tag:hover {
+            border-color: var(--telegram);
+            color: var(--telegram);
+            background: rgba(34, 158, 217, 0.1);
+        }
+
+        .personalization-tag i {
+            margin-right: 4px;
+        }
+
+        .image-preview {
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-sm);
+        }
+
+        .image-preview img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+        }
+
+        .image-preview-info {
+            flex: 1;
+        }
+
+        .image-preview-name {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .image-preview-remove {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .image-preview-remove:hover {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+
+        .stats-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .stat-item {
+            flex: 1;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-sm);
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-item.success .stat-value {
+            color: var(--success);
+        }
+
+        .stat-item.error .stat-value {
+            color: var(--error);
+        }
+
+        .retry-btn {
+            padding: 4px 8px;
+            font-size: 11px;
+            background: var(--telegram);
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .retry-btn:hover {
+            opacity: 0.9;
+        }
+
+        .manual-fix-section {
+            margin-top: 16px;
+            padding: 16px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: var(--radius-sm);
+        }
+
+        .manual-fix-section h4 {
+            font-size: 14px;
+            color: var(--error);
+            margin-bottom: 12px;
+        }
+
+        .manual-fix-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .manual-fix-actions .btn {
+            padding: 10px 16px;
+            font-size: 13px;
+        }
+
+        /* ── Segmented control (shared) ── */
+        .segmented {
+            display: inline-flex;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 4px;
+            gap: 4px;
+            width: 100%;
+        }
+
+        .seg-btn {
+            flex: 1;
+            height: 40px;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.15s ease, color 0.15s ease;
+        }
+
+        .seg-btn:not(.active):hover {
+            background: var(--accent-subtle);
+            color: var(--text-primary);
+        }
+
+        /* ── Paste textarea ── */
+        .paste-area {
+            resize: vertical;
+            min-height: 130px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .recipients-tab-bar { margin-bottom: 10px; }
+        .recipients-tab-bar .seg-btn {
+            font-size: 12px;
+            gap: 6px;
+            padding: 0 8px;
+        }
+        .recipients-tab-bar .seg-btn.active {
+            background: var(--telegram);
+            color: #ffffff;
+        }
+        .saved-list-picker a { color: var(--telegram); font-weight: 600; text-decoration: none; }
+
+        /* ── Schedule timing section ── */
+        .timing-section {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 24px;
+            transition: border-color 0.2s ease;
+        }
+
+        .timing-section.schedule-active {
+            border-color: #8b5cf6;
+            background: rgba(139, 92, 246, 0.04);
+        }
+
+        .timing-section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .timing-toggle .seg-btn.active { background: #8b5cf6; color: #fff; }
+        .repeat-toggle .seg-btn.active { background: #8b5cf6; color: #fff; }
+
+        .ampm-toggle {
+            width: auto !important;
+            min-width: 92px;
+            flex-shrink: 0;
+        }
+
+        .ampm-toggle .seg-btn.active { background: #8b5cf6; color: #fff; }
+
+        .schedule-fields {
+            margin-top: 18px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border-color);
+            display: none;
+        }
+
+        .schedule-fields.visible { display: block; }
+
+        .datetime-row {
+            display: flex;
+            gap: 14px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .datetime-row .form-group {
+            margin-bottom: 0;
+            flex: 1;
+            min-width: 180px;
+        }
+        .sched-date-input {
+            font-size: 15px;
+            font-weight: 600;
+            padding: 14px 12px;
+            width: 100%;
+            min-height: 56px;
+        }
+
+        .time-picker {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .time-picker .form-input {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            padding: 14px 8px;
+            max-width: 80px;
+        }
+
+        .time-sep {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--text-secondary);
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .schedule-hint-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 0;
+            margin-bottom: 16px;
+            padding: 10px 14px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            color: #8b5cf6;
+            font-weight: 500;
+        }
+
+        .schedule-hint-box i { flex-shrink: 0; }
+
+        .form-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .form-row .form-group { flex: 1; }
+
+        /* ── Scheduled live-log (mirrored from email.html) ── */
+        .live-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 11px; font-weight: 700; letter-spacing: 0.04em;
+            color: var(--success);
+            background: rgba(34, 197, 94, 0.12);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            padding: 3px 9px; border-radius: 20px;
+        }
+        .live-badge .dot {
+            width: 6px; height: 6px;
+            background: var(--success); border-radius: 50%;
+            animation: livePulse 1.4s infinite;
+        }
+        .live-badge.done { color: var(--text-muted); background: var(--accent-subtle); border-color: var(--border-color); }
+        .live-badge.done .dot { background: var(--text-muted); animation: none; }
+        .live-badge.errored { color: var(--error); background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.3); }
+        .live-badge.errored .dot { background: var(--error); animation: none; }
+        @keyframes livePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        .log-entries {
+            display: flex; flex-direction: column; gap: 5px;
+            max-height: 380px; overflow-y: auto;
+            margin-bottom: 4px;
+        }
+        .log-entry {
+            display: flex; align-items: center; gap: 10px;
+            padding: 8px 12px; border-radius: 6px; font-size: 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+        }
+        .log-entry.sent   { border-color: rgba(34,197,94,0.25); }
+        .log-entry.error,
+        .log-entry.failed { border-color: rgba(239,68,68,0.25); background: rgba(239,68,68,0.04); }
+        .log-entry.delay  { color: var(--text-muted); }
+        .log-entry.info   { color: var(--text-secondary); }
+        .log-entry.done   { border-color: rgba(34,197,94,0.2); color: var(--text-secondary); }
+        .log-icon { flex-shrink: 0; width: 16px; text-align: center; }
+        .log-icon.sent   { color: var(--success); }
+        .log-icon.error,
+        .log-icon.failed { color: var(--error); }
+        .log-icon.delay  { color: var(--text-muted); }
+        .log-icon.info   { color: var(--text-secondary); }
+        .log-icon.done   { color: var(--success); }
+        .log-label  { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .log-detail { font-size: 11px; color: var(--text-muted); flex-shrink: 0; max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    </style>
+</head>
+<body>
+    <div id="app-navbar"></div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Telegram campaigns</h1>
+            <p>Compose and send Telegram from the Rabط workspace.</p>
+        </div>
+        <div class="setup-banner hidden" id="channelSetupBanner">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span data-setup-text>Telegram is not connected yet.</span>
+            <a href="/settings.html#telegram">Open Settings</a>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        Compose Message
+                    </h2>
+                    <span class="step-badge">Step 1</span>
+                </div>
+
+                <form id="telegramForm">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fa-solid fa-users"></i>
+                            Phone Numbers
+                        </label>
+                        <div class="segmented recipients-tab-bar" id="recipientsSourceToggle">
+                            <button type="button" class="seg-btn active" id="srcSavedBtn">
+                                <i class="fa-solid fa-folder-open"></i> Saved list
+                            </button>
+                            <button type="button" class="seg-btn" id="srcPasteBtn">
+                                <i class="fa-solid fa-paste"></i> Paste Numbers
+                            </button>
+                        </div>
+                        <div class="saved-list-picker" id="savedListPicker">
+                            <select id="savedListSelect" class="form-input">
+                                <option value="">Loading saved lists…</option>
+                            </select>
+                            <div class="form-hint" style="margin-top:8px;">
+                                Import phone lists in <a href="/import-export.html">Contact</a>, then choose All Contact or one list.
+                                </div>
+                        </div>
+                        <textarea id="recipientsPaste" class="form-input paste-area hidden" rows="6" placeholder="Paste phone numbers here, one per line&#10;+12025550100&#10;+441234567890"></textarea>
+                        <div class="form-hint" style="margin-top:8px;" id="recipientsHint">
+                            Choose All Contact or a phone list you imported in Contact.
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fa-solid fa-message"></i>
+                            Message
+                        </label>
+                        <div class="form-hint" style="margin-top:-4px; margin-bottom:10px;">
+                            Tip: Select text and click <b>Bold</b> (Telegram often uses the same <code>*text*</code> for bold).
+                        </div>
+                        <div class="editor-toolbar" style="border: 1px solid var(--border-color); border-radius: var(--radius-sm); overflow: hidden; padding: 10px 12px; background: var(--bg-secondary);">
+                            <button type="button" class="toolbar-btn" id="waBoldBtn" title="Bold">
+                                <i class="fa-solid fa-bold"></i>
+                            </button>
+                        </div>
+                        <textarea class="message-editor" id="messageEditor" placeholder="Enter your message here..." style="width:100%; margin-top:10px;"></textarea>
+                        <div class="form-hint">
+                            Enter creates a new line. Only bold formatting is supported.
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fa-regular fa-image"></i>
+                            Image (Optional)
+                        </label>
+                        <button type="button" class="btn btn-secondary" id="imageBtn" style="width: 100%;">
+                            <i class="fa-regular fa-image"></i>
+                            Upload Image
+                        </button>
+                        <input type="file" id="imageInput" accept="image/*" class="hidden">
+                        <div class="image-preview hidden" id="imagePreview">
+                            <img id="previewImg" src="" alt="Preview">
+                            <div class="image-preview-info">
+                                <div class="image-preview-name" id="previewName"></div>
+                            </div>
+                            <button type="button" class="image-preview-remove" id="removeImage">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fa-solid fa-clock"></i>
+                            Delay Between Messages (seconds)
+                        </label>
+                        <input type="number" id="delayInput" class="form-input" value="5" min="1" max="60" placeholder="Delay in seconds">
+                        <div class="form-hint">Time to wait between each message (1-60 seconds)</div>
+                    </div>
+
+                    <!-- ── Send Timing ── -->
+                    <div class="timing-section" id="timingSection">
+                        <div class="timing-section-title">
+                            <i class="fa-solid fa-clock"></i> Send Timing
+                        </div>
+
+                        <div class="segmented timing-toggle" id="timingToggle">
+                            <button type="button" class="seg-btn active" id="sendNowBtn">
+                                <i class="fa-brands fa-telegram"></i> Send Now
+                            </button>
+                            <button type="button" class="seg-btn" id="scheduleBtn">
+                                <i class="fa-solid fa-clock"></i> Schedule for Later
+                            </button>
+                        </div>
+
+                        <div class="schedule-fields" id="scheduleFields">
+                            <div class="form-group" style="margin-bottom:16px;">
+                                <label class="form-label" style="margin-bottom:8px;">
+                                    <i class="fa-solid fa-tag"></i> Campaign Name
+                                </label>
+                                <input type="text" id="campaignName" class="form-input" placeholder="e.g., Promo October">
+                            </div>
+
+                            <div class="datetime-row">
+                                <div class="form-group">
+                                    <label class="form-label" style="margin-bottom:8px;">
+                                        <i class="fa-solid fa-calendar-day"></i> Date
+                                    </label>
+                                    <input type="date" id="schedDate" class="form-input sched-date-input">
+                                </div>
+                                <div class="form-group">
+                                <label class="form-label" style="margin-bottom:8px;">
+                                    <i class="fa-solid fa-hourglass-start"></i> Start Sending At
+                                </label>
+                                <div class="time-picker">
+                                    <input type="number" id="schedHour" class="form-input" min="1" max="12" value="9" placeholder="HH">
+                                    <span class="time-sep">:</span>
+                                    <input type="number" id="schedMinute" class="form-input" min="0" max="59" value="0" placeholder="MM">
+                                    <div class="segmented ampm-toggle" id="ampmToggle">
+                                        <button type="button" class="seg-btn active" id="amBtn">AM</button>
+                                        <button type="button" class="seg-btn" id="pmBtn">PM</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="schedule-hint-box" id="schedHintBox">
+                                    <i class="fa-solid fa-circle-info"></i>
+                                    <span id="schedHintText">Calculating…</span>
+                            </div>
+
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="form-label" style="margin-bottom:8px;">
+                                    <i class="fa-solid fa-rotate"></i> Repeat
+                                </label>
+                                <div class="segmented repeat-toggle" id="repeatToggle">
+                                    <button type="button" class="seg-btn active" id="repeatOnceBtn">
+                                        <i class="fa-solid fa-check"></i> Once
+                                    </button>
+                                    <button type="button" class="seg-btn" id="repeatDailyBtn">
+                                        <i class="fa-solid fa-rotate"></i> Every Day
+                                    </button>
+                                </div>
+                                <input type="hidden" id="schedRepeat" value="once">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" id="sendButton">
+                            <i class="fa-brands fa-telegram"></i>
+                            Send Bulk Messages
+                        </button>
+                        <span class="status-text" id="statusText">Ready to send</span>
+                    </div>
+
+                    <div class="alert" id="alertBox"></div>
+                </form>
+            </div>
+
+            <div class="card logs-card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fa-solid fa-list-check"></i>
+                        Delivery Log
+                    </h2>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <span class="live-badge hidden" id="liveBadge"><span class="dot"></span>LIVE</span>
+                        <span class="step-badge">Step 2</span>
+                    </div>
+                </div>
+
+                <div class="progress-section hidden" id="progressSection">
+                    <div class="progress-info">
+                        <span id="progressText">0 / 0 sent</span>
+                        <span class="live-indicator" id="liveIndicator"><span class="dot"></span>Live</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+
+                <div class="stats-row hidden" id="statsRow">
+                    <div class="stat-item success">
+                        <div class="stat-value" id="sentCount">0</div>
+                        <div class="stat-label">Sent</div>
+                    </div>
+                    <div class="stat-item error">
+                        <div class="stat-value" id="failedCount">0</div>
+                        <div class="stat-label">Failed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalCount">0</div>
+                        <div class="stat-label">Total</div>
+                    </div>
+                </div>
+
+                <div class="logs-empty" id="logsEmpty">
+                    <i class="fa-brands fa-telegram"></i>
+                    <p>No messages sent yet</p>
+                </div>
+
+                <div class="hidden" id="logsContent">
+                    <table class="logs-table">
+                        <thead>
+                            <tr>
+                                <th>Recipient</th>
+                                <th>Status</th>
+                                <th>Detail</th>
+                            </tr>
+                        </thead>
+                        <tbody id="logsBody"></tbody>
+                    </table>
+                </div>
+
+                <div class="manual-fix-section hidden" id="manualFixSection">
+                    <h4><i class="fa-solid fa-triangle-exclamation"></i> Manual Fix</h4>
+                    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">
+                        Some messages failed to send. You can retry failed messages or clear the logs.
+                    </p>
+                    <div class="manual-fix-actions">
+                        <button class="btn btn-secondary" id="retryFailedBtn">
+                            <i class="fa-solid fa-rotate-right"></i>
+                            Retry Failed
+                        </button>
+                        <button class="btn btn-secondary" id="clearLogsBtn">
+                            <i class="fa-solid fa-trash"></i>
+                            Clear Logs
+                        </button>
+                    </div>
+                </div>
+
+                <div class="log-entries hidden" id="schedLogEntries"></div>
+
+                <div class="logs-footer">
+                    <i class="fa-solid fa-circle-info"></i>
+                    Phone numbers should include country code (e.g., +1234567890).
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const html = document.documentElement;
+            
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    const currentTheme = html.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    html.setAttribute('data-theme', newTheme);
+                    themeToggle.innerHTML = newTheme === 'dark' 
+                        ? '<i class="fa-solid fa-moon"></i>' 
+                        : '<i class="fa-solid fa-sun"></i>';
+                    localStorage.setItem('theme', newTheme);
+                });
+
+                const savedTheme = localStorage.getItem('theme') || 'light';
+                html.setAttribute('data-theme', savedTheme);
+                themeToggle.innerHTML = savedTheme === 'dark' 
+                    ? '<i class="fa-solid fa-moon"></i>' 
+                    : '<i class="fa-solid fa-sun"></i>';
+            }
+
+            if (window.RabtChannelStatus) {
+                RabtChannelStatus.bindBanner({
+                    channel: 'telegram',
+                    needText: 'Telegram is not connected yet.'
+                });
+            }
+
+            const alertBox = document.getElementById('alertBox');
+            const statusText = document.getElementById('statusText');
+            const recipientsPaste = document.getElementById('recipientsPaste');
+            const srcSavedBtn = document.getElementById('srcSavedBtn');
+            const srcPasteBtn = document.getElementById('srcPasteBtn');
+            const savedListPicker = document.getElementById('savedListPicker');
+            const savedListSelect = document.getElementById('savedListSelect');
+            const recipientsHint = document.getElementById('recipientsHint');
+
+            let recipientMode = 'saved';
+
+            async function loadSavedLists() {
+                if (!window.RabtLists || !savedListSelect) return;
+                try {
+                    const lists = await RabtLists.load('messaging');
+                    RabtLists.fillSelect(savedListSelect, lists, 'No saved phone lists — open Contact');
+                } catch (err) {
+                    savedListSelect.innerHTML = '<option value="">Could not load saved lists</option>';
+                }
+            }
+
+            function setRecipientMode(mode) {
+                recipientMode = mode;
+                srcSavedBtn.classList.toggle('active', mode === 'saved');
+                srcPasteBtn.classList.toggle('active', mode === 'paste');
+                savedListPicker.classList.toggle('hidden', mode !== 'saved');
+                recipientsPaste.classList.toggle('hidden', mode !== 'paste');
+                recipientsHint.textContent = mode === 'paste'
+                    ? 'Paste one phone number per line (with country code).'
+                    : 'Choose All Contact or a phone list you imported in Contact.';
+                if (mode === 'saved') loadSavedLists();
+            }
+
+            srcSavedBtn?.addEventListener('click', () => setRecipientMode('saved'));
+            srcPasteBtn?.addEventListener('click', () => setRecipientMode('paste'));
+            loadSavedLists();
+            if (window.RabtLists && RabtLists.consumePrefill) {
+                RabtLists.consumePrefill('telegram', function (text) {
+                    setRecipientMode('paste');
+                    recipientsPaste.value = text;
+                });
+            }
+
+            const imageInput = document.getElementById('imageInput');
+            const imageBtn = document.getElementById('imageBtn');
+            const imagePreview = document.getElementById('imagePreview');
+            const previewImg = document.getElementById('previewImg');
+            const previewName = document.getElementById('previewName');
+            const removeImage = document.getElementById('removeImage');
+
+            let selectedImage = null;
+
+            imageBtn.addEventListener('click', () => imageInput.click());
+            
+            imageInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    const file = e.target.files[0];
+                    selectedImage = file;
+                    
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        previewImg.src = e.target.result;
+                        previewName.textContent = file.name;
+                        imagePreview.classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            removeImage.addEventListener('click', () => {
+                selectedImage = null;
+                imageInput.value = '';
+                imagePreview.classList.add('hidden');
+            });
+
+            // ── Send Timing ───────────────────────────────────────────────────
+            const timingSection  = document.getElementById('timingSection');
+            const sendNowBtn     = document.getElementById('sendNowBtn');
+            const scheduleBtnEl  = document.getElementById('scheduleBtn');
+            const scheduleFields = document.getElementById('scheduleFields');
+            const schedHour      = document.getElementById('schedHour');
+            const schedMinute    = document.getElementById('schedMinute');
+            const schedDate      = document.getElementById('schedDate');
+            const schedHintText  = document.getElementById('schedHintText');
+            const repeatOnceBtn  = document.getElementById('repeatOnceBtn');
+            const repeatDailyBtn = document.getElementById('repeatDailyBtn');
+            const schedRepeat    = document.getElementById('schedRepeat');
+            const amBtn          = document.getElementById('amBtn');
+            const pmBtn          = document.getElementById('pmBtn');
+
+            let schedulingMode = false;
+            let schedAmPm = 'AM';
+
+            function getSchedHour24() {
+                const h12 = parseInt(schedHour.value);
+                if (isNaN(h12) || h12 < 1 || h12 > 12) return NaN;
+                return schedAmPm === 'AM' ? (h12 === 12 ? 0 : h12) : (h12 === 12 ? 12 : h12 + 12);
+            }
+
+            function todayYMD() {
+                const d = new Date();
+                return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+            }
+
+            function parseYMD(ymd) {
+                const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(ymd || '');
+                if (!m) return null;
+                const y = parseInt(m[1], 10);
+                const mo = parseInt(m[2], 10);
+                const da = parseInt(m[3], 10);
+                const d = new Date(y, mo - 1, da);
+                if (d.getFullYear() !== y || d.getMonth() !== mo - 1 || d.getDate() !== da) return null;
+                return d;
+            }
+
+            function ensureSchedDate() {
+                if (!schedDate) return;
+                const today = todayYMD();
+                schedDate.min = today;
+                if (!schedDate.value) schedDate.value = today;
+            }
+
+            function hintDateLabel(d) {
+                const now = new Date();
+                if (d.toDateString() === now.toDateString()) return 'today';
+                const tmr = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+                if (d.toDateString() === tmr.toDateString()) return 'tomorrow';
+                return d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+            }
+
+            function fmtIn(diffMs) {
+                const totalMin = Math.max(0, Math.round(diffMs / 60000));
+                const days = Math.floor(totalMin / 1440);
+                const hrs = Math.floor((totalMin % 1440) / 60);
+                const mins = totalMin % 60;
+                const parts = [];
+                if (days > 0) parts.push(days + 'd');
+                if (hrs > 0) parts.push(hrs + 'h');
+                parts.push(mins + 'm');
+                return parts.join(' ');
+            }
+
+            function updateSchedHint() {
+                ensureSchedDate();
+                const h12 = parseInt(schedHour.value);
+                const h24 = getSchedHour24();
+                const m = parseInt(schedMinute.value);
+                if (isNaN(h24) || isNaN(m) || h12 < 1 || h12 > 12 || m < 0 || m > 59) {
+                    schedHintText.textContent = 'Enter a valid time (1–12 hours, 0–59 minutes).';
+                    return;
+                }
+                const day = parseYMD(schedDate && schedDate.value);
+                if (!day) {
+                    schedHintText.textContent = 'Pick a date.';
+                    return;
+                }
+                day.setHours(h24, m, 0, 0);
+                if (day.getTime() <= Date.now()) {
+                    schedHintText.textContent = 'Pick a date and time in the future.';
+                    return;
+                }
+                const timeStr = `${String(h12).padStart(2, '0')}:${String(m).padStart(2, '0')} ${schedAmPm}`;
+                const repeatLabel = schedRepeat.value === 'daily' ? ' (then every day)' : '';
+                schedHintText.textContent = `Will send at ${timeStr} ${hintDateLabel(day)}${repeatLabel} — in ${fmtIn(day - Date.now())}`;
+            }
+
+            function setAmPm(val) {
+                schedAmPm = val;
+                amBtn.classList.toggle('active', val === 'AM');
+                pmBtn.classList.toggle('active', val === 'PM');
+                updateSchedHint();
+            }
+
+            amBtn?.addEventListener('click', () => setAmPm('AM'));
+            pmBtn?.addEventListener('click', () => setAmPm('PM'));
+            schedHour?.addEventListener('input', updateSchedHint);
+            schedMinute?.addEventListener('input', updateSchedHint);
+            schedDate?.addEventListener('input', updateSchedHint);
+            schedDate?.addEventListener('change', updateSchedHint);
+            setInterval(updateSchedHint, 30000);
+
+            function setTimingMode(mode) {
+                schedulingMode = (mode === 'schedule');
+                sendNowBtn.classList.toggle('active', !schedulingMode);
+                scheduleBtnEl.classList.toggle('active', schedulingMode);
+                scheduleFields.classList.toggle('visible', schedulingMode);
+                timingSection.classList.toggle('schedule-active', schedulingMode);
+                const sendButton = document.getElementById('sendButton');
+                if (schedulingMode) {
+                    sendButton.innerHTML = '<i class="fa-solid fa-calendar-check"></i> Schedule Campaign';
+                    updateSchedHint();
+                } else {
+                    sendButton.innerHTML = '<i class="fa-brands fa-telegram"></i> Send Bulk Messages';
+                }
+            }
+
+            sendNowBtn?.addEventListener('click', () => setTimingMode('now'));
+            scheduleBtnEl?.addEventListener('click', () => setTimingMode('schedule'));
+
+            function setRepeat(val) {
+                schedRepeat.value = val;
+                repeatOnceBtn.classList.toggle('active', val === 'once');
+                repeatDailyBtn.classList.toggle('active', val === 'daily');
+                updateSchedHint();
+            }
+            repeatOnceBtn?.addEventListener('click', () => setRepeat('once'));
+            repeatDailyBtn?.addEventListener('click', () => setRepeat('daily'));
+            // ── End Send Timing ───────────────────────────────────────────────
+
+            const messageEditor = document.getElementById('messageEditor');
+            const waBoldBtn = document.getElementById('waBoldBtn');
+
+            function wrapSelectionWithAsterisks(textarea) {
+                const start = textarea.selectionStart ?? 0;
+                const end = textarea.selectionEnd ?? 0;
+                const value = textarea.value ?? '';
+
+                if (start === end) {
+                    // Insert ** placeholder: * *
+                    const insert = '**';
+                    textarea.value = value.slice(0, start) + insert + value.slice(end);
+                    textarea.focus();
+                    // Place cursor between the two asterisks
+                    textarea.setSelectionRange(start + 1, start + 1);
+                    return;
+                }
+
+                const selected = value.slice(start, end);
+                const wrapped = `*${selected}*`;
+                textarea.value = value.slice(0, start) + wrapped + value.slice(end);
+                textarea.focus();
+                textarea.setSelectionRange(start, start + wrapped.length);
+            }
+
+            waBoldBtn?.addEventListener('click', () => {
+                if (!messageEditor) return;
+                wrapSelectionWithAsterisks(messageEditor);
+            });
+
+            const sendButton = document.getElementById('sendButton');
+            const progressSection = document.getElementById('progressSection');
+            const progressText = document.getElementById('progressText');
+            const progressFill = document.getElementById('progressFill');
+            const liveIndicator = document.getElementById('liveIndicator');
+            const statsRow = document.getElementById('statsRow');
+            const logsEmpty = document.getElementById('logsEmpty');
+            const logsContent = document.getElementById('logsContent');
+            const logsBody = document.getElementById('logsBody');
+            const sentCount = document.getElementById('sentCount');
+            const failedCount = document.getElementById('failedCount');
+            const totalCount = document.getElementById('totalCount');
+            const manualFixSection = document.getElementById('manualFixSection');
+            const retryFailedBtn = document.getElementById('retryFailedBtn');
+            const clearLogsBtn = document.getElementById('clearLogsBtn');
+
+            let messageLogs = [];
+            let isSending = false;
+            let failedMessages = [];
+
+            function normalizeBulkResult(apiData) {
+                const details = Array.isArray(apiData?.data?.details) ? apiData.data.details : [];
+                messageLogs = details.map(item => ({
+                    phone: item.phone,
+                    status: item.status === 'sent' ? 'success' : 'error',
+                    detail: item.status === 'sent' ? 'Delivered' : (item.error || 'Failed'),
+                    error: item.error || null
+                }));
+                failedMessages = messageLogs.filter(log => log.status === 'error');
+            }
+
+            document.getElementById('telegramForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                if (window.RabtChannelStatus) {
+                    const ready = await RabtChannelStatus.telegram();
+                    if (!ready) {
+                        showAlert('Connect Telegram in Settings before sending.', 'error');
+                    return;
+                    }
+                }
+
+                // Resolve recipients (file or paste)
+                let recipientsFile;
+                if (recipientMode === 'paste') {
+                    const pasteContent = (recipientsPaste?.value || '').trim();
+                    if (!pasteContent) {
+                        showAlert('Please paste phone numbers or switch to a saved list.', 'error');
+                        return;
+                    }
+                    const blob = new Blob([pasteContent], { type: 'text/plain' });
+                    recipientsFile = new File([blob], 'pasted-numbers.txt', { type: 'text/plain' });
+                } else {
+                    const savedId = savedListSelect && savedListSelect.value;
+                    if (!savedId) {
+                        showAlert('Select a saved phone list, or import one in Contact.', 'error');
+                        return;
+                    }
+                    try {
+                        recipientsFile = await RabtLists.fileFromSaved(savedId, 'messaging', 'all-numbers.txt');
+                    } catch (err) {
+                        showAlert(err.message || 'Could not load the saved list.', 'error');
+                        return;
+                    }
+                }
+
+                const message = (messageEditor.value || '').trim();
+                if (!message) {
+                    showAlert('Please enter a message', 'error');
+                    return;
+                }
+
+                const delayVal = document.getElementById('delayInput').value || 5;
+
+                // ── Schedule mode ─────────────────────────────────────────────
+                if (schedulingMode) {
+                    const h12sched = parseInt(schedHour.value);
+                    const h = getSchedHour24();
+                    const m = parseInt(schedMinute.value);
+                    const campaignName = (document.getElementById('campaignName').value || '').trim() || 'Telegram Campaign';
+
+                    if (isNaN(h12sched) || h12sched < 1 || h12sched > 12) { showAlert('Hour must be between 1 and 12.', 'error'); return; }
+                    if (isNaN(m) || m < 0 || m > 59) { showAlert('Minute must be between 0 and 59.', 'error'); return; }
+                    ensureSchedDate();
+                    const dateVal = schedDate && schedDate.value;
+                    const day = parseYMD(dateVal);
+                    if (!day) { showAlert('Please pick a date.', 'error'); return; }
+                    day.setHours(h, m, 0, 0);
+                    if (day.getTime() <= Date.now()) { showAlert('Pick a date and time in the future.', 'error'); return; }
+
+                    const fd = new FormData();
+                    fd.append('name', campaignName);
+                    fd.append('hour', h);
+                    fd.append('minute', m);
+                    fd.append('date', dateVal);
+                    fd.append('repeat', schedRepeat.value);
+                    fd.append('message', message);
+                    fd.append('delayMs', delayVal * 1000);
+                    fd.append('recipientsFile', recipientsFile);
+
+                    sendButton.disabled = true;
+                    sendButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Scheduling…';
+
+                    try {
+                        const res = await fetch('/api/schedule/telegram', { method: 'POST', body: fd });
+                        const data = await res.json();
+                        if (data.success) {
+                            showAlert(`✅ ${data.message || 'Campaign scheduled successfully.'}`, 'success');
+                            statusText.textContent = 'Scheduled.';
+                            const schedId = data.data && data.data.id;
+                            if (schedId) startScheduleWatcherWA(schedId);
+                        } else {
+                            showAlert(data.message || 'Failed to schedule.', 'error');
+                        }
+                    } catch (err) {
+                        showAlert('Network error: ' + err.message, 'error');
+                    } finally {
+                        sendButton.disabled = false;
+                        sendButton.innerHTML = '<i class="fa-solid fa-calendar-check"></i> Schedule Campaign';
+                    }
+                    return;
+                }
+                // ── End schedule mode ─────────────────────────────────────────
+
+                isSending = true;
+                sendButton.disabled = true;
+                sendButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+
+                messageLogs = [];
+                failedMessages = [];
+                logsBody.innerHTML = '';
+                logsEmpty.classList.add('hidden');
+                logsContent.classList.remove('hidden');
+                progressSection.classList.remove('hidden');
+                statsRow.classList.remove('hidden');
+                manualFixSection.classList.add('hidden');
+
+                const formData = new FormData();
+                formData.append('file', recipientsFile);
+                formData.append('message', message);
+                formData.append('delay', delayVal);
+                
+                if (selectedImage) {
+                    formData.append('image', selectedImage);
+                }
+
+                try {
+                    const res = await fetch('/api/telegram/send-bulk', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    const data = await res.json();
+                    if (!res.ok || !data.success) {
+                        showAlert(data.message || 'Failed to send bulk messages', 'error');
+                        logsEmpty.classList.remove('hidden');
+                        logsContent.classList.add('hidden');
+                        progressSection.classList.add('hidden');
+                        statsRow.classList.add('hidden');
+                        return;
+                    }
+
+                    normalizeBulkResult(data);
+                    updateLogsDisplay();
+                    showAlert(`Messages processed! Sent: ${data.data.sent}, Failed: ${data.data.failed}`, 'success');
+                } catch (err) {
+                    showAlert('Error: ' + err.message, 'error');
+                } finally {
+                    isSending = false;
+                    sendButton.disabled = false;
+                    sendButton.innerHTML = '<i class="fa-brands fa-telegram"></i> Send Bulk Messages';
+                }
+            });
+
+            function updateLogsDisplay() {
+                const sent = messageLogs.filter(l => l.status === 'success').length;
+                const failed = messageLogs.filter(l => l.status === 'error').length;
+                const total = messageLogs.length;
+                
+                sentCount.textContent = sent;
+                failedCount.textContent = failed;
+                totalCount.textContent = total;
+                
+                const progress = total > 0 ? (sent + failed) / total * 100 : 0;
+                progressFill.style.width = progress + '%';
+                progressText.textContent = `${sent + failed} / ${total} processed`;
+                
+                logsBody.innerHTML = messageLogs.map(log => `
+                    <tr>
+                        <td>${log.phone || log.recipient}</td>
+                        <td>
+                            <span class="status-badge ${log.status}">
+                                <i class="fa-solid fa-circle"></i>
+                                ${log.status === 'success' ? 'Sent' : log.status === 'error' ? 'Failed' : 'Pending'}
+                            </span>
+                        </td>
+                        <td>${log.detail || (log.status === 'success' ? 'Delivered' : log.error || 'Unknown error')}</td>
+                    </tr>
+                `).join('');
+                
+                manualFixSection.classList.toggle('hidden', failed === 0);
+            }
+
+            retryFailedBtn.addEventListener('click', async () => {
+                if (failedMessages.length === 0) {
+                    showAlert('No failed messages to retry', 'error');
+                    return;
+                }
+
+                if (window.RabtChannelStatus) {
+                    const ready = await RabtChannelStatus.telegram();
+                    if (!ready) {
+                        showAlert('Connect Telegram in Settings before sending.', 'error');
+                    return;
+                    }
+                }
+
+                retryFailedBtn.disabled = true;
+                retryFailedBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Retrying...';
+
+                const message = (messageEditor.value || '').trim();
+                const delay = document.getElementById('delayInput').value || 5;
+
+                for (const msg of failedMessages) {
+                    try {
+                        const res = await fetch('/api/telegram/send', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                phoneNumber: msg.phone || msg.recipient,
+                                message: message
+                            })
+                        });
+                        
+                        const data = await res.json();
+                        
+                        const existingIndex = messageLogs.findIndex(l => (l.phone || l.recipient) === (msg.phone || msg.recipient));
+                        if (existingIndex !== -1) {
+                            messageLogs[existingIndex] = {
+                                phone: msg.phone || msg.recipient,
+                                status: data.success ? 'success' : 'error',
+                                detail: data.success ? 'Delivered' : (data.message || 'Failed'),
+                                error: data.message
+                            };
+                        }
+                        
+                        await new Promise(resolve => setTimeout(resolve, delay * 1000));
+                    } catch (err) {
+                        console.error('Retry error:', err);
+                    }
+                }
+
+                failedMessages = messageLogs.filter(log => log.status === 'error');
+                updateLogsDisplay();
+                
+                retryFailedBtn.disabled = false;
+                retryFailedBtn.innerHTML = '<i class="fa-solid fa-rotate-right"></i> Retry Failed';
+                
+                showAlert('Retry completed!', 'success');
+            });
+
+            clearLogsBtn.addEventListener('click', () => {
+                messageLogs = [];
+                failedMessages = [];
+                logsBody.innerHTML = '';
+                logsEmpty.classList.remove('hidden');
+                logsContent.classList.add('hidden');
+                progressSection.classList.add('hidden');
+                statsRow.classList.add('hidden');
+                manualFixSection.classList.add('hidden');
+                progressFill.style.width = '0%';
+            });
+
+            // ── Guard against navigation while automation is running ──────────
+            window.addEventListener('beforeunload', function(e) {
+                if (isSending) {
+                    e.preventDefault();
+                    e.returnValue = '';
+                    return '';
+                }
+            });
+
+            if (window.RabtUI) {
+                RabtUI.guardNavigation(function () { return isSending; }, {
+                    title: 'Leave this campaign?',
+                    message: 'Sending will continue on the server, but you will lose the live progress view.',
+                    confirmLabel: 'Leave',
+                    cancelLabel: 'Stay',
+                    danger: true,
+                    onLeave: function () { isSending = false; }
+                });
+            }
+
+            // ── Scheduled campaign: live delivery log ─────────────────────────
+            const liveBadgeEl   = document.getElementById('liveBadge');
+            const schedLogEl    = document.getElementById('schedLogEntries');
+
+            function addSchedLogEntry(label, type, detail) {
+                const iconMap = {
+                    sent: 'fa-check', error: 'fa-xmark', failed: 'fa-xmark',
+                    delay: 'fa-hourglass-half', info: 'fa-circle-info', done: 'fa-flag-checkered'
+                };
+                const icon = iconMap[type] || 'fa-circle';
+                const el = document.createElement('div');
+                el.className = `log-entry ${type}`;
+                el.innerHTML = `
+                    <span class="log-icon ${type}"><i class="fa-solid ${icon}"></i></span>
+                    <span class="log-label" title="${label}">${label}</span>
+                    ${detail ? `<span class="log-detail" title="${detail}">${detail}</span>` : ''}
+                `;
+                schedLogEl.insertBefore(el, schedLogEl.firstChild);
+            }
+
+            function startScheduleWatcherWA(scheduleId) {
+                // Show delivery log in "waiting" state
+                logsEmpty.classList.add('hidden');
+                logsContent.classList.add('hidden');
+                manualFixSection.classList.add('hidden');
+                progressSection.classList.remove('hidden');
+                statsRow.classList.remove('hidden');
+                progressFill.style.width = '0%';
+                progressText.textContent = '— / —';
+                sentCount.textContent = '0';
+                failedCount.textContent = '0';
+                totalCount.textContent = '0';
+                schedLogEl.innerHTML = '';
+                schedLogEl.classList.remove('hidden');
+                liveBadgeEl.style.cssText = 'color:#8b5cf6;background:rgba(139,92,246,0.12);border-color:rgba(139,92,246,0.3);';
+                liveBadgeEl.className = 'live-badge';
+                liveBadgeEl.innerHTML = '<span class="dot" style="background:#8b5cf6;"></span>SCHEDULED';
+                liveBadgeEl.classList.remove('hidden');
+                addSchedLogEntry('Campaign scheduled — waiting for run time…', 'info', '');
+
+                let connected = false;
+                const poll = setInterval(async () => {
+                    if (connected) { clearInterval(poll); return; }
+                    try {
+                        const r = await fetch(`/api/schedule/${scheduleId}`);
+                        const d = await r.json();
+                        const s = d.data;
+                        if (!s) return;
+                        if (s.status === 'running' || s.status === 'completed' || s.status === 'failed') {
+                            connected = true;
+                            clearInterval(poll);
+                            connectScheduledSSEWA(scheduleId);
+                        } else if (s.status === 'cancelled') {
+                            connected = true;
+                            clearInterval(poll);
+                            addSchedLogEntry('Schedule was cancelled.', 'info', '');
+                            liveBadgeEl.style.cssText = '';
+                            liveBadgeEl.className = 'live-badge done';
+                            liveBadgeEl.innerHTML = '<span class="dot"></span>CANCELLED';
+                        }
+                    } catch (err) {
+                        console.error('[WA schedule watcher] Poll error:', err);
+                    }
+                }, 15000);
+            }
+
+            function connectScheduledSSEWA(scheduleId) {
+                // Reset log for live view
+                schedLogEl.innerHTML = '';
+                progressFill.style.width = '0%';
+                progressText.textContent = '0 / 0';
+                sentCount.textContent = '0';
+                failedCount.textContent = '0';
+                totalCount.textContent = '0';
+                liveBadgeEl.style.cssText = '';
+                liveBadgeEl.className = 'live-badge';
+                liveBadgeEl.innerHTML = '<span class="dot"></span>LIVE';
+
+                let total = 0, sent = 0, failed = 0, processed = 0;
+                const es = new EventSource(`/api/schedule/${scheduleId}/live-log`);
+
+                es.onmessage = (e) => {
+                    let evt;
+                    try { evt = JSON.parse(e.data); } catch { return; }
+
+                    if (evt.type === 'scheduleStart') {
+                        addSchedLogEntry(`Campaign "${evt.name}" started`, 'info', '');
+                    } else if (evt.type === 'start') {
+                        total = evt.total || 0;
+                        totalCount.textContent = total;
+                        progressText.textContent = `0 / ${total}`;
+                    } else if (evt.type === 'sent') {
+                        sent++;
+                        processed = evt.progress || (sent + failed);
+                        const pct = total > 0 ? (processed / total) * 100 : 0;
+                        progressFill.style.width = pct + '%';
+                        progressText.textContent = `${processed} / ${total || processed}`;
+                        sentCount.textContent = sent;
+                        totalCount.textContent = total || processed;
+                        addSchedLogEntry(evt.recipient, 'sent', 'Delivered');
+                    } else if (evt.type === 'failed') {
+                        failed++;
+                        processed = evt.progress || (sent + failed);
+                        const pct = total > 0 ? (processed / total) * 100 : 0;
+                        progressFill.style.width = pct + '%';
+                        progressText.textContent = `${processed} / ${total || processed}`;
+                        failedCount.textContent = failed;
+                        totalCount.textContent = total || processed;
+                        addSchedLogEntry(evt.recipient, 'error', evt.error || 'Failed');
+                    } else if (evt.type === 'delay') {
+                        const secs = Math.round((evt.delay || 0) / 1000);
+                        addSchedLogEntry(`Waiting ${secs}s…`, 'delay', evt.nextRecipient || '');
+                    } else if (evt.type === 'complete') {
+                        processed = evt.total || processed;
+                        sent = evt.sentCount ?? sent;
+                        failed = evt.failedCount ?? failed;
+                        progressFill.style.width = '100%';
+                        progressText.textContent = `${processed} / ${processed}`;
+                        sentCount.textContent = sent;
+                        failedCount.textContent = failed;
+                        totalCount.textContent = processed;
+                        addSchedLogEntry('All done', 'done', evt.message || `${sent} sent, ${failed} failed`);
+                        liveBadgeEl.className = 'live-badge done';
+                        liveBadgeEl.innerHTML = '<span class="dot"></span>DONE';
+                        showAlert(evt.message || 'Campaign completed!', 'success');
+                        es.close();
+                    } else if (evt.type === 'error') {
+                        addSchedLogEntry('Send error', 'error', evt.error || 'Unknown error');
+                        liveBadgeEl.className = 'live-badge errored';
+                        liveBadgeEl.innerHTML = '<span class="dot"></span>FAILED';
+                        showAlert(evt.error || 'Campaign failed.', 'error');
+                        es.close();
+                    } else if (evt.type === 'scheduleComplete') {
+                        if (evt.status === 'failed') {
+                            liveBadgeEl.className = 'live-badge errored';
+                            liveBadgeEl.innerHTML = '<span class="dot"></span>FAILED';
+                        } else {
+                            liveBadgeEl.className = 'live-badge done';
+                            liveBadgeEl.innerHTML = '<span class="dot"></span>DONE';
+                        }
+                        es.close();
+                    } else if (evt.type === 'scheduleError') {
+                        addSchedLogEntry('Campaign failed', 'error', evt.error || '');
+                        liveBadgeEl.className = 'live-badge errored';
+                        liveBadgeEl.innerHTML = '<span class="dot"></span>FAILED';
+                        showAlert(evt.error || 'Campaign failed', 'error');
+                        es.close();
+                    }
+                };
+
+                es.onerror = () => { es.close(); };
+            }
+            // ── End scheduled campaign live log ───────────────────────────────
+
+            function showAlert(message, type) {
+                if (window.RabtUI) {
+                    RabtUI.notify(message, type === 'error' ? 'error' : 'success', alertBox);
+                    return;
+                }
+                alertBox.textContent = message;
+                alertBox.className = 'alert show alert-' + type;
+                setTimeout(() => { alertBox.className = 'alert'; }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>

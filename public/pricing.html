@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - Rabط</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/brand.css">
+    <link rel="stylesheet" href="/billing.css">
+    <link rel="stylesheet" href="/flow-motion.css">
+    <script src="/i18n-dict.js"></script>
+    <script src="/i18n.js"></script>
+    <script src="/navbar.js"></script>
+    <script src="/ui-feedback.js"></script>
+    <script src="/flow-motion.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        .pricing-page { max-width: 920px; margin: 0 auto; padding: 72px 20px 40px; text-align: center; }
+        .pricing-header { text-align: center; margin-bottom: 28px; }
+        .pricing-header h1 { font-size: 32px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.03em; }
+        .pricing-header p { color: var(--text-secondary); font-size: 16px; max-width: 640px; margin: 0 auto; line-height: 1.55; }
+        #planGrid { margin-bottom: 40px; text-align: left; }
+        #planGrid .bill-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        #planGrid .bill-card ul { flex: 1; }
+        #planGrid .bill-card .bill-btn {
+            margin-top: auto;
+            margin-bottom: 12px;
+        }
+        .plan-loading, .plan-error {
+            max-width: 520px;
+            margin: 0 auto 40px;
+            padding: 18px 20px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        .plan-error { color: var(--error); border-color: rgba(239, 68, 68, 0.35); background: rgba(239, 68, 68, 0.08); }
+        .faq-section { max-width: 800px; margin: 0 auto; text-align: center; }
+        .faq-section h2 { font-size: 24px; font-weight: 600; margin-bottom: 24px; text-align: center; }
+        .faq-item { background: var(--bg-card); border: 1px solid var(--border-color); margin-bottom: 16px; padding: 20px; text-align: left; }
+        .faq-item h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+        .faq-item p { color: var(--text-secondary); font-size: 14px; line-height: 1.6; }
+    </style>
+    <link rel="stylesheet" href="/marketing-pages.css">
+</head>
+<body>
+    <div id="app-navbar"></div>
+    
+    <div class="pricing-page">
+        <div class="pricing-header">
+            <h1 data-cms="pricing.title">Simple, Transparent Pricing</h1>
+            <p data-cms="pricing.lead">Choose the package that fits your needs. Every plan includes your own isolated workspace with Email, WhatsApp, and Telegram marketing tools.</p>
+        </div>
+
+        <div class="plan-loading" id="planLoading">Loading pricing packages…</div>
+        <div class="plan-error" id="planError" hidden></div>
+        <div class="bill-grid" id="planGrid" hidden></div>
+
+        <div class="faq-section">
+            <h2 data-cms="pricing.faqTitle">Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <h3 data-cms="pricing.faq1Title">How do I buy a plan?</h3>
+                <p data-cms="pricing.faq1Body">Select a package, create an account (or sign in), send the exact amount using the payment details shown, then upload your receipt for admin verification.</p>
+            </div>
+            <div class="faq-item">
+                <h3 data-cms="pricing.faq2Title">Can I renew or switch plans later?</h3>
+                <p data-cms="pricing.faq2Body">Yes. You can submit a new payment request to renew your subscription or switch between the 1 Month and 3 Months packages at any time.</p>
+            </div>
+            <div class="faq-item">
+                <h3 data-cms="pricing.faq3Title">What payment methods do you accept?</h3>
+                <p data-cms="pricing.faq3Body">Rabط uses manual payment verification. Send the package amount to the account or QR code shown on the payment page, then upload a clear photo or PDF of your receipt.</p>
+            </div>
+            <div class="faq-item">
+                <h3 data-cms="pricing.faq4Title">When does my workspace unlock?</h3>
+                <p data-cms="pricing.faq4Body">After you submit payment, a Super Admin reviews your receipt. Once approved, your subscription activates and full platform access is restored immediately.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function esc(value) {
+            return String(value || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        function periodSuffix(months) {
+            return months === 1 ? '1 month' : months + ' months';
+        }
+
+        function storePlan(planId) {
+            try { sessionStorage.setItem('rabt_plan', planId); } catch (_) {}
+        }
+
+        function startPurchase(planId) {
+            storePlan(planId);
+            fetch('/api/auth/me', { credentials: 'same-origin' })
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
+                    if (data && data.authenticated && data.user) {
+                        window.location.href = '/payment.html?plan=' + encodeURIComponent(planId);
+                        return;
+                    }
+                    window.location.href = '/signup.html';
+                })
+                .catch(function () {
+                    window.location.href = '/signup.html';
+                });
+        }
+
+        function renderPlans(plans) {
+            var grid = document.getElementById('planGrid');
+            var loading = document.getElementById('planLoading');
+            var errorBox = document.getElementById('planError');
+            if (!plans || !plans.length) {
+                loading.hidden = true;
+                errorBox.hidden = false;
+                errorBox.textContent = 'No pricing packages are available right now. Please check back soon or contact support.';
+                return;
+            }
+            grid.innerHTML = plans.map(function (plan) {
+                var featured = plan.id === 'quarterly';
+                var features = Array.isArray(plan.features) ? plan.features : [];
+                return '<div class="bill-card' + (featured ? ' featured' : '') + '">' +
+                    (featured ? '<span class="bill-badge">Best value</span>' : '') +
+                    '<h2>' + esc(plan.name) + '</h2>' +
+                    '<div class="bill-price">$' + esc(plan.amount) + '<span> / ' + esc(periodSuffix(plan.months)) + '</span></div>' +
+                    '<p class="bill-note">' + esc(plan.periodLabel || ('$' + plan.amount + ' / ' + periodSuffix(plan.months))) + '</p>' +
+                    '<button type="button" class="bill-btn" data-plan="' + esc(plan.id) + '"><i class="fa-solid fa-cart-shopping"></i> Start Plan</button>' +
+                    '<ul>' + features.map(function (item) {
+                        return '<li><i class="fa-solid fa-check"></i><span>' + esc(item) + '</span></li>';
+                    }).join('') + '</ul>' +
+                    '</div>';
+            }).join('');
+            grid.querySelectorAll('[data-plan]').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    startPurchase(btn.getAttribute('data-plan'));
+                });
+            });
+            loading.hidden = true;
+            errorBox.hidden = true;
+            grid.hidden = false;
+        }
+
+        fetch('/api/billing/plans', { credentials: 'same-origin' })
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+                if (!data || !data.success) throw new Error((data && data.message) || 'Could not load pricing packages.');
+                renderPlans(data.data || []);
+            })
+            .catch(function (err) {
+                document.getElementById('planLoading').hidden = true;
+                var errorBox = document.getElementById('planError');
+                errorBox.hidden = false;
+                errorBox.textContent = err.message || 'Could not load pricing packages.';
+            });
+    </script>
+
+    <footer class="home-footer">
+        <div class="footer-content">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <img src="/logo.png" alt="Rabط" class="footer-logo">
+                    <p class="footer-tagline">Your complete multi-channel marketing platform</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <a href="/pricing.html"><i class="fa-solid fa-tag"></i> Pricing</a>
+                        <a href="/about.html"><i class="fa-solid fa-circle-info"></i> About</a>
+                        <a href="/contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Channels</h4>
+                        <a href="/signup.html"><i class="fa-solid fa-at"></i> Email Marketing</a>
+                        <a href="/signup.html"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+                        <a href="/signup.html"><i class="fa-brands fa-telegram"></i> Telegram</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <a href="/privacy.html"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a>
+                        <a href="/terms.html"><i class="fa-solid fa-file-contract"></i> Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copy">&copy; 2025 Rabط. All rights reserved.</p>
+                <span class="footer-made">Email · WhatsApp · Telegram — one platform</span>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

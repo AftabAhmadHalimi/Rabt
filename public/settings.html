@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings — Rabط</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/brand.css">
+    <script src="/i18n-dict.js"></script>
+    <script src="/i18n.js"></script>
+    <script src="/navbar.js"></script>
+    <script src="/ui-feedback.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 16px 20px 32px;
+        }
+        .page-header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .page-header h1 { font-size: 20px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.02em; }
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            max-width: 560px;
+            margin: 0 auto;
+            line-height: 1.55;
+        }
+        .settings-channels-center {
+            width: 100%;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+        .setup-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+        .setup-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 16px 12px;
+            min-height: 108px;
+            border-radius: 0;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            text-decoration: none;
+            color: var(--text-primary);
+            text-align: center;
+            cursor: pointer;
+        }
+        .setup-item i {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--accent);
+            background: rgba(91, 79, 255, 0.1);
+            border-radius: 0;
+        }
+        .setup-item.whatsapp i { color: var(--whatsapp); background: rgba(37, 211, 102, 0.12); }
+        .setup-item.telegram i { color: var(--telegram); background: rgba(34, 158, 217, 0.12); }
+        .setup-item strong { display: block; font-size: 13px; font-weight: 700; }
+        .setup-item span { display: block; font-size: 11px; color: var(--text-secondary); line-height: 1.35; }
+        .setup-item.ready { border-color: rgba(34,197,94,0.35); }
+        .setup-item.ready span { color: var(--success); }
+        .setup-item.needed { border-color: rgba(245,158,11,0.4); }
+        .setup-item.needed span { color: #D97706; }
+        .setup-item.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px var(--accent);
+        }
+        .setup-item.whatsapp.active {
+            border-color: var(--whatsapp);
+            box-shadow: 0 0 0 1px var(--whatsapp);
+        }
+        .setup-item.telegram.active {
+            border-color: var(--telegram);
+            box-shadow: 0 0 0 1px var(--telegram);
+        }
+        .account-section {
+            margin: 28px auto 0;
+            max-width: 680px;
+        }
+        .account-section h2 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .account-list {
+            display: grid;
+            gap: 8px;
+        }
+        .account-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+        .account-link:hover { border-color: var(--border-hover, #c9d2e3); }
+        .account-link i {
+            width: 18px;
+            text-align: center;
+            color: var(--accent);
+        }
+        .account-link strong { display: block; font-size: 14px; }
+        .account-link span { display: block; font-size: 12px; color: var(--text-secondary); line-height: 1.4; }
+        .account-badge {
+            margin-left: auto;
+            min-width: 20px;
+            height: 20px;
+            padding: 0 6px;
+            border-radius: 999px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 800;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .channels-grid {
+            display: grid;
+            gap: 14px;
+        }
+        .channel-panel {
+            width: 100%;
+        }
+        .channel-panel .card-header {
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        .channel-panel .card-title {
+            justify-content: center;
+            font-size: 15px;
+            gap: 8px;
+        }
+        .channel-panel .kind-note {
+            text-align: center;
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .channel-panel .form-group,
+        .channel-panel .connection-actions,
+        .channel-panel .connection-status,
+        .channel-panel .phone-display,
+        .channel-panel .smtp-actions {
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .channel-panel .segmented {
+            max-width: 520px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .channel-panel .qr-container {
+            max-width: 320px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0;
+            padding: 16px 18px;
+        }
+        .card.full { grid-column: 1 / -1; }
+        .card-header {
+            display: flex; justify-content: space-between; align-items: center;
+            gap: 12px; margin-bottom: 14px;
+        }
+        .card-title {
+            font-size: 13px; font-weight: 700;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .kind-note { font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 14px; }
+        .form-group { margin-bottom: 14px; }
+        .form-label { display: block; font-size: 12px; margin-bottom: 6px; }
+        .form-input { width: 100%; padding: 6px 10px; font-size: 13px; }
+        .form-hint { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+        .form-row { display: flex; gap: 12px; }
+        .form-row .form-group { flex: 1; }
+        .segmented {
+            display: inline-flex; background: var(--bg-tertiary);
+            border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+            padding: 4px; gap: 4px; width: 100%;
+        }
+        .seg-btn {
+            flex: 1; height: 32px; border: none; border-radius: 6px;
+            background: transparent; color: var(--text-secondary); cursor: pointer;
+            font-weight: 600; font-size: 13px;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .seg-btn.active { background: var(--accent); color: #fff; }
+        .auth-tab-bar .seg-btn.active { background: var(--telegram); color: #fff; }
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 11px 16px; border: none; border-radius: var(--radius-sm);
+            font-weight: 600; font-size: 13px; cursor: pointer; font-family: inherit;
+        }
+        .btn-primary { background: var(--accent); color: #fff; }
+        .btn-primary:disabled, .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-secondary { background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border-color); }
+        .btn-whatsapp { background: var(--whatsapp); color: #fff; }
+        .btn-telegram { background: var(--telegram); color: #fff; }
+        .btn-danger { background: var(--error); color: #fff; }
+        .smtp-actions { display: flex; gap: 10px; }
+        .smtp-actions .btn { flex: 1; }
+        .connection-status {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            padding: 14px; border-radius: var(--radius-sm); margin-bottom: 14px; font-weight: 600; font-size: 13px;
+        }
+        .connection-status.disconnected { background: rgba(239,68,68,0.1); color: var(--error); border: 1px solid rgba(239,68,68,0.3); }
+        .connection-status.scanning { background: rgba(91,79,255,0.1); color: var(--accent); border: 1px solid rgba(91,79,255,0.25); }
+        .connection-status.connected { background: rgba(34,197,94,0.1); color: var(--success); border: 1px solid rgba(34,197,94,0.3); }
+        .qr-container {
+            display: flex; flex-direction: column; align-items: center;
+            padding: 16px; border: 1.5px dashed var(--border-color);
+            border-radius: var(--radius-sm); margin-bottom: 14px; background: var(--bg-tertiary);
+        }
+        .qr-container.has-qr { border-style: solid; }
+        .qr-code { max-width: 220px; border-radius: var(--radius-sm); }
+        .qr-placeholder { color: var(--text-muted); font-size: 13px; text-align: center; padding: 24px; }
+        .qr-placeholder i { font-size: 36px; margin-bottom: 8px; display: block; }
+        .phone-display {
+            text-align: center; padding: 12px; background: var(--bg-tertiary);
+            border-radius: var(--radius-sm); margin-bottom: 14px; font-weight: 600;
+        }
+        .connection-actions { display: flex; gap: 10px; margin-bottom: 12px; }
+        .connection-actions .btn { flex: 1; }
+        .hidden { display: none !important; }
+        @media (max-width: 960px) {
+            .setup-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+            .form-row, .smtp-actions { flex-direction: column; }
+        }
+        @media (max-width: 640px) {
+            .container { padding: 12px 14px 24px; }
+            .setup-grid {
+                grid-template-columns: 1fr;
+                max-width: 320px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .setup-item { min-height: 0; padding: 14px 12px; }
+        }
+
+        html.app-shell .settings-channels-center .setup-item {
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+        }
+        html.app-shell .settings-channels-center .setup-item i {
+            width: 40px !important;
+            height: 40px !important;
+            margin: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="app-navbar"></div>
+    <div class="container">
+        <div class="page-header">
+            <h1>Settings</h1>
+            <p>Connect Email, WhatsApp, and Telegram here. Compose pages only send after these accounts are set up.</p>
+        </div>
+
+        <div class="settings-channels-center">
+        <div class="setup-grid">
+            <a class="setup-item needed active" id="setupEmail" href="#email">
+                <i class="fa-solid fa-envelope"></i>
+                <div><strong>Email SMTP</strong><span id="setupEmailState">Checking…</span></div>
+            </a>
+            <a class="setup-item whatsapp needed" id="setupWhatsapp" href="#whatsapp">
+                <i class="fa-brands fa-whatsapp"></i>
+                <div><strong>WhatsApp</strong><span id="setupWhatsappState">Checking…</span></div>
+            </a>
+            <a class="setup-item telegram needed" id="setupTelegram" href="#telegram">
+                <i class="fa-brands fa-telegram"></i>
+                <div><strong>Telegram</strong><span id="setupTelegramState">Checking…</span></div>
+            </a>
+        </div>
+
+        <div class="channels-grid">
+            <section class="card full channel-panel" id="email">
+                <div class="card-header">
+                    <h2 class="card-title"><i class="fa-solid fa-envelope"></i> Email SMTP</h2>
+                </div>
+                <p class="kind-note">Save the mailbox you send from. Gmail needs an App Password.</p>
+                <form id="smtpForm">
+                    <div class="form-group">
+                        <label class="form-label">Provider</label>
+                        <input type="hidden" id="smtpProvider" value="custom">
+                        <div class="segmented">
+                            <button type="button" class="seg-btn active" id="providerCustomBtn">Webmail</button>
+                            <button type="button" class="seg-btn" id="providerGmailBtn">Gmail</button>
+                        </div>
+                        <div class="form-hint" id="smtpProviderHint"></div>
+                    </div>
+                    <div class="form-group" id="smtpHostGroup">
+                        <label class="form-label">SMTP Host</label>
+                        <input type="text" id="smtpHost" class="form-input" placeholder="e.g. mail.yourdomain.com">
+                    </div>
+                    <div class="form-row" id="smtpSecurityRow">
+                        <div class="form-group">
+                            <label class="form-label">Port</label>
+                            <input type="number" id="smtpPort" class="form-input" value="465">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Security</label>
+                            <select id="smtpSecure" class="form-input">
+                                <option value="true">SSL/TLS</option>
+                                <option value="false">STARTTLS</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><span id="smtpUserLabel">Username</span></label>
+                        <input type="text" id="smtpUser" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><span id="smtpPassLabel">Password</span></label>
+                        <input type="password" id="smtpPassword" class="form-input" required>
+                        <div class="form-hint" id="smtpPassHint"></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">From Name</label>
+                            <input type="text" id="smtpFromName" class="form-input" value="Rabط">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">System Name</label>
+                            <input type="text" id="smtpSystemName" class="form-input" value="Rabط">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Email Header Color</label>
+                            <input type="color" id="smtpBgColor" class="form-input" value="#1d4ed8" style="height:48px;padding:8px;">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Rate Limit</label>
+                            <input type="number" id="smtpRateLimit" class="form-input" value="550">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">BCC Limit</label>
+                            <input type="number" id="smtpBccLimit" class="form-input" value="500">
+                        </div>
+                    </div>
+                    <div class="smtp-actions">
+                        <button type="button" class="btn btn-secondary" id="testConnection"><i class="fa-solid fa-plug"></i> Test Connection</button>
+                        <button type="submit" class="btn btn-primary" id="saveSmtp"><i class="fa-solid fa-save"></i> Save Email Settings</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="card full channel-panel hidden" id="whatsapp">
+                <div class="card-header">
+                    <h2 class="card-title"><i class="fa-brands fa-whatsapp"></i> WhatsApp</h2>
+                </div>
+                <p class="kind-note">Click Connect and scan the QR with WhatsApp on your phone.</p>
+                <div class="connection-status disconnected" id="waConnectionStatus">
+                    <i class="fa-solid fa-circle-xmark"></i><span>Disconnected</span>
+                </div>
+                <div class="qr-container" id="waQrContainer">
+                    <div class="qr-placeholder" id="waQrPlaceholder">
+                        <i class="fa-solid fa-qrcode"></i>
+                        <p>Click Connect to generate a QR code</p>
+                    </div>
+                    <img id="waQrCode" class="qr-code hidden" alt="WhatsApp QR Code">
+                </div>
+                <div class="phone-display hidden" id="waPhoneDisplay">
+                    <i class="fa-solid fa-mobile-screen"></i>
+                    <span id="waConnectedPhone"></span>
+                </div>
+                <div class="connection-actions">
+                    <button class="btn btn-whatsapp" id="waConnectBtn"><i class="fa-solid fa-plug"></i> Connect</button>
+                    <button class="btn btn-danger hidden" id="waDisconnectBtn"><i class="fa-solid fa-unlink"></i> Disconnect</button>
+                </div>
+                <button class="btn btn-secondary hidden" id="waRescanBtn" style="width:100%;">
+                    <i class="fa-solid fa-arrows-rotate"></i> Delete Session &amp; Rescan QR
+                </button>
+            </section>
+
+            <section class="card full channel-panel hidden" id="telegram">
+                <div class="card-header">
+                    <h2 class="card-title"><i class="fa-brands fa-telegram"></i> Telegram</h2>
+                </div>
+                <p class="kind-note">Connect with QR or a phone login code.</p>
+                <div class="segmented auth-tab-bar" id="tgAuthMethodToggle" style="margin-bottom:14px;">
+                    <button type="button" class="seg-btn active" id="tgAuthQrBtn"><i class="fa-solid fa-qrcode"></i> Scan QR</button>
+                    <button type="button" class="seg-btn" id="tgAuthPhoneBtn"><i class="fa-solid fa-phone"></i> Phone number</button>
+                </div>
+                <div class="connection-status disconnected" id="tgConnectionStatus">
+                    <i class="fa-solid fa-circle-xmark"></i><span>Disconnected</span>
+                </div>
+                <div id="tgQrAuthSection">
+                    <div class="qr-container" id="tgQrContainer">
+                        <div class="qr-placeholder" id="tgQrPlaceholder">
+                            <i class="fa-solid fa-qrcode"></i>
+                            <p>Click Connect, then scan with Telegram</p>
+                        </div>
+                        <img id="tgQrCode" class="qr-code hidden" alt="Telegram login QR">
+                    </div>
+                </div>
+                <div id="tgPhoneAuthSection" class="hidden">
+                    <div class="form-group">
+                        <input type="text" id="tgLoginPhone" class="form-input" placeholder="+98912xxxxxxx (international)">
+                    </div>
+                    <button type="button" class="btn btn-telegram" id="tgSendCodeBtn" style="width:100%;margin-bottom:12px;">
+                        <i class="fa-solid fa-paper-plane"></i> Send login code
+                    </button>
+                    <div class="form-group">
+                        <input type="text" id="tgLoginCode" class="form-input" placeholder="Code from Telegram / SMS">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="tgLoginPassword" class="form-input" placeholder="2FA password (if enabled)">
+                    </div>
+                    <button type="button" class="btn btn-telegram" id="tgVerifyCodeBtn" style="width:100%;margin-bottom:12px;">
+                        <i class="fa-solid fa-check"></i> Verify &amp; connect
+                    </button>
+                </div>
+                <div class="phone-display hidden" id="tgPhoneDisplay">
+                    <i class="fa-solid fa-mobile-screen"></i>
+                    <span id="tgConnectedPhone"></span>
+                </div>
+                <div class="connection-actions">
+                    <button class="btn btn-telegram" id="tgConnectBtn"><i class="fa-solid fa-plug"></i> Connect</button>
+                    <button class="btn btn-danger hidden" id="tgDisconnectBtn"><i class="fa-solid fa-unlink"></i> Disconnect</button>
+                </div>
+                <div class="form-group hidden" id="tgQrPasswordGroup">
+                    <label class="form-label">2FA password (QR login)</label>
+                    <input type="password" id="tgQrPassword" class="form-input" placeholder="Password">
+                    <button type="button" class="btn btn-secondary" id="tgSubmitQrPasswordBtn" style="width:100%;margin-top:10px;">Submit password</button>
+                </div>
+                <button class="btn btn-secondary hidden" id="tgRescanBtn" style="width:100%;">
+                    <i class="fa-solid fa-arrows-rotate"></i> Delete Session &amp; Rescan QR
+                </button>
+            </section>
+        </div>
+        </div>
+
+        <section class="account-section">
+            <h2 data-i18n="settings.account">Account</h2>
+            <div class="account-list">
+                <a class="account-link" href="/api/android-app/download" id="androidAppSettings" download hidden>
+                    <i class="fa-brands fa-android"></i>
+                    <div>
+                        <strong data-i18n="nav.downloadAndroid">Download Android App</strong>
+                        <span data-i18n="nav.downloadAndroidHint">Get the Rabط APK</span>
+                    </div>
+                </a>
+                <a class="account-link" href="/guide.html">
+                    <i class="fa-solid fa-book-open"></i>
+                    <div>
+                        <strong data-i18n="nav.guideFull">Full guide</strong>
+                        <span data-i18n="nav.guideHint">Full platform guide</span>
+                    </div>
+                </a>
+                <a class="account-link" href="/onboarding.html?edit=1">
+                    <i class="fa-solid fa-sliders"></i>
+                    <div>
+                        <strong>Edit preferences</strong>
+                        <span>Update your onboarding profile and interests</span>
+                    </div>
+                </a>
+                <a class="account-link" href="/privacy.html">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <div>
+                        <strong data-i18n="nav.privacyPolicy">Privacy Policy</strong>
+                        <span data-i18n="nav.privacyHint">Read the full privacy policy</span>
+                    </div>
+                </a>
+                <a class="account-link" href="/terms.html">
+                    <i class="fa-solid fa-file-contract"></i>
+                    <div>
+                        <strong data-i18n="nav.terms">Terms of Service</strong>
+                        <span data-i18n="nav.termsHint">Read the full terms of service</span>
+                    </div>
+                </a>
+                <a class="account-link" href="/language.html">
+                    <i class="fa-solid fa-language"></i>
+                    <div>
+                        <strong data-i18n="nav.chooseLanguage">Choose app language</strong>
+                        <span data-i18n="nav.chooseLanguageHint">Change the language of Rabط</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function notify(msg, isError) {
+                if (window.RabtUI) RabtUI.toast(msg, isError ? 'error' : 'success');
+            }
+            function markSetup(id, stateId, ready, readyText, needText) {
+                var item = document.getElementById(id);
+                var state = document.getElementById(stateId);
+                if (!item || !state) return;
+                item.classList.toggle('ready', ready);
+                item.classList.toggle('needed', !ready);
+                state.textContent = ready ? readyText : needText;
+            }
+
+            var channelTabs = {
+                email: document.getElementById('setupEmail'),
+                whatsapp: document.getElementById('setupWhatsapp'),
+                telegram: document.getElementById('setupTelegram')
+            };
+            function showChannel(id) {
+                var name = (id === 'whatsapp' || id === 'telegram') ? id : 'email';
+                Object.keys(channelTabs).forEach(function (key) {
+                    var panel = document.getElementById(key);
+                    var tab = channelTabs[key];
+                    if (panel) panel.classList.toggle('hidden', key !== name);
+                    if (tab) tab.classList.toggle('active', key === name);
+                });
+                if (location.hash !== '#' + name) {
+                    history.replaceState(null, '', '#' + name);
+                }
+            }
+            Object.keys(channelTabs).forEach(function (key) {
+                var tab = channelTabs[key];
+                if (!tab) return;
+                tab.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    showChannel(key);
+                });
+            });
+            window.addEventListener('hashchange', function () {
+                showChannel((location.hash || '').replace('#', ''));
+            });
+            showChannel((location.hash || '').replace('#', '') || 'email');
+
+            fetch('/api/auth/platform-status', { credentials: 'same-origin' })
+                .then(function (res) { return res.json(); })
+                .then(function (status) {
+                    var androidLink = document.getElementById('androidAppSettings');
+                    if (androidLink) androidLink.hidden = !status.androidAppDownload;
+                })
+                .catch(function () {});
+
+            /* ── Email SMTP ─────────────────────────────────────────────── */
+            var smtpProvider = document.getElementById('smtpProvider');
+            var smtpProviderHint = document.getElementById('smtpProviderHint');
+            var smtpHost = document.getElementById('smtpHost');
+            var smtpPort = document.getElementById('smtpPort');
+            var smtpSecure = document.getElementById('smtpSecure');
+            var smtpHostGroup = document.getElementById('smtpHostGroup');
+            var smtpSecurityRow = document.getElementById('smtpSecurityRow');
+            var smtpUserLabel = document.getElementById('smtpUserLabel');
+            var smtpPassLabel = document.getElementById('smtpPassLabel');
+            var smtpPassHint = document.getElementById('smtpPassHint');
+            var smtpBgColor = document.getElementById('smtpBgColor');
+
+            function applyProviderUi() {
+                var isGmail = smtpProvider.value === 'gmail';
+                smtpProviderHint.textContent = isGmail
+                    ? 'Gmail requires an App Password (2-Step Verification → App Password).'
+                    : '';
+                smtpHostGroup.classList.toggle('hidden', isGmail);
+                smtpSecurityRow.classList.toggle('hidden', isGmail);
+                smtpHost.value = isGmail ? 'smtp.gmail.com' : smtpHost.value;
+                smtpHost.readOnly = isGmail;
+                smtpPort.value = isGmail ? 465 : smtpPort.value;
+                smtpPort.readOnly = isGmail;
+                smtpSecure.value = isGmail ? 'true' : smtpSecure.value;
+                smtpSecure.disabled = isGmail;
+                smtpUserLabel.textContent = isGmail ? 'Gmail Address' : 'Username';
+                smtpPassLabel.textContent = isGmail ? 'App Password' : 'Password';
+                smtpPassHint.textContent = isGmail ? 'Use the 16-character Gmail App Password.' : '';
+                document.getElementById('providerCustomBtn').classList.toggle('active', !isGmail);
+                document.getElementById('providerGmailBtn').classList.toggle('active', isGmail);
+            }
+            document.getElementById('providerCustomBtn').addEventListener('click', function () {
+                smtpProvider.value = 'custom';
+                applyProviderUi();
+            });
+            document.getElementById('providerGmailBtn').addEventListener('click', function () {
+                smtpProvider.value = 'gmail';
+                applyProviderUi();
+            });
+            applyProviderUi();
+
+            async function checkSmtpStatus() {
+                try {
+                    var res = await fetch('/api/settings/smtp/status', { credentials: 'same-origin' });
+                    var data = await res.json();
+                    markSetup('setupEmail', 'setupEmailState', !!data.configured, 'Ready', 'Needs setup');
+                    if (data.config) {
+                        if (data.config.systemName && window.updateNavSystemName) window.updateNavSystemName(data.config.systemName);
+                        if (data.config.backgroundColor) smtpBgColor.value = data.config.backgroundColor;
+                        if (data.config.provider) { smtpProvider.value = data.config.provider; applyProviderUi(); }
+                        if (data.config.host && smtpProvider.value !== 'gmail') smtpHost.value = data.config.host;
+                        if (data.config.port) smtpPort.value = data.config.port;
+                        if (typeof data.config.secure === 'boolean') smtpSecure.value = data.config.secure ? 'true' : 'false';
+                        if (data.config.user) document.getElementById('smtpUser').value = data.config.user;
+                        if (data.config.fromName) document.getElementById('smtpFromName').value = data.config.fromName;
+                        if (data.config.systemName) document.getElementById('smtpSystemName').value = data.config.systemName;
+                        if (data.config.rateLimit) document.getElementById('smtpRateLimit').value = data.config.rateLimit;
+                        if (data.config.bccLimit) document.getElementById('smtpBccLimit').value = data.config.bccLimit;
+                    }
+                } catch (_) {
+                    markSetup('setupEmail', 'setupEmailState', false, 'Ready', 'Needs setup');
+                }
+            }
+            checkSmtpStatus();
+
+            document.getElementById('smtpForm').addEventListener('submit', async function (e) {
+                e.preventDefault();
+                var payload = {
+                    provider: smtpProvider.value,
+                    host: smtpHost.value,
+                    port: smtpPort.value,
+                    secure: smtpSecure.value === 'true',
+                    user: document.getElementById('smtpUser').value,
+                    password: document.getElementById('smtpPassword').value,
+                    fromName: document.getElementById('smtpFromName').value,
+                    systemName: document.getElementById('smtpSystemName').value,
+                    rateLimit: document.getElementById('smtpRateLimit').value,
+                    bccLimit: document.getElementById('smtpBccLimit').value,
+                    backgroundColor: smtpBgColor.value
+                };
+                if (payload.provider !== 'gmail' && !payload.host) {
+                    notify('Please enter SMTP Host for Webmail.', true);
+                    return;
+                }
+                try {
+                    var res = await fetch('/api/settings/smtp', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        credentials: 'same-origin',
+                        body: JSON.stringify(payload)
+                    });
+                    var data = await res.json();
+                    if (!data.success) throw new Error(data.message || 'Failed to save settings');
+                    notify('Email settings saved.');
+                    checkSmtpStatus();
+                } catch (err) {
+                    notify(err.message || 'Failed to save settings', true);
+                }
+            });
+
+            document.getElementById('testConnection').addEventListener('click', async function () {
+                var btn = document.getElementById('testConnection');
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Testing...';
+                try {
+                    var res = await fetch('/api/settings/smtp/test', { method: 'POST', credentials: 'same-origin' });
+                    var data = await res.json();
+                    notify(data.message || (data.success ? 'Connection successful!' : 'Connection failed'), !data.success);
+                } catch (err) {
+                    notify(err.message || 'Connection failed', true);
+                } finally {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fa-solid fa-plug"></i> Test Connection';
+                }
+            });
+
+            /* ── WhatsApp ───────────────────────────────────────────────── */
+            var waStatus = document.getElementById('waConnectionStatus');
+            var waQrContainer = document.getElementById('waQrContainer');
+            var waQrPlaceholder = document.getElementById('waQrPlaceholder');
+            var waQrCode = document.getElementById('waQrCode');
+            var waPhoneDisplay = document.getElementById('waPhoneDisplay');
+            var waConnectedPhone = document.getElementById('waConnectedPhone');
+            var waConnectBtn = document.getElementById('waConnectBtn');
+            var waDisconnectBtn = document.getElementById('waDisconnectBtn');
+            var waRescanBtn = document.getElementById('waRescanBtn');
+            var waStatusPoll = null;
+            var waQrPoll = null;
+            var waConnecting = false;
+
+            function waStartPoll() {
+                if (!waStatusPoll) waStatusPoll = setInterval(checkWaStatus, 2000);
+            }
+            function waStopPoll() {
+                if (waStatusPoll) { clearInterval(waStatusPoll); waStatusPoll = null; }
+                if (waQrPoll) { clearInterval(waQrPoll); waQrPoll = null; }
+            }
+            function updateWaUI(data) {
+                waStatus.classList.remove('disconnected', 'scanning', 'connected');
+                if (data.connected || data.ready || data.status === 'connected') {
+                    waStatus.classList.add('connected');
+                    waStatus.innerHTML = '<i class="fa-solid fa-check-circle"></i><span>Connected</span>';
+                    waQrContainer.classList.add('hidden');
+                    waPhoneDisplay.classList.remove('hidden');
+                    waConnectedPhone.textContent = data.phone || 'Unknown';
+                    waConnectBtn.classList.add('hidden');
+                    waDisconnectBtn.classList.remove('hidden');
+                    waRescanBtn.classList.add('hidden');
+                    waStopPoll();
+                    markSetup('setupWhatsapp', 'setupWhatsappState', true, 'Connected', 'Needs login');
+                } else if (data.status === 'authenticated') {
+                    waStatus.classList.add('scanning');
+                    waStatus.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Finishing login…</span>';
+                    waQrContainer.classList.add('hidden');
+                    waPhoneDisplay.classList.add('hidden');
+                    waConnectBtn.classList.add('hidden');
+                    waDisconnectBtn.classList.remove('hidden');
+                    waRescanBtn.classList.add('hidden');
+                    waStartPoll();
+                    markSetup('setupWhatsapp', 'setupWhatsappState', false, 'Connected', 'Connecting…');
+                } else if (data.qrCode) {
+                    waStatus.classList.add('scanning');
+                    waStatus.innerHTML = '<i class="fa-solid fa-qrcode"></i><span>Scanning QR Code</span>';
+                    waQrContainer.classList.remove('hidden');
+                    waQrContainer.classList.add('has-qr');
+                    waQrPlaceholder.classList.add('hidden');
+                    waQrCode.classList.remove('hidden');
+                    if (typeof data.qrCode === 'string') waQrCode.src = data.qrCode;
+                    waPhoneDisplay.classList.add('hidden');
+                    waConnectBtn.classList.add('hidden');
+                    waDisconnectBtn.classList.add('hidden');
+                    waRescanBtn.classList.remove('hidden');
+                    if (!waQrPoll) waQrPoll = setInterval(fetchWaQr, 5000);
+                    waStartPoll();
+                    markSetup('setupWhatsapp', 'setupWhatsappState', false, 'Connected', 'Scan QR');
+                } else {
+                    waStatus.classList.add('disconnected');
+                    waStatus.innerHTML = '<i class="fa-solid fa-circle-xmark"></i><span>Disconnected</span>';
+                    waQrContainer.classList.remove('hidden');
+                    waQrContainer.classList.remove('has-qr');
+                    waQrPlaceholder.classList.remove('hidden');
+                    waQrCode.classList.add('hidden');
+                    waPhoneDisplay.classList.add('hidden');
+                    waConnectBtn.classList.remove('hidden');
+                    waDisconnectBtn.classList.add('hidden');
+                    waRescanBtn.classList.add('hidden');
+                    waStopPoll();
+                    markSetup('setupWhatsapp', 'setupWhatsappState', false, 'Connected', 'Needs login');
+                }
+            }
+            async function checkWaStatus() {
+                try {
+                    var parts = await Promise.all([
+                        fetch('/api/whatsapp/status', { credentials: 'same-origin' }).then(function (r) { return r.json(); }),
+                        fetch('/api/whatsapp/qrcode', { credentials: 'same-origin' }).then(function (r) { return r.json(); })
+                    ]);
+                    var status = parts[0].data || parts[0];
+                    var qr = parts[1].data || parts[1];
+                    updateWaUI(Object.assign({}, status, {
+                        qrCode: typeof qr.qrCode === 'string' ? qr.qrCode : null,
+                        connected: !!(status.ready || status.connected || status.status === 'connected'),
+                        ready: !!(status.ready || status.connected)
+                    }));
+                } catch (_) {}
+            }
+            async function fetchWaQr() {
+                try {
+                    var res = await fetch('/api/whatsapp/qrcode', { credentials: 'same-origin' });
+                    var data = await res.json();
+                    var qr = data.data || data;
+                    if (qr.qrCode && typeof qr.qrCode === 'string') waQrCode.src = qr.qrCode;
+                    if (qr.ready || qr.connected) checkWaStatus();
+                } catch (_) {}
+            }
+            waConnectBtn.addEventListener('click', async function () {
+                if (waConnecting) return;
+                waConnecting = true;
+                waConnectBtn.disabled = true;
+                waConnectBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Connecting...';
+                try {
+                    var res = await fetch('/api/whatsapp/connect', { method: 'POST', credentials: 'same-origin' });
+                    var data = await res.json();
+                    if (!data.success) throw new Error(data.message || 'Failed to connect');
+                    await checkWaStatus();
+                    waStartPoll();
+                } catch (err) {
+                    notify(err.message, true);
+                } finally {
+                    waConnecting = false;
+                    waConnectBtn.disabled = false;
+                    waConnectBtn.innerHTML = '<i class="fa-solid fa-plug"></i> Connect';
+                }
+            });
+            waDisconnectBtn.addEventListener('click', async function () {
+                waDisconnectBtn.disabled = true;
+                try {
+                    await fetch('/api/whatsapp/disconnect', { method: 'POST', credentials: 'same-origin' });
+                    checkWaStatus();
+                } catch (err) {
+                    notify(err.message, true);
+                } finally {
+                    waDisconnectBtn.disabled = false;
+                    waDisconnectBtn.innerHTML = '<i class="fa-solid fa-unlink"></i> Disconnect';
+                }
+            });
+            waRescanBtn.addEventListener('click', async function () {
+                waRescanBtn.disabled = true;
+                try {
+                    var res = await fetch('/api/whatsapp/rescan', { method: 'POST', credentials: 'same-origin' });
+                    var data = await res.json();
+                    if (data.success || data.qrCode) {
+                        updateWaUI(data);
+                        waStartPoll();
+                    } else notify(data.message || 'Failed to rescan', true);
+                } catch (err) {
+                    notify(err.message, true);
+                } finally {
+                    waRescanBtn.disabled = false;
+                    waRescanBtn.innerHTML = '<i class="fa-solid fa-arrows-rotate"></i> Delete Session & Rescan QR';
+                }
+            });
+            checkWaStatus();
+
+            /* ── Telegram ───────────────────────────────────────────────── */
+            var tgStatus = document.getElementById('tgConnectionStatus');
+            var tgQrContainer = document.getElementById('tgQrContainer');
+            var tgQrPlaceholder = document.getElementById('tgQrPlaceholder');
+            var tgQrCode = document.getElementById('tgQrCode');
+            var tgPhoneDisplay = document.getElementById('tgPhoneDisplay');
+            var tgConnectedPhone = document.getElementById('tgConnectedPhone');
+            var tgConnectBtn = document.getElementById('tgConnectBtn');
+            var tgDisconnectBtn = document.getElementById('tgDisconnectBtn');
+            var tgRescanBtn = document.getElementById('tgRescanBtn');
+            var tgQrPasswordGroup = document.getElementById('tgQrPasswordGroup');
+            var tgAuthMethod = 'qr';
+            var tgStatusPoll = null;
+            var tgQrPoll = null;
+            var tgConnecting = false;
+            var tgConnected = false;
+
+            function tgStartPoll() {
+                if (!tgStatusPoll) tgStatusPoll = setInterval(checkTgStatus, 3000);
+            }
+            function tgStopPoll() {
+                if (tgStatusPoll) { clearInterval(tgStatusPoll); tgStatusPoll = null; }
+                if (tgQrPoll) { clearInterval(tgQrPoll); tgQrPoll = null; }
+            }
+            function setTgAuthMethod(mode) {
+                tgAuthMethod = mode;
+                document.getElementById('tgAuthQrBtn').classList.toggle('active', mode === 'qr');
+                document.getElementById('tgAuthPhoneBtn').classList.toggle('active', mode === 'phone');
+                document.getElementById('tgQrAuthSection').classList.toggle('hidden', mode !== 'qr');
+                document.getElementById('tgPhoneAuthSection').classList.toggle('hidden', mode !== 'phone');
+                tgConnectBtn.classList.toggle('hidden', mode !== 'qr' || tgConnected);
+                tgRescanBtn.classList.toggle('hidden', mode !== 'qr' || tgConnected);
+            }
+            document.getElementById('tgAuthQrBtn').addEventListener('click', function () { setTgAuthMethod('qr'); });
+            document.getElementById('tgAuthPhoneBtn').addEventListener('click', function () { setTgAuthMethod('phone'); });
+
+            function updateTgUI(data) {
+                tgStatus.classList.remove('disconnected', 'scanning', 'connected');
+                tgQrPasswordGroup.classList.toggle('hidden', !data.needPassword);
+                var who = data.phone || data.username || (data.userId ? ('id:' + data.userId) : null);
+                var scanningNoQr = !data.connected && !data.qrCode &&
+                    (data.status === 'scanning' || data.status === 'waiting_code' || data.initializing);
+                if (data.connected) {
+                    tgConnected = true;
+                    tgStatus.classList.add('connected');
+                    tgStatus.innerHTML = '<i class="fa-solid fa-check-circle"></i><span>Connected</span>';
+                    document.getElementById('tgAuthMethodToggle').classList.add('hidden');
+                    document.getElementById('tgQrAuthSection').classList.add('hidden');
+                    document.getElementById('tgPhoneAuthSection').classList.add('hidden');
+                    tgQrPasswordGroup.classList.add('hidden');
+                    tgQrContainer.classList.add('hidden');
+                    tgPhoneDisplay.classList.remove('hidden');
+                    tgConnectedPhone.textContent = who || 'Unknown';
+                    tgConnectBtn.classList.add('hidden');
+                    tgDisconnectBtn.classList.remove('hidden');
+                    tgRescanBtn.classList.add('hidden');
+                    tgStopPoll();
+                    markSetup('setupTelegram', 'setupTelegramState', true, 'Connected', 'Needs login');
+                } else if (data.qrCode) {
+                    tgConnected = false;
+                    tgStatus.classList.add('scanning');
+                    tgStatus.innerHTML = '<i class="fa-solid fa-qrcode"></i><span>Scanning QR Code</span>';
+                    tgQrContainer.classList.remove('hidden');
+                    tgQrContainer.classList.add('has-qr');
+                    tgQrPlaceholder.classList.add('hidden');
+                    tgQrCode.classList.remove('hidden');
+                    if (typeof data.qrCode === 'string') tgQrCode.src = data.qrCode;
+                    tgPhoneDisplay.classList.add('hidden');
+                    tgConnectBtn.classList.add('hidden');
+                    tgDisconnectBtn.classList.add('hidden');
+                    tgRescanBtn.classList.remove('hidden');
+                    if (!tgQrPoll) tgQrPoll = setInterval(fetchTgQr, 5000);
+                    markSetup('setupTelegram', 'setupTelegramState', false, 'Connected', 'Scan QR');
+                } else if (scanningNoQr) {
+                    tgConnected = false;
+                    tgStatus.classList.add('scanning');
+                    tgStatus.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Generating QR Code…</span>';
+                    tgQrContainer.classList.remove('hidden');
+                    tgQrContainer.classList.remove('has-qr');
+                    tgQrPlaceholder.classList.remove('hidden');
+                    tgQrPlaceholder.innerHTML = '<i class="fa-solid fa-spinner fa-spin" style="font-size:36px;margin-bottom:8px;display:block;"></i><p>Generating QR code…</p>';
+                    tgQrCode.classList.add('hidden');
+                    tgPhoneDisplay.classList.add('hidden');
+                    tgConnectBtn.classList.add('hidden');
+                    tgDisconnectBtn.classList.add('hidden');
+                    tgRescanBtn.classList.remove('hidden');
+                    markSetup('setupTelegram', 'setupTelegramState', false, 'Connected', 'Connecting…');
+                } else {
+                    tgConnected = false;
+                    tgStatus.classList.add('disconnected');
+                    tgStatus.innerHTML = '<i class="fa-solid fa-circle-xmark"></i><span>Disconnected</span>';
+                    document.getElementById('tgAuthMethodToggle').classList.remove('hidden');
+                    setTgAuthMethod(tgAuthMethod);
+                    tgQrContainer.classList.remove('hidden');
+                    tgQrContainer.classList.remove('has-qr');
+                    tgQrPlaceholder.innerHTML = '<i class="fa-solid fa-qrcode"></i><p>Click Connect, then scan with Telegram</p>';
+                    tgQrPlaceholder.classList.remove('hidden');
+                    tgQrCode.classList.add('hidden');
+                    tgPhoneDisplay.classList.add('hidden');
+                    tgConnectBtn.classList.toggle('hidden', tgAuthMethod !== 'qr');
+                    tgDisconnectBtn.classList.add('hidden');
+                    tgRescanBtn.classList.toggle('hidden', tgAuthMethod !== 'qr');
+                    tgStopPoll();
+                    markSetup('setupTelegram', 'setupTelegramState', false, 'Connected', 'Needs login');
+                }
+            }
+            async function checkTgStatus() {
+                try {
+                    var parts = await Promise.all([
+                        fetch('/api/telegram/status', { credentials: 'same-origin' }).then(function (r) { return r.json(); }),
+                        fetch('/api/telegram/qrcode', { credentials: 'same-origin' }).then(function (r) { return r.json(); })
+                    ]);
+                    var status = parts[0].data || parts[0];
+                    var qr = parts[1].data || parts[1];
+                    updateTgUI(Object.assign({}, status, {
+                        qrCode: typeof qr.qrCode === 'string' ? qr.qrCode : null,
+                        connected: status.connected || status.status === 'connected'
+                    }));
+                } catch (_) {}
+            }
+            async function fetchTgQr() {
+                try {
+                    var res = await fetch('/api/telegram/qrcode', { credentials: 'same-origin' });
+                    var data = await res.json();
+                    var qr = data.data || data;
+                    if (qr.qrCode && typeof qr.qrCode === 'string') tgQrCode.src = qr.qrCode;
+                    if (qr.connected || qr.status === 'connected') updateTgUI(Object.assign({}, qr, { connected: true }));
+                } catch (_) {}
+            }
+            tgConnectBtn.addEventListener('click', async function () {
+                if (tgConnecting) return;
+                tgConnecting = true;
+                tgConnectBtn.disabled = true;
+                tgConnectBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Connecting...';
+                try {
+                    var res = await fetch('/api/telegram/connect', { method: 'POST', credentials: 'same-origin' });
+                    var data = await res.json().catch(function () { return {}; });
+                    if (!res.ok || !data.success) throw new Error(data.message || 'Connect failed');
+                    await new Promise(function (r) { setTimeout(r, 250); });
+                    await checkTgStatus();
+                    await fetchTgQr();
+                    tgStartPoll();
+                } catch (err) {
+                    notify(err.message, true);
+                } finally {
+                    tgConnecting = false;
+                    tgConnectBtn.disabled = false;
+                    tgConnectBtn.innerHTML = '<i class="fa-solid fa-plug"></i> Connect';
+                }
+            });
+            tgDisconnectBtn.addEventListener('click', async function () {
+                tgDisconnectBtn.disabled = true;
+                try {
+                    await fetch('/api/telegram/disconnect', { method: 'POST', credentials: 'same-origin' });
+                    checkTgStatus();
+                } catch (err) {
+                    notify(err.message, true);
+                } finally {
+                    tgDisconnectBtn.disabled = false;
+                    tgDisconnectBtn.innerHTML = '<i class="fa-solid fa-unlink"></i> Disconnect';
+                }
+            });
+            tgRescanBtn.addEventListener('click', async function () {
+                tgRescanBtn.disabled = true;
+                try {
+                    var res = await fetch('/api/telegram/rescan', { method: 'POST', credentials: 'same-origin' });
+                    var data = await res.json();
+                    if (data.success || data.qrCode) {
+                        updateTgUI(data);
+                        tgStartPoll();
+                    } else notify(data.message || 'Failed to rescan', true);
+                } catch (err) {
+                    notify(err.message, true);
+                } finally {
+                    tgRescanBtn.disabled = false;
+                    tgRescanBtn.innerHTML = '<i class="fa-solid fa-arrows-rotate"></i> Delete Session & Rescan QR';
+                }
+            });
+            document.getElementById('tgSendCodeBtn').addEventListener('click', async function () {
+                var phoneNumber = document.getElementById('tgLoginPhone').value.trim();
+                if (!phoneNumber) return notify('Enter phone number with country code', true);
+                try {
+                    var r = await fetch('/api/telegram/phone/send-code', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        credentials: 'same-origin',
+                        body: JSON.stringify({ phoneNumber })
+                    });
+                    var d = await r.json();
+                    if (!d.success) throw new Error(d.message || 'Failed to send code');
+                    notify('Code sent. Check Telegram or SMS.');
+                    checkTgStatus();
+                } catch (err) {
+                    notify(err.message, true);
+                }
+            });
+            document.getElementById('tgVerifyCodeBtn').addEventListener('click', async function () {
+                try {
+                    var r = await fetch('/api/telegram/phone/verify', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        credentials: 'same-origin',
+                        body: JSON.stringify({
+                            phoneCode: document.getElementById('tgLoginCode').value.trim(),
+                            password: document.getElementById('tgLoginPassword').value || undefined
+                        })
+                    });
+                    var d = await r.json();
+                    if (!d.success) throw new Error(d.message || 'Verification failed');
+                    notify('Telegram connected.');
+                    document.getElementById('tgLoginCode').value = '';
+                    document.getElementById('tgLoginPassword').value = '';
+                    await checkTgStatus();
+                } catch (err) {
+                    notify(err.message, true);
+                }
+            });
+            document.getElementById('tgSubmitQrPasswordBtn').addEventListener('click', async function () {
+                try {
+                    var r = await fetch('/api/telegram/auth/password', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        credentials: 'same-origin',
+                        body: JSON.stringify({ password: document.getElementById('tgQrPassword').value })
+                    });
+                    var d = await r.json();
+                    if (!d.success) throw new Error(d.message || 'Failed');
+                    notify('Password sent…');
+                    document.getElementById('tgQrPassword').value = '';
+                    tgQrPasswordGroup.classList.add('hidden');
+                } catch (err) {
+                    notify(err.message, true);
+                }
+            });
+            checkTgStatus();
+        });
+    </script>
+</body>
+</html>

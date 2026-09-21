@@ -1,0 +1,16 @@
+{
+  "totalVisits": 4,
+  "totalPageviews": 76,
+  "uniqueVisitors": 3,
+  "todayDate": "2026-09-21",
+  "todayVisits": 4,
+  "todayPageviews": 76,
+  "updatedAt": "2026-09-21T13:53:11.233Z",
+  "visits": [],
+  "totals": {
+    "home": 0,
+    "pricing": 0,
+    "about": 0,
+    "contact": 0
+  }
+}

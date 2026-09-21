@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechCorp - Email Marketing Template</title>
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+        /* Email Client Reset */
+        .ExternalClass, .ReadMsgBody {
+            width: 100%;
+            background-color: #f4f6f9;
+        }
+        
+        body, table, td, p, a, div, span {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font-family: 'Rubik', sans-serif;
+            line-height: 1.5;
+        }
+        
+        /* Outlook.com Fix */
+        .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {
+            line-height: 100%;
+        }
+        
+        /* Mobile Responsive */
+        @media only screen and (max-width: 600px) {
+            table[class="container"] {
+                width: 100% !important;
+            }
+            
+            td[class="hero-content"] {
+                padding: 30px 20px !important;
+            }
+            
+            td[class="content-padding"] {
+                padding: 30px 20px !important;
+            }
+            
+            td[class="footer-padding"] {
+                padding: 30px 20px !important;
+            }
+            
+            img[class="responsive-img"] {
+                width: 100% !important;
+                height: auto !important;
+            }
+            
+            table[class="feature-row"] {
+                width: 100% !important;
+                display: block !important;
+            }
+            
+            td[class="feature-col"] {
+                display: block !important;
+                width: 100% !important;
+                padding: 20px !important;
+                margin-bottom: 20px !important;
+                text-align: center !important;
+            }
+            
+            td[class="stats-cell"] {
+                display: block !important;
+                width: 100% !important;
+                padding: 20px !important;
+                margin-bottom: 15px !important;
+                text-align: center !important;
+            }
+            
+            .mobile-center {
+                text-align: center !important;
+            }
+            
+            .social-icons td {
+                padding: 0 8px !important;
+            }
+            
+            .footer-links td {
+                display: inline-block !important;
+                padding: 5px 8px !important;
+            }
+        }
+        
+        /* iOS Fix */
+        @media only screen and (max-device-width: 480px) {
+            .mobile-font {
+                font-size: 16px !important;
+            }
+        }
+    </style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f4f6f9;">
+    <center style="width: 100%; table-layout: fixed;">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#f4f6f9" style="background-color: #f4f6f9;">
+             <tr>
+                <td align="center" style="padding: 40px 20px;">
+                    
+                    <!-- Main Container - Max Width 600px -->
+                    <table class="container" width="600" border="0" cellpadding="0" cellspacing="0" style="width: 100%; max-width: 600px; background-color: #ffffff; border-radius: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                        
+                        <!-- ========== HEADER SECTION ========== -->
+                        <tr>
+                            <td style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); padding: 35px 30px; border-radius: 20px 20px 0 0;">
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td align="center">
+                                            <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 800; letter-spacing: -0.3px;">
+                                                🚀 Tech<span style="font-weight: 500; color: #60a5fa;">Corp</span>
+                                            </h1>
+                                            <p style="margin: 12px 0 0; color: #94a3b8; font-size: 14px;">
+                                                Innovative Solutions for Modern Business
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        
+                        <!-- ========== HERO IMAGE SECTION ========== -->
+                        <tr>
+                            <td style="padding: 0;">
+                                <img class="responsive-img" src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=300&fit=crop&auto=format" 
+                                     width="600" 
+                                     height="300" 
+                                     style="width: 100%; max-width: 600px; height: auto; display: block;" 
+                                     alt="Team collaboration in modern office">
+                            </td>
+                        </tr>
+                        
+                        <!-- ========== MAIN CONTENT ========== -->
+                        <tr>
+                            <td class="content-padding" style="padding: 40px 35px;">
+                                
+                                <!-- Welcome Message -->
+                                <h2 style="margin: 0 0 12px 0; color: #0f172a; font-size: 26px; font-weight: 700;">
+                                    Welcome to TechCorp, {{first_name}}! 👋
+                                </h2>
+                                <p style="margin: 0 0 25px 0; color: #475569; font-size: 16px; line-height: 1.6;">
+                                    We're thrilled to have you join our community of innovators and forward-thinking professionals. Get ready to transform your business with cutting-edge technology.
+                                </p>
+                                
+                                <!-- ========== STATS SECTION ========== -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 40px;">
+                                    <tr>
+                                        <td align="center">
+                                            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                                                <tr>
+                                                    <td class="stats-cell" width="33%" style="background: #f1f5f9; border-radius: 16px; padding: 20px;">
+                                                        <p style="margin: 0; font-size: 32px; font-weight: 800; color: #3b82f6;">10K+</p>
+                                                        <p style="margin: 5px 0 0; font-size: 13px; color: #64748b;">Active Clients</p>
+                                                    </td>
+                                                    <td width="15" style="width: 15px;">&nbsp;</td>
+                                                    <td class="stats-cell" width="33%" style="background: #f1f5f9; border-radius: 16px; padding: 20px;">
+                                                        <p style="margin: 0; font-size: 32px; font-weight: 800; color: #3b82f6;">99.9%</p>
+                                                        <p style="margin: 5px 0 0; font-size: 13px; color: #64748b;">Uptime Guarantee</p>
+                                                    </td>
+                                                    <td width="15" style="width: 15px;">&nbsp;</td>
+                                                    <td class="stats-cell" width="33%" style="background: #f1f5f9; border-radius: 16px; padding: 20px;">
+                                                        <p style="margin: 0; font-size: 32px; font-weight: 800; color: #3b82f6;">24/7</p>
+                                                        <p style="margin: 5px 0 0; font-size: 13px; color: #64748b;">Expert Support</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- ========== FEATURE 1 WITH IMAGE ========== -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 40px;">
+                                    <tr>
+                                        <td>
+                                            <img class="responsive-img" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=530&h=280&fit=crop&auto=format" 
+                                                 width="530" 
+                                                 height="280" 
+                                                 style="width: 100%; max-width: 530px; height: auto; border-radius: 16px; display: block; margin-bottom: 20px;" 
+                                                 alt="Data analytics dashboard">
+                                            <h3 style="margin: 0 0 12px 0; color: #0f172a; font-size: 22px; font-weight: 700;">
+                                                📊 Advanced Analytics Dashboard
+                                            </h3>
+                                            <p style="margin: 0 0 15px 0; color: #475569; font-size: 15px; line-height: 1.6;">
+                                                Make data-driven decisions with our powerful analytics platform. Track key metrics, visualize trends, and gain actionable insights in real-time.
+                                            </p>
+                                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="padding: 5px 0;">
+                                                        <p style="margin: 0; color: #334155;">✓ Real-time performance tracking</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 5px 0;">
+                                                        <p style="margin: 0; color: #334155;">✓ Customizable dashboards</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 5px 0;">
+                                                        <p style="margin: 0; color: #334155;">✓ AI-powered predictions</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- ========== FEATURE 2 WITH IMAGE ========== -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 40px;">
+                                    <tr>
+                                        <td>
+                                            <img class="responsive-img" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=530&h=280&fit=crop&auto=format" 
+                                                 width="530" 
+                                                 height="280" 
+                                                 style="width: 100%; max-width: 530px; height: auto; border-radius: 16px; display: block; margin-bottom: 20px;" 
+                                                 alt="Team collaboration meeting">
+                                            <h3 style="margin: 0 0 12px 0; color: #0f172a; font-size: 22px; font-weight: 700;">
+                                                🤝 Seamless Team Collaboration
+                                            </h3>
+                                            <p style="margin: 0 0 15px 0; color: #475569; font-size: 15px; line-height: 1.6;">
+                                Connect your team with powerful collaboration tools that enhance productivity and streamline communication across departments.
+                                            </p>
+                                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="padding: 5px 0;">
+                                                        <p style="margin: 0; color: #334155;">✓ Real-time messaging & video calls</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 5px 0;">
+                                                        <p style="margin: 0; color: #334155;">✓ Shared workspaces & file management</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 5px 0;">
+                                                        <p style="margin: 0; color: #334155;">✓ Project tracking & task assignment</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- ========== GALLERY SECTION ========== -->
+                                <h3 style="margin: 40px 0 20px 0; color: #0f172a; font-size: 22px; font-weight: 700; text-align: center;">
+                                    Trusted by Industry Leaders
+                                </h3>
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 40px;">
+                                    <tr>
+                                        <td align="center">
+                                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td width="33%" style="padding: 0 5px;">
+                                                        <img src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=150&h=100&fit=crop&auto=format" 
+                                                             width="150" 
+                                                             height="100" 
+                                                             style="width: 100%; max-width: 150px; height: auto; border-radius: 12px;" 
+                                                             alt="Modern office building">
+                                                        <p style="margin: 8px 0 0; font-size: 12px; color: #64748b; text-align: center;">Enterprise Solutions</p>
+                                                    </td>
+                                                    <td width="34%" style="padding: 0 5px;">
+                                                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=150&h=100&fit=crop&auto=format" 
+                                                             width="150" 
+                                                             height="100" 
+                                                             style="width: 100%; max-width: 150px; height: auto; border-radius: 12px;" 
+                                                             alt="Analytics meeting">
+                                                        <p style="margin: 8px 0 0; font-size: 12px; color: #64748b; text-align: center;">Data Insights</p>
+                                                    </td>
+                                                    <td width="33%" style="padding: 0 5px;">
+                                                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=150&h=100&fit=crop&auto=format" 
+                                                             width="150" 
+                                                             height="100" 
+                                                             style="width: 100%; max-width: 150px; height: auto; border-radius: 12px;" 
+                                                             alt="Training session">
+                                                        <p style="margin: 8px 0 0; font-size: 12px; color: #64748b; text-align: center;">Training Programs</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- ========== TESTIMONIAL SECTION ========== -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin: 40px 0; background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%); border-radius: 20px;">
+                                    <tr>
+                                        <td style="padding: 35px; text-align: center;">
+                                            <p style="margin: 0 0 15px 0; font-size: 48px; color: #3b82f6;">“</p>
+                                            <p style="margin: 0 0 20px 0; color: #1e293b; font-size: 18px; line-height: 1.6; font-weight: 500;">
+                                                TechCorp has revolutionized our operations. The platform is intuitive, powerful, and the support team is exceptional. We've seen a 150% increase in productivity!
+                                            </p>
+                                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td align="center">
+                                                        <img src="https://randomuser.me/api/portraits/women/68.jpg" 
+                                                             width="60" 
+                                                             height="60" 
+                                                             style="width: 60px; height: 60px; border-radius: 50%; display: inline-block; margin-bottom: 12px;" 
+                                                             alt="Client photo">
+                                                        <p style="margin: 0; font-weight: 700; color: #0f172a;">Emily Rodriguez</p>
+                                                        <p style="margin: 5px 0 0; font-size: 13px; color: #64748b;">CTO, InnovateTech Solutions</p>
+                                                        <p style="margin: 10px 0 0; color: #fbbf24; font-size: 14px;">★★★★★</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- ========== CTA BUTTON ========== -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin: 35px 0 20px;">
+                                    <tr>
+                                        <td align="center">
+                                            <table border="0" cellpadding="0" cellspacing="0" style="margin: 0 auto;">
+                                                <tr>
+                                                    <td align="center" bgcolor="#3b82f6" style="background-color: #3b82f6; border-radius: 50px;">
+                                                        <a href="#" style="display: inline-block; padding: 16px 40px; color: #ffffff; font-size: 16px; font-weight: 700; text-decoration: none; border-radius: 50px; letter-spacing: 0.3px;">
+                                                            🚀 Start Your Free Trial
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <p style="margin: 18px 0 0; font-size: 12px; color: #94a3b8;">
+                                                14-day free trial • No credit card required • Cancel anytime
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- ========== DIVIDER ========== -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin: 30px 0 20px;">
+                                    <tr>
+                                        <td style="border-top: 2px solid #e2e8f0;"></td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- ========== FEATURES LIST ========== -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="padding: 5px 0;">
+                                            <p style="margin: 0; color: #334155;">✨ &nbsp; Unlimited access to all premium features</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0;">
+                                            <p style="margin: 0; color: #334155;">⚡ &nbsp; Priority 24/7 customer support</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0;">
+                                            <p style="margin: 0; color: #334155;">🎓 &nbsp; Free onboarding & training materials</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0;">
+                                            <p style="margin: 0; color: #334155;">🔄 &nbsp; Regular updates with new features</p>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                        </tr>
+                        
+                        <!-- ========== FOOTER SECTION ========== -->
+                        <tr>
+                            <td class="footer-padding" style="background-color: #0f172a; padding: 40px 35px; border-radius: 0 0 20px 20px;">
+                                
+                                <!-- Social Links -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 25px;">
+                                    <tr>
+                                        <td align="center">
+                                            <table border="0" cellpadding="0" cellspacing="0" class="social-icons">
+                                                <tr>
+                                                    <td style="padding: 0 12px;">
+                                                        <a href="#" style="color: #94a3b8; text-decoration: none; font-size: 22px;">📘</a>
+                                                    </td>
+                                                    <td style="padding: 0 12px;">
+                                                        <a href="#" style="color: #94a3b8; text-decoration: none; font-size: 22px;">🐦</a>
+                                                    </td>
+                                                    <td style="padding: 0 12px;">
+                                                        <a href="#" style="color: #94a3b8; text-decoration: none; font-size: 22px;">📷</a>
+                                                    </td>
+                                                    <td style="padding: 0 12px;">
+                                                        <a href="#" style="color: #94a3b8; text-decoration: none; font-size: 22px;">💼</a>
+                                                    </td>
+                                                    <td style="padding: 0 12px;">
+                                                        <a href="#" style="color: #94a3b8; text-decoration: none; font-size: 22px;">🎥</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- Footer Links -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 25px;">
+                                    <tr>
+                                        <td align="center">
+                                            <table border="0" cellpadding="0" cellspacing="0" class="footer-links">
+                                                <tr>
+                                                    <td style="padding: 0 12px;">
+                                                        <a href="#" style="color: #94a3b8; text-decoration: none; font-size: 12px;">About TechCorp</a>
+                                                    </td>
+                                                    <td style="padding: 0 12px;">
+                                                        <a href="#" style="color: #94a3b8; text-decoration: none; font-size: 12px;">Features</a>
+                                                    </td>
+                                                    <td style="padding: 0 12px;">
+                                                        <a href="#" style="color: #94a3b8; text-decoration: none; font-size: 12px;">Pricing</a>
+                                                    </td>
+                                                    <td style="padding: 0 12px;">
+                                                        <a href="#" style="color: #94a3b8; text-decoration: none; font-size: 12px;">Blog</a>
+                                                    </td>
+                                                    <td style="padding: 0 12px;">
+                                                        <a href="#" style="color: #94a3b8; text-decoration: none; font-size: 12px;">Support</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- Company Info & Legal -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td align="center" style="color: #64748b; font-size: 11px; line-height: 1.6;">
+                                            <p style="margin: 0 0 8px 0;">
+                                                © 2024 TechCorp Innovations Inc. All rights reserved.
+                                            </p>
+                                            <p style="margin: 0 0 12px 0;">
+                                                123 Innovation Way, San Francisco, CA 94105, United States
+                                            </p>
+                                            <p style="margin: 0;">
+                                                <a href="#" style="color: #60a5fa; text-decoration: underline;">Unsubscribe</a> 
+                                                &nbsp;|&nbsp; 
+                                                <a href="#" style="color: #60a5fa; text-decoration: underline;">Privacy Policy</a>
+                                                &nbsp;|&nbsp;
+                                                <a href="#" style="color: #60a5fa; text-decoration: underline;">View Online</a>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    <!-- End Main Container -->
+                    
+                    <!-- Preheader Text for Better Deliverability -->
+                    <div style="display: none; max-height: 0px; overflow: hidden; visibility: hidden;">
+                        Welcome to TechCorp! Transform your business with our innovative platform. Start your free trial today and join 10,000+ satisfied clients.
+                    </div>
+                    
+                </td>
+            </tr>
+        </table>
+    </center>
+</body>
+</html>

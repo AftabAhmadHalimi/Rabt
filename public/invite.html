@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page.invite">Invite Friends — Rabط</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/brand.css">
+    <script src="/i18n-dict.js"></script>
+    <script src="/i18n.js"></script>
+    <script src="/navbar.js"></script>
+    <script src="/ui-feedback.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary, #f3f5fa);
+            color: var(--text-primary, #1e2540);
+            min-height: 100vh;
+        }
+        .invite-shell {
+            min-height: calc(100vh - var(--app-header-height, 68px));
+            min-height: calc(100dvh - var(--app-header-height, 68px));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 16px 16px 32px;
+        }
+        .invite-page {
+            width: 100%;
+            max-width: 560px;
+            margin: 0 auto;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .invite-hero {
+            width: 100%;
+            max-width: 520px;
+            margin-bottom: 18px;
+        }
+        .invite-hero-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 12px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(91, 79, 255, 0.12);
+            color: #5B4FFF;
+            font-size: 24px;
+        }
+        .invite-page h1 { font-size: 22px; margin-bottom: 8px; letter-spacing: -0.02em; }
+        .invite-page .lead {
+            color: var(--text-secondary, #6b7389);
+            font-size: 14px;
+            line-height: 1.55;
+            margin: 0 auto;
+        }
+        .invite-card {
+            border: 1px solid var(--border-color, #e6eaf2);
+            background: var(--bg-card, #fff);
+            border-radius: 12px;
+            padding: 18px 16px;
+            margin-bottom: 12px;
+            width: 100%;
+            max-width: 520px;
+            text-align: center;
+        }
+        .invite-card h2 { font-size: 16px; margin-bottom: 14px; }
+        .invite-link-row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+        .invite-link-row input {
+            width: 100%;
+            max-width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--border-color, #e6eaf2);
+            border-radius: 10px;
+            background: var(--bg-secondary, #f7f8fc);
+            color: inherit;
+            font: inherit;
+            font-size: 13px;
+            text-align: center;
+        }
+        .invite-link-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            width: 100%;
+        }
+        .invite-link-row button, .invite-card .btn {
+            border: none;
+            border-radius: 10px;
+            padding: 12px 18px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            background: #5B4FFF;
+            color: #fff;
+            min-width: 120px;
+        }
+        .invite-link-row .btn-ghost {
+            background: var(--bg-secondary, #f7f8fc);
+            color: inherit;
+            border: 1px solid var(--border-color, #e6eaf2);
+        }
+        .invite-steps { display: grid; gap: 10px; text-align: center; }
+        .invite-steps p { font-size: 14px; line-height: 1.5; color: var(--text-secondary, #6b7389); }
+        .invite-steps strong { color: var(--text-primary, #1e2540); }
+        .invite-meta { font-size: 13px; color: var(--text-secondary, #6b7389); margin-bottom: 12px; }
+        .invite-empty { color: var(--text-secondary, #6b7389); font-size: 14px; line-height: 1.55; }
+        .invite-friend {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 12px 0;
+            border-top: 1px solid var(--border-color, #e6eaf2);
+            text-align: center;
+        }
+        .invite-friend:first-of-type { border-top: none; padding-top: 0; }
+        .invite-friend strong { display: block; }
+        .invite-friend span { display: block; font-size: 12px; color: var(--text-secondary, #6b7389); margin-top: 3px; }
+        .invite-friend-date { font-size: 11px; color: var(--text-muted, #8b93a7); margin-top: 2px; }
+        html.app-shell .invite-shell {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            min-height: calc(100dvh - var(--app-header-height, 68px)) !important;
+            padding: 16px 16px 32px !important;
+        }
+        html.app-shell .invite-page {
+            max-width: 560px !important;
+            width: 100% !important;
+            margin: 0 auto !important;
+            text-align: center !important;
+            align-items: center !important;
+        }
+        html.app-shell .invite-page .lead { margin-left: auto !important; margin-right: auto !important; }
+        html.app-shell .invite-card {
+            max-width: 520px !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            text-align: center !important;
+        }
+        html.app-shell .invite-link-row {
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        html.app-shell .invite-link-row input {
+            width: 100% !important;
+            text-align: center !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="app-navbar"></div>
+    <div class="invite-shell">
+        <div class="invite-page">
+            <div class="invite-hero">
+                <div class="invite-hero-icon"><i class="fa-solid fa-user-plus"></i></div>
+                <h1 data-i18n="nav.shareInviteHint">Invite friends to Rabط</h1>
+                <p class="lead" data-i18n="invite.lead">Share your personal invite link. Friends who open it can create their own Rabط account.</p>
+            </div>
+
+            <div class="invite-card">
+                <h2 data-i18n="nav.shareInvite">Share your personal invite link</h2>
+                <div class="invite-link-row">
+                    <input id="inviteLink" type="text" readonly>
+                    <div class="invite-link-actions">
+                        <button type="button" id="copyBtn" data-i18n="invite.copy">Copy link</button>
+                        <button type="button" id="shareBtn" class="btn-ghost" data-i18n="invite.share">Share</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="invite-card">
+                <h2 data-i18n="invite.how">How it works</h2>
+                <div class="invite-steps">
+                    <p><strong>1.</strong> <span data-i18n="invite.step1">Copy or share your personal link.</span></p>
+                    <p><strong>2.</strong> <span data-i18n="invite.step2">Your friend opens the link and signs up.</span></p>
+                    <p><strong>3.</strong> <span data-i18n="invite.step3">They get their own workspace after verifying email.</span></p>
+                </div>
+            </div>
+
+            <div class="invite-card">
+                <h2 data-i18n="invite.friends">Friends who joined</h2>
+                <p class="invite-meta" id="inviteCount"></p>
+                <div id="inviteList"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        (function () {
+            function t(key) {
+                return (window.RabtI18n && window.RabtI18n.t(key)) || key;
+            }
+            var linkInput = document.getElementById('inviteLink');
+            var listEl = document.getElementById('inviteList');
+            var countEl = document.getElementById('inviteCount');
+            var currentLink = '';
+
+            function escapeHtml(value) {
+                return String(value == null ? '' : value)
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;');
+            }
+
+            function copyLink() {
+                if (!currentLink) return;
+                var done = function () {
+                    if (window.RabtUI) RabtUI.toast(t('invite.copied'), 'success');
+                };
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(currentLink).then(done).catch(function () {
+                        linkInput.select();
+                        document.execCommand('copy');
+                        done();
+                    });
+                    return;
+                }
+                linkInput.select();
+                document.execCommand('copy');
+                done();
+            }
+
+            document.getElementById('copyBtn').addEventListener('click', copyLink);
+            document.getElementById('shareBtn').addEventListener('click', function () {
+                if (!currentLink) return;
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'Rabط',
+                        text: t('invite.lead'),
+                        url: currentLink
+                    }).catch(function () {});
+                    return;
+                }
+                copyLink();
+            });
+
+            function render(data) {
+                currentLink = window.location.origin + ((data && data.path) || '/signup.html');
+                linkInput.value = currentLink;
+                var invited = (data && data.invited) || [];
+                countEl.textContent = invited.length + ' ' + t('invite.count');
+                if (!invited.length) {
+                    listEl.innerHTML = '<p class="invite-empty">' + escapeHtml(t('invite.empty')) + '</p>';
+                    return;
+                }
+                listEl.innerHTML = invited.map(function (person) {
+                    var when = person.createdAt ? new Date(person.createdAt).toLocaleString() : '';
+                    return '<div class="invite-friend"><strong>' + escapeHtml(person.name || person.email) +
+                        '</strong><span>' + escapeHtml(person.email || '') + '</span>' +
+                        (when ? '<span class="invite-friend-date">' + escapeHtml(when) + '</span>' : '') +
+                        '</div>';
+                }).join('');
+            }
+
+            document.addEventListener('auth-ready', function (e) {
+                if (!e.detail || !e.detail.user) {
+                    window.location.replace('/login.html');
+                    return;
+                }
+                fetch('/api/auth/invite', { credentials: 'same-origin' })
+                    .then(function (res) { return res.json().then(function (data) { return { res: res, data: data }; }); })
+                    .then(function (pack) {
+                        if (pack.res.status === 401) {
+                            window.location.replace('/login.html');
+                            return;
+                        }
+                        if (!pack.res.ok || pack.data.success === false) {
+                            throw new Error(pack.data.message || 'Could not load invite link');
+                        }
+                        render(pack.data.data || {});
+                    })
+                    .catch(function (err) {
+                        if (window.RabtUI) RabtUI.notify(err.message || 'Could not load invite link', 'error');
+                    });
+            });
+        })();
+    </script>
+</body>
+</html>

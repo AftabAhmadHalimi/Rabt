@@ -1,0 +1,181 @@
+/* User-platform motion only. No layout, color, or structure changes. */
+html.app-shell:not(.guest-mode) .app-sidebar {
+    animation: appNavFade 0.62s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+html.app-shell:not(.guest-mode) .app-header {
+    animation: appHeadIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+html.app-shell:not(.guest-mode) .app-sidebar-nav > * {
+    animation: appNavItem 0.48s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+html.app-shell:not(.guest-mode) .app-sidebar-nav > *:nth-child(1) { animation-delay: 40ms; }
+html.app-shell:not(.guest-mode) .app-sidebar-nav > *:nth-child(2) { animation-delay: 70ms; }
+html.app-shell:not(.guest-mode) .app-sidebar-nav > *:nth-child(3) { animation-delay: 100ms; }
+html.app-shell:not(.guest-mode) .app-sidebar-nav > *:nth-child(4) { animation-delay: 130ms; }
+html.app-shell:not(.guest-mode) .app-sidebar-nav > *:nth-child(5) { animation-delay: 160ms; }
+html.app-shell:not(.guest-mode) .app-sidebar-nav > *:nth-child(6) { animation-delay: 190ms; }
+html.app-shell:not(.guest-mode) .app-sidebar-nav > *:nth-child(7) { animation-delay: 220ms; }
+html.app-shell:not(.guest-mode) .app-sidebar-nav > *:nth-child(8) { animation-delay: 250ms; }
+html.app-shell:not(.guest-mode) .app-sidebar-nav > *:nth-child(9) { animation-delay: 280ms; }
+html.app-shell:not(.guest-mode) .app-sidebar-nav > *:nth-child(10) { animation-delay: 310ms; }
+html.app-shell:not(.guest-mode) .app-sidebar-nav > *:nth-child(11) { animation-delay: 340ms; }
+html.app-shell:not(.guest-mode) .app-sidebar-nav > *:nth-child(12) { animation-delay: 370ms; }
+html.app-shell:not(.guest-mode) .app-sidebar-nav > *:nth-child(13) { animation-delay: 400ms; }
+html.app-shell:not(.guest-mode) .app-sidebar-nav > *:nth-child(14) { animation-delay: 430ms; }
+html.app-shell:not(.guest-mode) .app-sidebar-nav > *:nth-child(15) { animation-delay: 460ms; }
+html.app-shell:not(.guest-mode) .app-sidebar-nav > *:nth-child(16) { animation-delay: 490ms; }
+html.app-shell:not(.guest-mode) .app-sidebar-footer {
+    animation: appFadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both;
+}
+
+html.app-shell:not(.guest-mode) .container > *:not(#guestHome):not(#memberHome):not(script):not(style),
+html.app-shell:not(.guest-mode) #memberHome > *,
+html.app-shell:not(.guest-mode) .invite-page > *,
+html.app-shell:not(.guest-mode) .legal-page,
+html.app-shell:not(.guest-mode) .support-page,
+html.app-shell:not(.guest-mode) .wrap > .card,
+html.app-shell:not(.guest-mode) .tasks-wrapper > .card {
+    animation: appRise 0.66s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+html.app-shell:not(.guest-mode) .container > *:nth-child(1),
+html.app-shell:not(.guest-mode) #memberHome > *:nth-child(1),
+html.app-shell:not(.guest-mode) .invite-page > *:nth-child(1) { animation-delay: 60ms; }
+html.app-shell:not(.guest-mode) .container > *:nth-child(2),
+html.app-shell:not(.guest-mode) #memberHome > *:nth-child(2),
+html.app-shell:not(.guest-mode) .invite-page > *:nth-child(2) { animation-delay: 120ms; }
+html.app-shell:not(.guest-mode) .container > *:nth-child(3),
+html.app-shell:not(.guest-mode) #memberHome > *:nth-child(3),
+html.app-shell:not(.guest-mode) .invite-page > *:nth-child(3) { animation-delay: 180ms; }
+html.app-shell:not(.guest-mode) .container > *:nth-child(4),
+html.app-shell:not(.guest-mode) #memberHome > *:nth-child(4),
+html.app-shell:not(.guest-mode) .invite-page > *:nth-child(4) { animation-delay: 240ms; }
+html.app-shell:not(.guest-mode) .container > *:nth-child(5),
+html.app-shell:not(.guest-mode) #memberHome > *:nth-child(5),
+html.app-shell:not(.guest-mode) .invite-page > *:nth-child(5) { animation-delay: 300ms; }
+html.app-shell:not(.guest-mode) .container > *:nth-child(6),
+html.app-shell:not(.guest-mode) #memberHome > *:nth-child(6) { animation-delay: 360ms; }
+html.app-shell:not(.guest-mode) .container > *:nth-child(7),
+html.app-shell:not(.guest-mode) #memberHome > *:nth-child(7) { animation-delay: 420ms; }
+html.app-shell:not(.guest-mode) .container > *:nth-child(8),
+html.app-shell:not(.guest-mode) #memberHome > *:nth-child(8) { animation-delay: 480ms; }
+
+html.app-shell:not(.guest-mode) .kpi-stats > .kpi-card {
+    animation: appRise 0.58s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+html.app-shell:not(.guest-mode) .kpi-stats > .kpi-card:nth-child(1) { animation-delay: 140ms; }
+html.app-shell:not(.guest-mode) .kpi-stats > .kpi-card:nth-child(2) { animation-delay: 190ms; }
+html.app-shell:not(.guest-mode) .kpi-stats > .kpi-card:nth-child(3) { animation-delay: 240ms; }
+html.app-shell:not(.guest-mode) .kpi-stats > .kpi-card:nth-child(4) { animation-delay: 290ms; }
+
+html.app-shell:not(.guest-mode) .account-list > .account-link {
+    animation: appRise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+html.app-shell:not(.guest-mode) .account-list > .account-link:nth-child(1) { animation-delay: 80ms; }
+html.app-shell:not(.guest-mode) .account-list > .account-link:nth-child(2) { animation-delay: 120ms; }
+html.app-shell:not(.guest-mode) .account-list > .account-link:nth-child(3) { animation-delay: 160ms; }
+html.app-shell:not(.guest-mode) .account-list > .account-link:nth-child(4) { animation-delay: 200ms; }
+html.app-shell:not(.guest-mode) .account-list > .account-link:nth-child(5) { animation-delay: 240ms; }
+html.app-shell:not(.guest-mode) .account-list > .account-link:nth-child(6) { animation-delay: 280ms; }
+html.app-shell:not(.guest-mode) .account-list > .account-link:nth-child(7) { animation-delay: 320ms; }
+html.app-shell:not(.guest-mode) .account-list > .account-link:nth-child(8) { animation-delay: 360ms; }
+
+html.app-shell:not(.guest-mode) .app-sidebar-link {
+    transition: background 0.15s ease, color 0.15s ease, transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+}
+html.app-shell:not(.guest-mode) .app-sidebar-link:hover {
+    transform: translateX(3px);
+}
+html.app-shell:not(.guest-mode) .app-sidebar-link.active:hover {
+    transform: none;
+}
+html[dir="rtl"].app-shell:not(.guest-mode) .app-sidebar-link:hover {
+    transform: translateX(-3px);
+}
+html[dir="rtl"].app-shell:not(.guest-mode) .app-sidebar-link.active:hover {
+    transform: none;
+}
+
+html.app-shell:not(.guest-mode) .btn-primary,
+html.app-shell:not(.guest-mode) .btn-run,
+html.app-shell:not(.guest-mode) .btn-verified {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+}
+html.app-shell:not(.guest-mode) .btn-primary::after,
+html.app-shell:not(.guest-mode) .btn-run::after,
+html.app-shell:not(.guest-mode) .btn-verified::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.32) 48%, transparent 72%);
+    transform: translateX(-130%);
+    animation: appShine 3.4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes appNavFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes appHeadIn {
+    from { opacity: 0; transform: translate3d(0, -10px, 0); }
+    to { opacity: 1; transform: none; }
+}
+@keyframes appNavItem {
+    from { opacity: 0; transform: translate3d(-10px, 6px, 0); }
+    to { opacity: 1; transform: none; }
+}
+@keyframes appFadeUp {
+    from { opacity: 0; transform: translate3d(0, 10px, 0); }
+    to { opacity: 1; transform: none; }
+}
+@keyframes appRise {
+    from { opacity: 0; transform: translate3d(0, 16px, 0); }
+    to { opacity: 1; transform: none; }
+}
+@keyframes appShine {
+    0%, 58% { transform: translateX(-130%); }
+    78%, 100% { transform: translateX(130%); }
+}
+
+@media (max-width: 900px) {
+    html.app-shell:not(.guest-mode) .app-sidebar,
+    html.app-shell:not(.guest-mode) .app-sidebar-nav > *,
+    html.app-shell:not(.guest-mode) .app-sidebar-footer {
+        animation: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html.app-shell:not(.guest-mode) .app-sidebar,
+    html.app-shell:not(.guest-mode) .app-header,
+    html.app-shell:not(.guest-mode) .app-sidebar-nav > *,
+    html.app-shell:not(.guest-mode) .app-sidebar-footer,
+    html.app-shell:not(.guest-mode) .container > *,
+    html.app-shell:not(.guest-mode) #memberHome > *,
+    html.app-shell:not(.guest-mode) .invite-page > *,
+    html.app-shell:not(.guest-mode) .legal-page,
+    html.app-shell:not(.guest-mode) .support-page,
+    html.app-shell:not(.guest-mode) .wrap > .card,
+    html.app-shell:not(.guest-mode) .tasks-wrapper > .card,
+    html.app-shell:not(.guest-mode) .kpi-stats > .kpi-card,
+    html.app-shell:not(.guest-mode) .account-list > .account-link,
+    html.app-shell:not(.guest-mode) .btn-primary::after,
+    html.app-shell:not(.guest-mode) .btn-run::after,
+    html.app-shell:not(.guest-mode) .btn-verified::after {
+        animation: none !important;
+    }
+    html.app-shell:not(.guest-mode) .app-header,
+    html.app-shell:not(.guest-mode) .container > *,
+    html.app-shell:not(.guest-mode) #memberHome > *,
+    html.app-shell:not(.guest-mode) .invite-page > *,
+    html.app-shell:not(.guest-mode) .legal-page,
+    html.app-shell:not(.guest-mode) .support-page,
+    html.app-shell:not(.guest-mode) .wrap > .card,
+    html.app-shell:not(.guest-mode) .tasks-wrapper > .card,
+    html.app-shell:not(.guest-mode) .kpi-stats > .kpi-card,
+    html.app-shell:not(.guest-mode) .account-list > .account-link {
+        transform: none !important;
+    }
+}

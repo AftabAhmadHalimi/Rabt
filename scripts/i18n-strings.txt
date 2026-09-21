@@ -1,0 +1,552 @@
+, enter your name, email, and password. It takes less than a minute. Already registered? Use Sign in.
+, then choose All Contact or one list.
+. If you do not agree, do not use the service.
+. Related document:
+' + escapeHtml(user.email || '') + '
+' + t('nav.chooseLanguage') + '
+' + t('nav.toggleTheme') + '
+(Telegram often uses the same
+(WhatsApp uses
+*text*
++98912xxxxxxx (international)
+0 / 0 sent
+0 clicked of 0 sent
+0 delivered · 0 read of 0 sent
+0 delivered of 0 sent
+0 opened of 0 sent
+0 sent · 0 failed
+1. Agreement
+1. Who operates Rabط
+10. Platform operator rights
+10. When information is shared
+11. Intellectual property
+11. Storage, security, and retention
+12. Disclaimer of warranties
+12. Your choices and requests
+13. Children
+13. Limitation of liability
+14. Changes to this policy
+14. Indemnity
+15. How to contact us
+15. Suspension and termination
+16. Governing law
+17. Contact
+2. The service
+2. What this policy covers
+2FA password (if enabled)
+2FA password (QR login)
+3. Eligibility and accounts
+3. Information we collect
+4. Acceptable use
+4. How we use information
+5. Contacts, content, and campaigns
+5. Email, WhatsApp, and Telegram
+6. Connected channels
+6. Opens, clicks, and delivery tracking
+7. Help & Support chat
+7. Scheduling and automation
+8. Help & Support
+8. Platform administration
+9. Availability and changes
+9. Cookies and sessions
+a separate cookie only for the super admin console, which is not your user login.
+A separate super admin console exists to operate this instance (users, sessions, schedules, lists, channel status, platform SMTP, broadcasts, settings, and support chat). Super admin cannot sign in as you inside your workspace. Super admin can still see operational information needed to run the platform, including account email, verification status, activity summaries, and support messages you send.
+a workspace session cookie after you sign in;
+Account information
+Activity
+Add Files
+Add Image
+Add recipients, write the message, send or schedule.
+After login you get KPI Overview plus Email, WhatsApp, Telegram, Schedule, Import Contact, and Settings in the sidebar. Pick the channel you need first.
+All
+All-time
+All-time 0
+Already have an account?
+Already verified?
+API Config — Rabط
+Apply
+At least 6 characters
+Attachments
+attempt to access another customer’s workspace, lists, credentials, or sessions;
+Authentication data
+Back to Home
+Back to sign in
+BCC Limit
+Bold
+Built for businesses, agencies, and teams who need reliable bulk messaging without juggling three different tools. Create a free account in seconds and start your first campaign today.
+Bulk email + templates
+Bulk text and media messages
+Bullet List
+By creating a Rabط account, signing in, or using any part of the platform, you agree to these Terms of Service and to the
+By creating an account you agree to the
+Calculating…
+Campaign Name
+Cancel
+Cancel schedule
+Cancel this scheduled task?
+CANCELLED
+Check the log and Telegram delivery rate on KPI Overview.
+Checking…
+Choose a file first.
+Choose All Contact or a list you imported in Import Contact.
+Choose All Contact or a phone list you imported in Import Contact.
+Choose app language
+Choose send now or schedule, then follow the live delivery log.
+Clear Logs
+Clear Template
+Click
+Click Connect and scan the QR with WhatsApp on your phone.
+Click Connect to generate a QR code
+Click Connect, then scan with Telegram
+close signups or enable maintenance mode.
+Code from Telegram / SMS
+Code sent. Check Telegram or SMS.
+comply with law where we are required to do so.
+Compose and send bulk emails from a saved list or pasted addresses.
+compose and send email, WhatsApp, and Telegram campaigns;
+Compose and send Telegram from the Rabط workspace.
+Compose and send WhatsApp from the Rabط workspace.
+Compose Email
+Compose Message
+Compose, send, and track email from the Rabط workspace.
+configure channel settings for your workspace;
+Connect
+Connect & add recipients
+Connect Email SMTP, WhatsApp, and Telegram in one place.
+Connect Email, WhatsApp, and Telegram here. Compose pages only send after these accounts are set up.
+Connect Telegram and send bulk messages with delays.
+Connect with QR or a phone login code.
+Connect with QR or phone code in Settings, then send bulk messages (and optional images) to international numbers. Delivery is tracked automatically.
+Connected
+Connecting...
+contact the platform team through Help & Support.
+Could not load saved lists
+Create account
+Create an account with your email. We'll send a 6-digit code, then you can sign in to your own workspace.
+create and secure your account, verify your email, and keep you signed in;
+Create one on the Email, WhatsApp, or Telegram page.
+Create your account
+create, verify, disable, or delete accounts;
+creating and signing in to a Rabط account;
+Custom Date
+Data for this instance is stored on the server that hosts Rabط, including configuration files, tenant workspace files, uploaded lists, and support chat records. Passwords and verification codes are stored as hashes. Channel passwords you save in Settings are stored so the platform can send on your behalf.
+Date
+Day
+Delay Between Emails (seconds)
+Delay Between Messages (seconds)
+Delay in seconds
+Delete
+delete contact lists and schedules you created;
+Delete selected contacts?
+Delete Session & Rescan QR
+Delete this list?
+Delete this schedule permanently?
+Delivery and read rates in KPI Overview
+Delivery Log
+Delivery rate
+Depending on the laws that apply to you, you may also have rights to access, correct, delete, or restrict processing of personal data, or to object to certain processing. Send those requests through Help & Support. We may need to verify that the request comes from the account holder.
+Detail
+Didn't get the code?
+Disconnect
+disconnect WhatsApp or Telegram sessions from your workspace;
+Disconnected
+DONE
+Drop a .txt / .xls / .xlsx file or click to browse
+e.g. 12345678
+e.g. mail.yourdomain.com
+e.g. September newsletter
+e.g. VIP customers
+e.g., Newsletter July
+e.g., Promo October
+Effective date: 15 September 2026 · Last updated: 15 September 2026
+Email
+Email — Rabط
+Email campaigns
+Email campaigns may include a tracking pixel and rewritten links so the platform can record whether a message was opened or a link was clicked. WhatsApp delivery and read events may be recorded when the connected session receives them. This data is shown in your workspace (for example KPI Overview and engagement views) so you can understand campaign results. Tracking identifiers are associated with your workspace, not used for cross-site advertising.
+Email click rate
+Email Header Color
+Email lists
+Email open rate
+Email sending uses the SMTP settings you save (or other mail configuration in your workspace). WhatsApp and Telegram use sessions or API credentials you connect. Those services are not owned by Rabط. If a provider blocks, delays, or disconnects a session, that is outside our control.
+Email settings saved.
+Email SMTP
+Email SMTP is not set up yet.
+Email, WhatsApp, and Telegram sit side by side. Import a list, write the message, and send. No extra apps, no copy-paste chaos.
+Email, WhatsApp, or Telegram
+Emails are sent via BCC to reduce spam risk. Invalid addresses are skipped automatically.
+Enter a valid time (1–12 hours, 0–59 minutes).
+Enter a value
+Enter code
+Enter creates a new line. Only bold formatting is supported.
+Enter email subject...
+enter it here
+Enter phone number with country code
+Enter URL:
+Enter your message here...
+Every Day
+Every valid email and phone number from your uploaded lists, with source details. Invalid and duplicate rows stay out of this directory.
+Everything inside the workspace
+Export / download
+Failed
+FAILED
+Failed today
+Filter the large chart by Day, Weekly, Monthly, Year, or Custom Date.
+Finishing login…
+for bold).
+For privacy questions, access requests, or deletion requests, open
+From Name
+Full name
+Generating QR code…
+Generating QR Code…
+Get assistance
+Get assistance — Rabط
+Get assistance opens a chat with the platform team. Replies are provided as operational help, not as legal, financial, or professional advice. Do not send passwords or secrets in chat. Abuse of support (spam, threats, or attempts to social-engineer access) is a breach of these terms.
+Get from my.telegram.org
+Gmail
+harvest or scrape contacts from Rabط or from other users;
+Heading
+Hello, Write your message here. Keep it clear and professional. If you no longer wish to receive these emails, reply with "Unsubscribe". Best regards,
+Help & Support → Get assistance
+Highlight
+How to get started
+How to use each tool
+if required by law, regulation, or a valid legal process;
+If you no longer wish to receive these emails, reply with "Unsubscribe".
+If you use Get assistance, we store the messages you send and the replies from the platform team, with timestamps, so the conversation can continue.
+If you use Rabط on behalf of an organization, you confirm that you have authority to bind that organization, and “you” includes that organization.
+Image (Optional)
+Import an email list, or paste addresses.
+Import Contact
+Import Contact — Rabط
+Import lists in
+Import phone lists in
+Import phone numbers with country code, or paste them.
+Insert
+Insert Link
+Insert System Name
+It does not control how third parties — including email providers, WhatsApp, Telegram, or the people you message — handle data after you send content through those channels.
+Italic
+Jobs today
+Keep it
+KPI Overview
+Language — Rabط
+Last 7 days
+Last 7 days 0
+Leave
+Link your WhatsApp with a QR code in Settings, then message phone numbers from an imported list or a paste. Add photos, control delays, and track when messages are delivered and read on the device.
+List deleted.
+List name (optional)
+List saved. You can select it when you compose.
+lists, campaign content, attachments, and delivery logs you create;
+Live activity
+Live KPI tracking
+Live send log and delivery rate
+Live trace of real Email, WhatsApp, Telegram, and Schedule activity — sends, opens, clicks, delivery, and read receipts.
+Loading saved lists…
+manage a private workspace after email verification;
+Manual Fix
+Message
+Message Body
+message people who have not given you permission where permission is required by law or by the rules of Email, WhatsApp, or Telegram;
+Message the Rabط platform team. Super admin will reply here.
+Messages in Get assistance are stored so the platform team can read and reply. Do not send passwords, payment card numbers, or other secrets in chat. Support conversations are visible to the platform operator for the purpose of helping you.
+misrepresent yourself as the Rabط platform team;
+Monitor campaigns scheduled from Email, WhatsApp, or Telegram — one queue for the whole platform.
+Monthly
+Need a new code?
+New signups are currently closed.
+No account yet?
+No activity in this range.
+No emails sent yet
+No files yet. Upload a list to reuse it when you compose.
+No messages sent yet
+No schedules yet.
+No sends yet. Activity appears here as soon as Email, WhatsApp, Telegram, or Schedule runs.
+No verified contacts yet. Upload a list first.
+Not a bot token. Leave blank to keep the saved hash.
+Not configured — required for Telegram Connect
+Numbered List
+Once
+Once or daily repeat
+One person or organization should not share a single login in a way that bypasses workspace isolation. You must tell us through Get assistance if you believe your account was used without permission. We may revoke sessions, disable an account, or require a password reset to protect the platform.
+Open a tool
+Open Email
+Open Import Contact
+Open rate and click rate tracking
+Open Schedule
+Open Settings
+Open Settings and configure SMTP.
+Open Settings and connect with QR or phone code.
+Open Settings and scan the WhatsApp QR.
+Open Settings to save SMTP, connect WhatsApp, and log in to Telegram. Then import contacts and compose.
+Open support chat
+Open Telegram
+Open the workspace
+Open WhatsApp
+Optional: upload a `.html` template to use as the message (then the editor is not required).
+Our total liability arising out of your use of Rabط will not exceed the amount you paid to the operator for the service in the three months before the claim (or zero if the instance is provided without a separate fee). Some jurisdictions do not allow certain limits; in those places our liability is limited to the maximum extent allowed.
+Password
+Password sent…
+Paste api_hash from my.telegram.org
+Paste email addresses here, one per line example@domain.com another@domain.com
+Paste Emails
+Paste Numbers
+Paste phone numbers here, one per line +12025550100 +441234567890
+Per-recipient sending with delay
+Phone
+Phone number
+Phone Numbers
+Phone numbers for WhatsApp and Telegram. Include country code, one number per line or an Excel column.
+Phone numbers should include country code (e.g., +1234567890).
+Pick a date and time in the future.
+Pick a date.
+Pick the language for menus, buttons, and workspace chrome. Your choice is saved on this device.
+Plan one-time or repeating campaigns for any channel. Set the hour, reuse recipient lists, and come back to live run logs when the job fires — even if you are away from the screen.
+Plan one-time or repeating campaigns.
+platform emails such as verification codes and messages sent by the platform team;
+Please enter SMTP Host for Webmail.
+Port
+Preview
+Privacy Policy
+Privacy Policy — Rabط
+probe, disrupt, or overload the server, or bypass authentication, rate limits, or tenant isolation;
+protect the service against abuse, unauthorized access, and operational failures;
+provide your isolated workspace and the tools you choose to use;
+Provider
+QR or phone-number login
+Questions about these terms: sign in and open
+Rabط
+Rabط (ربط) means connection. We connect your mailbox, WhatsApp, and Telegram into one workspace so you can launch promotions, reminders, and announcements faster — with live logs and a KPI Overview that shows what actually got delivered, opened, clicked, and read.
+Rabط is a business messaging workspace. It is not directed at children under 16. Do not create an account or upload information about children if you are not permitted to do so.
+Rabط is a workspace platform for sending email and messages, importing contacts, scheduling campaigns, and reviewing activity. This Privacy Policy applies to the Rabط service running on this server, including the website, APIs, and related features such as Help & Support chat.
+Rabط marketing workspace
+Rabط provides online tools to:
+Rabط Team
+Rabط Team Your Organization www.example.com
+Rabط uses essential cookies:
+Rate Limit
+Reach every customer on Email, WhatsApp, and Telegram — from one place
+Reach inboxes with a rich editor or full HTML templates. Import a list in Import Contact, then select it when you compose — or paste addresses. Attach images and files, set a delay between recipients, and follow each send in the live log.
+Read the full privacy policy. This page explains what information the Rabط platform collects, how it is used, how it is stored, and the choices you have.
+Read the full terms of service. These terms are the agreement between you and the operator of this Rabط platform for your use of the website, workspace, and related features.
+Ready to run your next campaign?
+Ready to send
+Real KPIs, not guesses
+Recipient
+Recipients
+Refresh
+Related documents:
+Repeat
+resell the service or use it in a way that violates these terms or applicable law.
+Resend code
+Retry Failed
+Retrying...
+Run a campaign immediately or pick a time. Repeat daily if you need. Watch the live log while it runs so you always know what happened.
+Run Now
+Run now or wait for the clock
+Save
+Save Email Settings
+Save Telegram API credentials so Connect works across the Rabط platform. Recipients are added by paste or file upload.
+Save the mailbox you send from. Gmail needs an App Password.
+Saved list
+Saved only to your account
+Saving...
+Scan once to connect your account
+Scan QR
+Scan QR, then send bulk WhatsApp messages and media.
+Scanning QR Code
+Schedule
+Schedule — Rabط
+Schedule & repeat
+Schedule Campaign
+Schedule for Later
+SCHEDULED
+Scheduled campaigns run according to the date, time, and repeat options you set, subject to server uptime and channel availability. The operator may cancel, run, or delete schedules when needed to protect the platform or to carry out support you request. You should monitor Schedule and activity logs for failures.
+Scheduled Tasks
+Scheduled.
+Scheduling…
+Search email, phone, or list name
+Security
+See sent vs failed, email open and click rate, WhatsApp delivery and read receipts, and Telegram delivery — filtered by day, week, month, year, or a custom date.
+See today’s sent, failed, jobs, and delivery rate.
+Select contacts first.
+Selected contacts deleted.
+Send
+Send Bulk Messages
+send campaigns you start or schedule, using the channels you configure;
+Send Email
+Send Emails
+Send login code
+Send Now
+Send now or schedule later
+Send or schedule. KPI Overview shows delivery and read rate.
+send platform emails such as verification codes or notices from the platform team;
+send spam, phishing, malware, or deceptive messages;
+Send Telegram
+Send Timing
+Send WhatsApp
+Send, schedule, measure
+Sending...
+Sent
+Sent today
+Settings
+Settings — Rabط
+Shared between WhatsApp and Telegram only
+show KPI Overview, activity, schedules, lists, and engagement inside your workspace;
+Sign in
+Sign in — Overview is your home after login.
+Sign in — Rabط
+Sign in and open Email.
+Sign in and open Telegram.
+Sign in and open WhatsApp.
+Sign in to continue
+Sign in to open Email
+Sign in to open Schedule
+Sign in to open Telegram
+Sign in to open WhatsApp
+Sign in to the Rabط workspace — Email, WhatsApp, Telegram, and scheduling in one place.
+Sign up
+Sign up — Rabط
+Sign up free
+Sign up to unlock Email, WhatsApp, Telegram, scheduling, and live KPIs. Your workspace stays on this server — start with one channel today and add the rest when you need them.
+Signature (Optional)
+Signups may be closed, and the operator may enable maintenance mode that blocks user login and signup. Existing terms still apply to stored data during maintenance.
+Small Heading
+SMTP Host
+Some messages failed to send. You can retry failed messages or clear the logs.
+SSL/TLS
+Start Sending At
+STARTTLS
+Status
+Stay
+Step 1
+Step 2
+Stop jumping between inboxes and chat apps. Rabط is a complete campaign platform: compose once, send to thousands, schedule follow-ups, and watch real results — opens, clicks, deliveries, and reads.
+stop using the service and request account deletion through
+Subject Line
+Submit password
+Super admin does not use an “open workspace” login into your session. That does not limit the operator’s right to manage the server, enforce these terms, or process data as described in the Privacy Policy.
+Support chat
+support.placeholder
+System Name
+Technical data
+technical logs needed to run and protect the service.
+Telegram
+Telegram — Rabط
+Telegram api_hash
+Telegram api_id & api_hash
+Telegram campaigns
+Telegram connected.
+Telegram delivery rate
+Telegram is not connected yet.
+Telegram login QR
+Terms of Service
+Terms of Service — Rabط
+Test Connection
+Testing...
+The operator of this instance may, through the super admin console or server access:
+The platform records send activity (channel, time, sent and failed counts, labels, and error messages), schedule status, and engagement events such as email opens and clicks and WhatsApp delivery or read acknowledgements when those events are available.
+The Rabط name, logo, layout, and software are owned by the platform operator or its licensors. You may not copy, reverse engineer, or republish the product except as allowed by law. Your campaign content remains yours, subject to the licence in section 5.
+The server may process IP address, browser user agent, and request metadata as part of normal HTTP operation, login lockout protection, and error handling. We do not use this to build advertising profiles.
+The service is provided “as is” and “as available”. To the fullest extent permitted by law, we disclaim warranties of merchantability, fitness for a particular purpose, non-infringement, and uninterrupted or error-free operation. We do not warrant that campaigns will be delivered, opened, or free of filtering by receiving networks.
+The service is provided as hosted software on this server. Features may depend on channels you configure (for example your SMTP mailbox or a WhatsApp / Telegram session). We do not guarantee delivery by third-party networks.
+there
+These cookies are required for authentication. The site may also store theme preference in your browser’s local storage. We do not use third-party advertising cookies.
+These terms are governed by the laws applicable to the operator of this Rabط instance, without regard to conflict-of-law rules. If a court finds a provision unenforceable, the rest of the terms still apply. These terms are the entire agreement for your use of the service and replace prior oral or written terms about the same subject.
+This policy covers personal data and other information processed in connection with:
+This policy describes the Rabط instance on this server. It is written to match how the product actually works: accounts, OTP verification, tenant workspaces, Email / WhatsApp / Telegram sending, contact lists, scheduling, tracking, support chat, and platform administration.
+Three channels, one login
+Time to wait between each email (1-60 seconds)
+Time to wait between each message (1-60 seconds)
+Tip: Select text and click
+to protect the rights, safety, or integrity of the platform or its users.
+To the fullest extent permitted by law, the platform operator is not liable for indirect, incidental, special, consequential, or punitive damages, or for lost profits, lost data, lost goodwill, or failed deliveries, even if advised that such damages were possible.
+To verify your email we generate a 6-digit one-time code, store a hash of that code, and record expiry and attempt counts. Signed-in sessions use an HTTP-only cookie. Session records include a token, your user id, and expiry time.
+Today
+Today vs all-time
+Total
+Track email opens/clicks and WhatsApp / Telegram delivery.
+Type the message, optionally attach a photo, set delay.
+Underline
+update profile details where the product allows it, or ask the platform team to update them;
+updating…
+Upload a .txt, .xls, or .xlsx file.
+Upload email and phone lists once, then select them when you compose.
+Upload email list
+Upload HTML Template
+Upload Image
+Upload phone list
+Upload recipient files once and reuse them when you compose. Email lists stay separate from WhatsApp and Telegram phone lists.
+upload unlawful, harmful, or infringing content;
+Usage and delivery data
+Use Live activity to trace every real campaign as it happens.
+use the platform to abuse, threaten, or harass anyone;
+Use these files on the Email page. One email address per line, or an Excel column of addresses.
+Username
+using Email, WhatsApp, Telegram, Schedule, Import Contact, Settings, KPI Overview, and Help & Support;
+Using Rabط means you accept these terms. Campaign sending, contact storage, connected channels, scheduling, tracking, and support chat are provided under this agreement.
+Verification code
+Verified Contact
+Verify & connect
+Verify account
+Verify email — Rabط
+view operational status of channels, lists, schedules, and activity;
+Waiting…
+We aim to keep Rabط available, but we do not promise uninterrupted service. We may modify features, limits, or these terms. We may perform maintenance, apply security updates, or take the service offline. Data you store is your responsibility to export if you need an independent copy.
+We apply access controls, session expiry, and account lockouts on failed sign-in. No method of transmission or storage is completely secure. You should use a strong password and keep channel credentials private.
+We do not sell your account data, contact lists, or campaign content to advertisers.
+We emailed a 6-digit code to your address. Enter it here to verify your account. The code expires in 10 minutes.
+We keep account and workspace data while your account exists. Activity logs, tracking records, and support messages may be limited in length by the platform. If an account is deleted by the platform operator, associated workspace files and lists for that account are removed as part of that deletion process. Residual copies may remain in backups or logs for a limited operational period.
+We may update these Terms of Service. The “Last updated” date will change when we do. If you continue to use Rabط after an update, the new terms apply. If you do not agree, you must stop using the service and request account closure.
+We may update this Privacy Policy as the product or legal requirements change. The “Last updated” date at the top will change when we do. Continued use of Rabط after an update means you should review the new policy. Material changes may also be announced by a platform email or a notice in the product.
+We share information only as needed to provide the service:
+We use information to:
+Webmail
+Weekly
+Welcome back,
+WhatsApp
+WhatsApp — Rabط
+WhatsApp / Telegram lists
+WhatsApp campaigns
+WhatsApp delivery / read
+WhatsApp is not connected yet.
+WhatsApp QR Code
+When we say “we”, “us”, or “the platform”, we mean the operator of this Rabط instance. When we say “you”, we mean a person who visits the site, creates an account, or uses a workspace.
+When you send a campaign, the recipients, message body, and attachments you chose are transmitted through that channel. WhatsApp and Telegram are third-party networks. Their own privacy terms apply to content that leaves Rabط and is delivered on those networks.
+When you sign up we collect your name, email address, and password. The password is stored as a one-way hash, not in plain text. We also store whether your email is verified, whether the account is disabled, when the account was created, and when you last signed in.
+while signed in and message the platform team. You can also use the email address associated with your Rabط account when you contact us so we can identify your workspace.
+Why teams choose Rabط
+Will send at ${timeStr} ${hintDateLabel(day)}${repeatLabel} — in ${fmtIn(day - Date.now())}
+with email, WhatsApp, or Telegram infrastructure you connect, to deliver messages you send;
+with the mailbox configured as platform SMTP, to send verification codes and platform notices;
+with the platform operator and authorized administrators of this instance;
+Workspace content you provide
+Workspace settings
+Workspaces are separated by user account. Another customer’s login is not meant to see your lists, campaigns, or channel credentials.
+Write in the editor or use an HTML template, add images if needed.
+Write the message, send now or schedule. Watch the live log, then return to KPI Overview for opens, clicks, delivery, and reads.
+Write your message here. Keep it clear and professional.
+Write your message here...
+Write your message…
+Year
+You agree that you will not:
+You are responsible for having a lawful basis to contact people on your lists, including consent or other permission required by anti-spam and messaging rules that apply to you.
+You are solely responsible for the accuracy of recipients, the content of messages, and the consequences of sending them. Rabط is a sending and organization tool; it does not review every campaign before it goes out.
+You can stop campaign tracking from applying to future sends only by not using send features that include tracking, or by asking the platform team how tracking is configured for your workspace.
+You can:
+You connect your own sending channels. SMTP credentials, Telegram API details, and WhatsApp session data that you save are used only to operate those channels for your workspace.
+You may stop using Rabط at any time and request account deletion through Get assistance. We may suspend or delete an account, revoke sessions, or refuse service if you violate these terms, if required for security, or if the instance is shut down. After deletion, workspace data is removed as described in the Privacy Policy. Sections that should survive (including 5, 11–14, and 16) remain in effect.
+You may upload or enter contact lists (email addresses and phone numbers), campaign names, message subject lines, HTML or text bodies, signatures, attachments, images, schedule dates and times, and channel settings such as SMTP host, username, and password for your own mailbox. Messaging sessions for WhatsApp and Telegram are stored so the channel can stay connected in your workspace.
+You must follow applicable electronic marketing, privacy, and telecommunications rules, including unsubscribe and consent requirements that apply to your campaigns. You must also follow WhatsApp, Telegram, and your email provider’s rules.
+You must not share mailbox passwords, API hashes, or session data with others. If you disconnect a channel, queued or scheduled jobs that depend on it may fail. Platform SMTP (used for verification codes and platform notices) is separate from your campaign mailbox.
+You must provide an accurate name and email address, choose a password of at least six characters, and complete verification with the 6-digit code we email you before using workspace tools. You are responsible for all activity under your account and for keeping your password and session confidential.
+You represent that you have the right to use every contact and every file you upload, and that your campaigns do not infringe other people’s rights. Lists, drafts, attachments, and logs live in your workspace and are not a public directory.
+You retain your rights to the names, email addresses, phone numbers, files, and message content you upload. You grant the platform a limited permission to store and process that material solely to operate your workspace and to send the campaigns you request.
+You will defend and indemnify the platform operator and its staff against claims, damages, and costs arising from your content, your contact lists, your campaigns, your connected channels, or your breach of these terms or of law.
+you@example.com
+Your email is verified. Opening your workspace…
+Your name
+Your name, title, contact info...
+Your Organization
+Your own SMTP mailbox
+Your password

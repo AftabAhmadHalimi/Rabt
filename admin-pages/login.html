@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform login — Super Admin</title>
+    <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/brand.css">
+    <link rel="stylesheet" href="/super-admin/admin.css">
+</head>
+<body class="sa-body">
+    <div class="sa-login-wrap">
+        <div class="sa-login-card">
+            <div class="sa-brand">
+                <img src="/logo.png" alt="Rabط">
+                <div>
+                    <strong>Rabط Platform Control</strong>
+                    <span>Super admin only</span>
+                </div>
+            </div>
+            <h1>Sign in</h1>
+            <p class="hint">This console manages every workspace on this server. Use the super admin account — not a regular Rabط login.</p>
+            <form id="loginForm">
+                <label for="email">Email</label>
+                <input id="email" type="email" required autocomplete="username" placeholder="admin@localhost">
+                <label for="password">Password</label>
+                <input id="password" type="password" required autocomplete="current-password" placeholder="Super admin password">
+                <button class="sa-btn sa-btn-primary" type="submit">Enter control panel</button>
+            </form>
+            <div class="sa-alert" id="alertBox"></div>
+        </div>
+    </div>
+    <script src="/ui-feedback.js"></script>
+    <script>
+        function showLoginAlert(msg, ok) {
+            var box = document.getElementById('alertBox');
+            if (window.RabtUI) {
+                RabtUI.toast(msg, ok ? 'success' : 'error');
+                if (box) RabtUI.banner(box, msg, ok ? 'success' : 'error');
+                return;
+            }
+            box.className = 'sa-alert show ' + (ok ? 'ok' : 'bad');
+            box.textContent = msg;
+        }
+
+        fetch('/api/super-admin/me', { credentials: 'same-origin' })
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+                if (data && data.success && data.admin) window.location.replace('/super/admin/platform');
+            })
+            .catch(function () {});
+
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            var box = document.getElementById('alertBox');
+            try {
+                var res = await fetch('/api/super-admin/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'same-origin',
+                    body: JSON.stringify({
+                        email: document.getElementById('email').value,
+                        password: document.getElementById('password').value
+                    })
+                });
+                var data = await res.json();
+                showLoginAlert(data.message || (data.success ? 'Signed in.' : 'Sign in failed'), !!data.success);
+                if (data.success) window.location.replace('/super/admin/platform');
+            } catch (err) {
+                showLoginAlert(err.message || 'Network error', false);
+            }
+        });
+    </script>
+</body>
+</html>

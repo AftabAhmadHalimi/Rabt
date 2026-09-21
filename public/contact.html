@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Rabط</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/brand.css">
+    <script src="/i18n-dict.js"></script>
+    <script src="/i18n.js"></script>
+    <script src="/navbar.js"></script>
+    <script src="/ui-feedback.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 80px 20px 40px; text-align: center; }
+        .contact-header { text-align: center; margin-bottom: 48px; }
+        .contact-header h1 { font-size: 36px; font-weight: 700; margin-bottom: 16px; }
+        .contact-header p { color: var(--text-secondary); font-size: 18px; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+        .contact-grid { display: grid; grid-template-columns: 1fr; gap: 32px; margin: 0 auto 48px; max-width: 600px; }
+        .contact-info { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 32px; text-align: center; }
+        .contact-info h2 { font-size: 20px; font-weight: 600; margin-bottom: 24px; text-align: center; }
+        .contact-info .contact-item { justify-content: center; }
+        .contact-info .contact-item h3, .contact-info .contact-item p { text-align: center; }
+        .contact-item { display: flex; align-items: center; gap: 16px; margin-bottom: 0; }
+        .contact-item i { font-size: 20px; color: var(--accent); margin-top: 4px; }
+        .contact-item h3 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+        .contact-item p { color: var(--text-secondary); font-size: 14px; line-height: 1.6; }
+        .contact-form { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 32px; text-align: left; }
+        .contact-form h2 { font-size: 20px; font-weight: 600; margin-bottom: 24px; text-align: left; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .form-group textarea { min-height: 120px; resize: vertical; }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            background: var(--accent);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        .btn:hover { background: var(--accent-hover); }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        .form-alert {
+            display: none;
+            margin-top: 16px;
+            padding: 12px 14px;
+            font-size: 14px;
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+        }
+        .form-alert.show { display: block; }
+        .form-alert.ok { background: rgba(34, 197, 94, 0.12); color: var(--success); border-color: rgba(34, 197, 94, 0.35); }
+        .form-alert.bad { background: rgba(239, 68, 68, 0.12); color: var(--error); border-color: rgba(239, 68, 68, 0.35); }
+        .faq-section { margin: 0 auto 48px; text-align: center; max-width: 900px; }
+        .faq-section h2 { font-size: 24px; font-weight: 600; margin-bottom: 24px; text-align: center; }
+        .faq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+        .faq-item h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; text-align: center; }
+        .faq-item p { color: var(--text-secondary); font-size: 14px; line-height: 1.6; text-align: center; }
+        .faq-item p { color: var(--text-secondary); font-size: 14px; line-height: 1.6; }
+        @media (max-width: 768px) {
+            .contact-grid { grid-template-columns: 1fr; }
+            .contact-info, .contact-form { text-align: center; }
+            .contact-info h2, .contact-form h2 { text-align: center; }
+            .contact-item { flex-direction: column; }
+        }
+    </style>
+    <link rel="stylesheet" href="/marketing-pages.css">
+</head>
+<body>
+    <div id="app-navbar"></div>
+    
+    <div class="container">
+        <div class="contact-header">
+            <h1 data-cms="contact.title">Contact Us</h1>
+            <p data-cms="contact.lead">Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+        </div>
+        
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h2 data-cms="contact.touchTitle">Get in Touch</h2>
+                <div class="contact-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <div>
+                        <h3>Email</h3>
+                        <p id="contactEmail">contact@raabt.app</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fa-solid fa-share-nodes"></i>
+                    <div>
+                        <h3>Social Media</h3>
+                        <p id="socialMediaLinks">
+                            <a href="#" style="color: var(--accent); margin-right: 12px;"><i class="fa-brands fa-twitter"></i></a>
+                            <a href="#" style="color: var(--accent); margin-right: 12px;"><i class="fa-brands fa-linkedin"></i></a>
+                            <a href="#" style="color: var(--accent); margin-right: 12px;"><i class="fa-brands fa-facebook"></i></a>
+                            <a href="#" style="color: var(--accent);"><i class="fa-brands fa-instagram"></i></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h2 data-cms="contact.formTitle">Send us a Message</h2>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject *</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Select a subject</option>
+                            <option value="general">General Inquiry</option>
+                            <option value="support">Technical Support</option>
+                            <option value="sales">Sales Question</option>
+                            <option value="partnership">Partnership Opportunity</option>
+                            <option value="feedback">Feedback</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn" id="contactSubmitBtn">Send Message</button>
+                    <div class="form-alert" id="contactAlert"></div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="faq-section">
+            <h2 data-cms="contact.faqTitle">Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3 data-cms="contact.faq1Title">How quickly do you respond to inquiries?</h3>
+                    <p data-cms="contact.faq1Body">We typically respond to all inquiries within 24 hours during business days. For urgent matters, please call our support line.</p>
+                </div>
+                <div class="faq-item">
+                    <h3 data-cms="contact.faq2Title">Do you offer phone support?</h3>
+                    <p data-cms="contact.faq2Body">Yes, we offer phone support during business hours for all paid plans. Enterprise customers have access to 24/7 phone support.</p>
+                </div>
+                <div class="faq-item">
+                    <h3 data-cms="contact.faq3Title">Can I schedule a demo?</h3>
+                    <p data-cms="contact.faq3Body">Absolutely! Contact us to schedule a personalized demo of our platform. We'll show you how Rabط can transform your marketing.</p>
+                </div>
+                <div class="faq-item">
+                    <h3 data-cms="contact.faq4Title">What's your refund policy?</h3>
+                    <p data-cms="contact.faq4Body">We offer a 14-day money-back guarantee for all new subscriptions. If you're not satisfied, contact us within 14 days for a full refund.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Load contact email and social media links from server
+        fetch('/api/super-admin/social-media')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && data.socialMedia) {
+                    // Update contact email
+                    if (data.socialMedia.contactEmail) {
+                        const emailElement = document.getElementById('contactEmail');
+                        if (emailElement) {
+                            emailElement.textContent = data.socialMedia.contactEmail;
+                        }
+                    }
+                    
+                    // Update social media links
+                    const container = document.getElementById('socialMediaLinks');
+                    if (container) {
+                        let html = '';
+                        if (data.socialMedia.twitter) {
+                            html += `<a href="${data.socialMedia.twitter}" target="_blank" style="color: var(--accent); margin-right: 12px;"><i class="fa-brands fa-twitter"></i></a>`;
+                        }
+                        if (data.socialMedia.linkedin) {
+                            html += `<a href="${data.socialMedia.linkedin}" target="_blank" style="color: var(--accent); margin-right: 12px;"><i class="fa-brands fa-linkedin"></i></a>`;
+                        }
+                        if (data.socialMedia.facebook) {
+                            html += `<a href="${data.socialMedia.facebook}" target="_blank" style="color: var(--accent); margin-right: 12px;"><i class="fa-brands fa-facebook"></i></a>`;
+                        }
+                        if (data.socialMedia.instagram) {
+                            html += `<a href="${data.socialMedia.instagram}" target="_blank" style="color: var(--accent);"><i class="fa-brands fa-instagram"></i></a>`;
+                        }
+                        if (html) {
+                            container.innerHTML = html;
+                        } else {
+                            container.innerHTML = '<span style="color: var(--text-secondary);">No social media links configured</span>';
+                        }
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Failed to load contact information:', error);
+            });
+
+        document.getElementById('contactForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            var btn = document.getElementById('contactSubmitBtn');
+            var alertBox = document.getElementById('contactAlert');
+            function showFormAlert(msg, ok) {
+                if (window.RabtUI) RabtUI.notify(msg, ok ? 'success' : 'error', alertBox);
+                else {
+                    alertBox.className = 'form-alert show ' + (ok ? 'ok' : 'bad');
+                    alertBox.textContent = msg;
+                }
+            }
+            btn.disabled = true;
+            try {
+                var res = await fetch('/api/contact/messages', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        subject: document.getElementById('subject').value,
+                        message: document.getElementById('message').value
+                    })
+                });
+                var data = await res.json();
+                if (!res.ok || !data.success) throw new Error(data.message || 'Could not send message.');
+                showFormAlert(data.message || 'Thank you for your message. We will get back to you within 24 hours.', true);
+                this.reset();
+            } catch (err) {
+                showFormAlert(err.message || 'Could not send message.', false);
+            } finally {
+                btn.disabled = false;
+            }
+        });
+    </script>
+
+    <footer class="home-footer">
+        <div class="footer-content">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <img src="/logo.png" alt="Rabط" class="footer-logo">
+                    <p class="footer-tagline">Your complete multi-channel marketing platform</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <a href="/pricing.html"><i class="fa-solid fa-tag"></i> Pricing</a>
+                        <a href="/about.html"><i class="fa-solid fa-circle-info"></i> About</a>
+                        <a href="/contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Channels</h4>
+                        <a href="/signup.html"><i class="fa-solid fa-at"></i> Email Marketing</a>
+                        <a href="/signup.html"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+                        <a href="/signup.html"><i class="fa-brands fa-telegram"></i> Telegram</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <a href="/privacy.html"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a>
+                        <a href="/terms.html"><i class="fa-solid fa-file-contract"></i> Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copy">&copy; 2025 Rabط. All rights reserved.</p>
+                <span class="footer-made">Email · WhatsApp · Telegram — one platform</span>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

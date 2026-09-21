@@ -1,0 +1,2002 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rabط</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/brand.css">
+    <link rel="stylesheet" href="/flow-motion.css">
+    <script src="/i18n-dict.js"></script>
+    <script src="/i18n.js"></script>
+    <script src="/navbar.js"></script>
+    <script src="/ui-feedback.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        .container { max-width: none; margin: 0; padding: 10px 18px 24px; }
+        .hero { text-align: center; margin-bottom: 12px; }
+        .hero h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 6px; }
+        .hero p { color: var(--text-secondary); font-size: 13px; max-width: 700px; margin: 0 auto 10px; line-height: 1.45; }
+        .hero-actions { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+        .home-showcase-lead,
+        .home-showcase-stack {
+            width: 100%;
+        }
+        .home-showcase-row {
+            display: grid;
+            grid-template-columns: minmax(0, 680px) minmax(300px, 1fr);
+            gap: 18px 22px;
+            align-items: stretch;
+            width: min(100%, 1380px);
+            max-width: 1380px;
+            margin: 44px auto 52px;
+            padding: 16px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.55s ease, transform 0.55s ease;
+            position: relative;
+            border-radius: 0;
+            border: 2px solid color-mix(in srgb, var(--accent) 55%, rgba(255, 255, 255, 0.65));
+            background:
+                linear-gradient(145deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.12)),
+                color-mix(in srgb, var(--accent) 8%, transparent);
+            box-shadow:
+                0 1px 2px rgba(91, 79, 255, 0.08),
+                0 18px 40px rgba(15, 23, 42, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(18px) saturate(1.35);
+            -webkit-backdrop-filter: blur(18px) saturate(1.35);
+            box-sizing: border-box;
+            isolation: isolate;
+            overflow: hidden;
+        }
+        .home-showcase-row::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(120% 80% at 10% 0%, rgba(255, 255, 255, 0.45), transparent 55%),
+                linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.02));
+            z-index: 0;
+        }
+        .home-showcase-row > * {
+            position: relative;
+            z-index: 1;
+        }
+        .home-showcase-row.is-ready {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .home-showcase-row.is-flip {
+            grid-template-columns: minmax(300px, 1fr) minmax(0, 680px);
+        }
+        .home-showcase-row.is-flip .home-showcase-media { order: 2; }
+        .home-showcase-row.is-flip .home-showcase-copy { order: 1; text-align: left; }
+        .home-showcase-row.is-solo {
+            grid-template-columns: 1fr;
+            justify-items: stretch;
+            width: min(100%, 1040px);
+            max-width: 1040px;
+        }
+        .home-showcase-row.is-solo .home-showcase-media {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            justify-self: center;
+        }
+        .home-showcase-row.is-solo .home-showcase-copy {
+            display: none !important;
+        }
+        html[data-theme="dark"] .home-showcase-row {
+            border-color: color-mix(in srgb, var(--accent) 50%, rgba(255, 255, 255, 0.2));
+            background:
+                linear-gradient(145deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03)),
+                color-mix(in srgb, var(--accent) 14%, rgba(18, 20, 28, 0.55));
+            box-shadow:
+                0 1px 2px rgba(0, 0, 0, 0.25),
+                0 18px 40px rgba(0, 0, 0, 0.28),
+                inset 0 1px 0 rgba(255, 255, 255, 0.14);
+        }
+        html[data-theme="dark"] .home-showcase-media {
+            border-color: rgba(168, 168, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(168, 168, 255, 0.2);
+        }
+        html[data-theme="dark"] .cta-banner-inline {
+            background: linear-gradient(135deg, rgba(168, 168, 255, 0.08), rgba(168, 168, 255, 0.03));
+            border-color: rgba(168, 168, 255, 0.2);
+        }
+        html[data-theme="dark"] #guestHome .hero h1 {
+            background: linear-gradient(135deg, #ffffff 0%, #a8a8ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(168, 168, 255, 0.3);
+        }
+        html[data-theme="dark"] #guestHome .hero {
+            background: linear-gradient(180deg, rgba(168, 168, 255, 0.05) 0%, transparent 100%);
+        }
+        html[data-theme="dark"] #guestHome .hero::before {
+            background: linear-gradient(90deg, transparent, rgba(168, 168, 255, 0.4), transparent);
+        }
+
+        html[data-theme="dark"] .land-kicker {
+            background: linear-gradient(135deg, rgba(168, 168, 255, 0.15), rgba(168, 168, 255, 0.08));
+            border-color: rgba(168, 168, 255, 0.3);
+            color: #a8a8ff;
+        }
+        html[data-theme="dark"] .btn-primary {
+            background: linear-gradient(135deg, #7c5cff 0%, #9b7dff 100%);
+            box-shadow: 0 4px 15px rgba(168, 168, 255, 0.4);
+            border-color: rgba(168, 168, 255, 0.6);
+        }
+        html[data-theme="dark"] .btn-primary:hover {
+            background: linear-gradient(135deg, #9b7dff 0%, #b896ff 100%);
+            box-shadow: 0 6px 20px rgba(168, 168, 255, 0.5);
+        }
+        html[data-theme="dark"] .land-kicker i {
+            color: #a8a8ff;
+        }
+        .land-kicker i {
+            color: var(--accent);
+        }
+        .home-showcase-media {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            aspect-ratio: 16 / 9;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid rgba(91, 79, 255, 0.2);
+            background: transparent;
+            box-sizing: border-box;
+            box-shadow: 0 8px 32px rgba(91, 79, 255, 0.15);
+            padding: 14px;
+            justify-self: center;
+            margin: 0 auto;
+        }
+        .home-showcase-media::before,
+        .home-showcase-media::after {
+            display: none;
+        }
+        .home-showcase-media video {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            object-position: center;
+            border: 0;
+            outline: none;
+            background: #0b1220;
+            -webkit-mask-image: -webkit-radial-gradient(white, black);
+        }
+        .home-showcase-row.is-flip .home-showcase-media {
+            justify-self: end;
+        }
+        .home-showcase-copy {
+            position: relative;
+            align-self: stretch;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: stretch;
+            height: 100%;
+            min-height: 0;
+            min-width: 0;
+            width: 100%;
+            padding: 4px 10px 4px 8px;
+            border: 0;
+            background: transparent;
+            box-shadow: none;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        .home-showcase-copy::before {
+            display: none;
+        }
+        .home-showcase-copy h3 {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.45;
+            margin: 0;
+            color: var(--text-primary);
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow-y: auto;
+            text-align: left;
+            max-width: none;
+            width: 100%;
+            height: 100%;
+        }
+        .home-showcase-copy p {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.55;
+            max-width: none;
+        }
+        .home-showcase-row.is-flip .home-showcase-copy p {
+            margin-left: 0;
+        }
+        .home-showcase-row.is-solo .home-showcase-copy {
+            text-align: center;
+            max-width: none;
+            padding: 8px 12px 4px;
+            height: auto;
+        }
+        .home-showcase-row.is-solo .home-showcase-copy h3 {
+            height: auto;
+            flex: 0 1 auto;
+            overflow: visible;
+            text-align: center;
+        }
+        .home-showcase-row.is-solo .home-showcase-copy p {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 520px;
+        }
+        @media (max-width: 860px) {
+            .home-showcase-row,
+            .home-showcase-row.is-flip,
+            .home-showcase-row.is-solo {
+                grid-template-columns: 1fr;
+                gap: 14px;
+                margin: 32px auto 40px;
+                padding: 12px;
+            }
+            .home-showcase-row.is-flip .home-showcase-media,
+            .home-showcase-row.is-flip .home-showcase-copy {
+                order: initial;
+                text-align: left;
+            }
+            .home-showcase-row.is-flip .home-showcase-copy p,
+            .home-showcase-row.is-solo .home-showcase-copy p {
+                margin-left: 0;
+                margin-right: 0;
+            }
+            .home-showcase-media { 
+                border-radius: 8px;
+                max-width: 100%;
+                padding: 10px;
+            }
+            .home-showcase-copy h3 { font-size: 17px; }
+            .home-showcase-copy p { font-size: 13px; max-width: none; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .home-showcase-row {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+        }
+        .trusted-by {
+            width: min(100%, 920px);
+            margin: 22px auto 8px;
+            text-align: center;
+        }
+        .trusted-by-label {
+            margin: 0 0 14px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted, var(--text-secondary));
+        }
+        .trusted-by-logos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 18px 28px;
+        }
+        .trusted-by-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 52px;
+            max-width: 168px;
+            padding: 8px 14px;
+            background: transparent;
+            border: 1.5px solid var(--accent);
+            transition: border-color .2s ease, box-shadow .2s ease;
+        }
+        .trusted-by-logo:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-subtle, rgba(91, 79, 255, 0.12));
+        }
+        .trusted-by-logo img {
+            display: block;
+            max-height: 38px;
+            max-width: 150px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            filter: grayscale(1);
+            opacity: 0.72;
+            transition: opacity .2s ease, filter .2s ease;
+        }
+        .trusted-by-logo:hover img {
+            filter: grayscale(0);
+            opacity: 1;
+        }
+        @media (max-width: 640px) {
+            .trusted-by { margin: 16px auto 6px; }
+            .trusted-by-logos { gap: 12px 14px; }
+            .trusted-by-logo { height: 44px; max-width: 140px; }
+            .trusted-by-logo img { max-height: 32px; max-width: 120px; }
+        }
+        .btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 7px 12px; border-radius: 0;
+            font-weight: 700; font-size: 12px; text-decoration: none; border: none; cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #5B4FFF 0%, #7c5cff 100%);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(91, 79, 255, 0.3);
+            border: 1px solid rgba(91, 79, 255, 0.5);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(91, 79, 255, 0.4);
+            background: linear-gradient(135deg, #7c5cff 0%, #9b7dff 100%);
+        }
+        .btn-ghost {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--text-primary);
+            border: 1px solid rgba(91, 79, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        .btn-ghost:hover {
+            background: rgba(91, 79, 255, 0.1);
+            border-color: rgba(91, 79, 255, 0.5);
+            transform: translateY(-2px);
+        }
+        .section-title {
+            font-size: 13px; font-weight: 700; margin: 12px 0 8px;
+            display: flex; align-items: center; gap: 6px;
+        }
+        .tool-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .tool-card {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 0; padding: 10px 12px; color: var(--text-primary);
+            text-decoration: none; display: block;
+        }
+        .tool-card.locked { cursor: default; }
+        a.tool-card:hover { border-color: var(--border-hover); }
+        .tool-icon {
+            width: 28px; height: 28px; border-radius: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; margin-bottom: 6px;
+        }
+        .email .tool-icon { background: rgba(255,255,255,0.1); }
+        .whatsapp .tool-icon { background: rgba(37,211,102,0.15); color: var(--whatsapp); }
+        .telegram .tool-icon { background: rgba(34,158,217,0.15); color: var(--telegram); }
+        .apiconfig .tool-icon { background: rgba(250,204,21,0.12); color: #eab308; }
+        .schedule .tool-icon { background: rgba(168,85,247,0.15); color: #a855f7; }
+        .lists .tool-icon { background: rgba(245,158,11,0.14); color: #D97706; }
+        .settings .tool-icon { background: rgba(91,79,255,0.12); color: #5B4FFF; }
+        .tool-card h3 { font-size: 13px; margin-bottom: 2px; }
+        .tool-card p { color: var(--text-secondary); font-size: 12px; line-height: 1.4; margin-bottom: 6px; }
+        .tool-card ul { color: var(--text-secondary); font-size: 13px; padding-left: 18px; line-height: 1.7; }
+        .tool-link {
+            display: inline-flex; align-items: center; gap: 8px; margin-top: 16px;
+            font-weight: 700; font-size: 13px;
+        }
+        .lock-note { font-size: 12px; color: var(--text-muted); margin-top: 14px; }
+        .land-kicker {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+            color: var(--accent); margin-bottom: 6px;
+            background: linear-gradient(135deg, rgba(91, 79, 255, 0.1), rgba(91, 79, 255, 0.05));
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(91, 79, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        .hero p.land-lead {
+            font-size: 14px; max-width: 780px; margin-bottom: 8px;
+        }
+        .hero p.land-sub {
+            font-size: 13px; max-width: 760px; margin-bottom: 10px; color: var(--text-secondary);
+        }
+        .land-copy {
+            max-width: 860px; margin: 0 auto 12px; text-align: center;
+            color: var(--text-secondary); font-size: 13px; line-height: 1.45;
+        }
+        .why-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 8px;
+        }
+        .why-card {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 0; padding: 10px 12px;
+        }
+        .why-card h3 { font-size: 13px; margin: 6px 0 4px; }
+        .why-card p { color: var(--text-secondary); font-size: 12px; line-height: 1.4; margin: 0; }
+        .why-icon {
+            width: 28px; height: 28px; border-radius: 0;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--accent-subtle); color: var(--accent); font-size: 13px;
+        }
+        .steps-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+        }
+        .step-card {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 0; padding: 10px 12px;
+        }
+        .step-num {
+            width: 22px; height: 22px; border-radius: 0;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--accent);
+            color: #fff; font-weight: 700; font-size: 11px; margin-bottom: 6px;
+        }
+        .step-card h3 { font-size: 13px; margin-bottom: 4px; }
+        .step-card p { color: var(--text-secondary); font-size: 12px; line-height: 1.4; margin: 0; }
+        .how-list {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+        }
+        .how-card {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 0; padding: 10px 12px;
+        }
+        .how-card h3 {
+            font-size: 13px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px;
+        }
+        .how-card ol { margin: 0; padding-left: 18px; color: var(--text-secondary); font-size: 14px; line-height: 1.75; }
+        .how-card li { margin-bottom: 6px; }
+        .cta-banner {
+            margin-top: 12px;
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 0; padding: 12px; text-align: center;
+        }
+        .cta-banner h2 { font-size: 16px; margin-bottom: 6px; }
+        .cta-banner p { color: var(--text-secondary); max-width: 640px; margin: 0 auto 10px; line-height: 1.45; }
+        .cta-banner-inline {
+            margin-top: 20px;
+            background: linear-gradient(135deg, rgba(91, 79, 255, 0.05), rgba(91, 79, 255, 0.02));
+            border: 1px solid rgba(91, 79, 255, 0.15);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: left;
+        }
+        .cta-banner-inline h2 {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+        .cta-banner-inline p {
+            color: var(--text-secondary);
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        .cta-banner-inline .hero-actions {
+            justify-content: flex-start;
+            gap: 8px;
+        }
+        .cta-banner-inline .btn {
+            padding: 8px 14px;
+            font-size: 12px;
+            min-height: 36px;
+        }
+        #guestHome .cta-banner-inline {
+            background: linear-gradient(135deg, rgba(91, 79, 255, 0.06), rgba(91, 79, 255, 0.02));
+            border: 1px solid rgba(91, 79, 255, 0.18);
+            border-radius: 10px;
+            padding: 14px;
+            margin-top: 16px;
+            text-align: left;
+        }
+        #guestHome .cta-banner-inline h2 {
+            font-size: 14px;
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+        #guestHome .cta-banner-inline p {
+            font-size: 12px;
+            line-height: 1.4;
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+        }
+        #guestHome .cta-banner-inline .hero-actions {
+            justify-content: flex-start;
+            gap: 8px;
+        }
+
+
+        #guestHome .cta-banner-inline .btn {
+            padding: 7px 12px;
+            font-size: 11px;
+            min-height: 32px;
+        }
+        #guestHome .email .tool-icon { background: rgba(91, 79, 255, 0.12); color: #5B4FFF; }
+        #guestHome .tool-grid { grid-template-columns: repeat(2, 1fr); }
+        /* Guest homepage: sharp rectangular corners only */
+        #guestHome .btn,
+        #guestHome .tool-card,
+        #guestHome .tool-icon,
+        #guestHome .why-card,
+        #guestHome .why-icon,
+        #guestHome .step-card,
+        #guestHome .step-num,
+        #guestHome .how-card,
+        #guestHome .cta-banner,
+        #guestHome .home-showcase-row,
+        #guestHome .home-showcase-media,
+        #guestHome .home-showcase-media video,
+        #guestHome .home-showcase-copy,
+        #guestHome .trusted-by-logo,
+        #guestHome .trusted-by-logo img {
+            border-radius: 0 !important;
+        }
+        /* Guest homepage: centered Cursor-like composition */
+        #guestHome {
+            width: min(100%, 1400px);
+            margin: 0 auto;
+            padding: 20px 0 40px;
+            text-align: center;
+        }
+        #guestHome .hero {
+            max-width: 1200px;
+            margin: 0 auto 8px;
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(180deg, rgba(91, 79, 255, 0.03) 0%, transparent 100%);
+            border-radius: 20px;
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+        #guestHome .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(91, 79, 255, 0.3), transparent);
+        }
+        #guestHome .hero-left {
+            text-align: left;
+            padding-right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        #guestHome .hero-left .land-lead,
+        #guestHome .hero-left .land-sub {
+            text-align: left;
+        }
+        #guestHome .hero-left .land-lead {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--text-primary);
+            font-weight: 500;
+            background: rgba(91, 79, 255, 0.05);
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(91, 79, 255, 0.1);
+        }
+        #guestHome .hero-left .land-sub {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            background: rgba(91, 79, 255, 0.03);
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(91, 79, 255, 0.08);
+            margin: 0;
+        }
+        html[data-theme="dark"] #guestHome .hero-left .land-lead {
+            background: rgba(168, 168, 255, 0.08);
+            border-color: rgba(168, 168, 255, 0.15);
+        }
+        html[data-theme="dark"] #guestHome .hero-left .land-sub {
+            background: rgba(168, 168, 255, 0.05);
+            border-color: rgba(168, 168, 255, 0.1);
+        }
+        #guestHome .hero-right {
+            text-align: left;
+            padding-left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        #guestHome .hero-right .cta-banner-inline {
+            text-align: left;
+            margin-top: 0;
+        }
+        #guestHome .hero-right .home-showcase-lead {
+            align-self: center;
+            width: 100%;
+            max-width: 900px;
+        }
+        #guestHome .hero-left .land-kicker {
+            align-self: flex-start;
+        }
+        #guestHome .hero-left h1 {
+            text-align: left;
+            margin: 0;
+        }
+        #guestHome .hero-left .hero-actions {
+            justify-content: flex-start;
+            margin: 4px 0 0;
+            gap: 10px;
+        }
+
+        #guestHome .hero h1 {
+            font-size: clamp(26px, 4.2vw, 42px);
+            line-height: 1.12;
+            letter-spacing: -0.04em;
+            margin: 0 auto 14px;
+            max-width: 20ch;
+            background: linear-gradient(135deg, #1e2540 0%, #5B4FFF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(91, 79, 255, 0.3);
+        }
+        #guestHome .land-kicker {
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+        #guestHome .hero p.land-lead {
+            font-size: clamp(14px, 1.6vw, 17px);
+            max-width: 720px;
+            margin: 0 auto 12px;
+            line-height: 1.55;
+        }
+        #guestHome .hero p.land-sub {
+            font-size: 14px;
+            max-width: 680px;
+            margin: 0 auto 18px;
+            line-height: 1.55;
+        }
+        #guestHome .hero-actions {
+            justify-content: center;
+            gap: 12px;
+            margin: 20px 0 6px;
+        }
+        #guestHome .hero-actions .btn {
+            min-height: 44px;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            border-radius: 8px;
+        }
+        #guestHome .hero-actions .btn-primary {
+            background: linear-gradient(135deg, #5B4FFF 0%, #7c5cff 100%);
+            box-shadow: 0 4px 15px rgba(91, 79, 255, 0.4);
+            border: 1px solid rgba(91, 79, 255, 0.6);
+        }
+        #guestHome .hero-actions .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(91, 79, 255, 0.5);
+        }
+        #guestHome .hero-actions .btn-ghost {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(91, 79, 255, 0.4);
+            backdrop-filter: blur(10px);
+        }
+        #guestHome .hero-actions .btn-ghost:hover {
+            background: rgba(91, 79, 255, 0.08);
+            border-color: rgba(91, 79, 255, 0.6);
+        }
+        html[data-theme="dark"] #guestHome .hero-actions .btn-ghost {
+            background: rgba(30, 37, 64, 0.9);
+            border-color: rgba(168, 168, 255, 0.4);
+        }
+        html[data-theme="dark"] #guestHome .hero-actions .btn-ghost:hover {
+            background: rgba(168, 168, 255, 0.15);
+            border-color: rgba(168, 168, 255, 0.6);
+        }
+        #guestHome .trusted-by {
+            width: min(100%, 960px);
+            margin: 28px auto 10px;
+        }
+        #guestHome .home-showcase-lead,
+        #guestHome .home-showcase-stack {
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #guestHome .home-showcase-row {
+            width: min(100%, 1380px);
+            max-width: 1380px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+        }
+        #guestHome .home-showcase-row.is-solo,
+        #guestHome .home-showcase-row.is-lead {
+            width: min(100%, 1040px);
+            max-width: 1040px;
+            text-align: center;
+        }
+        #guestHome .home-showcase-row.is-solo .home-showcase-media,
+        #guestHome .home-showcase-row.is-lead .home-showcase-media {
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        #guestHome .home-showcase-row.is-solo .home-showcase-copy,
+        #guestHome .home-showcase-row.is-lead .home-showcase-copy {
+            display: none !important;
+        }
+        #guestHome .home-showcase-row.is-flip .home-showcase-copy {
+            text-align: left;
+        }
+        #guestHome .land-copy {
+            width: min(100%, 820px);
+            max-width: 820px;
+            margin: 0 auto 28px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        #guestHome .section-title {
+            justify-content: center;
+            width: 100%;
+            margin: 36px auto 16px;
+            font-size: 18px;
+            letter-spacing: -0.02em;
+        }
+        #guestHome .why-grid,
+        #guestHome .steps-grid,
+        #guestHome .tool-grid,
+        #guestHome .how-list {
+            width: min(100%, 1160px);
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+            gap: 12px;
+        }
+        #guestHome .why-card,
+        #guestHome .step-card,
+        #guestHome .tool-card,
+        #guestHome .how-card {
+            text-align: left;
+            padding: 16px;
+        }
+        #guestHome .why-icon,
+        #guestHome .step-num {
+            margin: 0 auto 10px;
+        }
+        #guestHome .why-card,
+        #guestHome .step-card {
+            text-align: center;
+        }
+        #guestHome .cta-banner {
+            width: min(100%, 1040px);
+            margin: 36px auto 0;
+            padding: 28px 22px;
+            text-align: center;
+        }
+        #guestHome .cta-banner h2 {
+            font-size: clamp(18px, 2.4vw, 24px);
+            letter-spacing: -0.03em;
+            margin-bottom: 10px;
+        }
+        #guestHome .cta-banner p {
+            max-width: 700px;
+            margin: 0 auto 16px;
+            font-size: 14px;
+            line-height: 1.55;
+        }
+        @media (max-width: 860px) {
+            #guestHome {
+                padding: 12px 0 28px;
+            }
+            #guestHome .hero h1 {
+                max-width: none;
+            }
+            #guestHome .home-showcase-row,
+            #guestHome .home-showcase-row.is-flip .home-showcase-copy {
+                text-align: center;
+            }
+            #guestHome .home-showcase-copy h3 {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            #guestHome .section-title {
+                font-size: 16px;
+                margin: 28px auto 12px;
+            }
+        }
+        .hidden { display: none !important; }
+        .welcome-bar {
+            display: flex; justify-content: space-between; align-items: center; gap: 10px;
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: var(--radius); padding: 8px 12px; margin-bottom: 10px;
+        }
+        .status-indicator {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 500;
+        }
+        .status-indicator.configured { background: rgba(34,197,94,0.15); color: var(--success); }
+        .status-indicator.not-configured { background: rgba(239,68,68,0.15); color: var(--error); }
+        .kpi-hero {
+            display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;
+            margin-bottom: 8px;
+        }
+        .kpi-kicker {
+            font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+            color: var(--accent); margin-bottom: 6px;
+        }
+        .kpi-hero h1 { font-size: 18px; margin-bottom: 2px; }
+        .kpi-hero p { color: var(--text-secondary); max-width: 640px; line-height: 1.5; font-size: 13px; }
+        .kpi-live {
+            display: inline-flex; align-items: center; gap: 8px; white-space: nowrap;
+            padding: 8px 14px; border-radius: 999px; font-size: 12px; font-weight: 700;
+            background: var(--bg-card); border: 1px solid var(--border-color);
+        }
+        .kpi-pulse {
+            width: 8px; height: 8px; border-radius: 50%; background: var(--success);
+        }
+        .kpi-stats, .kpi-channels {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 8px;
+        }
+        .kpi-card {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: var(--radius); padding: 8px 10px;
+        }
+        .kpi-card .label { font-size: 12px; font-weight: 700; color: var(--text-secondary); margin-bottom: 8px; }
+        .kpi-card .value { font-size: 18px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; }
+        .kpi-card .hint { font-size: 12px; color: var(--text-secondary); margin-top: 6px; }
+        .kpi-channel {
+            text-decoration: none; color: inherit; display: block;
+        }
+        .kpi-channel-head {
+            display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 10px;
+        }
+        .kpi-channel-name { font-weight: 800; display: flex; align-items: center; gap: 8px; }
+        .kpi-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+        .kpi-dot.on { background: var(--success); }
+        .kpi-dot.off { background: var(--error); }
+        .kpi-channel-detail { font-size: 12px; color: var(--text-secondary); margin-bottom: 12px; word-break: break-word; }
+        .kpi-mini { display: flex; gap: 14px; font-size: 12px; color: var(--text-secondary); flex-wrap: wrap; }
+        .kpi-mini strong { color: var(--text-primary); }
+        .kpi-engage .value { font-size: 18px; }
+        .kpi-split {
+            display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 28px;
+        }
+        .kpi-card h2 { font-size: 16px; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+        .kpi-chart-card {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: var(--radius); padding: 10px 12px 8px; margin-bottom: 8px;
+        }
+        .kpi-chart-head {
+            display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
+            flex-wrap: wrap; margin-bottom: 8px;
+        }
+        .kpi-chart-head h2 { margin-bottom: 4px; }
+        .kpi-chart-sub { font-size: 13px; color: var(--text-secondary); }
+        .kpi-range { display: flex; flex-wrap: wrap; gap: 6px; }
+        .kpi-range-btn {
+            border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-primary);
+            border-radius: 10px; padding: 8px 12px; font-size: 12px; font-weight: 800;
+            cursor: pointer; font-family: inherit;
+            transition: background .15s ease, border-color .15s ease, color .15s ease, transform .15s ease;
+        }
+        .kpi-range-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .kpi-range-btn.active {
+            background: var(--accent); color: #fff; border-color: var(--accent);
+        }
+        .kpi-custom {
+            display: none; align-items: center; gap: 8px; flex-wrap: wrap; margin: 10px 0 6px;
+        }
+        .kpi-custom.show { display: flex; }
+        .kpi-custom label { font-size: 12px; font-weight: 700; color: var(--text-secondary); }
+        .kpi-custom input[type="date"] {
+            padding: 8px 10px; font-size: 13px; min-width: 150px;
+        }
+        .kpi-custom .btn { padding: 8px 14px; font-size: 13px; }
+        .kpi-legend {
+            display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
+            font-size: 12px; color: var(--text-secondary); margin: 4px 0 12px; font-weight: 700;
+        }
+        .kpi-chart-summary {
+            margin-left: auto; color: var(--text-primary); font-weight: 800;
+        }
+        .kpi-swatch {
+            width: 8px; height: 8px; border-radius: 50%; display: inline-block;
+            margin-right: 6px; vertical-align: middle;
+        }
+        .kpi-swatch.sent { background: #5B4FFF; }
+        .kpi-swatch.failed { background: #EF4444; }
+        .kpi-chart-frame {
+            min-height: 240px;
+            border-radius: 14px;
+            background: linear-gradient(180deg, rgba(91, 79, 255, 0.04), transparent 42%), var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            padding: 14px 12px 10px;
+        }
+        .kpi-chart-frame .kpi-empty {
+            display: flex; align-items: center; justify-content: center; min-height: 200px;
+            color: var(--text-secondary); font-size: 13px; padding: 0;
+        }
+        .kpi-chart {
+            display: grid;
+            grid-template-columns: 48px 1fr;
+            gap: 8px;
+            height: min(34vh, 260px);
+            min-height: 210px;
+        }
+        .kpi-chart-yaxis {
+            display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end;
+            padding: 4px 0 28px; font-size: 10px; font-weight: 800; color: var(--text-muted);
+        }
+        .kpi-chart-plot { position: relative; min-width: 0; height: 100%; }
+        .kpi-chart-grid {
+            position: absolute; inset: 4px 0 28px;
+            display: flex; flex-direction: column; justify-content: space-between;
+            pointer-events: none;
+        }
+        .kpi-chart-grid i {
+            display: block; height: 1px; background: rgba(30, 37, 64, 0.08);
+        }
+        html[data-theme="dark"] .kpi-chart-grid i { background: rgba(255,255,255,0.08); }
+        .kpi-chart-bars {
+            position: absolute; inset: 4px 0 0;
+            display: flex; align-items: stretch; gap: 4px;
+        }
+        .kpi-chart-col {
+            flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center;
+            position: relative; cursor: pointer; outline: none;
+        }
+        .kpi-chart-col-plot {
+            flex: 1; width: 100%; display: flex; flex-direction: column;
+            justify-content: flex-end; align-items: center; min-height: 0; padding-bottom: 28px;
+        }
+        .kpi-chart-val {
+            font-size: 10px; font-weight: 800; color: var(--text-primary);
+            margin-bottom: 4px; opacity: 0; transform: translateY(4px);
+            transition: opacity .2s ease, transform .2s ease; white-space: nowrap;
+        }
+        .kpi-chart-col:hover .kpi-chart-val,
+        .kpi-chart-col:focus .kpi-chart-val { opacity: 1; transform: translateY(0); }
+        .kpi-chart-bar {
+            width: min(28px, 70%); max-width: 36px;
+            border-radius: 10px 10px 4px 4px; overflow: hidden;
+            display: flex; flex-direction: column-reverse; min-height: 0; height: 0;
+            transition: height .45s cubic-bezier(.2,.8,.2,1), transform .15s ease, box-shadow .15s ease;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,.25);
+        }
+        .kpi-chart-bar.is-empty {
+            height: 3px !important; background: rgba(30, 37, 64, 0.08);
+        }
+        html[data-theme="dark"] .kpi-chart-bar.is-empty { background: rgba(255,255,255,0.12); }
+        .kpi-chart-col:hover .kpi-chart-bar:not(.is-empty),
+        .kpi-chart-col:focus .kpi-chart-bar:not(.is-empty) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(91, 79, 255, 0.18);
+        }
+        .kpi-chart-seg { width: 100%; min-height: 4px; }
+        .kpi-chart-seg.sent { background: linear-gradient(180deg, #7b70ff, #5B4FFF); }
+        .kpi-chart-seg.failed { background: linear-gradient(180deg, #ff7b7b, #EF4444); }
+        .kpi-chart-xlabel {
+            position: absolute; left: 0; right: 0; bottom: 0; height: 24px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 10px; font-weight: 800; color: var(--text-muted); white-space: nowrap;
+        }
+        .kpi-chart-tip {
+            display: none; position: absolute; left: 50%; top: 0;
+            transform: translate(-50%, -8px); background: #1e2540; color: #fff;
+            font-size: 11px; font-weight: 700; padding: 6px 8px; border-radius: 8px;
+            white-space: nowrap; z-index: 4; pointer-events: none;
+        }
+        .kpi-chart-col:hover .kpi-chart-tip,
+        .kpi-chart-col:focus .kpi-chart-tip { display: block; }
+        html[data-theme="dark"] .kpi-chart-tip { background: #FFFFFF; color: #1E2540; }
+        .kpi-stats .kpi-card {
+            transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+        }
+        .kpi-stats .kpi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(30, 37, 64, 0.08);
+        }
+        .kpi-empty { color: var(--text-secondary); font-size: 13px; padding: 18px 0; }
+        .kpi-activity {
+            max-height: 320px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .kpi-activity::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+        }
+        .kpi-activity-item {
+            display: flex; gap: 12px; align-items: flex-start;
+            padding: 10px 0; border-bottom: 1px solid var(--border-color);
+        }
+        .kpi-activity-item:last-child { border-bottom: none; }
+        .kpi-activity-icon {
+            width: 34px; height: 34px; border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            background: var(--accent-subtle); color: var(--accent); flex-shrink: 0;
+        }
+        .kpi-activity-icon.whatsapp { background: rgba(24, 201, 107, 0.14); color: var(--whatsapp); }
+        .kpi-activity-icon.telegram { background: rgba(34, 158, 217, 0.14); color: var(--telegram); }
+        .kpi-activity-icon.schedule { background: rgba(124, 92, 255, 0.12); color: #7C5CFF; }
+        .kpi-activity-main { flex: 1; min-width: 0; }
+        .kpi-activity-main strong { display: block; font-size: 13px; }
+        .kpi-activity-main span { font-size: 12px; color: var(--text-secondary); }
+        .kpi-activity-time { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+        .kpi-empty { color: var(--text-secondary); font-size: 13px; padding: 18px 0; }
+        .section-title.tight { margin-top: 8px; }
+        @media (max-width: 1100px) {
+            .kpi-stats, .kpi-channels, .why-grid, .how-list, #guestHome .tool-grid, .tool-grid { grid-template-columns: repeat(2, 1fr); }
+            .steps-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 18px; }
+            .tool-grid, .why-grid, .steps-grid, .how-list, #guestHome .tool-grid { grid-template-columns: 1fr; }
+            .welcome-bar, .kpi-hero { flex-direction: column; align-items: flex-start; }
+            
+            /* Mobile: Make hero buttons smaller and keep in one line */
+            #guestHome .hero-actions,
+            .cta-banner .hero-actions {
+                flex-wrap: nowrap;
+                gap: 8px;
+            }
+            #guestHome .hero-actions .btn,
+            .cta-banner .hero-actions .btn {
+                min-height: 36px;
+                padding: 8px 12px;
+                font-size: 12px;
+                flex: 1;
+                justify-content: center;
+                white-space: nowrap;
+                border-radius: 6px;
+            }
+            #guestHome .hero {
+                padding: 24px 16px;
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            #guestHome .hero-left,
+            #guestHome .hero-right {
+                padding: 0;
+                text-align: center;
+            }
+            #guestHome .hero-left .land-kicker {
+                align-self: center;
+            }
+            #guestHome .hero-left h1 {
+                text-align: center;
+            }
+            #guestHome .hero-left .land-lead,
+            #guestHome .hero-left .land-sub {
+                text-align: center;
+            }
+            #guestHome .hero-right .cta-banner-inline {
+                text-align: center;
+            }
+            #guestHome .hero-left .hero-actions {
+                justify-content: center;
+                margin: 14px 0 0;
+            }
+            .cta-banner-inline {
+                margin-top: 16px;
+                padding: 12px;
+            }
+            .cta-banner-inline h2 {
+                font-size: 13px;
+            }
+            .cta-banner-inline p {
+                font-size: 12px;
+            }
+
+            #guestHome .hero-right {
+                align-items: center;
+            }
+
+            #memberHome .kpi-hero { margin-bottom: 12px; gap: 8px; }
+            #memberHome .kpi-hero h1 { font-size: 18px; }
+            #memberHome .kpi-hero p { font-size: 12px; line-height: 1.4; }
+            #memberHome .kpi-kicker { font-size: 10px; margin-bottom: 4px; }
+            #memberHome .kpi-live { padding: 5px 10px; font-size: 11px; }
+
+            #memberHome .kpi-stats,
+            #memberHome .kpi-channels {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 4px;
+                margin-bottom: 6px;
+            }
+            #memberHome .kpi-card {
+                padding: 6px 5px;
+                min-width: 0;
+            }
+            #memberHome .kpi-card .label {
+                font-size: 8px;
+                margin-bottom: 2px;
+                line-height: 1.15;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+            }
+            #memberHome .kpi-card .value { font-size: 13px; }
+            #memberHome .kpi-engage .value { font-size: 12px; }
+            #memberHome .kpi-card .hint {
+                font-size: 8px;
+                margin-top: 2px;
+                line-height: 1.2;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+            }
+            #memberHome .kpi-card h2 {
+                font-size: 11px;
+                margin-bottom: 4px;
+            }
+
+            #memberHome .kpi-channel-head { margin-bottom: 4px; gap: 2px; }
+            #memberHome .kpi-channel-name { font-size: 9px; gap: 3px; }
+            #memberHome .kpi-channel-name i { font-size: 9px; }
+            #memberHome .kpi-channel-detail {
+                font-size: 8px;
+                margin-bottom: 4px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            #memberHome .kpi-mini {
+                gap: 2px 4px;
+                font-size: 8px;
+                flex-direction: column;
+            }
+            #memberHome .kpi-dot { width: 6px; height: 6px; }
+
+            #memberHome .kpi-chart-card {
+                padding: 8px;
+                margin-bottom: 8px;
+                overflow: hidden;
+                max-width: 100%;
+            }
+            #memberHome .kpi-chart-head {
+                gap: 6px;
+                margin-bottom: 4px;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            #memberHome .kpi-chart-head h2 { font-size: 13px; }
+            #memberHome .kpi-chart-sub { font-size: 10px; }
+            #memberHome .kpi-range { gap: 4px; }
+            #memberHome .kpi-range-btn { padding: 4px 8px; font-size: 10px; border-radius: 8px; }
+            #memberHome .kpi-legend { gap: 8px; font-size: 10px; margin: 2px 0 6px; }
+            #memberHome .kpi-chart-frame {
+                min-height: 0;
+                height: 148px;
+                padding: 6px 4px 4px;
+                overflow-x: auto;
+                overflow-y: hidden;
+                -webkit-overflow-scrolling: touch;
+                max-width: 100%;
+            }
+            #memberHome .kpi-chart {
+                height: 136px;
+                min-height: 136px;
+                width: 100%;
+                min-width: 260px;
+                grid-template-columns: 26px minmax(0, 1fr);
+                gap: 3px;
+            }
+            #memberHome .kpi-chart-yaxis {
+                font-size: 8px;
+                padding: 2px 0 18px;
+                overflow: hidden;
+            }
+            #memberHome .kpi-chart-plot { overflow: visible; }
+            #memberHome .kpi-chart-grid { inset: 2px 0 18px; }
+            #memberHome .kpi-chart-col-plot { padding-bottom: 18px; }
+            #memberHome .kpi-chart-bar {
+                width: min(12px, 60%);
+                max-width: 14px;
+                border-radius: 6px 6px 2px 2px;
+            }
+            #memberHome .kpi-chart-xlabel {
+                font-size: 7px;
+                height: 16px;
+                letter-spacing: -0.02em;
+            }
+            #memberHome .kpi-chart-val { display: none; }
+            #memberHome .kpi-chart-summary { margin-left: 0; width: 100%; font-size: 10px; }
+            #memberHome .kpi-chart-tip {
+                font-size: 9px;
+                padding: 4px 6px;
+                max-width: 120px;
+                white-space: normal;
+                line-height: 1.25;
+                z-index: 6;
+            }
+            #memberHome .kpi-chart-col:first-child .kpi-chart-tip,
+            #memberHome .kpi-chart-col:nth-child(2) .kpi-chart-tip {
+                left: 0;
+                transform: translate(0, -6px);
+            }
+            #memberHome .kpi-chart-col:last-child .kpi-chart-tip,
+            #memberHome .kpi-chart-col:nth-last-child(-n+2) .kpi-chart-tip {
+                left: auto;
+                right: 0;
+                transform: translate(0, -6px);
+            }
+            #memberHome .kpi-custom { gap: 6px; margin: 8px 0 4px; }
+            #memberHome .kpi-custom input[type="date"] {
+                min-width: 0;
+                flex: 1;
+                padding: 6px 8px;
+                font-size: 12px;
+            }
+
+            #memberHome .kpi-split { gap: 10px; margin-bottom: 16px; }
+            #memberHome .kpi-activity { max-height: 220px; }
+            #memberHome .kpi-activity-item { padding: 7px 0; gap: 8px; }
+            #memberHome .kpi-activity-icon {
+                width: 26px;
+                height: 26px;
+                border-radius: 8px;
+                font-size: 11px;
+            }
+            #memberHome .kpi-activity-main strong { font-size: 12px; }
+            #memberHome .kpi-activity-main span { font-size: 11px; }
+        }
+    </style>
+    <link rel="stylesheet" href="/marketing-pages.css">
+</head>
+<body>
+    <div id="app-navbar"></div>
+
+    <div class="container">
+        <section id="guestHome">
+        <div class="hero">
+                <div class="hero-left">
+                    <p class="land-kicker"><i class="fa-solid fa-bolt"></i> <span data-cms="home.kicker">Premium multi-channel SaaS</span></p>
+                    <h1 data-cms="home.headline">Rabط is your complete Email, WhatsApp, and Telegram marketing platform</h1>
+                    <p class="land-lead" data-cms="home.lead">Run email marketing, WhatsApp messaging, Telegram messaging, campaign management, contact management, scheduling, automation, analytics, and a live KPI dashboard — all from one secure workspace.</p>
+                    <p class="land-sub" data-cms="home.sub">Each account gets an isolated workspace: your own SMTP, WhatsApp session, Telegram session, contacts, campaigns, schedules, automations, analytics, and KPIs. Sign up, verify your email, choose a plan, and start after payment is approved.</p>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="/signup.html"><i class="fa-solid fa-rocket"></i> <span data-cms="home.ctaSignup">Get Started / Sign Up</span></a>
+                        <a class="btn btn-ghost" href="/login.html"><i class="fa-solid fa-right-to-bracket"></i> <span data-cms="home.ctaSignin">Sign in</span></a>
+                    </div>
+                </div>
+                <div class="hero-right">
+                    <div class="home-showcase-lead" id="homeShowcaseLead" hidden></div>
+                </div>
+                <div class="trusted-by" id="trustedBySection" hidden style="grid-column: 1 / -1;">
+                    <p class="trusted-by-label" id="trustedByLabel">Trusted by</p>
+                    <div class="trusted-by-logos" id="trustedByLogos"></div>
+                </div>
+            </div>
+
+            <div class="home-showcase-stack" id="homeShowcaseRest" hidden></div>
+
+            <p class="land-copy" data-cms="home.intro">Rabط (ربط) means connection. We connect your mailbox, WhatsApp, and Telegram into one workspace so you can launch promotions, reminders, and announcements faster — with live logs and a KPI Overview that shows what actually got delivered, opened, clicked, and read.</p>
+
+            <h2 class="section-title"><i class="fa-solid fa-star"></i> <span data-cms="home.whyTitle">Why teams choose Rabط</span></h2>
+            <div class="why-grid">
+                <article class="why-card">
+                    <div class="why-icon"><i class="fa-solid fa-layer-group"></i></div>
+                    <h3 data-cms="home.why1Title">Three channels, one login</h3>
+                    <p data-cms="home.why1Body">Email, WhatsApp, and Telegram sit side by side. Import a list, write the message, and send. No extra apps, no copy-paste chaos.</p>
+                </article>
+                <article class="why-card">
+                    <div class="why-icon"><i class="fa-solid fa-gauge-high"></i></div>
+                    <h3 data-cms="home.why2Title">Real KPIs, not guesses</h3>
+                    <p data-cms="home.why2Body">See sent vs failed, email open and click rate, WhatsApp delivery and read receipts, and Telegram delivery — filtered by day, week, month, year, or a custom date.</p>
+                </article>
+                <article class="why-card">
+                    <div class="why-icon"><i class="fa-solid fa-clock"></i></div>
+                    <h3 data-cms="home.why3Title">Send now or schedule later</h3>
+                    <p data-cms="home.why3Body">Run a campaign immediately or pick a time. Repeat daily if you need. Watch the live log while it runs so you always know what happened.</p>
+                </article>
+            </div>
+
+            <h2 class="section-title"><i class="fa-solid fa-user-plus"></i> How to get started</h2>
+            <div class="steps-grid">
+                <article class="step-card">
+                    <div class="step-num">1</div>
+                    <h3>Create your account</h3>
+                    <p>Click <strong>Get Started / Sign Up</strong>, enter your full name, email, password, and confirm password. We’ll email a verification link.</p>
+                </article>
+                <article class="step-card">
+                    <div class="step-num">2</div>
+                    <h3>Verify &amp; choose a plan</h3>
+                    <p>Confirm your email, then pick <strong>$14 / Month</strong> or <strong>$29 / 3 Months</strong>. Send payment, upload the receipt, and wait for Super Admin approval.</p>
+                </article>
+                <article class="step-card">
+                    <div class="step-num">3</div>
+                    <h3>Connect your channels</h3>
+                    <p>After activation, open Settings to save SMTP, connect WhatsApp, and log in to Telegram. Import contacts and compose.</p>
+                </article>
+                <article class="step-card">
+                    <div class="step-num">4</div>
+                    <h3>Send, schedule, measure</h3>
+                    <p>Run campaigns, automation, and scheduling from one platform. KPI Overview shows opens, clicks, delivery, and reads.</p>
+                </article>
+            </div>
+        </section>
+
+        <footer id="homeFooter" class="home-footer">
+            <div class="footer-content">
+                <div class="footer-main">
+                    <div class="footer-brand">
+                        <img src="/logo.png" alt="Rabط" class="footer-logo">
+                        <p class="footer-tagline">Your complete multi-channel marketing platform</p>
+                    </div>
+                    <div class="footer-links">
+                        <div class="footer-column">
+                            <h4>Product</h4>
+                            <a href="/pricing.html"><i class="fa-solid fa-tag"></i> Pricing</a>
+                            <a href="/about.html"><i class="fa-solid fa-circle-info"></i> About</a>
+                            <a href="/contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+                        </div>
+                        <div class="footer-column">
+                            <h4>Channels</h4>
+                            <a href="/signup.html"><i class="fa-solid fa-at"></i> Email Marketing</a>
+                            <a href="/signup.html"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+                            <a href="/signup.html"><i class="fa-brands fa-telegram"></i> Telegram</a>
+                        </div>
+                        <div class="footer-column">
+                            <h4>Legal</h4>
+                            <a href="/privacy.html"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a>
+                            <a href="/terms.html"><i class="fa-solid fa-file-contract"></i> Terms of Service</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p class="footer-copy">&copy; 2025 Rabط. All rights reserved.</p>
+                    <span class="footer-made">Email · WhatsApp · Telegram — one platform</span>
+                </div>
+            </div>
+        </footer>
+
+        <section id="memberHome" class="hidden">
+            <div class="kpi-hero">
+                <div>
+                    <p class="kpi-kicker">KPI Overview</p>
+                    <h1>Welcome back, <span id="welcomeName">there</span></h1>
+                    <p>Live trace of real Email, WhatsApp, Telegram, and Schedule activity — sends, opens, clicks, delivery, and read receipts.</p>
+                </div>
+                <div class="kpi-live"><span class="kpi-pulse"></span> Live <span id="kpiUpdated">updating…</span></div>
+            </div>
+
+            <div class="kpi-stats">
+                <div class="kpi-card">
+                    <div class="label">Sent today</div>
+                    <div class="value" id="kpiSentToday">0</div>
+                    <div class="hint" id="kpiSentHint">All-time 0</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="label">Failed today</div>
+                    <div class="value" id="kpiFailedToday">0</div>
+                    <div class="hint" id="kpiFailedHint">All-time 0</div>
+        </div>
+                <div class="kpi-card">
+                    <div class="label">Jobs today</div>
+                    <div class="value" id="kpiJobsToday">0</div>
+                    <div class="hint" id="kpiJobsHint">Last 7 days 0</div>
+                            </div>
+                <div class="kpi-card">
+                    <div class="label">Delivery rate</div>
+                    <div class="value" id="kpiRate">0%</div>
+                    <div class="hint" id="kpiRateHint">Today vs all-time</div>
+                            </div>
+                        </div>
+
+            <div class="kpi-stats kpi-engage">
+                <div class="kpi-card">
+                    <div class="label">Email open rate</div>
+                    <div class="value" id="kpiOpenRate">0%</div>
+                    <div class="hint" id="kpiOpenHint">0 opened of 0 sent</div>
+                            </div>
+                <div class="kpi-card">
+                    <div class="label">Email click rate</div>
+                    <div class="value" id="kpiClickRate">0%</div>
+                    <div class="hint" id="kpiClickHint">0 clicked of 0 sent</div>
+                            </div>
+                <div class="kpi-card">
+                    <div class="label">WhatsApp delivery / read</div>
+                    <div class="value" id="kpiWaRates">0% / 0%</div>
+                    <div class="hint" id="kpiWaHint">0 delivered · 0 read of 0 sent</div>
+                        </div>
+                <div class="kpi-card">
+                    <div class="label">Telegram delivery rate</div>
+                    <div class="value" id="kpiTgRate">0%</div>
+                    <div class="hint" id="kpiTgHint">0 delivered of 0 sent</div>
+                            </div>
+                        </div>
+
+            <div class="kpi-channels" id="kpiChannels"></div>
+
+            <div class="kpi-chart-card">
+                <div class="kpi-chart-head">
+                    <div>
+                        <h2><i class="fa-solid fa-chart-column"></i> <span id="kpiChartTitle">Activity</span></h2>
+                        <div class="kpi-chart-sub" id="kpiChartSub">Today</div>
+                            </div>
+                    <div class="kpi-range" id="kpiRange">
+                        <button type="button" class="kpi-range-btn" data-range="day">Day</button>
+                        <button type="button" class="kpi-range-btn active" data-range="week">Weekly</button>
+                        <button type="button" class="kpi-range-btn" data-range="month">Monthly</button>
+                        <button type="button" class="kpi-range-btn" data-range="year">Year</button>
+                        <button type="button" class="kpi-range-btn" data-range="custom">Custom Date</button>
+                    </div>
+                </div>
+                <div class="kpi-custom" id="kpiCustom">
+                    <label for="kpiFrom">From</label>
+                    <input type="date" id="kpiFrom">
+                    <label for="kpiTo">To</label>
+                    <input type="date" id="kpiTo">
+                    <button type="button" class="btn btn-primary" id="kpiCustomApply">Apply</button>
+                            </div>
+                <div class="kpi-legend">
+                    <span><span class="kpi-swatch sent"></span>Sent</span>
+                    <span><span class="kpi-swatch failed"></span>Failed</span>
+                    <span class="kpi-chart-summary" id="kpiChartSummary">0 sent · 0 failed</span>
+                </div>
+                <div class="kpi-chart-frame" id="kpiBars"></div>
+                        </div>
+
+            <div class="kpi-split">
+                <div class="kpi-card">
+                    <h2><i class="fa-solid fa-wave-square"></i> Live activity</h2>
+                    <div class="kpi-activity" id="kpiActivity"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        var kpiTimer = null;
+        var kpiRange = 'week';
+        var kpiFiltersReady = false;
+
+        function escapeHtml(value) {
+            return String(value == null ? '' : value)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        function formatNumber(n) {
+            return Number(n || 0).toLocaleString();
+        }
+
+        function toDateInput(date) {
+            var y = date.getFullYear();
+            var m = String(date.getMonth() + 1).padStart(2, '0');
+            var d = String(date.getDate()).padStart(2, '0');
+            return y + '-' + m + '-' + d;
+        }
+
+        function loadSavedRange() {
+            try {
+                var saved = JSON.parse(localStorage.getItem('kpiChartRange') || 'null');
+                if (saved && saved.range) {
+                    kpiRange = saved.range;
+                    if (saved.from) document.getElementById('kpiFrom').value = saved.from;
+                    if (saved.to) document.getElementById('kpiTo').value = saved.to;
+                }
+            } catch (_) {}
+        }
+
+        function saveRange() {
+            localStorage.setItem('kpiChartRange', JSON.stringify({
+                range: kpiRange,
+                from: document.getElementById('kpiFrom').value,
+                to: document.getElementById('kpiTo').value
+            }));
+        }
+
+        function setRange(range, skipLoad) {
+            kpiRange = range || 'week';
+            document.querySelectorAll('.kpi-range-btn').forEach(function (btn) {
+                btn.classList.toggle('active', btn.getAttribute('data-range') === kpiRange);
+            });
+            var custom = document.getElementById('kpiCustom');
+            if (kpiRange === 'custom') {
+                custom.classList.add('show');
+                if (!document.getElementById('kpiFrom').value || !document.getElementById('kpiTo').value) {
+                    var to = new Date();
+                    var from = new Date();
+                    from.setDate(from.getDate() - 6);
+                    document.getElementById('kpiFrom').value = toDateInput(from);
+                    document.getElementById('kpiTo').value = toDateInput(to);
+                        }
+                    } else {
+                custom.classList.remove('show');
+            }
+            saveRange();
+            if (!skipLoad) loadKpi();
+        }
+
+        function initChartFilters() {
+            if (kpiFiltersReady) return;
+            kpiFiltersReady = true;
+            loadSavedRange();
+            document.querySelectorAll('.kpi-range-btn').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    setRange(btn.getAttribute('data-range'));
+                });
+            });
+            var apply = document.getElementById('kpiCustomApply');
+            if (apply) {
+                apply.addEventListener('click', function () {
+                    setRange('custom');
+                });
+            }
+            setRange(kpiRange, true);
+        }
+
+        function relativeTime(iso) {
+            var ts = new Date(iso).getTime();
+            if (!ts) return '';
+            var diff = Date.now() - ts;
+            if (diff < 15000) return 'just now';
+            if (diff < 60000) return Math.floor(diff / 1000) + 's ago';
+            if (diff < 3600000) return Math.floor(diff / 60000) + 'm ago';
+            if (diff < 86400000) return Math.floor(diff / 3600000) + 'h ago';
+            return new Date(iso).toLocaleString();
+        }
+
+        function chartLabel(iso, grain, index, total) {
+            var d = new Date(iso);
+            if (grain === 'hour') {
+                var h = d.getHours();
+                var suffix = h >= 12 ? 'pm' : 'am';
+                var h12 = h % 12 || 12;
+                return h12 + suffix;
+            }
+            if (grain === 'month') {
+                return d.toLocaleString(undefined, { month: 'short' });
+            }
+            if (total > 16) {
+                return d.getDate();
+            }
+            return d.toLocaleString(undefined, { month: 'short', day: 'numeric' });
+        }
+
+        function shouldShowLabel(index, total, grain) {
+            if (total <= 14) return true;
+            if (grain === 'month') return true;
+            if (grain === 'hour') return index % 2 === 0 || index === total - 1;
+            var step = total > 40 ? 4 : 2;
+            return index % step === 0 || index === total - 1;
+        }
+
+        function channelIcon(channel) {
+            if (channel === 'whatsapp') return 'fa-brands fa-whatsapp';
+            if (channel === 'telegram') return 'fa-brands fa-telegram';
+            if (channel === 'schedule') return 'fa-solid fa-calendar-check';
+            return 'fa-solid fa-envelope';
+        }
+
+        function actionLabel(event) {
+            if (event.action === 'schedule') return 'Scheduled send';
+            if (event.action === 'schedule-error') return 'Schedule failed';
+            return 'Send';
+        }
+
+        function renderChannels(data) {
+            var tools = data.tools || {};
+            var today = (data.today && data.today.channels) || {};
+            var totals = (data.totals && data.totals.channels) || {};
+            var items = [
+                { key: 'email', tool: tools.email, icon: 'fa-solid fa-envelope' },
+                { key: 'whatsapp', tool: tools.whatsapp, icon: 'fa-brands fa-whatsapp' },
+                { key: 'telegram', tool: tools.telegram, icon: 'fa-brands fa-telegram' },
+                { key: 'schedule', tool: tools.schedule, icon: 'fa-solid fa-calendar-check' }
+            ];
+            document.getElementById('kpiChannels').innerHTML = items.map(function (item) {
+                var tool = item.tool || {};
+                var stats = today[item.key] || totals[item.key] || { sent: 0, failed: 0, jobs: 0 };
+                var extra = '';
+                if (item.key === 'schedule') {
+                    stats = { sent: (tool.last && tool.last.lastSent) || 0, failed: (tool.last && tool.last.lastFailed) || 0, jobs: tool.total || 0 };
+                    extra = tool.upcoming && tool.upcoming.nextRun
+                        ? 'Next: ' + escapeHtml(tool.upcoming.name) + ' · ' + new Date(tool.upcoming.nextRun).toLocaleString()
+                        : (tool.last && tool.last.lastRun ? 'Last run ' + relativeTime(tool.last.lastRun) : 'No runs yet');
+                }
+                var eng = (data.engagement && data.engagement[item.key]) || null;
+                var extraMini = '';
+                if (item.key === 'email' && eng) {
+                    extraMini = '<span><strong>' + (eng.openRate || 0) + '%</strong> open</span>' +
+                        '<span><strong>' + (eng.clickRate || 0) + '%</strong> click</span>';
+                } else if (item.key === 'whatsapp' && eng) {
+                    extraMini = '<span><strong>' + (eng.deliveryRate || 0) + '%</strong> delivered</span>' +
+                        '<span><strong>' + (eng.readRate || 0) + '%</strong> read</span>';
+                } else if (item.key === 'telegram' && eng) {
+                    extraMini = '<span><strong>' + (eng.deliveryRate || 0) + '%</strong> delivered</span>';
+                }
+                return '<a class="kpi-card kpi-channel" href="' + escapeHtml(tool.href || '#') + '">' +
+                    '<div class="kpi-channel-head">' +
+                        '<div class="kpi-channel-name"><i class="' + item.icon + '"></i> ' + escapeHtml(tool.name || item.key) + '</div>' +
+                        '<span class="kpi-dot ' + (tool.connected ? 'on' : 'off') + '"></span>' +
+                    '</div>' +
+                    '<div class="kpi-channel-detail">' + escapeHtml(extra || tool.detail || '') + '</div>' +
+                    '<div class="kpi-mini">' +
+                        '<span><strong>' + formatNumber(stats.sent) + '</strong> sent</span>' +
+                        '<span><strong>' + formatNumber(stats.failed) + '</strong> failed</span>' +
+                        '<span><strong>' + formatNumber(stats.jobs) + '</strong> ' + (item.key === 'schedule' ? 'campaigns' : 'jobs today') + '</span>' +
+                        extraMini +
+                    '</div>' +
+                '</a>';
+            }).join('');
+        }
+
+        function niceMax(value) {
+            var n = Math.max(1, Number(value) || 1);
+            if (n <= 5) return 5;
+            var exp = Math.pow(10, Math.floor(Math.log10(n)));
+            var scaled = n / exp;
+            var nice = scaled <= 1 ? 1 : scaled <= 2 ? 2 : scaled <= 5 ? 5 : 10;
+            return nice * exp;
+        }
+
+        function renderBars(chart) {
+            var el = document.getElementById('kpiBars');
+            var list = (chart && chart.buckets) || [];
+            var grain = (chart && chart.grain) || 'hour';
+            if (!list.length) {
+                el.classList.remove('is-ready');
+                el.innerHTML = '<div class="kpi-empty">No activity in this range.</div>';
+                return;
+            }
+            var maxRaw = 1;
+            list.forEach(function (b) { maxRaw = Math.max(maxRaw, (b.sent || 0) + (b.failed || 0)); });
+            var max = niceMax(maxRaw);
+            var ticks = [max, Math.round(max * 0.66), Math.round(max * 0.33), 0];
+            var bars = list.map(function (bucket, index) {
+                var sent = Number(bucket.sent || 0);
+                var failed = Number(bucket.failed || 0);
+                var value = sent + failed;
+                var heightPct = value ? Math.max(4, Math.round((value / max) * 100)) : 0;
+                var showLabel = shouldShowLabel(index, list.length, grain);
+                var channels = bucket.channels || {};
+                var tip = formatNumber(sent) + ' sent / ' + formatNumber(failed) + ' failed';
+                ['email', 'whatsapp', 'telegram'].forEach(function (key) {
+                    var ch = channels[key];
+                    if (ch && (ch.sent || ch.failed)) {
+                        tip += ' · ' + key + ' ' + formatNumber(ch.sent);
+                    }
+                });
+                var segs = '';
+                if (failed) segs += '<div class="kpi-chart-seg failed" style="flex:' + Math.max(6, Math.round((failed / value) * 100)) + '"></div>';
+                if (sent) segs += '<div class="kpi-chart-seg sent" style="flex:' + Math.max(6, Math.round((sent / value) * 100)) + '"></div>';
+                return '<div class="kpi-chart-col" tabindex="0">' +
+                    '<div class="kpi-chart-tip">' + escapeHtml(tip) + '</div>' +
+                    '<div class="kpi-chart-col-plot">' +
+                        (value ? '<div class="kpi-chart-val">' + escapeHtml(formatNumber(value)) + '</div>' : '') +
+                        '<div class="kpi-chart-bar' + (value ? '' : ' is-empty') + '" data-h="' + heightPct + '">' +
+                            (segs || '<div class="kpi-chart-seg empty"></div>') +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="kpi-chart-xlabel">' + (showLabel ? escapeHtml(chartLabel(bucket.at, grain, index, list.length)) : '') + '</div>' +
+                '</div>';
+            }).join('');
+            el.classList.remove('is-ready');
+            el.innerHTML =
+                '<div class="kpi-chart">' +
+                    '<div class="kpi-chart-yaxis">' + ticks.map(function (t) {
+                        return '<span>' + escapeHtml(formatNumber(t)) + '</span>';
+                    }).join('') + '</div>' +
+                    '<div class="kpi-chart-plot">' +
+                        '<div class="kpi-chart-grid">' + ticks.map(function () { return '<i></i>'; }).join('') + '</div>' +
+                        '<div class="kpi-chart-bars">' + bars + '</div>' +
+                    '</div>' +
+                '</div>';
+            requestAnimationFrame(function () {
+                el.classList.add('is-ready');
+                el.querySelectorAll('.kpi-chart-bar').forEach(function (bar) {
+                    if (bar.classList.contains('is-empty')) return;
+                    bar.style.height = (bar.getAttribute('data-h') || '0') + '%';
+                });
+            });
+        }
+
+        function renderActivity(activity) {
+            var list = activity || [];
+            var el = document.getElementById('kpiActivity');
+            if (!list.length) {
+                el.innerHTML = '<div class="kpi-empty">No sends yet. Activity appears here as soon as Email, WhatsApp, Telegram, or Schedule runs.</div>';
+                return;
+            }
+            el.innerHTML = list.map(function (event) {
+                var title = actionLabel(event) + ' · ' + (event.channel || 'email');
+                var meta = formatNumber(event.sent) + ' sent · ' + formatNumber(event.failed) + ' failed';
+                if (event.label) meta = escapeHtml(event.label) + ' · ' + meta;
+                if (event.error) meta += ' · ' + escapeHtml(event.error);
+                return '<div class="kpi-activity-item">' +
+                    '<div class="kpi-activity-icon ' + escapeHtml(event.channel || '') + '"><i class="' + channelIcon(event.channel) + '"></i></div>' +
+                    '<div class="kpi-activity-main"><strong>' + escapeHtml(title) + '</strong><span>' + meta + '</span></div>' +
+                    '<div class="kpi-activity-time">' + escapeHtml(relativeTime(event.at)) + '</div>' +
+                '</div>';
+            }).join('');
+        }
+
+        function renderKpi(data) {
+            var today = data.today || {};
+            var totals = data.totals || {};
+            var week = data.last7Days || {};
+            document.getElementById('kpiSentToday').textContent = formatNumber(today.sent);
+            document.getElementById('kpiFailedToday').textContent = formatNumber(today.failed);
+            document.getElementById('kpiJobsToday').textContent = formatNumber(today.jobs);
+            document.getElementById('kpiRate').textContent = (today.successRate || 0) + '%';
+            document.getElementById('kpiSentHint').textContent = 'All-time ' + formatNumber(totals.sent);
+            document.getElementById('kpiFailedHint').textContent = 'All-time ' + formatNumber(totals.failed);
+            document.getElementById('kpiJobsHint').textContent = 'Last 7 days ' + formatNumber(week.jobs);
+            document.getElementById('kpiRateHint').textContent = 'All-time ' + (totals.successRate || 0) + '%';
+            var eng = data.engagement || {};
+            var emailEng = eng.email || {};
+            var waEng = eng.whatsapp || {};
+            var tgEng = eng.telegram || {};
+            document.getElementById('kpiOpenRate').textContent = (emailEng.openRate || 0) + '%';
+            document.getElementById('kpiClickRate').textContent = (emailEng.clickRate || 0) + '%';
+            document.getElementById('kpiWaRates').textContent = (waEng.deliveryRate || 0) + '% / ' + (waEng.readRate || 0) + '%';
+            document.getElementById('kpiTgRate').textContent = (tgEng.deliveryRate || 0) + '%';
+            document.getElementById('kpiOpenHint').textContent = formatNumber(emailEng.opened) + ' opened of ' + formatNumber(emailEng.sent) + ' sent' + (eng.publicTracking ? '' : ' · needs a public URL for inbox tracking');
+            document.getElementById('kpiClickHint').textContent = formatNumber(emailEng.clicked) + ' clicked of ' + formatNumber(emailEng.sent) + ' sent';
+            document.getElementById('kpiWaHint').textContent = formatNumber(waEng.delivered) + ' delivered · ' + formatNumber(waEng.read) + ' read of ' + formatNumber(waEng.sent) + ' sent';
+            document.getElementById('kpiTgHint').textContent = formatNumber(tgEng.delivered) + ' delivered of ' + formatNumber(tgEng.sent) + ' sent';
+            document.getElementById('kpiUpdated').textContent = new Date(data.generatedAt || Date.now()).toLocaleTimeString();
+            var chart = data.chart || { buckets: data.hourly || [], grain: 'hour', label: 'Today', summary: {} };
+            document.getElementById('kpiChartTitle').textContent = chart.label || 'Activity';
+            document.getElementById('kpiChartSub').textContent = chart.grain === 'hour'
+                ? 'Hourly sends and failures · live data'
+                : (chart.grain === 'month' ? 'Monthly sends and failures · live data' : 'Daily sends and failures · live data');
+            var summary = chart.summary || {};
+            document.getElementById('kpiChartSummary').textContent =
+                formatNumber(summary.sent) + ' sent · ' + formatNumber(summary.failed) + ' failed · ' + formatNumber(summary.jobs) + ' jobs';
+            renderChannels(data);
+            renderBars(chart);
+            renderActivity(data.activity);
+        }
+
+        function chartQuery() {
+            var q = '/api/kpi/overview?range=' + encodeURIComponent(kpiRange || 'week');
+            if (kpiRange === 'custom') {
+                var from = document.getElementById('kpiFrom').value;
+                var to = document.getElementById('kpiTo').value;
+                if (from) q += '&from=' + encodeURIComponent(from);
+                if (to) q += '&to=' + encodeURIComponent(to);
+            }
+            return q;
+        }
+
+        function loadKpi() {
+            fetch(chartQuery(), { credentials: 'same-origin' })
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
+                    if (data && data.success) renderKpi(data);
+                })
+                .catch(function () {});
+        }
+
+        function startKpiPolling() {
+            initChartFilters();
+            loadKpi();
+            if (kpiTimer) clearInterval(kpiTimer);
+            kpiTimer = setInterval(loadKpi, 8000);
+        }
+
+        function stopKpiPolling() {
+            if (kpiTimer) {
+                clearInterval(kpiTimer);
+                kpiTimer = null;
+            }
+        }
+
+        function applyHomeAuth(user) {
+            var guest = document.getElementById('guestHome');
+            var member = document.getElementById('memberHome');
+            var footer = document.getElementById('homeFooter');
+            if (user && user.platformAccess) {
+                if (!user.onboardingCompleted) {
+                    window.location.replace('/onboarding.html');
+                    return;
+                }
+                guest.classList.add('hidden');
+                member.classList.remove('hidden');
+                if (footer) footer.classList.add('hidden');
+                document.getElementById('welcomeName').textContent = user.name || 'there';
+                startKpiPolling();
+                return;
+            }
+            guest.classList.remove('hidden');
+            member.classList.add('hidden');
+            if (footer) footer.classList.remove('hidden');
+            stopKpiPolling();
+            loadHomeIntroVideo();
+            loadTrustedBy();
+            if (window.RabtFlow && window.RabtFlow.refreshHome) window.RabtFlow.refreshHome();
+            if (user && user.id && user.nextPath) {
+                window.location.replace(user.nextPath);
+            }
+        }
+
+        function loadTrustedBy() {
+            var section = document.getElementById('trustedBySection');
+            var label = document.getElementById('trustedByLabel');
+            var logos = document.getElementById('trustedByLogos');
+            if (!section || !logos) return;
+            fetch('/api/trusted-by', { credentials: 'same-origin' })
+                .then(function (r) { return r.json(); })
+                .then(function (payload) {
+                    var data = (payload && payload.data) || {};
+                    var items = (data.items || []).filter(function (item) { return item && item.url; });
+                    if (!items.length) {
+                        section.hidden = true;
+                        logos.innerHTML = '';
+                        return;
+                    }
+                    if (label) label.textContent = data.title || 'Trusted by';
+                    logos.innerHTML = items.map(function (item) {
+                        var name = String(item.name || 'Company')
+                            .replace(/&/g, '&amp;')
+                            .replace(/</g, '&lt;')
+                            .replace(/>/g, '&gt;')
+                            .replace(/"/g, '&quot;');
+                        var src = item.url + (item.uploadedAt ? ('?v=' + encodeURIComponent(item.uploadedAt)) : '');
+                        return '<div class="trusted-by-logo" title="' + name + '"><img src="' + src + '" alt="' + name + '" loading="lazy"></div>';
+                    }).join('');
+                    section.hidden = false;
+                })
+                .catch(function () {
+                    section.hidden = true;
+                    logos.innerHTML = '';
+                });
+        }
+
+        function loadHomeIntroVideo() {
+            var lead = document.getElementById('homeShowcaseLead');
+            var rest = document.getElementById('homeShowcaseRest');
+            if (!lead || !rest) return;
+
+            function clearShowcase() {
+                lead.innerHTML = '';
+                rest.innerHTML = '';
+                lead.hidden = true;
+                rest.hidden = true;
+            }
+
+            function escapeText(value) {
+                return String(value || '')
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;');
+            }
+
+            function playMuted(video) {
+                video.muted = true;
+                video.defaultMuted = true;
+                video.playsInline = true;
+                video.setAttribute('muted', '');
+                video.setAttribute('playsinline', '');
+                var playPromise = video.play();
+                if (playPromise && typeof playPromise.catch === 'function') {
+                    playPromise.catch(function () {});
+                }
+            }
+
+            function bindVideo(row, video) {
+                var reveal = function () {
+                    row.classList.add('is-ready');
+                    playMuted(video);
+                };
+                video.addEventListener('loadeddata', reveal, { once: true });
+                video.addEventListener('canplay', reveal, { once: true });
+                video.addEventListener('playing', function () {
+                    row.classList.add('is-ready');
+                });
+                if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    video.pause();
+                    row.classList.add('is-ready');
+                }
+            }
+
+            function buildRow(item, index) {
+                // First homepage video is always full-width video only (no description).
+                var hasCopy = index > 0 && !!(item.description && String(item.description).trim());
+                var flip = index > 0 && (index % 2 === 1);
+                var row = document.createElement('article');
+                row.className = 'home-showcase-row' + (hasCopy ? (flip ? ' is-flip' : '') : ' is-solo');
+                if (index === 0) row.classList.add('is-lead');
+
+                var media = document.createElement('div');
+                media.className = 'home-showcase-media';
+                var video = document.createElement('video');
+                video.muted = true;
+                video.autoplay = true;
+                video.loop = true;
+                video.playsInline = true;
+                video.preload = 'auto';
+                video.setAttribute('muted', '');
+                video.setAttribute('autoplay', '');
+                video.setAttribute('loop', '');
+                video.setAttribute('playsinline', '');
+                video.setAttribute('disablepictureinpicture', '');
+                video.setAttribute('disableremoteplayback', '');
+                video.setAttribute('aria-label', (index === 0 ? 'Rabط platform intro' : (item.description || 'Rabط platform showcase')));
+                video.src = item.url + (item.uploadedAt ? ('?v=' + encodeURIComponent(item.uploadedAt)) : '');
+                media.appendChild(video);
+                row.appendChild(media);
+
+                if (hasCopy) {
+                    var copy = document.createElement('div');
+                    copy.className = 'home-showcase-copy';
+                    copy.innerHTML = '<h3>' + escapeText(item.description) + '</h3>';
+                    row.appendChild(copy);
+                }
+
+                bindVideo(row, video);
+                return row;
+            }
+
+            fetch('/api/home-video', { credentials: 'same-origin' })
+                .then(function (r) { return r.json(); })
+                .then(function (payload) {
+                    var items = (payload && payload.data && payload.data.items) || [];
+                    items = items.filter(function (item) { return item && item.url; });
+                    clearShowcase();
+                    if (!items.length) return;
+
+                    lead.appendChild(buildRow(items[0], 0));
+                    lead.hidden = false;
+
+                    if (items.length > 1) {
+                        items.slice(1).forEach(function (item, idx) {
+                            rest.appendChild(buildRow(item, idx + 1));
+                        });
+                        rest.hidden = false;
+                    }
+                })
+                .catch(function () {
+                    clearShowcase();
+                });
+        }
+
+        if (window.currentUser !== undefined) {
+            applyHomeAuth(window.currentUser);
+        }
+        document.addEventListener('auth-ready', function (e) {
+            applyHomeAuth(e.detail && e.detail.user);
+        });
+        document.addEventListener('visibilitychange', function () {
+            if (document.hidden) stopKpiPolling();
+            else if (window.currentUser && window.currentUser.platformAccess) startKpiPolling();
+        });
+    </script>
+    <script src="/flow-motion.js"></script>
+</body>
+</html>

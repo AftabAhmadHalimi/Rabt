@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing Database — Rabط</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/brand.css">
+    <script src="/i18n-dict.js"></script>
+    <script src="/i18n.js"></script>
+    <script src="/navbar.js"></script>
+    <script src="/ui-feedback.js"></script>
+    <script src="/saved-lists.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        .container { max-width: 1040px; margin: 0 auto; padding: 16px 16px 24px; }
+        .page-header { margin-bottom: 16px; text-align: center; }
+        .page-header-row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .page-header h1 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.55;
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .back-link {
+            display: flex;
+            width: fit-content;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            margin: 0 auto 12px;
+        }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+        }
+        .card-title {
+            font-size: 16px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .card-title i { color: var(--accent); }
+        .kind-note { font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 14px; }
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+        .form-input {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+        .search-input { flex: 1; min-width: 220px; }
+        .segmented {
+            display: inline-flex;
+            align-items: center;
+            background: var(--bg-tertiary);
+            border: 1.5px solid var(--accent);
+            border-radius: 8px;
+            padding: 3px;
+            gap: 2px;
+        }
+        .filter-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            height: 32px;
+            border: 0;
+            border-radius: 6px;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 650;
+            font-size: 12px;
+            padding: 0 12px;
+            white-space: nowrap;
+        }
+        .filter-btn.active { background: var(--accent); color: #fff; }
+        .action-bar { display: none; }
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 11px 16px; border: none; border-radius: 8px; cursor: pointer;
+            font-weight: 600; font-size: 13px; font-family: inherit; text-decoration: none;
+        }
+        .btn-action {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        .btn-action.email { color: #fff; background: var(--accent); border-color: var(--accent); }
+        .btn-action.whatsapp { color: #fff; background: var(--whatsapp); border-color: var(--whatsapp); }
+        .btn-action.telegram { color: #fff; background: var(--telegram); border-color: var(--telegram); }
+        .marketing-list {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+        .marketing-list-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 12px 14px;
+            background: var(--bg-tertiary);
+        }
+        .marketing-list-head-main { min-width: 0; flex: 1; }
+        .marketing-list-head-side {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .marketing-list-head h3 { font-size: 15px; font-weight: 700; }
+        .marketing-list-head p { font-size: 13px; color: var(--text-secondary); margin-top: 4px; line-height: 1.45; }
+        .marketing-list-meta { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+        .marketing-list-toggle {
+            color: var(--text-muted);
+            font-size: 12px;
+            padding: 4px;
+        }
+        .mini-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 5px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-size: 11px;
+            font-weight: 650;
+            font-family: inherit;
+            cursor: pointer;
+            white-space: nowrap;
+            line-height: 1.2;
+        }
+        .mini-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .mini-btn.primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+        .mini-btn.primary:hover { opacity: 0.92; color: #fff; }
+        .marketing-list-body { display: none; padding: 8px 10px 10px; border-top: 1px solid var(--border-color); }
+        .marketing-list.open .marketing-list-body { display: block; }
+        .view-preview-note {
+            font-size: 12px;
+            color: var(--text-secondary);
+            padding: 4px 4px 10px;
+            line-height: 1.45;
+        }
+        .contact-card {
+            border-bottom: 1px solid var(--border-color);
+            padding: 8px 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .contact-card:last-child { border-bottom: none; }
+        .contact-avatar {
+            width: 28px; height: 28px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--bg-tertiary); color: var(--accent); font-size: 12px;
+        }
+        .contact-card.phone .contact-avatar { color: var(--whatsapp); }
+        .contact-value { font-size: 13px; font-weight: 600; word-break: break-all; }
+        .list-empty {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 13px;
+            padding: 28px 8px;
+        }
+        .list-empty i { display: block; font-size: 24px; margin-bottom: 8px; color: var(--text-muted); }
+        @media (max-width: 768px) {
+            .page-header-row { flex-direction: column; }
+            .toolbar { flex-direction: column; align-items: stretch; }
+            .segmented { width: 100%; }
+            .filter-btn { flex: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div id="app-navbar"></div>
+    <div class="container">
+        <a class="back-link" href="/import-export.html"><i class="fa-solid fa-arrow-left"></i> Back to Contact</a>
+        <div class="page-header">
+            <div class="page-header-row">
+                <div>
+                    <h1><i class="fa-solid fa-database"></i> Marketing Database</h1>
+                    <p>Shared contact lists uploaded by the Rabط platform team. View a list or use it directly in Email, WhatsApp, or Telegram — lists stay in the marketing database and are not copied to your account.</p>
+                </div>
+            </div>
+        </div>
+        <section class="card">
+            <div class="toolbar">
+                <input id="marketingSearch" class="form-input search-input" type="search" placeholder="Search marketing lists or contacts">
+                <div class="segmented" role="group" aria-label="Filter lists">
+                    <button type="button" class="filter-btn active" data-filter="all"><i class="fa-solid fa-layer-group"></i> All</button>
+                    <button type="button" class="filter-btn" data-filter="email"><i class="fa-solid fa-envelope"></i> Email</button>
+                    <button type="button" class="filter-btn" data-filter="messaging"><i class="fa-solid fa-phone"></i> Phone</button>
+                </div>
+            </div>
+            <div id="marketingItems"></div>
+        </section>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var marketingItems = document.getElementById('marketingItems');
+            var marketingSearch = document.getElementById('marketingSearch');
+            var marketingLists = [];
+            var openMarketingListId = '';
+            var listFilter = 'all';
+
+            function notify(msg, isError) {
+                if (window.RabtUI) RabtUI.toast(msg, isError ? 'error' : 'success');
+            }
+
+            function formatDate(value) {
+                if (!value) return '';
+                try { return new Date(value).toLocaleString(); } catch (_) { return ''; }
+            }
+
+            function findMarketingList(listId) {
+                return marketingLists.find(function (item) { return item.id === listId; });
+            }
+
+            function stashAndGo(channel, values) {
+                if (!values.length) {
+                    notify(channel === 'email' ? 'This list has no email contacts.' : 'This list has no phone numbers.', true);
+                    return;
+                }
+                try {
+                    sessionStorage.setItem('rabtSelectedRecipients', JSON.stringify({ channel: channel, values: values }));
+                } catch (_) {}
+                window.location.href = channel === 'email' ? '/email.html' : (channel === 'whatsapp' ? '/whatsapp.html' : '/telegram.html');
+            }
+
+            function useMarketingList(listId) {
+                var list = findMarketingList(listId);
+                if (!list) return;
+                var channel = list.kind === 'email' ? 'email' : 'whatsapp';
+                var values = (list.contacts || []).slice();
+                if (!values.length) {
+                    notify('This marketing list has no contacts yet.', true);
+                    return;
+                }
+                stashAndGo(channel, values);
+            }
+
+            var VIEW_CONTACT_LIMIT = 10;
+
+            function renderMarketing() {
+                var query = (marketingSearch.value || '').trim().toLowerCase();
+                var lists = marketingLists.filter(function (list) {
+                    if (listFilter !== 'all' && list.kind !== listFilter) return false;
+                    if (!query) return true;
+                    var hay = [list.name, list.description, list.originalName, (list.contacts || []).join(' ')].join(' ').toLowerCase();
+                    return hay.indexOf(query) !== -1;
+                });
+                if (!lists.length) {
+                    marketingItems.innerHTML = '<div class="list-empty"><i class="fa-solid fa-database"></i>No marketing lists available yet.</div>';
+                    return;
+                }
+                marketingItems.innerHTML = lists.map(function (list) {
+                    var isEmail = list.kind === 'email';
+                    var icon = isEmail ? 'fa-envelope' : 'fa-phone';
+                    var open = openMarketingListId === list.id;
+                    var contacts = list.contacts || [];
+                    var totalContacts = list.recordCount || contacts.length;
+                    var previewContacts = open ? contacts.slice(0, VIEW_CONTACT_LIMIT) : [];
+                    var rows = previewContacts.map(function (value) {
+                        return (
+                            '<div class="contact-card ' + (isEmail ? 'email' : 'phone') + '">' +
+                                '<div class="contact-avatar"><i class="fa-solid ' + icon + '"></i></div>' +
+                                '<div class="contact-value">' + RabtLists.escapeHtml(value) + '</div>' +
+                            '</div>'
+                        );
+                    }).join('');
+                    var previewNote = '';
+                    if (open && totalContacts > VIEW_CONTACT_LIMIT) {
+                        previewNote = '<div class="view-preview-note">Showing first ' + VIEW_CONTACT_LIMIT + ' of ' +
+                            RabtLists.escapeHtml(totalContacts) + ' contacts. Click <strong>Use</strong> to send to the full list.</div>';
+                    }
+                    var bodyHtml = '';
+                    if (open) {
+                        if (!contacts.length) {
+                            bodyHtml = '<div class="list-empty">No contacts in this list.</div>';
+                        } else {
+                            bodyHtml = previewNote + rows;
+                        }
+                    }
+                    return (
+                        '<div class="marketing-list' + (open ? ' open' : '') + '" data-marketing-list="' + RabtLists.escapeHtml(list.id) + '">' +
+                            '<div class="marketing-list-head">' +
+                                '<div class="marketing-list-head-main">' +
+                                    '<h3><i class="fa-solid ' + icon + '"></i> ' + RabtLists.escapeHtml(list.name) + '</h3>' +
+                                    (list.description ? '<p>' + RabtLists.escapeHtml(list.description) + '</p>' : '') +
+                                    '<div class="marketing-list-meta">' + RabtLists.escapeHtml(totalContacts) + ' contacts · ' +
+                                        (isEmail ? 'Email' : 'WhatsApp / Telegram') +
+                                        (list.createdAt ? ' · ' + formatDate(list.createdAt) : '') +
+                                    '</div>' +
+                                '</div>' +
+                                '<div class="marketing-list-head-side">' +
+                                    '<button type="button" class="mini-btn" data-marketing-view="' + RabtLists.escapeHtml(list.id) + '"><i class="fa-solid fa-eye"></i> View</button>' +
+                                    '<button type="button" class="mini-btn primary" data-marketing-use="' + RabtLists.escapeHtml(list.id) + '"><i class="fa-solid fa-bolt"></i> Use</button>' +
+                                    '<span class="marketing-list-toggle"><i class="fa-solid fa-chevron-' + (open ? 'up' : 'down') + '"></i></span>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="marketing-list-body">' + bodyHtml + '</div>' +
+                        '</div>'
+                    );
+                }).join('');
+            }
+
+            async function loadMarketingDatabase() {
+                try {
+                    var res = await fetch('/api/marketing-database', { credentials: 'same-origin' });
+                    var data = await res.json().catch(function () { return {}; });
+                    if (!res.ok) throw new Error(data.message || 'Could not load marketing database.');
+                    marketingLists = data.data || [];
+                    renderMarketing();
+                } catch (err) {
+                    marketingItems.innerHTML = '<div class="list-empty">' + RabtLists.escapeHtml(err.message || 'Could not load marketing database.') + '</div>';
+                }
+            }
+
+            marketingSearch.addEventListener('input', renderMarketing);
+            document.querySelectorAll('.filter-btn').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    listFilter = btn.getAttribute('data-filter') || 'all';
+                    document.querySelectorAll('.filter-btn').forEach(function (el) {
+                        el.classList.toggle('active', el === btn);
+                    });
+                    renderMarketing();
+                });
+            });
+            marketingItems.addEventListener('click', function (e) {
+                var useBtn = e.target.closest('[data-marketing-use]');
+                if (useBtn) {
+                    e.preventDefault();
+                    useMarketingList(useBtn.getAttribute('data-marketing-use'));
+                    return;
+                }
+                var viewBtn = e.target.closest('[data-marketing-view]');
+                if (!viewBtn) return;
+                e.preventDefault();
+                var viewId = viewBtn.getAttribute('data-marketing-view');
+                openMarketingListId = openMarketingListId === viewId ? '' : viewId;
+                renderMarketing();
+            });
+
+            loadMarketingDatabase();
+        });
+    </script>
+</body>
+</html>

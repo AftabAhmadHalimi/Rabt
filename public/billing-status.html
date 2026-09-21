@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" class="flow-motion">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment status — Rabط</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/brand.css">
+    <link rel="stylesheet" href="/billing.css">
+    <link rel="stylesheet" href="/flow-motion.css">
+    <script src="/i18n-dict.js"></script>
+    <script src="/i18n.js"></script>
+    <script src="/navbar.js"></script>
+    <script src="/ui-feedback.js"></script>
+    <script src="/flow-motion.js"></script>
+</head>
+<body>
+    <div id="app-navbar"></div>
+    <div class="bill-wrap narrow">
+        <div class="bill-card bill-status wait" id="statusCard">
+            <div class="icon"><i class="fa-solid fa-hourglass-half"></i></div>
+            <h1 id="statusTitle">Your account is waiting for payment verification.</h1>
+            <p class="bill-lead" id="statusBody" style="margin:0 auto 22px;">Your payment verification request has been submitted. Please wait for admin approval.</p>
+            <div class="bill-pay-meta" id="meta" style="text-align:left;"></div>
+            <a class="bill-btn" id="statusCta" href="/pricing.html" hidden>Choose a plan</a>
+        </div>
+    </div>
+    <script>
+        function esc(v) { return String(v || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+        function fmt(v) {
+            if (!v) return '—';
+            var d = new Date(v);
+            return isNaN(d.getTime()) ? String(v) : d.toLocaleString();
+        }
+        function paint(access, payment) {
+            var card = document.getElementById('statusCard');
+            var title = document.getElementById('statusTitle');
+            var body = document.getElementById('statusBody');
+            var cta = document.getElementById('statusCta');
+            var code = (access && access.code) || '';
+            var sub = (access && access.subscription) || {};
+            var msg = (access && access.message) || '';
+            cta.hidden = true;
+            if (code === 'ACTIVE') {
+                card.className = 'bill-card bill-status ok';
+                card.querySelector('.icon').innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+                title.textContent = 'Your Rabط account is active.';
+                body.textContent = 'Payment was verified. You can open your private workspace.';
+                cta.hidden = false;
+                cta.href = '/';
+                cta.textContent = 'Open Rabط';
+            } else if (code === 'PAYMENT_REJECTED') {
+                card.className = 'bill-card bill-status bad';
+                card.querySelector('.icon').innerHTML = '<i class="fa-solid fa-circle-xmark"></i>';
+                title.textContent = 'Your payment verification was rejected. Please submit a new payment request.';
+                body.textContent = (payment && payment.rejectReason) || msg;
+                cta.hidden = false;
+                cta.href = '/pricing.html';
+                cta.textContent = 'Submit a new payment request';
+            } else if (code === 'EXPIRED') {
+                card.className = 'bill-card bill-status bad';
+                card.querySelector('.icon').innerHTML = '<i class="fa-solid fa-clock"></i>';
+                title.textContent = 'Subscription Expired';
+                body.textContent = 'Your subscription has expired. Your campaigns, contacts, analytics, and channel settings are still saved. Renew your plan to restore access.';
+                cta.hidden = false;
+                cta.href = '/pricing.html';
+                cta.textContent = 'Renew / re-pay';
+            } else if (code === 'PAYMENT_PENDING') {
+                card.className = 'bill-card bill-status wait';
+                title.textContent = 'Your account is waiting for payment verification.';
+                body.textContent = 'Your payment verification request has been submitted. Please wait for admin approval.';
+            } else {
+                card.className = 'bill-card bill-status wait';
+                title.textContent = msg || 'Choose a plan to continue using Rabط.';
+                cta.hidden = false;
+                cta.href = '/pricing.html';
+                cta.textContent = 'View pricing';
+            }
+            var days = sub.daysRemaining;
+            var daysText = (days == null || days === '') ? '—' : String(days);
+            document.getElementById('meta').innerHTML =
+                '<div><div class="k">Package</div><div class="v">' + esc((payment && payment.planName) || sub.planName || '—') + '</div></div>' +
+                '<div><div class="k">Amount</div><div class="v">' + esc(payment ? ('$' + payment.amount) : (sub.amount ? ('$' + sub.amount) : '—')) + '</div></div>' +
+                '<div><div class="k">Subscription</div><div class="v">' + esc(sub.status || '—') + '</div></div>' +
+                '<div><div class="k">Payment</div><div class="v">' + esc((payment && payment.status) || '—') + '</div></div>' +
+                '<div><div class="k">Start date</div><div class="v">' + esc(fmt(sub.startedAt || (payment && payment.activationStartedAt))) + '</div></div>' +
+                '<div><div class="k">Expiration</div><div class="v">' + esc(fmt(sub.expiresAt || (payment && payment.activationExpiresAt))) + '</div></div>' +
+                '<div><div class="k">Days remaining</div><div class="v">' + esc(daysText) + '</div></div>' +
+                '<div><div class="k">Submitted</div><div class="v">' + esc(fmt(payment && payment.submittedAt)) + '</div></div>';
+        }
+        function load() {
+            fetch('/api/billing/me', { credentials: 'same-origin' })
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
+                    if (data.next && data.code === 'UNVERIFIED') {
+                        window.location.replace('/verify.html');
+                        return;
+                    }
+                    paint(data.data && data.data.access, data.data && data.data.latestPayment);
+                })
+                .catch(function () {});
+        }
+        document.addEventListener('auth-ready', load);
+        setInterval(load, 12000);
+    </script>
+</body>
+</html>

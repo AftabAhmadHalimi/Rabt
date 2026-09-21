@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page.guide">Full platform guide — Rabط</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/brand.css">
+    <link rel="stylesheet" href="/legal.css">
+    <script src="/i18n-dict.js"></script>
+    <script src="/i18n-guide.js"></script>
+    <script src="/i18n.js"></script>
+    <script src="/navbar.js"></script>
+    <style>
+        .guide-toc a { display: flex; align-items: center; gap: 8px; }
+        .guide-toc i { width: 16px; text-align: center; color: #5B4FFF; }
+        .guide-callout {
+            background: var(--bg-card, #fff);
+            border: 1px solid var(--border-color, #e6eaf2);
+            border-radius: 10px;
+            padding: 10px 12px;
+            margin: 0 0 12px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-secondary, #6b7389);
+        }
+        .guide-callout strong { color: var(--text-primary, #1e2540); }
+        .guide-open {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 4px 0 16px;
+            font-weight: 800;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app-navbar"></div>
+    <article class="legal-page">
+        <h1 data-i18n="nav.guide">Full platform guide</h1>
+        <p class="legal-lead" data-i18n="guide.lead">A full walkthrough of Rabط: sign up, choose a plan, verify payment, connect channels, import contacts, use templates, send campaigns, schedule jobs, renew when a plan expires, and read your results.</p>
+
+        <div class="legal-toc guide-toc">
+            <strong data-i18n="guide.toc">On this page</strong>
+            <ol>
+                <li><a href="#start"><i class="fa-solid fa-user-plus"></i> <span data-i18n="guide.toc.start">Get started</span></a></li>
+                <li><a href="#billing"><i class="fa-solid fa-crown"></i> <span data-i18n="guide.toc.billing">Plans &amp; payment</span></a></li>
+                <li><a href="#overview"><i class="fa-solid fa-chart-line"></i> <span data-i18n="guide.toc.overview">KPI Overview</span></a></li>
+                <li><a href="#settings"><i class="fa-solid fa-gear"></i> <span data-i18n="guide.toc.settings">Settings</span></a></li>
+                <li><a href="#import"><i class="fa-solid fa-file-import"></i> <span data-i18n="guide.toc.import">Contact</span></a></li>
+                <li><a href="#templates"><i class="fa-solid fa-layer-group"></i> <span data-i18n="guide.toc.templates">Templates</span></a></li>
+                <li><a href="#email"><i class="fa-solid fa-envelope"></i> <span data-i18n="guide.toc.email">Email</span></a></li>
+                <li><a href="#whatsapp"><i class="fa-brands fa-whatsapp"></i> <span data-i18n="guide.toc.whatsapp">WhatsApp</span></a></li>
+                <li><a href="#telegram"><i class="fa-brands fa-telegram"></i> <span data-i18n="guide.toc.telegram">Telegram</span></a></li>
+                <li><a href="#schedule"><i class="fa-solid fa-calendar-check"></i> <span data-i18n="guide.toc.schedule">Schedule</span></a></li>
+                <li><a href="#invite"><i class="fa-solid fa-user-plus"></i> <span data-i18n="guide.toc.invite">Invite Friends</span></a></li>
+                <li><a href="#help"><i class="fa-solid fa-headset"></i> <span data-i18n="guide.toc.help">Help, language, and app</span></a></li>
+            </ol>
+        </div>
+
+        <div class="guide-callout">
+            <strong data-i18n="guide.ruleTitle">Workspace rule:</strong>
+            <span data-i18n="guide.rule">each account has its own lists, templates, SMTP, WhatsApp, Telegram, schedules, and results. Sign in, verify email, then complete plan payment. Paid tools stay locked until Super Admin verifies your receipt, and again when the subscription expires until you renew.</span>
+        </div>
+
+        <h2 id="start" data-i18n="guide.start.h">1. Get started</h2>
+        <p data-i18n="guide.start.p">Create one account, verify it, choose a plan, then work from the sidebar.</p>
+        <ol>
+            <li data-i18n-html="guide.start.1">Open <a href="/signup.html">Sign up</a>. Enter your full name, email, and a password of at least 6 characters.</li>
+            <li data-i18n-html="guide.start.2">Check your inbox for a 6-digit code. Open <a href="/verify.html">Verify email</a> and enter the code. It expires in 10 minutes. Use Resend code if it did not arrive.</li>
+            <li data-i18n-html="guide.start.3">Open <a href="/login.html">Sign in</a> with the same email and password.</li>
+            <li data-i18n-html="guide.start.4">Open <a href="/pricing.html">Pricing</a>, choose <strong>1 Month</strong> or <strong>3 Months</strong>, pay using the account details shown, then upload your receipt.</li>
+            <li data-i18n="guide.start.5">Wait for Super Admin to verify payment. When approved, your subscription timer starts and paid tools unlock.</li>
+            <li data-i18n="guide.start.6">After activation, the sidebar shows KPI Overview, Email, WhatsApp, Telegram, Templates, Schedule, Contact, this guide, and Settings.</li>
+        </ol>
+        <p data-i18n="guide.start.theme">Use the moon icon in the header to switch light and dark theme. Your language is saved on this device under Language.</p>
+
+        <h2 id="billing" data-i18n="guide.billing.h">2. Plans &amp; payment</h2>
+        <a class="guide-open" href="/pricing.html" data-i18n="guide.billing.open">Open Pricing</a>
+        <p data-i18n="guide.billing.p">Rabط uses manual payment. There is no card gateway inside the app.</p>
+        <ol>
+            <li data-i18n="guide.billing.1">Choose the 1 Month or 3 Months package.</li>
+            <li data-i18n="guide.billing.2">Transfer the exact amount using the payment details / QR shown on the payment page.</li>
+            <li data-i18n="guide.billing.3">Upload a clear photo or PDF of the receipt and submit the request.</li>
+            <li data-i18n-html="guide.billing.4">Open <a href="/billing-status.html">Payment status</a> to see pending, approved, rejected, or expired.</li>
+            <li data-i18n="guide.billing.5">When approved, start and expiration dates are set automatically (+1 or +3 months).</li>
+            <li data-i18n="guide.billing.6">When the plan expires, paid tools lock. Your data stays. Choose a package again to renew.</li>
+            <li data-i18n="guide.billing.7">If you renew before expiry, the new period extends from the current end date. If already expired, the new period starts from approval.</li>
+        </ol>
+
+        <h2 id="overview" data-i18n="guide.overview.h">3. KPI Overview</h2>
+        <a class="guide-open" href="/" data-i18n="guide.overview.open">Open KPI Overview</a>
+        <p data-i18n="guide.overview.p">This is your home after login. It only shows real sends from your workspace — nothing is invented.</p>
+        <ol>
+            <li data-i18n="guide.overview.1">Read today’s sent, failed, jobs, and success rate.</li>
+            <li data-i18n="guide.overview.2">Check email open rate and click rate, WhatsApp delivery and read rate, and Telegram delivery rate.</li>
+            <li data-i18n="guide.overview.3">Use the interactive chart filters: Day, Weekly, Monthly, Year, or Custom Date. Hover bars for details.</li>
+            <li data-i18n="guide.overview.4">Open a channel card to jump to Email, WhatsApp, Telegram, or Schedule.</li>
+            <li data-i18n="guide.overview.5">Live activity lists each real campaign as it runs.</li>
+        </ol>
+        <p data-i18n="guide.overview.track">Email open and click tracking needs a public URL so inboxes can load the tracking pixel. If tracking is off, sent and failed still appear.</p>
+
+        <h2 id="settings" data-i18n="guide.settings.h">4. Settings — connect your channels</h2>
+        <a class="guide-open" href="/settings.html" data-i18n="guide.settings.open">Open Settings</a>
+        <p data-i18n="guide.settings.p">Connect a channel here before you send. You can use one channel or all three.</p>
+
+        <h3 data-i18n="guide.settings.emailH">Email SMTP</h3>
+        <ol>
+            <li data-i18n="guide.settings.email1">Open Settings → Email SMTP.</li>
+            <li data-i18n="guide.settings.email2">Enter SMTP Host, Port, Username, Password, and From name. Turn on TLS if your mailbox uses port 465.</li>
+            <li data-i18n="guide.settings.email3">Save. A test send confirms the mailbox works.</li>
+        </ol>
+        <p data-i18n="guide.settings.emailNote">This is your campaign mailbox. It is separate from platform emails (verification codes and activation notices).</p>
+
+        <h3 data-i18n="guide.settings.waH">WhatsApp</h3>
+        <ol>
+            <li data-i18n="guide.settings.wa1">Open Settings → WhatsApp.</li>
+            <li data-i18n="guide.settings.wa2">Click Connect and wait for the QR code.</li>
+            <li data-i18n="guide.settings.wa3">On your phone, open WhatsApp → Linked devices → Link a device, then scan the QR.</li>
+            <li data-i18n="guide.settings.wa4">When the status shows Connected, you can send from WhatsApp.</li>
+            <li data-i18n="guide.settings.wa5">Use Delete Session &amp; Rescan QR if you need to link a different phone.</li>
+        </ol>
+
+        <h3 data-i18n="guide.settings.tgH">Telegram</h3>
+        <ol>
+            <li data-i18n="guide.settings.tg1">Open Settings → Telegram.</li>
+            <li data-i18n="guide.settings.tg2">Choose Scan QR or phone login.</li>
+            <li data-i18n="guide.settings.tg3">For QR: click Connect and scan with Telegram on your phone.</li>
+            <li data-i18n="guide.settings.tg4">For phone: enter the international number, request the code, then type the login code. If 2FA is on, enter that password too.</li>
+            <li data-i18n="guide.settings.tg5">Wait until the status shows Connected.</li>
+        </ol>
+
+        <h2 id="import" data-i18n="guide.import.h">5. Contact</h2>
+        <a class="guide-open" href="/import-export.html" data-i18n="guide.import.open">Open Contact</a>
+        <p data-i18n="guide.import.p">Save recipient lists once, then pick them when you compose. There are two list types:</p>
+        <ul>
+            <li data-i18n-html="guide.import.emailLists"><strong>Email lists</strong> — addresses for Email campaigns.</li>
+            <li data-i18n-html="guide.import.msgLists"><strong>Messaging lists</strong> — phone numbers for WhatsApp and Telegram. Include the country code, for example +1234567890.</li>
+        </ul>
+        <ol>
+            <li data-i18n="guide.import.1">Open Contact.</li>
+            <li data-i18n="guide.import.2">Choose Email or Messaging.</li>
+            <li data-i18n="guide.import.3">Upload an Excel (.xlsx) file, or follow the on-page format for a new list.</li>
+            <li data-i18n="guide.import.4">Give the list a name and save it.</li>
+            <li data-i18n="guide.import.5">Later, on Email / WhatsApp / Telegram, choose that saved list instead of pasting recipients.</li>
+        </ol>
+        <p data-i18n="guide.import.paste">You can still paste addresses or numbers on the send page if you do not want a saved list.</p>
+
+        <h2 id="templates" data-i18n="guide.templates.h">6. Templates</h2>
+        <a class="guide-open" href="/templates.html" data-i18n="guide.templates.open">Open Templates</a>
+        <p data-i18n="guide.templates.p">Build reusable email layouts, then open them in Email when you send.</p>
+        <ol>
+            <li data-i18n="guide.templates.1">Open Templates and browse categories.</li>
+            <li data-i18n="guide.templates.2">Use, edit, or preview a template.</li>
+            <li data-i18n="guide.templates.3">Upload logos or images in the editor so they are hosted for email delivery.</li>
+            <li data-i18n="guide.templates.4">Save your template, then open Email and apply it to a campaign.</li>
+        </ol>
+
+        <h2 id="email" data-i18n="guide.email.h">7. Email</h2>
+        <a class="guide-open" href="/email.html" data-i18n="guide.email.open">Open Email</a>
+        <ol>
+            <li data-i18n="guide.email.1">Save SMTP in Settings first.</li>
+            <li data-i18n="guide.email.2">Open Email.</li>
+            <li data-i18n="guide.email.3">Choose a saved email list, or paste one address per line.</li>
+            <li data-i18n="guide.email.4">Write the subject and message in the editor, use a saved template, or upload HTML.</li>
+            <li data-i18n="guide.email.5">Add images or files if you need them.</li>
+            <li data-i18n="guide.email.6">Set delay in seconds (1–60) between recipients to reduce mailbox limits.</li>
+            <li data-i18n="guide.email.7">Send now, or open Schedule to send later.</li>
+            <li data-i18n="guide.email.8">Watch the live log for sent, failed, and waiting rows. Invalid addresses are skipped.</li>
+        </ol>
+        <p data-i18n="guide.email.note">Campaigns go through your SMTP mailbox. Opens and clicks appear on KPI Overview when tracking can reach a public URL.</p>
+
+        <h2 id="whatsapp" data-i18n="guide.wa.h">8. WhatsApp</h2>
+        <a class="guide-open" href="/whatsapp.html" data-i18n="guide.wa.open">Open WhatsApp</a>
+        <ol>
+            <li data-i18n="guide.wa.1">Connect WhatsApp in Settings and keep your phone online.</li>
+            <li data-i18n="guide.wa.2">Open WhatsApp.</li>
+            <li data-i18n="guide.wa.3">Choose a saved messaging list, or paste one number per line with country code.</li>
+            <li data-i18n="guide.wa.4">Type the message. Optionally attach a photo.</li>
+            <li data-i18n="guide.wa.5">Set delay between messages (1–60 seconds).</li>
+            <li data-i18n="guide.wa.6">Send now, or schedule for later.</li>
+            <li data-i18n="guide.wa.7">Follow the live log. KPI Overview shows delivered and read when WhatsApp reports them.</li>
+        </ol>
+        <p data-i18n="guide.wa.note">WhatsApp must stay connected. If the QR session drops, return to Settings and scan again.</p>
+
+        <h2 id="telegram" data-i18n="guide.tg.h">9. Telegram</h2>
+        <a class="guide-open" href="/telegram.html" data-i18n="guide.tg.open">Open Telegram</a>
+        <ol>
+            <li data-i18n="guide.tg.1">Connect Telegram in Settings (QR or phone code).</li>
+            <li data-i18n="guide.tg.2">Open Telegram.</li>
+            <li data-i18n="guide.tg.3">Choose a saved messaging list, or paste international numbers.</li>
+            <li data-i18n="guide.tg.4">Write the message. You can add an image.</li>
+            <li data-i18n="guide.tg.5">Set delay, then send now or schedule.</li>
+            <li data-i18n="guide.tg.6">Use the live log, then check Telegram delivery rate on KPI Overview.</li>
+        </ol>
+
+        <h2 id="schedule" data-i18n="guide.sched.h">10. Schedule</h2>
+        <a class="guide-open" href="/schedule.html" data-i18n="guide.sched.open">Open Schedule</a>
+        <p data-i18n="guide.sched.p">Plan a campaign when you are away from the screen. An active subscription is required.</p>
+        <ol>
+            <li data-i18n="guide.sched.1">Open Schedule.</li>
+            <li data-i18n="guide.sched.2">Pick the channel: Email, WhatsApp, or Telegram. That channel must already be connected.</li>
+            <li data-i18n="guide.sched.3">Choose recipients (saved list or paste).</li>
+            <li data-i18n="guide.sched.4">Write the message the same way as on the send page.</li>
+            <li data-i18n="guide.sched.5">Set the date and time. Choose once, or daily repeat.</li>
+            <li data-i18n="guide.sched.6">Save. The job waits until that time, or use Run now if you want it immediately.</li>
+            <li data-i18n="guide.sched.7">Open the job later to read the live run log, cancel a waiting job, or delete it.</li>
+        </ol>
+
+        <h2 id="invite" data-i18n="guide.invite.h">11. Invite Friends</h2>
+        <a class="guide-open" href="/invite.html" data-i18n="guide.invite.open">Open Invite Friends</a>
+        <ol>
+            <li data-i18n="guide.invite.1">Open Invite Friends.</li>
+            <li data-i18n="guide.invite.2">Copy or share your personal link.</li>
+            <li data-i18n="guide.invite.3">Your friend opens the link, signs up, and verifies email.</li>
+            <li data-i18n="guide.invite.4">They get their own workspace and must complete plan payment separately. You can see who joined with your link.</li>
+        </ol>
+
+        <h2 id="help" data-i18n="guide.help.h">12. Help, language, and the Android app</h2>
+        <ul>
+            <li data-i18n-html="guide.help.1"><a href="/support.html">Get assistance</a> — message the platform team. Super Admin replies in this chat.</li>
+            <li data-i18n-html="guide.help.2"><a href="/language.html">Language</a> — English, Arabic, Persian, or Pashto. The choice is saved on this device.</li>
+            <li data-i18n-html="guide.help.3"><strong>Download Android App</strong> — appears in Settings in the sidebar when the operator has turned the APK on.</li>
+            <li data-i18n-html="guide.help.4"><a href="/privacy.html">Privacy Policy</a> and <a href="/terms.html">Terms of Service</a> — how the platform uses data, plans, and campaign rules.</li>
+            <li data-i18n-html="guide.help.5"><a href="/billing-status.html">Payment status</a> — check pending verification, active dates, or renew after expiry.</li>
+        </ul>
+
+        <div class="guide-callout">
+            <strong data-i18n="guide.blockedTitle">If something is blocked:</strong>
+            <span data-i18n="guide.blocked">confirm you are signed in and email-verified, then that your plan is Active (not pending, rejected, or expired). Connect the channel in Settings. Email needs SMTP. WhatsApp and Telegram need a live QR/phone session. Recipients must match the channel (emails vs phone numbers with country code).</span>
+        </div>
+
+        <p class="legal-switch" data-i18n="guide.footer">This guide matches the Rabط workspace on this server: plans &amp; payment, KPI Overview, Email, WhatsApp, Telegram, Templates, Schedule, Contact, Settings, Invite Friends, and Get assistance.</p>
+    </article>
+</body>
+</html>

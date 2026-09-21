@@ -1,0 +1,387 @@
+Please perform a complete **data privacy and security audit** of Rabط and make sure that ALL user data is private, secure, and isolated.
+
+This is a critical requirement because users may send sensitive:
+
+* Email messages
+* WhatsApp messages
+* Telegram messages
+* Text content
+* Images
+* Videos
+* Documents
+* PDFs
+* Attachments
+* Contacts
+* Campaign content
+* Payment receipts
+* Personal/business information
+
+### 1. Nothing User-Owned Can Be Public
+
+No user's data should ever be publicly accessible.
+
+A user must NOT be able to access another user's:
+
+* Emails
+* WhatsApp messages
+* Telegram messages
+* Attachments
+* Files
+* Contacts
+* Campaigns
+* Templates
+* Schedules
+* Automations
+* Analytics
+* KPI data
+* Activity logs
+* Tracking data
+* Payment receipts
+* SMTP configuration
+* WhatsApp sessions
+* Telegram sessions
+* Personal information
+
+Do not rely only on hiding items from the UI.
+
+Enforce privacy at the **backend/API/storage/database level**.
+
+### 2. Strict Multi-Tenant Isolation
+
+Every user-owned resource must belong to:
+
+`userId`
+
+and where applicable:
+
+`businessId / tenantId`
+
+Every API request must verify ownership before returning, downloading, updating, or deleting data.
+
+Example:
+
+`authenticatedUser → tenant → resource ownership`
+
+If a resource belongs to another user:
+
+**Return 404/403 and NEVER return the data.**
+
+Prevent IDOR and authorization bypasses.
+
+### 3. Secure File Storage
+
+All uploaded files must be stored privately.
+
+This includes:
+
+* Email attachments
+* WhatsApp attachments
+* Telegram attachments
+* Profile images
+* Payment receipts
+* Campaign files
+* Imported contact files
+* Documents
+* Any other uploaded content
+
+Do NOT store sensitive files inside a publicly accessible folder such as:
+
+`public/uploads`
+
+Use private storage such as:
+
+`storage/private/{userId}/...`
+
+or an equivalent secure architecture.
+
+Never expose the real filesystem path to users.
+
+### 4. Secure File Downloads
+
+Do not allow users to download files simply by knowing the filename or URL.
+
+Use an authenticated download endpoint.
+
+Before every download verify:
+
+* User is authenticated
+* File exists
+* File belongs to the user's tenant
+* User has permission to access it
+
+Example:
+
+`GET /api/files/:id/download`
+
+must perform an ownership check before returning the file.
+
+Never use predictable public URLs for private files.
+
+### 5. Database Security
+
+Audit every database query.
+
+Make sure queries always filter by the authenticated user's:
+
+`userId / tenantId`
+
+For example, do NOT do:
+
+`SELECT * FROM campaigns`
+
+Instead use tenant-scoped queries.
+
+Also verify ownership before:
+
+* SELECT
+* INSERT
+* UPDATE
+* DELETE
+
+Never trust `userId` sent by the frontend.
+
+The backend must obtain the authenticated user identity from the secure authentication/session mechanism.
+
+### 6. Email Privacy
+
+Email content and attachments must remain private.
+
+Do not expose:
+
+* Email body
+* Recipient lists
+* Attachments
+* SMTP credentials
+* Tracking information
+
+through public APIs.
+
+Do not place SMTP passwords or API credentials in frontend JavaScript.
+
+### 7. WhatsApp & Telegram Privacy
+
+WhatsApp and Telegram sessions must be completely isolated per user.
+
+Never share:
+
+* Authentication sessions
+* Phone numbers
+* Messages
+* Media
+* API credentials
+* Session files
+* Client instances
+
+between users.
+
+A user's WhatsApp/Telegram client must only be accessible by that user's authenticated tenant.
+
+### 8. Sensitive Credentials
+
+Never expose these to the browser:
+
+* SMTP passwords
+* SMTP tokens
+* Telegram API credentials
+* WhatsApp session data
+* Database credentials
+* Encryption keys
+* JWT signing secrets
+* API keys
+* Private server configuration
+
+Store secrets securely on the server.
+
+Encrypt sensitive credentials at rest where appropriate.
+
+### 9. API Security
+
+Audit ALL APIs.
+
+Check for:
+
+* IDOR
+* Broken access control
+* Authentication bypass
+* Authorization bypass
+* Path traversal
+* Arbitrary file access
+* File upload vulnerabilities
+* SQL/NoSQL injection
+* XSS
+* CSRF where applicable
+* SSRF where applicable
+* Rate-limit abuse
+* Unauthorized data enumeration
+
+Every protected endpoint must require authentication and authorization.
+
+### 10. File Upload Security
+
+For every uploaded file:
+
+* Validate file type
+* Validate file size
+* Generate a random server-side filename
+* Never trust the original filename
+* Prevent path traversal
+* Store outside public web directories
+* Restrict executable file types
+* Scan/validate files where appropriate
+* Associate the file with the correct `userId/tenantId`
+
+Do not allow uploaded files to execute server-side code.
+
+### 11. Logs
+
+Do not accidentally write sensitive information into logs.
+
+Never log:
+
+* Passwords
+* SMTP passwords
+* API keys
+* Authentication tokens
+* WhatsApp sessions
+* Telegram sessions
+* Full email contents
+* Private message contents
+* Private attachments
+
+Logs should contain safe identifiers and technical information only.
+
+### 12. Caching
+
+Prevent one user's private data from appearing in another user's browser/cache.
+
+Use appropriate:
+
+`Cache-Control: private, no-store`
+
+for sensitive authenticated responses where appropriate.
+
+Audit:
+
+* Browser cache
+* Server cache
+* API cache
+* In-memory cache
+* Redis/cache layers
+* WebSocket state
+
+Make sure cached data is tenant-aware.
+
+### 13. WebSocket / Real-Time Data
+
+If Rabط uses WebSockets or real-time updates:
+
+A user must receive ONLY events belonging to their own tenant.
+
+User A must never receive User B's:
+
+* Campaign events
+* Messages
+* Notifications
+* KPI updates
+* Activity
+* Upload status
+* WhatsApp status
+* Telegram status
+
+### 14. Backup & Temporary Files
+
+Audit temporary files, exports, backups, generated files, and downloaded files.
+
+They must also respect tenant isolation.
+
+Do not leave sensitive files in:
+
+* `/tmp`
+* public directories
+* debug folders
+* build directories
+* downloadable static folders
+
+without proper access control.
+
+### 15. Security Headers
+
+Configure appropriate production security headers, including where applicable:
+
+* Content-Security-Policy
+* Strict-Transport-Security
+* X-Content-Type-Options
+* Referrer-Policy
+* Permissions-Policy
+* Secure/HttpOnly/SameSite cookies
+
+### 16. Important SaaS Requirement
+
+Rabط is a multi-user SaaS.
+
+This security model must work for:
+
+**10 users**
+**100 users**
+**10,000 users**
+and more.
+
+Do NOT hardcode security for specific Gmail accounts.
+
+Every newly registered user must automatically receive an isolated and private workspace.
+
+### 17. Security Testing
+
+Create automated tests for cross-user access.
+
+Create at least:
+
+**User A**
+
+and
+
+**User B**
+
+Then verify that User A cannot access User B's:
+
+* Files
+* Attachments
+* Emails
+* WhatsApp data
+* Telegram data
+* Contacts
+* Campaigns
+* Schedules
+* Analytics
+* Payment receipts
+* Profile data
+
+Also test by manually changing IDs in API requests.
+
+Expected result:
+
+**401/403/404 — never the other user's data.**
+
+### Final Requirement
+
+Treat ALL user-generated content as **private by default**.
+
+The security principle should be:
+
+**Deny by default → Authenticate → Authorize → Verify tenant ownership → Return data**
+
+Do not simply hide private information from the frontend.
+
+Protect it throughout the entire system:
+
+**Frontend → API → Backend → Database → Storage → Sessions → WebSockets → Logs → Backups**
+
+After completing the audit, provide a security report explaining:
+
+1. What private data was exposed or potentially exposed.
+2. Where the vulnerabilities were found.
+3. What was fixed.
+4. How files are now protected.
+5. How tenant isolation is enforced.
+6. Which security tests passed.
+7. Any remaining security risks that should be addressed before production deployment.

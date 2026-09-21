@@ -1,0 +1,2154 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email — Rabط</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/brand.css">
+    <script src="/i18n-dict.js"></script>
+    <script src="/i18n.js"></script>
+    <script src="/email-template-engine.js"></script>
+    <script src="/navbar.js"></script>
+    <script src="/ui-feedback.js"></script>
+    <script src="/saved-lists.js"></script>
+    <script src="/channel-status.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon i {
+            font-size: 20px;
+            color: var(--bg-primary);
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link {
+            padding: 10px 20px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+            background: var(--accent-subtle);
+        }
+
+        .nav-link.active {
+            color: var(--text-primary);
+            background: var(--accent-subtle);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .theme-toggle, .settings-toggle {
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle:hover, .settings-toggle:hover {
+            background: var(--accent-subtle);
+            border-color: var(--border-hover);
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-left: 12px;
+        }
+
+        .status-indicator.configured {
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--success);
+        }
+
+        .status-indicator.not-configured {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--error);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .modal::-webkit-scrollbar {
+            display: none;
+            width: 0;
+            height: 0;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .modal-close:hover {
+            background: var(--accent-subtle);
+            color: var(--text-primary);
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-subtle);
+            border-color: var(--border-hover);
+        }
+
+        .container {
+            max-width: 1040px;
+            margin: 0 auto;
+            padding: 16px 16px 24px;
+        }
+
+        .page-header {
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            letter-spacing: -0.02em;
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 13px;
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                padding: 0 10px;
+            }
+            .header {
+                padding: 16px 20px;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .nav {
+                display: none;
+            }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 12px 14px;
+            transition: border-color 0.2s ease;
+            min-height: 0;
+        }
+
+        .card.logs-card {
+            min-height: 0;
+        }
+
+        .card:hover {
+            border-color: var(--border-hover);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title i {
+            color: var(--text-secondary);
+        }
+
+        .step-badge {
+            font-size: 11px;
+            padding: 4px 10px;
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .form-group {
+            margin-bottom: 28px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .form-label i {
+            margin-right: 8px;
+            width: 16px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 15px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus {
+            border-color: var(--accent);
+            background: var(--bg-secondary);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-hint {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        .drop-zone {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius);
+            padding: 48px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: var(--bg-tertiary);
+        }
+
+        .drop-zone:hover, .drop-zone.dragover {
+            border-color: var(--accent);
+            background: var(--accent-subtle);
+        }
+
+        .drop-zone.has-file {
+            border-style: solid;
+            border-color: var(--success);
+        }
+
+        .drop-zone-icon {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            transition: color 0.2s ease;
+        }
+
+        .drop-zone:hover .drop-zone-icon {
+            color: var(--text-primary);
+        }
+
+        .drop-zone-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .drop-zone-hint {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: var(--success);
+        }
+
+        .file-info i {
+            font-size: 24px;
+        }
+
+        .file-name {
+            font-weight: 500;
+        }
+
+        .editor-wrapper {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background: var(--bg-tertiary);
+        }
+
+        .editor-toolbar {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            background: var(--bg-secondary);
+        }
+
+        .toolbar-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            transition: all 0.15s ease;
+        }
+
+        .toolbar-btn:hover {
+            background: var(--accent-subtle);
+            color: var(--text-primary);
+            border-color: var(--border-hover);
+        }
+
+        .toolbar-btn.active {
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-color: var(--accent);
+        }
+
+        .editor-area {
+            min-height: 220px;
+            padding: 16px;
+            font-size: 15px;
+            line-height: 1.6;
+            outline: none;
+            color: var(--text-primary);
+        }
+
+        .editor-area.library-loaded {
+            min-height: 420px;
+            background: #F3F5FA;
+        }
+
+        .library-banner {
+            display: none;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            margin: 10px 0 12px;
+            padding: 12px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: var(--accent-subtle);
+        }
+
+        .library-banner.show { display: flex; }
+
+        .library-banner strong { display: block; font-size: 13px; margin-bottom: 2px; }
+        .library-banner p { margin: 0; font-size: 12px; color: var(--text-secondary); line-height: 1.45; }
+
+        .editor-area:empty:before {
+            content: attr(data-placeholder);
+            color: var(--text-muted);
+        }
+
+        .attachments-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .attachment-btn {
+            padding: 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .attachment-btn:hover {
+            border-color: var(--border-hover);
+            color: var(--text-primary);
+            background: var(--accent-subtle);
+        }
+
+        .attachment-btn i {
+            font-size: 20px;
+        }
+
+        .attachment-btn span {
+            font-size: 12px;
+        }
+
+        .btn {
+            padding: 16px 28px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg-primary);
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .segmented {
+            display: inline-flex;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 4px;
+            gap: 4px;
+            width: 100%;
+        }
+
+        .seg-btn {
+            flex: 1;
+            height: 40px;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.15s ease, color 0.15s ease;
+        }
+
+        .seg-btn.active {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .seg-btn:not(.active):hover {
+            background: var(--accent-subtle);
+            color: var(--text-primary);
+        }
+
+        .form-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .status-text {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .alert {
+            padding: 14px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            margin-top: 16px;
+            display: none;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-success {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: var(--success);
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: var(--error);
+        }
+
+        .logs-card {
+            position: sticky;
+            top: 40px;
+        }
+
+        .logs-empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+        }
+
+        .logs-empty i {
+            font-size: 40px;
+            margin-bottom: 16px;
+            opacity: 0.3;
+        }
+
+        .logs-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .logs-table th {
+            text-align: left;
+            padding: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logs-table td {
+            padding: 12px;
+            font-size: 13px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logs-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .status-badge.success {
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--success);
+        }
+
+        .status-badge.error {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--error);
+        }
+
+        .status-badge.pending {
+            background: var(--accent-subtle);
+            color: var(--text-secondary);
+        }
+
+        .status-badge i {
+            font-size: 8px;
+        }
+
+        .logs-footer {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: var(--border-color);
+            border-radius: 2px;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: var(--success);
+        }
+
+        .live-indicator .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .logs-footer i {
+            margin-right: 6px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ── Schedule timing section ── */
+        --schedule-color: #8b5cf6;
+
+        .timing-section {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 24px;
+            transition: border-color 0.2s ease;
+        }
+
+        .timing-section.schedule-active {
+            border-color: #8b5cf6;
+            background: rgba(139, 92, 246, 0.04);
+        }
+
+        .timing-section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .timing-toggle { margin-bottom: 0; }
+        .timing-toggle .seg-btn.active { background: #8b5cf6; color: #fff; }
+
+        .schedule-fields {
+            margin-top: 18px;
+            padding-top: 18px;
+            border-top: 1px solid var(--border-color);
+            display: none;
+        }
+        .schedule-fields.visible { display: block; }
+
+        .datetime-row {
+            display: flex;
+            gap: 14px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        .datetime-row .form-group {
+            margin-bottom: 0;
+            flex: 1;
+            min-width: 180px;
+        }
+        .sched-date-input {
+            font-size: 15px;
+            font-weight: 600;
+            padding: 14px 12px;
+            width: 100%;
+            min-height: 56px;
+        }
+
+        .time-picker {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .time-picker .form-input {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            padding: 14px 8px;
+            max-width: 80px;
+        }
+        .time-sep {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--text-secondary);
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .schedule-hint-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 0;
+            margin-bottom: 16px;
+            padding: 10px 14px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            color: #8b5cf6;
+            font-weight: 500;
+        }
+        .schedule-hint-box i { flex-shrink: 0; }
+
+        .repeat-toggle .seg-btn.active { background: #8b5cf6; color: #fff; }
+
+        .form-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        @media (max-width: 600px) {
+            .attachments-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-row {
+                flex-direction: column;
+            }
+        }
+
+        .paste-area {
+            resize: vertical;
+            min-height: 130px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .ampm-toggle {
+            width: auto !important;
+            min-width: 92px;
+            flex-shrink: 0;
+        }
+
+        .ampm-toggle .seg-btn.active {
+            background: #8b5cf6;
+            color: #fff;
+        }
+
+        .recipients-tab-bar { margin-bottom: 10px; }
+        .recipients-tab-bar .seg-btn {
+            font-size: 12px;
+            gap: 6px;
+            padding: 0 8px;
+        }
+        .recipients-tab-bar .seg-btn.active {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+        .saved-list-picker { margin-top: 0; }
+        .saved-list-picker a { color: var(--accent); font-weight: 600; text-decoration: none; }
+
+        /* ── Live Badge ── */
+        .live-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 11px; font-weight: 700; letter-spacing: 0.04em;
+            color: var(--success);
+            background: rgba(34, 197, 94, 0.12);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            padding: 3px 9px; border-radius: 20px;
+        }
+        .live-badge .dot {
+            width: 6px; height: 6px;
+            background: var(--success); border-radius: 50%;
+            animation: livePulse 1.4s infinite;
+        }
+        .live-badge.done { color: var(--text-muted); background: var(--accent-subtle); border-color: var(--border-color); }
+        .live-badge.done .dot { background: var(--text-muted); animation: none; }
+        .live-badge.errored { color: var(--error); background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.3); }
+        .live-badge.errored .dot { background: var(--error); animation: none; }
+        @keyframes livePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        /* ── Log Entries ── */
+        .log-entries {
+            display: flex; flex-direction: column; gap: 5px;
+            max-height: 420px; overflow-y: auto;
+            margin-bottom: 4px;
+        }
+        .log-entry {
+            display: flex; align-items: center; gap: 10px;
+            padding: 8px 12px; border-radius: 6px; font-size: 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+        }
+        .log-entry.sent   { border-color: rgba(34,197,94,0.25); }
+        .log-entry.error,
+        .log-entry.failed { border-color: rgba(239,68,68,0.25); background: rgba(239,68,68,0.04); }
+        .log-entry.delay  { color: var(--text-muted); }
+        .log-entry.info   { color: var(--text-secondary); }
+        .log-entry.done   { border-color: rgba(34,197,94,0.2); color: var(--text-secondary); }
+        .log-icon { flex-shrink: 0; width: 16px; text-align: center; }
+        .log-icon.sent   { color: var(--success); }
+        .log-icon.error,
+        .log-icon.failed { color: var(--error); }
+        .log-icon.delay  { color: var(--text-muted); }
+        .log-icon.info   { color: var(--text-secondary); }
+        .log-icon.done   { color: var(--success); }
+        .log-label  { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .log-detail { font-size: 11px; color: var(--text-muted); flex-shrink: 0; max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    </style>
+</head>
+<body>
+    <div id="app-navbar"></div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>Email campaigns</h1>
+            <p>Compose, send, and track email from the Rabط workspace.</p>
+        </div>
+        <div class="setup-banner hidden" id="channelSetupBanner">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span data-setup-text>Email SMTP is not set up yet.</span>
+            <a href="/settings.html#email">Open Settings</a>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        Compose Email
+                    </h2>
+                    <span class="step-badge">Step 1</span>
+                </div>
+
+                <form id="emailForm">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fa-solid fa-users"></i>
+                            Recipients
+                        </label>
+                        <div class="segmented recipients-tab-bar" id="recipientsSourceToggle">
+                            <button type="button" class="seg-btn active" id="srcSavedBtn">
+                                <i class="fa-solid fa-folder-open"></i> Saved list
+                            </button>
+                            <button type="button" class="seg-btn" id="srcPasteBtn">
+                                <i class="fa-solid fa-paste"></i> Paste Emails
+                            </button>
+                        </div>
+                        <div class="saved-list-picker" id="savedListPicker">
+                            <select id="savedListSelect" class="form-input">
+                                <option value="">Loading saved lists…</option>
+                            </select>
+                            <div class="form-hint" style="margin-top:8px;">
+                                Import lists in <a href="/import-export.html">Contact</a>, then choose All Contact or one list.
+                            </div>
+                        </div>
+                        <textarea id="recipientsPaste" class="form-input paste-area hidden" rows="6" placeholder="Paste email addresses here, one per line&#10;example@domain.com&#10;another@domain.com"></textarea>
+                        <div class="form-hint" style="margin-top:10px;" id="recipientsHint">
+                            Choose All Contact or a list you imported in Contact.
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fa-solid fa-heading"></i>
+                            Subject Line
+                        </label>
+                        <input type="text" id="subjectInput" class="form-input" placeholder="Enter email subject..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fa-solid fa-align-left"></i>
+                            Message Body
+                        </label>
+                        <div class="form-hint" id="templateHint" style="margin-top:-4px;">
+                            Optional: choose a ready template from the library. The original template is never changed from this page.
+                        </div>
+                        <div class="library-banner" id="libraryBanner">
+                            <div>
+                                <strong id="libraryBannerTitle">Template loaded</strong>
+                                <p>Edit the subject and content below, then send or schedule as usual. Changes stay on this draft only.</p>
+                            </div>
+                            <a class="attachment-btn" href="/templates.html" style="text-decoration:none;flex-shrink:0;">
+                                <i class="fa-solid fa-layer-group"></i>
+                                <span>Library</span>
+                            </a>
+                        </div>
+                        <div class="attachments-grid" style="margin-top: 12px; margin-bottom: 12px;">
+                            <a class="attachment-btn" id="browseTemplatesBtn" href="/templates.html" style="text-decoration:none;">
+                                <i class="fa-solid fa-layer-group"></i>
+                                <span>Browse Templates</span>
+                            </a>
+                            <button type="button" class="attachment-btn" id="clearTemplateBtn" style="display:none;">
+                                <i class="fa-solid fa-xmark"></i>
+                                <span>Clear Template</span>
+                            </button>
+                        </div>
+                        <div class="editor-wrapper">
+                            <div class="editor-toolbar">
+                                <button type="button" class="toolbar-btn" data-cmd="bold" title="Bold">
+                                    <i class="fa-solid fa-bold"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" data-cmd="italic" title="Italic">
+                                    <i class="fa-solid fa-italic"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" data-cmd="underline" title="Underline">
+                                    <i class="fa-solid fa-underline"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" data-cmd="formatBlock" data-value="h3" title="Heading">
+                                    <i class="fa-solid fa-heading"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" data-cmd="insertUnorderedList" title="Bullet List">
+                                    <i class="fa-solid fa-list"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" data-cmd="insertOrderedList" title="Numbered List">
+                                    <i class="fa-solid fa-list-ol"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" id="insertLinkBtn" title="Insert Link">
+                                    <i class="fa-solid fa-link"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" id="insertSystemNameBtn" title="Insert System Name">
+                                    <i class="fa-solid fa-tag"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn" id="insertHighlightBtn" title="Highlight">
+                                    <i class="fa-solid fa-highlighter"></i>
+                                </button>
+                            </div>
+                            <div id="editorArea" class="editor-area" contenteditable="true" data-placeholder="Write your message here..."></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fa-solid fa-signature"></i>
+                            Signature (Optional)
+                        </label>
+                        <div class="editor-wrapper">
+                            <div class="editor-toolbar">
+                                <button type="button" class="toolbar-btn sig-toolbar" data-cmd="bold" title="Bold">
+                                    <i class="fa-solid fa-bold"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn sig-toolbar" data-cmd="italic" title="Italic">
+                                    <i class="fa-solid fa-italic"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn sig-toolbar" data-cmd="underline" title="Underline">
+                                    <i class="fa-solid fa-underline"></i>
+                                </button>
+                                <button type="button" class="toolbar-btn sig-toolbar" data-cmd="formatBlock" data-value="h4" title="Small Heading">
+                                    <i class="fa-solid fa-h"></i>
+                                </button>
+                            </div>
+                            <div id="signatureEditor" class="editor-area" contenteditable="true" data-placeholder="Your name, title, contact info..."></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fa-solid fa-paperclip"></i>
+                            Attachments
+                        </label>
+                        <div class="attachments-grid">
+                            <button type="button" class="attachment-btn" id="imageBtn">
+                                <i class="fa-regular fa-image"></i>
+                                <span>Add Image</span>
+                            </button>
+                            <button type="button" class="attachment-btn" id="fileBtn">
+                                <i class="fa-solid fa-file-arrow-up"></i>
+                                <span>Add Files</span>
+                            </button>
+                        </div>
+                        <input type="file" id="imageInput" accept="image/*" class="hidden">
+                        <input type="file" id="attachmentsInput" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt" multiple class="hidden">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fa-solid fa-clock"></i>
+                            Delay Between Emails (seconds)
+                        </label>
+                        <input type="number" id="delayInput" class="form-input" value="5" min="1" max="60" placeholder="Delay in seconds">
+                        <div class="form-hint">Time to wait between each email (1-60 seconds)</div>
+                    </div>
+
+                    <!-- ── Send Timing ── -->
+                    <div class="timing-section" id="timingSection">
+                        <div class="timing-section-title">
+                            <i class="fa-solid fa-clock"></i> Send Timing
+                        </div>
+
+                        <div class="segmented timing-toggle" id="timingToggle">
+                            <button type="button" class="seg-btn active" id="sendNowBtn">
+                                <i class="fa-solid fa-paper-plane"></i> Send Now
+                            </button>
+                            <button type="button" class="seg-btn" id="scheduleBtn">
+                                <i class="fa-solid fa-clock"></i> Schedule for Later
+                            </button>
+                        </div>
+
+                        <div class="schedule-fields" id="scheduleFields">
+                            <div class="form-group" style="margin-bottom:16px;">
+                                <label class="form-label" style="margin-bottom:8px;">
+                                    <i class="fa-solid fa-tag"></i> Campaign Name
+                                </label>
+                                <input type="text" id="campaignName" class="form-input" placeholder="e.g., Newsletter July">
+                            </div>
+
+                            <div class="datetime-row">
+                                <div class="form-group">
+                                    <label class="form-label" style="margin-bottom:8px;">
+                                        <i class="fa-solid fa-calendar-day"></i> Date
+                                    </label>
+                                    <input type="date" id="schedDate" class="form-input sched-date-input">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" style="margin-bottom:8px;">
+                                        <i class="fa-solid fa-hourglass-start"></i> Start Sending At
+                                    </label>
+                                    <div class="time-picker">
+                                        <input type="number" id="schedHour" class="form-input" min="1" max="12" value="9" placeholder="HH">
+                                        <span class="time-sep">:</span>
+                                        <input type="number" id="schedMinute" class="form-input" min="0" max="59" value="0" placeholder="MM">
+                                        <div class="segmented ampm-toggle" id="ampmToggle">
+                                            <button type="button" class="seg-btn active" id="amBtn">AM</button>
+                                            <button type="button" class="seg-btn" id="pmBtn">PM</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="schedule-hint-box" id="schedHintBox">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <span id="schedHintText">Calculating…</span>
+                            </div>
+
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="form-label" style="margin-bottom:8px;">
+                                    <i class="fa-solid fa-rotate"></i> Repeat
+                                </label>
+                                <div class="segmented repeat-toggle" id="repeatToggle">
+                                    <button type="button" class="seg-btn active" id="repeatOnceBtn">
+                                        <i class="fa-solid fa-check"></i> Once
+                                    </button>
+                                    <button type="button" class="seg-btn" id="repeatDailyBtn">
+                                        <i class="fa-solid fa-rotate"></i> Every Day
+                                    </button>
+                                </div>
+                                <input type="hidden" id="schedRepeat" value="once">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" id="sendButton">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            Send Emails
+                        </button>
+                        <span class="status-text" id="statusText">Ready to send</span>
+                    </div>
+
+                    <div class="alert" id="alertBox"></div>
+                </form>
+            </div>
+
+            <div class="card logs-card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fa-solid fa-list-check"></i>
+                        Delivery Log
+                    </h2>
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <span class="live-badge hidden" id="liveBadge"><span class="dot"></span>LIVE</span>
+                        <span class="step-badge">Step 2</span>
+                    </div>
+                </div>
+
+                <div class="progress-section hidden" id="progressSection">
+                    <div class="progress-info">
+                        <span id="progressText">0 / 0</span>
+                        <span id="logSummaryText"></span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+
+                <div class="log-entries" id="logEntries">
+                    <div class="logs-empty" id="logsEmpty">
+                        <i class="fa-regular fa-envelope"></i>
+                        <p>No emails sent yet</p>
+                    </div>
+                </div>
+
+                <div class="logs-footer">
+                    <i class="fa-solid fa-circle-info"></i>
+                    Emails are sent via BCC to reduce spam risk. Invalid addresses are skipped automatically.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.RabtChannelStatus) {
+                RabtChannelStatus.bindBanner({
+                    channel: 'email',
+                    needText: 'Email SMTP is not set up yet.'
+                });
+            }
+
+            const imageInput = document.getElementById('imageInput');
+            const attachmentsInput = document.getElementById('attachmentsInput');
+            const recipientsPaste = document.getElementById('recipientsPaste');
+            const srcSavedBtn = document.getElementById('srcSavedBtn');
+            const srcPasteBtn = document.getElementById('srcPasteBtn');
+            const savedListPicker = document.getElementById('savedListPicker');
+            const savedListSelect = document.getElementById('savedListSelect');
+            const recipientsHint = document.getElementById('recipientsHint');
+
+            let recipientMode = 'saved';
+
+            async function loadSavedLists() {
+                if (!window.RabtLists || !savedListSelect) return;
+                try {
+                    const lists = await RabtLists.load('email');
+                    RabtLists.fillSelect(savedListSelect, lists, 'No saved email lists — open Contact');
+                } catch (err) {
+                    savedListSelect.innerHTML = '<option value="">Could not load saved lists</option>';
+                }
+            }
+
+            function setRecipientMode(mode) {
+                recipientMode = mode;
+                srcSavedBtn.classList.toggle('active', mode === 'saved');
+                srcPasteBtn.classList.toggle('active', mode === 'paste');
+                savedListPicker.classList.toggle('hidden', mode !== 'saved');
+                recipientsPaste.classList.toggle('hidden', mode !== 'paste');
+                recipientsHint.textContent = mode === 'paste'
+                    ? 'Paste one email address per line.'
+                    : 'Choose All Contact or a list you imported in Contact.';
+                if (mode === 'saved') loadSavedLists();
+            }
+
+            srcSavedBtn?.addEventListener('click', () => setRecipientMode('saved'));
+            srcPasteBtn?.addEventListener('click', () => setRecipientMode('paste'));
+            loadSavedLists();
+            if (window.RabtLists && RabtLists.consumePrefill) {
+                RabtLists.consumePrefill('email', function (text) {
+                    setRecipientMode('paste');
+                    recipientsPaste.value = text;
+                });
+            }
+
+            document.getElementById('imageBtn').addEventListener('click', () => imageInput.click());
+            document.getElementById('fileBtn').addEventListener('click', () => attachmentsInput.click());
+
+            const editorArea = document.getElementById('editorArea');
+            const signatureEditor = document.getElementById('signatureEditor');
+            const subjectInput = document.getElementById('subjectInput');
+
+            editorArea.innerHTML = `Hello,<br><br>Write your message here. Keep it clear and professional.<br><br>If you no longer wish to receive these emails, reply with "Unsubscribe".<br><br>Best regards,`;
+            
+            signatureEditor.innerHTML = `<b>Rabط Team</b><br>Your Organization<br>www.example.com`;
+
+            let libraryTemplateActive = false;
+            let libraryTemplateName = '';
+            const libraryBanner = document.getElementById('libraryBanner');
+            const libraryBannerTitle = document.getElementById('libraryBannerTitle');
+
+            function asFullEmailDocument(html) {
+                const raw = String(html || '').trim();
+                if (!raw) return '';
+                if (/^\s*(<!DOCTYPE|<html)/i.test(raw)) return raw;
+                if (/email-card|role="presentation"/i.test(raw)) {
+                    return '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body style="margin:0;padding:0;background:#F3F5FA;">' + raw + '</body></html>';
+                }
+                return raw;
+            }
+
+            function htmlAsTemplateFile(html, name) {
+                const safe = String(name || 'template').replace(/[^\w\-]+/g, '-').replace(/-+/g, '-').slice(0, 60) || 'template';
+                return new File([html], safe + '.html', { type: 'text/html' });
+            }
+
+            document.querySelectorAll('.editor-toolbar').forEach(toolbar => {
+                toolbar.addEventListener('click', (e) => {
+                    const btn = e.target.closest('.toolbar-btn');
+                    if (!btn) return;
+
+                    const cmd = btn.getAttribute('data-cmd');
+                    const value = btn.getAttribute('data-value');
+                    const editor = toolbar.closest('.editor-wrapper').querySelector('.editor-area');
+                    
+                    editor.focus();
+
+                    if (cmd === 'formatBlock') {
+                        document.execCommand(cmd, false, value);
+                    } else if (cmd) {
+                        document.execCommand(cmd, false, null);
+                    }
+                });
+            });
+
+            document.getElementById('insertHighlightBtn').addEventListener('click', () => {
+                editorArea.focus();
+                const selection = window.getSelection();
+                if (selection && selection.rangeCount > 0) {
+                    const range = selection.getRangeAt(0);
+                    const span = document.createElement('span');
+                    span.style.backgroundColor = 'yellow';
+                    span.style.color = 'black';
+                    span.style.padding = '2px 4px';
+                    span.appendChild(range.extractContents());
+                    range.insertNode(span);
+                }
+            });
+
+            document.getElementById('insertLinkBtn').addEventListener('click', async () => {
+                var url = window.RabtUI
+                    ? await RabtUI.prompt({
+                        title: 'Insert link',
+                        message: 'Paste the URL to attach to the selected text.',
+                        placeholder: 'https://',
+                        confirmLabel: 'Insert'
+                    })
+                    : prompt('Enter URL:');
+                if (url) {
+                    document.execCommand('createLink', false, url);
+                }
+            });
+
+            function insertTextIntoFocusedEditor(text) {
+                const active = document.activeElement;
+                const isEditor = active && (active.id === 'editorArea' || active.id === 'signatureEditor');
+                const target = isEditor ? active : editorArea;
+                target.focus();
+                document.execCommand('insertText', false, text);
+            }
+
+            document.getElementById('insertSystemNameBtn').addEventListener('click', () => {
+                insertTextIntoFocusedEditor('{{SYSTEM_NAME}}');
+            });
+
+            // ── Send Timing toggle ─────────────────────────────────────────────
+            const timingSection   = document.getElementById('timingSection');
+            const sendNowBtn      = document.getElementById('sendNowBtn');
+            const scheduleBtnEl   = document.getElementById('scheduleBtn');
+            const scheduleFields  = document.getElementById('scheduleFields');
+            const schedHour       = document.getElementById('schedHour');
+            const schedMinute     = document.getElementById('schedMinute');
+            const schedDate       = document.getElementById('schedDate');
+            const schedHintText   = document.getElementById('schedHintText');
+            const repeatOnceBtn   = document.getElementById('repeatOnceBtn');
+            const repeatDailyBtn  = document.getElementById('repeatDailyBtn');
+            const schedRepeat     = document.getElementById('schedRepeat');
+            const sendButton2     = document.getElementById('sendButton');
+            const amBtn           = document.getElementById('amBtn');
+            const pmBtn           = document.getElementById('pmBtn');
+
+            let schedulingMode = false;
+            let schedAmPm = 'AM';
+
+            function getSchedHour24() {
+                const h12 = parseInt(schedHour.value);
+                if (isNaN(h12) || h12 < 1 || h12 > 12) return NaN;
+                return schedAmPm === 'AM' ? (h12 === 12 ? 0 : h12) : (h12 === 12 ? 12 : h12 + 12);
+            }
+
+            function todayYMD() {
+                const d = new Date();
+                return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+            }
+
+            function parseYMD(ymd) {
+                const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(ymd || '');
+                if (!m) return null;
+                const y = parseInt(m[1], 10);
+                const mo = parseInt(m[2], 10);
+                const da = parseInt(m[3], 10);
+                const d = new Date(y, mo - 1, da);
+                if (d.getFullYear() !== y || d.getMonth() !== mo - 1 || d.getDate() !== da) return null;
+                return d;
+            }
+
+            function ensureSchedDate() {
+                if (!schedDate) return;
+                const today = todayYMD();
+                schedDate.min = today;
+                if (!schedDate.value) schedDate.value = today;
+            }
+
+            function hintDateLabel(d) {
+                const now = new Date();
+                if (d.toDateString() === now.toDateString()) return 'today';
+                const tmr = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+                if (d.toDateString() === tmr.toDateString()) return 'tomorrow';
+                return d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+            }
+
+            function fmtIn(diffMs) {
+                const totalMin = Math.max(0, Math.round(diffMs / 60000));
+                const days = Math.floor(totalMin / 1440);
+                const hrs = Math.floor((totalMin % 1440) / 60);
+                const mins = totalMin % 60;
+                const parts = [];
+                if (days > 0) parts.push(days + 'd');
+                if (hrs > 0) parts.push(hrs + 'h');
+                parts.push(mins + 'm');
+                return parts.join(' ');
+            }
+
+            function updateSchedHint() {
+                ensureSchedDate();
+                const h12 = parseInt(schedHour.value);
+                const h24 = getSchedHour24();
+                const m = parseInt(schedMinute.value);
+                if (isNaN(h24) || isNaN(m) || h12 < 1 || h12 > 12 || m < 0 || m > 59) {
+                    schedHintText.textContent = 'Enter a valid time (1–12 hours, 0–59 minutes).';
+                    return;
+                }
+                const day = parseYMD(schedDate && schedDate.value);
+                if (!day) {
+                    schedHintText.textContent = 'Pick a date.';
+                    return;
+                }
+                day.setHours(h24, m, 0, 0);
+                if (day.getTime() <= Date.now()) {
+                    schedHintText.textContent = 'Pick a date and time in the future.';
+                    return;
+                }
+                const timeStr = `${String(h12).padStart(2, '0')}:${String(m).padStart(2, '0')} ${schedAmPm}`;
+                const repeatLabel = schedRepeat.value === 'daily' ? ' (then every day)' : '';
+                schedHintText.textContent = `Will send at ${timeStr} ${hintDateLabel(day)}${repeatLabel} — in ${fmtIn(day - Date.now())}`;
+            }
+
+            function setAmPm(val) {
+                schedAmPm = val;
+                amBtn.classList.toggle('active', val === 'AM');
+                pmBtn.classList.toggle('active', val === 'PM');
+                updateSchedHint();
+            }
+
+            amBtn?.addEventListener('click', () => setAmPm('AM'));
+            pmBtn?.addEventListener('click', () => setAmPm('PM'));
+
+            schedHour.addEventListener('input', updateSchedHint);
+            schedMinute.addEventListener('input', updateSchedHint);
+            schedDate?.addEventListener('input', updateSchedHint);
+            schedDate?.addEventListener('change', updateSchedHint);
+            setInterval(updateSchedHint, 30000);
+
+            function setTimingMode(mode) {
+                schedulingMode = (mode === 'schedule');
+                sendNowBtn.classList.toggle('active', !schedulingMode);
+                scheduleBtnEl.classList.toggle('active', schedulingMode);
+                scheduleFields.classList.toggle('visible', schedulingMode);
+                timingSection.classList.toggle('schedule-active', schedulingMode);
+
+                if (schedulingMode) {
+                    sendButton2.innerHTML = '<i class="fa-solid fa-calendar-check"></i> Schedule Campaign';
+                    updateSchedHint();
+                } else {
+                    sendButton2.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Emails';
+                }
+            }
+
+            sendNowBtn.addEventListener('click', () => setTimingMode('now'));
+            scheduleBtnEl.addEventListener('click', () => setTimingMode('schedule'));
+
+            function setRepeat(val) {
+                schedRepeat.value = val;
+                repeatOnceBtn.classList.toggle('active', val === 'once');
+                repeatDailyBtn.classList.toggle('active', val === 'daily');
+                updateSchedHint();
+            }
+            repeatOnceBtn.addEventListener('click', () => setRepeat('once'));
+            repeatDailyBtn.addEventListener('click', () => setRepeat('daily'));
+
+            // ── Form elements ──────────────────────────────────────────────────
+            const form = document.getElementById('emailForm');
+            const delayInput = document.getElementById('delayInput');
+            const sendButton = document.getElementById('sendButton');
+            const statusText = document.getElementById('statusText');
+            const alertBox = document.getElementById('alertBox');
+            const logEntriesEl   = document.getElementById('logEntries');
+            const logsEmpty      = document.getElementById('logsEmpty');
+            const progressSection= document.getElementById('progressSection');
+            const progressFill   = document.getElementById('progressFill');
+            const progressText   = document.getElementById('progressText');
+            const logSummaryText = document.getElementById('logSummaryText');
+            const liveBadgeEl    = document.getElementById('liveBadge');
+
+            function setStatus(message, isError = false) {
+                statusText.textContent = message;
+                statusText.style.color = isError ? 'var(--error)' : 'var(--text-muted)';
+            }
+
+            function showAlert(message, isError = false) {
+                if (window.RabtUI) {
+                    RabtUI.notify(message, isError ? 'error' : 'success', alertBox);
+                    return;
+                }
+                alertBox.textContent = message;
+                alertBox.className = `alert show ${isError ? 'alert-error' : 'alert-success'}`;
+            }
+
+            function clearAlert() {
+                alertBox.className = 'alert';
+                alertBox.innerHTML = '';
+            }
+
+            function initLogs() {
+                logEntriesEl.innerHTML = '';
+                logsEmpty.classList.add('hidden');
+                progressSection.classList.remove('hidden');
+                progressFill.style.width = '0%';
+                progressText.textContent = '0 / 0';
+                logSummaryText.textContent = '';
+                liveBadgeEl.className = 'live-badge';
+                liveBadgeEl.innerHTML = '<span class="dot"></span>LIVE';
+                liveBadgeEl.classList.remove('hidden');
+            }
+
+            function addLogEntry(label, type, detail) {
+                const iconMap = {
+                    sent: 'fa-check', error: 'fa-xmark', failed: 'fa-xmark',
+                    delay: 'fa-hourglass-half', info: 'fa-circle-info', done: 'fa-flag-checkered'
+                };
+                const icon = iconMap[type] || 'fa-circle';
+                const el = document.createElement('div');
+                el.className = `log-entry ${type}`;
+                el.innerHTML = `
+                    <span class="log-icon ${type}"><i class="fa-solid ${icon}"></i></span>
+                    <span class="log-label" title="${label}">${label}</span>
+                    ${detail ? `<span class="log-detail" title="${detail}">${detail}</span>` : ''}
+                `;
+                logEntriesEl.insertBefore(el, logEntriesEl.firstChild);
+            }
+
+            function updateProgress(current, total, sent, failed) {
+                const percent = total > 0 ? (current / total) * 100 : 0;
+                progressFill.style.width = `${percent}%`;
+                progressText.textContent = `${current} / ${total}`;
+                logSummaryText.textContent = `✅ ${sent}  ❌ ${failed}`;
+            }
+
+            let eventSource = null;
+            let isAutomationRunning = false;
+
+            const clearTemplateBtn = document.getElementById('clearTemplateBtn');
+            let templateHtmlCache = '';
+            let librarySubjectTagged = '';
+            let libraryPreviewSnapshot = '';
+            let librarySubjectSnapshot = '';
+
+            function previewMerge(value) {
+                const engine = window.RabtEmailTemplates;
+                if (engine && engine.applySamples) return engine.applySamples(value == null ? '' : value, true);
+                return String(value == null ? '' : value);
+            }
+
+            function resolveLibrarySubject() {
+                const typed = subjectInput.value.trim();
+                if (libraryTemplateActive && librarySubjectTagged && typed === String(librarySubjectSnapshot || '').trim()) {
+                    return librarySubjectTagged;
+                }
+                return typed;
+            }
+
+            function resolveLibraryHtml() {
+                const visible = editorArea.innerHTML.trim();
+                if (libraryTemplateActive && templateHtmlCache && visible === String(libraryPreviewSnapshot || '').trim()) {
+                    return templateHtmlCache;
+                }
+                return visible;
+            }
+
+            function applyLibraryTemplate(draft) {
+                if (!draft || !draft.html) return;
+                libraryTemplateActive = true;
+                libraryTemplateName = draft.name || 'Template';
+                templateHtmlCache = String(draft.html);
+                librarySubjectTagged = String(draft.subject || '');
+                const previewHtml = draft.htmlPreview || previewMerge(templateHtmlCache);
+                if (librarySubjectTagged) subjectInput.value = previewMerge(librarySubjectTagged);
+                editorArea.innerHTML = previewHtml;
+                libraryPreviewSnapshot = editorArea.innerHTML;
+                librarySubjectSnapshot = subjectInput.value;
+                editorArea.classList.add('library-loaded');
+                if (libraryBanner) libraryBanner.classList.add('show');
+                if (libraryBannerTitle) libraryBannerTitle.textContent = 'Using “' + libraryTemplateName + '”';
+                if (clearTemplateBtn) clearTemplateBtn.style.display = 'inline-flex';
+                showAlert('Template copied into Compose Email. Editing this draft does not change the original.', false);
+            }
+
+            try {
+                const rawDraft = sessionStorage.getItem('rabt_compose_template');
+                if (rawDraft) {
+                    sessionStorage.removeItem('rabt_compose_template');
+                    applyLibraryTemplate(JSON.parse(rawDraft));
+                }
+            } catch (_) {}
+
+            function resolveTemplateFile(html) {
+                if (libraryTemplateActive && html) {
+                    return htmlAsTemplateFile(asFullEmailDocument(html), libraryTemplateName);
+                }
+                return null;
+            }
+
+            clearTemplateBtn?.addEventListener('click', () => {
+                templateHtmlCache = '';
+                librarySubjectTagged = '';
+                libraryPreviewSnapshot = '';
+                librarySubjectSnapshot = '';
+                libraryTemplateActive = false;
+                libraryTemplateName = '';
+                editorArea.classList.remove('library-loaded');
+                if (libraryBanner) libraryBanner.classList.remove('show');
+                clearTemplateBtn.style.display = 'none';
+                showAlert('Template cleared. Editor content will be used.', false);
+            });
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                clearAlert();
+
+                if (window.RabtChannelStatus) {
+                    const smtpReady = await RabtChannelStatus.email();
+                    if (!smtpReady) {
+                        showAlert('Set up Email SMTP in Settings before sending.', true);
+                        return;
+                    }
+                }
+
+                let recipientsFile;
+                let isExcel = false;
+
+                if (recipientMode === 'paste') {
+                    const pasteContent = (recipientsPaste?.value || '').trim();
+                    if (!pasteContent) {
+                        showAlert('Please paste email addresses or switch to a saved list.', true);
+                        return;
+                    }
+                    const blob = new Blob([pasteContent], { type: 'text/plain' });
+                    recipientsFile = new File([blob], 'pasted-emails.txt', { type: 'text/plain' });
+                } else {
+                    const savedId = savedListSelect && savedListSelect.value;
+                    if (!savedId) {
+                        showAlert('Select a saved email list, or import one in Contact.', true);
+                        return;
+                    }
+                    try {
+                        recipientsFile = await RabtLists.fileFromSaved(savedId, 'email', 'all-emails.txt');
+                    } catch (err) {
+                        showAlert(err.message || 'Could not load the saved list.', true);
+                        return;
+                    }
+                    const recipientsExt = (recipientsFile?.name || '').toLowerCase();
+                    isExcel = recipientsExt.endsWith('.xls') || recipientsExt.endsWith('.xlsx') || (recipientsFile?.type || '').includes('spreadsheet');
+                }
+
+                const subject = resolveLibrarySubject();
+                const delaySeconds = parseInt(delayInput.value) || 5;
+                const delayMs = delaySeconds * 1000;
+
+                if (subject.length < 3) {
+                    showAlert('Subject must be at least 3 characters.', true);
+                    return;
+                }
+
+                // ── Schedule mode: hand off to /api/schedule/email ─────────────
+                if (schedulingMode) {
+                    const h12sched = parseInt(schedHour.value);
+                    const h = getSchedHour24();
+                    const m = parseInt(schedMinute.value);
+                    const campaignName = (document.getElementById('campaignName').value || '').trim()
+                        || subject;
+
+                    if (isNaN(h12sched) || h12sched < 1 || h12sched > 12) { showAlert('Hour must be between 1 and 12.', true); return; }
+                    if (isNaN(m) || m < 0 || m > 59) { showAlert('Minute must be between 0 and 59.', true); return; }
+                    ensureSchedDate();
+                    const dateVal = schedDate && schedDate.value;
+                    const day = parseYMD(dateVal);
+                    if (!day) { showAlert('Please pick a date.', true); return; }
+                    day.setHours(h, m, 0, 0);
+                    if (day.getTime() <= Date.now()) { showAlert('Pick a date and time in the future.', true); return; }
+
+                    let baseHtmlSched = '';
+                    if (libraryTemplateActive) {
+                        baseHtmlSched = asFullEmailDocument(resolveLibraryHtml());
+                    } else {
+                        baseHtmlSched = editorArea.innerHTML.trim();
+                    }
+                    const templateFileSched = resolveTemplateFile(baseHtmlSched);
+                    if (baseHtmlSched.replace(/<[^>]*>/g, '').trim().length < 10) {
+                        showAlert('Email content must be at least 10 characters.', true);
+                        return;
+                    }
+
+                    const fd = new FormData();
+                    fd.append('name', campaignName);
+                    fd.append('hour', h);
+                    fd.append('minute', m);
+                    fd.append('date', dateVal);
+                    fd.append('repeat', schedRepeat.value);
+                    fd.append('subject', subject);
+                    fd.append('htmlContent', baseHtmlSched);
+                    fd.append('delayMs', delayMs);
+                    fd.append('recipientsFile', recipientsFile);
+                    if (templateFileSched) fd.append('htmlTemplate', templateFileSched);
+
+                    sendButton.disabled = true;
+                    sendButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Scheduling…';
+
+                    try {
+                        const res = await fetch('/api/schedule/email', { method: 'POST', body: fd });
+                        const data = await res.json();
+                        if (data.success) {
+                            showAlert(`✅ ${data.message}  →  View it on the Schedule page.`);
+                            setStatus('Scheduled.');
+                            const schedId = data.data && data.data.id;
+                            if (schedId) startScheduleWatcher(schedId);
+                        } else {
+                            showAlert(data.message || 'Failed to schedule.', true);
+                            setStatus('Schedule failed.', true);
+                        }
+                    } catch (err) {
+                        showAlert('Network error: ' + err.message, true);
+                        setStatus('Network error.', true);
+                    } finally {
+                        sendButton.disabled = false;
+                        sendButton.innerHTML = '<i class="fa-solid fa-calendar-check"></i> Schedule Campaign';
+                    }
+                    return; // stop here — don't stream
+                }
+                // ── End schedule mode ──────────────────────────────────────────
+
+                let baseHtml = '';
+                let templateFile = null;
+                if (libraryTemplateActive) {
+                    baseHtml = asFullEmailDocument(resolveLibraryHtml());
+                    templateFile = resolveTemplateFile(baseHtml);
+                } else {
+                    baseHtml = editorArea.innerHTML.trim();
+                }
+
+                if (baseHtml.replace(/<[^>]*>/g, '').trim().length < 10) {
+                    showAlert('Email content must be at least 10 characters.', true);
+                    return;
+                }
+
+                initLogs();
+                isAutomationRunning = true;
+                sendButton.disabled = true;
+                sendButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+                setStatus('Starting to send emails...');
+
+                const signatureHtml = signatureEditor.innerHTML.trim()
+                    ? "<br><br>" + signatureEditor.innerHTML.trim()
+                    : "";
+                const imageFile = imageInput.files[0];
+                const imageTagHtml = imageFile
+                    ? `<br><br><img src="cid:embedded-image@emailsystem" style="max-width:100%; width:100%; height:auto; display:block;">`
+                    : "";
+                const usingTemplate = !!templateFile;
+                const finalHtml = usingTemplate ? baseHtml : (baseHtml + imageTagHtml + signatureHtml);
+
+                async function startStreaming(formData, initialTotal) {
+                    try {
+                        const response = await fetch('/api/email/send-stream', {
+                            method: 'POST',
+                            body: formData
+                        });
+
+                        if (!response.ok || !response.body) {
+                            let message = 'Failed to start sending.';
+                            try {
+                                const errData = await response.json();
+                                message = errData.message || message;
+                            } catch {}
+                            addLogEntry('Failed to start', 'error', message);
+                            liveBadgeEl.className = 'live-badge errored';
+                            liveBadgeEl.innerHTML = '<span class="dot"></span>FAILED';
+                            showAlert(message, true);
+                            setStatus('Sending failed.', true);
+                            return;
+                        }
+
+                        let total = initialTotal ?? 0;
+                        let sent = 0;
+                        let failed = 0;
+                        let processed = 0;
+
+                        updateProgress(0, total, 0, 0);
+                        setStatus('Sending...');
+
+                        const streamReader = response.body.getReader();
+                        const decoder = new TextDecoder();
+                        let buffer = '';
+
+                        while (true) {
+                            const { value, done } = await streamReader.read();
+                            if (done) break;
+                            buffer += decoder.decode(value, { stream: true });
+
+                            const parts = buffer.split('\n\n');
+                            buffer = parts.pop() || '';
+
+                            for (const part of parts) {
+                                const line = part.split('\n').find(l => l.startsWith('data:'));
+                                if (!line) continue;
+                                const jsonText = line.slice(5).trim();
+                                if (!jsonText) continue;
+
+                                let evt = null;
+                                try { evt = JSON.parse(jsonText); } catch { continue; }
+
+                                if (evt.type === 'start') {
+                                    total = evt.total || total;
+                                    setStatus(evt.message || 'Sending...');
+                                    updateProgress(processed, total, sent, failed);
+                                } else if (evt.type === 'invalid' || evt.type === 'duplicate') {
+                                    addLogEntry(evt.recipient || 'Unknown', 'error', evt.error || (evt.type === 'duplicate' ? 'Duplicate address' : 'Invalid format'));
+                                } else if (evt.type === 'sent') {
+                                    sent += 1;
+                                    processed = evt.progress || (sent + failed);
+                                    addLogEntry(evt.recipient, 'sent', 'Delivered');
+                                    updateProgress(processed, total, sent, failed);
+                                    setStatus(`Sending… ${processed}/${total}`);
+                                } else if (evt.type === 'failed') {
+                                    failed += 1;
+                                    processed = evt.progress || (sent + failed);
+                                    addLogEntry(evt.recipient, 'error', evt.error || 'Failed');
+                                    updateProgress(processed, total, sent, failed);
+                                    setStatus(`Sending… ${processed}/${total}`, true);
+                                } else if (evt.type === 'delay') {
+                                    const secs = Math.round((evt.delay || 0) / 1000);
+                                    addLogEntry(`Waiting ${secs}s…`, 'delay', evt.nextRecipient || '');
+                                    setStatus(`Waiting ${secs}s… next: ${evt.nextRecipient || ''}`);
+                                } else if (evt.type === 'complete') {
+                                    processed = evt.total || processed;
+                                    sent = evt.sentCount ?? sent;
+                                    failed = evt.failedCount ?? failed;
+                                    updateProgress(processed, total, sent, failed);
+                                    addLogEntry('All done', 'done', evt.message || `${sent} sent, ${failed} failed`);
+                                    liveBadgeEl.className = 'live-badge done';
+                                    liveBadgeEl.innerHTML = '<span class="dot"></span>DONE';
+                                    showAlert(evt.message || 'Completed!');
+                                    setStatus('Done.');
+                                } else if (evt.type === 'error') {
+                                    addLogEntry('Send error', 'error', evt.error || 'Unknown error');
+                                    liveBadgeEl.className = 'live-badge errored';
+                                    liveBadgeEl.innerHTML = '<span class="dot"></span>FAILED';
+                                    showAlert(evt.error || 'Error', true);
+                                    setStatus('Sending failed.', true);
+                                }
+                            }
+                        }
+                    } catch (err) {
+                        console.error(err);
+                        addLogEntry('Network error', 'error', err.message);
+                        liveBadgeEl.className = 'live-badge errored';
+                        liveBadgeEl.innerHTML = '<span class="dot"></span>FAILED';
+                        showAlert('Network error: ' + err.message, true);
+                        setStatus('Network error.', true);
+                    } finally {
+                        isAutomationRunning = false;
+                        sendButton.disabled = false;
+                        sendButton.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Emails';
+                    }
+                }
+
+                // Excel flow: do not parse in browser; backend will parse and stream results.
+                if (isExcel) {
+                    const formData = new FormData();
+                    formData.append('recipientsFile', recipientsFile);
+                    formData.append('subject', subject);
+                    formData.append('htmlContent', finalHtml);
+                    formData.append('delayMs', delayMs);
+                    if (templateFile) formData.append('htmlTemplate', templateFile);
+                    if (imageFile) formData.append('image', imageFile);
+                    Array.from(attachmentsInput.files || []).forEach(f => formData.append('attachments', f));
+                    await startStreaming(formData, 0);
+                    return;
+                }
+
+                // TXT flow: validate/normalize, drop invalids and duplicates from the send list.
+                const reader = new FileReader();
+                reader.onload = async function(evt) {
+                    const content = evt.target.result;
+                    const lines = content.split(/\r?\n/).map(function (line) { return line.trim(); }).filter(Boolean);
+                    const emails = [];
+                    const invalidEmails = [];
+                    const duplicateEmails = [];
+                    const seen = {};
+                    const emailRe = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
+                    lines.forEach(function (line) {
+                        let value = line.replace(/^mailto:/i, '');
+                        const angled = value.match(/<([^>]+)>/);
+                        if (angled) value = angled[1].trim();
+                        value = value.replace(/\s+/g, '').toLowerCase();
+                        const ok = value && !value.includes('..') && emailRe.test(value) &&
+                            value.indexOf('@') === value.lastIndexOf('@');
+                        if (!ok) {
+                            invalidEmails.push(line);
+                            return;
+                        }
+                        if (seen[value]) {
+                            duplicateEmails.push(value);
+                            return;
+                        }
+                        seen[value] = true;
+                        emails.push(value);
+                    });
+
+                    if (emails.length === 0) {
+                        showAlert('No valid email addresses found in the file.', true);
+                        sendButton.disabled = false;
+                        sendButton.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Emails';
+                        return;
+                    }
+
+                    invalidEmails.forEach(email => {
+                        addLogEntry(email, 'error', 'Invalid format');
+                    });
+                    duplicateEmails.forEach(email => {
+                        addLogEntry(email, 'error', 'Duplicate address');
+                    });
+
+                    const formData = new FormData();
+                    formData.append('recipientsFile', recipientsFile);
+                    formData.append('subject', subject);
+                    formData.append('htmlContent', finalHtml);
+                    formData.append('delayMs', delayMs);
+                    if (templateFile) formData.append('htmlTemplate', templateFile);
+                    if (imageFile) formData.append('image', imageFile);
+                    Array.from(attachmentsInput.files || []).forEach(f => formData.append('attachments', f));
+
+                    await startStreaming(formData, emails.length);
+                };
+
+                reader.readAsText(recipientsFile);
+            });
+            // ── Guard against navigation while automation is running ──────────
+            window.addEventListener('beforeunload', function(e) {
+                if (isAutomationRunning) {
+                    e.preventDefault();
+                    e.returnValue = '';
+                    return '';
+                }
+            });
+
+            if (window.RabtUI) {
+                RabtUI.guardNavigation(function () { return isAutomationRunning; }, {
+                    title: 'Leave this campaign?',
+                    message: 'Sending will continue on the server, but you will lose the live progress view.',
+                    confirmLabel: 'Leave',
+                    cancelLabel: 'Stay',
+                    danger: true,
+                    onLeave: function () { isAutomationRunning = false; }
+                });
+            }
+
+            // ── Scheduled campaign: live delivery log ─────────────────────────
+            function startScheduleWatcher(scheduleId) {
+                // Show Delivery Log in "waiting" state
+                logEntriesEl.innerHTML = '';
+                logsEmpty.classList.add('hidden');
+                progressSection.classList.remove('hidden');
+                progressFill.style.width = '0%';
+                progressText.textContent = '—';
+                logSummaryText.textContent = 'Waiting…';
+                liveBadgeEl.style.cssText = 'color:#8b5cf6;background:rgba(139,92,246,0.12);border-color:rgba(139,92,246,0.3);';
+                liveBadgeEl.className = 'live-badge';
+                liveBadgeEl.innerHTML = '<span class="dot" style="background:#8b5cf6;"></span>SCHEDULED';
+                liveBadgeEl.classList.remove('hidden');
+                addLogEntry('Campaign scheduled — waiting for run time…', 'info', '');
+
+                let connected = false;
+                const poll = setInterval(async () => {
+                    if (connected) { clearInterval(poll); return; }
+                    try {
+                        const r = await fetch(`/api/schedule/${scheduleId}`);
+                        const d = await r.json();
+                        const s = d.data;
+                        if (!s) return;
+                        if (s.status === 'running' || s.status === 'completed' || s.status === 'failed') {
+                            connected = true;
+                            clearInterval(poll);
+                            connectScheduledSSE(scheduleId);
+                        } else if (s.status === 'cancelled') {
+                            connected = true;
+                            clearInterval(poll);
+                            addLogEntry('Schedule was cancelled.', 'info', '');
+                            liveBadgeEl.style.cssText = '';
+                            liveBadgeEl.className = 'live-badge done';
+                            liveBadgeEl.innerHTML = '<span class="dot"></span>CANCELLED';
+                        }
+                    } catch (err) {
+                        console.error('[Email schedule watcher] Poll error:', err);
+                    }
+                }, 15000);
+            }
+
+            function connectScheduledSSE(scheduleId) {
+                // Reset log panel for live view
+                logEntriesEl.innerHTML = '';
+                progressFill.style.width = '0%';
+                progressText.textContent = '0 / 0';
+                logSummaryText.textContent = '';
+                liveBadgeEl.style.cssText = '';
+                liveBadgeEl.className = 'live-badge';
+                liveBadgeEl.innerHTML = '<span class="dot"></span>LIVE';
+
+                let total = 0, sent = 0, failed = 0, processed = 0;
+                const es = new EventSource(`/api/schedule/${scheduleId}/live-log`);
+
+                es.onmessage = (e) => {
+                    let evt;
+                    try { evt = JSON.parse(e.data); } catch { return; }
+
+                    if (evt.type === 'scheduleStart') {
+                        addLogEntry(`Campaign "${evt.name}" started`, 'info', '');
+                    } else if (evt.type === 'start') {
+                        total = evt.total || 0;
+                        setStatus(evt.message || 'Sending…');
+                        updateProgress(0, total, 0, 0);
+                    } else if (evt.type === 'sent') {
+                        sent++;
+                        processed = evt.progress || (sent + failed);
+                        addLogEntry(evt.recipient, 'sent', 'Delivered');
+                        updateProgress(processed, total || processed, sent, failed);
+                        setStatus(`Sending… ${processed}/${total}`);
+                    } else if (evt.type === 'failed') {
+                        failed++;
+                        processed = evt.progress || (sent + failed);
+                        addLogEntry(evt.recipient, 'error', evt.error || 'Failed');
+                        updateProgress(processed, total || processed, sent, failed);
+                        setStatus(`Sending… ${processed}/${total}`, true);
+                    } else if (evt.type === 'delay') {
+                        const secs = Math.round((evt.delay || 0) / 1000);
+                        addLogEntry(`Waiting ${secs}s…`, 'delay', evt.nextRecipient || '');
+                        setStatus(`Waiting ${secs}s… next: ${evt.nextRecipient || ''}`);
+                    } else if (evt.type === 'complete') {
+                        processed = evt.total || processed;
+                        sent = evt.sentCount ?? sent;
+                        failed = evt.failedCount ?? failed;
+                        updateProgress(processed, total || processed, sent, failed);
+                        addLogEntry('All done', 'done', evt.message || `${sent} sent, ${failed} failed`);
+                        liveBadgeEl.className = 'live-badge done';
+                        liveBadgeEl.innerHTML = '<span class="dot"></span>DONE';
+                        showAlert(evt.message || 'Campaign completed!');
+                        setStatus('Done.');
+                        es.close();
+                    } else if (evt.type === 'error') {
+                        addLogEntry('Send error', 'error', evt.error || 'Unknown error');
+                        liveBadgeEl.className = 'live-badge errored';
+                        liveBadgeEl.innerHTML = '<span class="dot"></span>FAILED';
+                        showAlert(evt.error || 'Campaign failed.', true);
+                        setStatus('Failed.', true);
+                        es.close();
+                    } else if (evt.type === 'scheduleComplete') {
+                        if (evt.status === 'failed') {
+                            liveBadgeEl.className = 'live-badge errored';
+                            liveBadgeEl.innerHTML = '<span class="dot"></span>FAILED';
+                        } else {
+                            liveBadgeEl.className = 'live-badge done';
+                            liveBadgeEl.innerHTML = '<span class="dot"></span>DONE';
+                        }
+                        es.close();
+                    } else if (evt.type === 'scheduleError') {
+                        addLogEntry('Campaign failed', 'error', evt.error || '');
+                        liveBadgeEl.className = 'live-badge errored';
+                        liveBadgeEl.innerHTML = '<span class="dot"></span>FAILED';
+                        showAlert(evt.error || 'Campaign failed', true);
+                        setStatus('Failed.', true);
+                        es.close();
+                    }
+                };
+
+                es.onerror = () => { es.close(); };
+            }
+            // ── End scheduled campaign live log ───────────────────────────────
+        });
+    </script>
+</body>
+</html>

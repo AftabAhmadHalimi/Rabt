@@ -1,0 +1,559 @@
+@import url('https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600;700&display=swap');
+
+/* Unified marketing pages: Home, Pricing, About, Contact
+   Flat page background — section dividers only, no card/box surfaces */
+
+html.marketing-root,
+html.marketing-root body,
+html.marketing-root button,
+html.marketing-root input,
+html.marketing-root textarea,
+html.marketing-root select {
+    font-family: 'Saira', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+
+html.marketing-root,
+html.marketing-root body {
+    background: var(--bg-primary) !important;
+}
+
+html.marketing-root.flow-motion .flow-orbs {
+    display: none !important;
+}
+
+/* ── Kill saas / flow-motion card surfaces on marketing pages ── */
+html.app-shell.marketing-root .tool-card,
+html.app-shell.marketing-root .why-card,
+html.app-shell.marketing-root .step-card,
+html.app-shell.marketing-root .how-card,
+html.app-shell.marketing-root .cta-banner,
+html.app-shell.marketing-root .value-card,
+html.app-shell.marketing-root .faq-item,
+html.app-shell.marketing-root .contact-info,
+html.app-shell.marketing-root .contact-form,
+html.marketing-root.flow-motion .card,
+html.marketing-root.flow-motion .bill-card,
+html.marketing-root.flow-motion .ob-card,
+html.marketing-root .pricing-header,
+html.marketing-root .contact-header,
+html.marketing-root .about-header,
+html.marketing-root .about-section,
+html.marketing-root .mission-section,
+html.marketing-root .cta-section,
+html.marketing-root .faq-section,
+html.marketing-root .land-copy,
+html.marketing-root .contact-info,
+html.marketing-root .contact-form,
+html.marketing-root .value-card,
+html.marketing-root .faq-item,
+html.marketing-root .why-card,
+html.marketing-root .step-card,
+html.marketing-root .how-card,
+html.marketing-root .cta-banner,
+html.marketing-root .tool-card,
+html.marketing-root .plan-loading,
+html.marketing-root .home-footer,
+#guestHome .hero,
+#guestHome .why-card,
+#guestHome .step-card,
+#guestHome .how-card,
+#guestHome .cta-banner,
+#guestHome .tool-card,
+#guestHome .cta-banner-inline,
+#guestHome .land-copy,
+.home-showcase-row,
+.home-showcase-copy {
+    background: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* No per-item box borders — content sits on the page background */
+html.app-shell.marketing-root .tool-card,
+html.app-shell.marketing-root .why-card,
+html.app-shell.marketing-root .step-card,
+html.app-shell.marketing-root .how-card,
+html.app-shell.marketing-root .cta-banner,
+html.app-shell.marketing-root .value-card,
+html.app-shell.marketing-root .faq-item,
+html.app-shell.marketing-root .contact-info,
+html.marketing-root .why-card,
+html.marketing-root .step-card,
+html.marketing-root .how-card,
+html.marketing-root .cta-banner,
+html.marketing-root .tool-card,
+html.marketing-root .value-card,
+html.marketing-root .faq-item,
+html.marketing-root .contact-info,
+#guestHome .why-card,
+#guestHome .step-card,
+#guestHome .how-card,
+#guestHome .cta-banner,
+#guestHome .tool-card,
+#guestHome .cta-banner-inline,
+.home-showcase-row.is-solo,
+.home-showcase-row.is-lead {
+    border: none !important;
+}
+
+html.marketing-root.flow-motion.home-guest #guestHome .why-card:hover,
+html.marketing-root.flow-motion.home-guest #guestHome .step-card:hover,
+html.marketing-root.flow-motion.home-guest #guestHome .tool-card:hover,
+html.marketing-root.flow-motion.home-guest #guestHome .how-card:hover {
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+/* Remove decorative pseudo-elements & hero panel fills */
+html.marketing-root .pricing-header::before,
+html.marketing-root .contact-header::before,
+html.marketing-root .about-header::before,
+#guestHome .hero::before,
+#guestHome .cta-banner::before,
+#guestHome .cta-banner-inline::before,
+.home-showcase-row::before {
+    display: none !important;
+    content: none !important;
+}
+
+#guestHome .hero {
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 24px 0 8px !important;
+}
+
+#guestHome .land-kicker,
+html.marketing-root .land-kicker,
+html.marketing-root .bill-kicker {
+    background: transparent !important;
+    border: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    padding: 0 !important;
+}
+
+#guestHome .hero-left .land-lead,
+#guestHome .hero-left .land-sub {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+}
+
+#guestHome .cta-banner-inline,
+.cta-banner-inline {
+    padding: 0 !important;
+    margin-top: 12px !important;
+    border-radius: 0 !important;
+}
+
+#guestHome .why-card,
+#guestHome .step-card,
+#guestHome .how-card,
+#guestHome .cta-banner,
+html.marketing-root .why-card,
+html.marketing-root .step-card,
+html.marketing-root .how-card,
+html.marketing-root .cta-banner,
+html.marketing-root .value-card,
+html.marketing-root .faq-item,
+html.marketing-root .contact-info {
+    padding: 10px 0 !important;
+}
+
+/* Pricing plans: accent colored border on flat background */
+html.marketing-root #planGrid .bill-card,
+html.marketing-root .bill-grid .bill-card {
+    border: 1.5px solid var(--accent) !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: 0 1px 2px rgba(91, 79, 255, 0.08) !important;
+    padding: 12px 14px !important;
+}
+
+html.marketing-root #planGrid .bill-card.featured,
+html.marketing-root .bill-grid .bill-card.featured {
+    border-color: var(--accent) !important;
+    box-shadow: 0 12px 40px rgba(91, 79, 255, 0.12) !important;
+}
+
+html[data-theme="dark"].marketing-root #planGrid .bill-card,
+html[data-theme="dark"].marketing-root .bill-grid .bill-card {
+    border-color: rgba(168, 168, 255, 0.45) !important;
+}
+
+html[data-theme="dark"].marketing-root #planGrid .bill-card.featured,
+html[data-theme="dark"].marketing-root .bill-grid .bill-card.featured {
+    box-shadow: 0 12px 40px rgba(168, 168, 255, 0.18) !important;
+}
+
+/* Contact form (Send us a Message): accent colored border */
+html.marketing-root .contact-form {
+    border: 1.5px solid var(--accent) !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: 0 1px 2px rgba(91, 79, 255, 0.08) !important;
+    padding: 32px !important;
+    box-sizing: border-box;
+}
+
+html[data-theme="dark"].marketing-root .contact-form {
+    border-color: rgba(168, 168, 255, 0.45) !important;
+    box-shadow: 0 8px 32px rgba(168, 168, 255, 0.12) !important;
+}
+
+html.marketing-root .contact-info {
+    padding: 0 !important;
+}
+
+html.marketing-root .value-card {
+    padding: 16px 0 !important;
+}
+
+.home-showcase-row {
+    margin-top: 28px !important;
+    margin-bottom: 36px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    box-sizing: border-box;
+}
+
+/* Video-only rows (hero lead): colored border on video frame */
+#guestHome .home-showcase-row.is-solo .home-showcase-media,
+html.marketing-root .home-showcase-row.is-solo .home-showcase-media,
+#guestHome .home-showcase-row.is-lead .home-showcase-media,
+html.marketing-root .home-showcase-row.is-lead .home-showcase-media {
+    border: 2px solid color-mix(in srgb, var(--accent) 55%, rgba(255, 255, 255, 0.65)) !important;
+    border-radius: 0 !important;
+    box-shadow: 0 8px 32px rgba(91, 79, 255, 0.15) !important;
+    background: transparent !important;
+    overflow: hidden;
+    padding: 14px !important;
+    box-sizing: border-box;
+}
+
+/* Below Trusted by: border wraps video + description together */
+#guestHome .home-showcase-row:not(.is-solo),
+html.marketing-root .home-showcase-row:not(.is-solo) {
+    border: 2px solid color-mix(in srgb, var(--accent) 55%, rgba(255, 255, 255, 0.65)) !important;
+    border-radius: 0 !important;
+    box-shadow: 0 8px 32px rgba(91, 79, 255, 0.15) !important;
+    padding: 14px !important;
+}
+
+#guestHome .home-showcase-row:not(.is-solo) .home-showcase-media,
+html.marketing-root .home-showcase-row:not(.is-solo) .home-showcase-media {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+#guestHome .home-showcase-row:not(.is-solo) .home-showcase-copy,
+html.marketing-root .home-showcase-row:not(.is-solo) .home-showcase-copy {
+    padding: 4px 8px !important;
+}
+
+#guestHome .home-showcase-media video,
+html.marketing-root .home-showcase-media video {
+    border: none !important;
+    outline: none !important;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+html[data-theme="dark"] #guestHome .home-showcase-row.is-solo .home-showcase-media,
+html[data-theme="dark"].marketing-root .home-showcase-row.is-solo .home-showcase-media,
+html[data-theme="dark"] #guestHome .home-showcase-row.is-lead .home-showcase-media,
+html[data-theme="dark"].marketing-root .home-showcase-row.is-lead .home-showcase-media,
+html[data-theme="dark"] #guestHome .home-showcase-row:not(.is-solo),
+html[data-theme="dark"].marketing-root .home-showcase-row:not(.is-solo) {
+    border-color: rgba(168, 168, 255, 0.35) !important;
+    box-shadow: 0 8px 32px rgba(168, 168, 255, 0.2) !important;
+}
+
+@media (max-width: 860px) {
+    #guestHome .home-showcase-row.is-solo .home-showcase-media,
+    html.marketing-root .home-showcase-row.is-solo .home-showcase-media,
+    #guestHome .home-showcase-row.is-lead .home-showcase-media,
+    html.marketing-root .home-showcase-row.is-lead .home-showcase-media {
+        padding: 10px !important;
+    }
+
+    #guestHome .home-showcase-row:not(.is-solo),
+    html.marketing-root .home-showcase-row:not(.is-solo) {
+        padding: 10px !important;
+    }
+}
+
+.home-showcase-copy {
+    padding: 0 !important;
+}
+
+html.marketing-root .trusted-by-logo {
+    background: transparent !important;
+    border: 1.5px solid var(--accent) !important;
+    box-shadow: none !important;
+    height: 56px;
+    max-width: 180px;
+    padding: 8px 16px !important;
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+html.marketing-root .trusted-by-logo:hover {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 3px var(--accent-subtle) !important;
+}
+
+html.marketing-root .trusted-by-logo img {
+    max-height: 42px;
+    max-width: 160px;
+}
+
+@media (max-width: 640px) {
+    html.marketing-root .trusted-by-logo {
+        height: 46px;
+        max-width: 148px;
+    }
+
+    html.marketing-root .trusted-by-logo img {
+        max-height: 34px;
+        max-width: 128px;
+    }
+}
+
+html.marketing-root.flow-motion,
+html.marketing-root.flow-motion body,
+html.marketing-root.flow-motion.home-guest,
+html.marketing-root.flow-motion.home-guest body {
+    background: var(--bg-primary) !important;
+}
+
+/* ── Section dividers (horizontal rules between major sections) ── */
+#guestHome .section-title,
+html.marketing-root .faq-section,
+html.marketing-root .mission-section,
+html.marketing-root .about-section,
+html.marketing-root .cta-section,
+html.marketing-root .contact-grid,
+html.marketing-root #planGrid,
+html.marketing-root .trusted-by,
+#guestHome .trusted-by,
+#guestHome .home-showcase-stack,
+#guestHome .cta-banner {
+    border-top: 1px solid var(--border-color);
+    padding-top: 32px;
+    margin-top: 32px;
+}
+
+#guestHome .section-title:first-of-type {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 24px;
+}
+
+html.marketing-root .faq-section > h2,
+html.marketing-root .mission-section h2,
+html.marketing-root .cta-section h2 {
+    margin-top: 0;
+}
+
+/* ── Site footer (Home, Pricing, About, Contact) ── */
+html.marketing-root .home-footer {
+    margin-top: 64px;
+    padding: 0 24px 28px;
+    border-top: 1px solid var(--border-color) !important;
+    background: linear-gradient(180deg, rgba(91, 79, 255, 0.05) 0%, transparent 120px) !important;
+    position: relative;
+}
+
+html.marketing-root .home-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(140px, 36vw);
+    height: 3px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.85;
+}
+
+html.marketing-root .home-footer.hidden {
+    display: none !important;
+}
+
+html.marketing-root .footer-content {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding-top: 44px;
+}
+
+html.marketing-root .footer-main {
+    display: grid;
+    grid-template-columns: minmax(200px, 280px) 1fr;
+    gap: 48px 56px;
+    align-items: start;
+    margin-bottom: 32px;
+}
+
+html.marketing-root .footer-brand {
+    text-align: left;
+}
+
+html.marketing-root .footer-logo {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 14px;
+    display: block;
+}
+
+html.marketing-root .footer-tagline {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.65;
+    max-width: 260px;
+    margin: 0;
+}
+
+html.marketing-root .footer-links {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px 32px;
+}
+
+html.marketing-root .footer-column h4 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    color: var(--text-primary);
+}
+
+html.marketing-root .footer-column a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 10px;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+html.marketing-root .footer-column a i {
+    width: 14px;
+    font-size: 12px;
+    color: var(--accent);
+    opacity: 0.85;
+    flex-shrink: 0;
+}
+
+html.marketing-root .footer-column a:hover {
+    color: var(--accent);
+    transform: translateX(2px);
+}
+
+html.marketing-root .footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 20px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-color);
+}
+
+html.marketing-root .footer-bottom p,
+html.marketing-root .footer-made {
+    color: var(--text-muted);
+    font-size: 13px;
+    margin: 0;
+}
+
+html.marketing-root .footer-made {
+    letter-spacing: 0.02em;
+}
+
+@media (max-width: 900px) {
+    html.marketing-root .footer-main {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    html.marketing-root .footer-brand {
+        text-align: center;
+    }
+
+    html.marketing-root .footer-logo {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    html.marketing-root .footer-tagline {
+        max-width: none;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    html.marketing-root .footer-links {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    html.marketing-root .home-footer {
+        margin-top: 48px;
+        padding: 0 16px 24px;
+    }
+
+    html.marketing-root .footer-content {
+        padding-top: 36px;
+    }
+
+    html.marketing-root .footer-links {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        text-align: center;
+    }
+
+    html.marketing-root .footer-column a {
+        justify-content: center;
+    }
+
+    html.marketing-root .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* Form fields stay usable */
+html.marketing-root .contact-form .form-group input,
+html.marketing-root .contact-form .form-group textarea,
+html.marketing-root .contact-form .form-group select {
+    background: var(--bg-primary) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+html.marketing-root .plan-error {
+    background: rgba(239, 68, 68, 0.08) !important;
+    border: 1px solid rgba(239, 68, 68, 0.35) !important;
+}
+
+/* Logged-in KPI dashboard on home (same route as guest marketing page) */
+html.marketing-root #memberHome .kpi-card,
+html.marketing-root #memberHome .kpi-chart-card,
+html.marketing-root #memberHome .welcome-bar,
+html.marketing-root #memberHome .dash-kpi {
+    background: var(--bg-card) !important;
+    border: 1.5px solid var(--accent) !important;
+    box-shadow: 0 1px 2px rgba(91, 79, 255, 0.08) !important;
+}

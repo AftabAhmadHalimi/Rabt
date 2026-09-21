@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" class="flow-motion">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page.login">Sign in — Rabط</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/brand.css">
+    <link rel="stylesheet" href="/flow-motion.css">
+    <script src="/i18n-dict.js"></script>
+    <script src="/i18n.js"></script>
+    <script src="/navbar.js"></script>
+    <script src="/ui-feedback.js"></script>
+    <script src="/flow-motion.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary); color: var(--text-primary); min-height: 100vh;
+        }
+        .wrap { max-width: 400px; margin: 16px auto; padding: 0 12px 24px; }
+        .card {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: var(--radius); padding: 16px;
+        }
+        h1 { font-size: 20px; margin-bottom: 6px; }
+        .hint { color: var(--text-secondary); font-size: 13px; line-height: 1.45; margin-bottom: 12px; }
+        label { display: block; font-size: 13px; font-weight: 700; color: var(--text-secondary); margin-bottom: 6px; }
+        input {
+            width: 100%; padding: 12px 14px; margin-bottom: 14px; border-radius: 8px;
+            border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);
+            font-size: 14px; outline: none;
+        }
+        .btn {
+            width: 100%; padding: 13px; border: none; border-radius: 8px; cursor: pointer;
+            font-weight: 700; background: var(--accent); color: #fff; font-size: 14px;
+            font-family: inherit;
+        }
+        .switch { text-align: center; margin-top: 18px; color: var(--text-secondary); font-size: 14px; }
+        .switch a { color: var(--text-primary); font-weight: 700; }
+        .alert { display: none; margin-top: 12px; padding: 10px 12px; border-radius: 8px; font-size: 13px; font-weight: 600; }
+        .alert.show { display: block; }
+        .alert.ok { background: rgba(34,197,94,0.12); color: var(--success); }
+        .alert.bad { background: rgba(239,68,68,0.12); color: var(--error); }
+        .back { display: inline-flex; gap: 8px; align-items: center; color: var(--text-secondary); text-decoration: none; margin-bottom: 18px; font-weight: 600; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div id="app-navbar"></div>
+    <div class="wrap">
+        <a class="back" href="/"><i class="fa-solid fa-arrow-left"></i> <span data-i18n="login.backHome">Back to Home</span></a>
+        <div class="card">
+            <div id="platformBanner" class="alert" style="margin-bottom:16px;"></div>
+            <h1 data-i18n="login.title">Sign in</h1>
+            <p class="hint" data-i18n="login.hint">Sign in to the Rabط workspace — Email, WhatsApp, Telegram, and scheduling in one place.</p>
+            <form id="signinForm">
+                <label for="email" data-i18n="login.email">Email</label>
+                <input id="email" type="email" required placeholder="you@example.com" autocomplete="email">
+                <label for="password" data-i18n="login.password">Password</label>
+                <input id="password" type="password" required placeholder="Your password" autocomplete="current-password">
+                <p class="switch" style="margin-top:-6px;margin-bottom:14px;text-align:left;"><a href="/forgot-password.html" data-i18n="login.forgot">Forgot password?</a></p>
+                <button class="btn btn-primary" type="submit" data-i18n="login.submit">Sign in</button>
+            </form>
+            <div class="alert" id="alertBox"></div>
+            <p class="switch"><span data-i18n="login.noAccount">No account yet?</span> <a href="/signup.html" data-i18n="nav.signUp">Sign up</a></p>
+            <p class="switch"><a href="/privacy.html" data-i18n="nav.privacyPolicy">Privacy Policy</a> · <a href="/terms.html" data-i18n="nav.terms">Terms of Service</a></p>
+            <p class="switch" id="resendWrap" style="display:none;"><span data-i18n="login.needCode">Need a new code?</span> <a href="#" id="resendLink" data-i18n="login.resend">Resend code</a> <span data-i18n="login.or">or</span> <a href="/verify.html" id="enterCodeLink" data-i18n="login.enterCode">enter it here</a></p>
+        </div>
+    </div>
+    <script>
+        fetch('/api/auth/platform-status').then(function (r) { return r.json(); }).then(function (data) {
+            var banner = document.getElementById('platformBanner');
+            if (!banner || !data) return;
+            if (data.maintenanceMode) {
+                banner.className = 'alert show bad';
+                banner.textContent = data.maintenanceMessage || 'Rabط is temporarily unavailable.';
+                var form = document.getElementById('signinForm');
+                if (form) form.querySelector('button[type="submit"]').disabled = true;
+            }
+        }).catch(function () {});
+        if (new URLSearchParams(window.location.search).get('reset') === '1') {
+            var box = document.getElementById('alertBox');
+            if (window.RabtUI) RabtUI.notify('Password updated. Sign in with your new password.', 'success', box);
+            else {
+                box.className = 'alert show ok';
+                box.textContent = 'Password updated. Sign in with your new password.';
+            }
+        }
+        document.addEventListener('auth-ready', function (e) {
+            var user = e.detail && e.detail.user;
+            if (!user) return;
+            window.location.replace(user.platformAccess ? '/' : (user.nextPath || '/pricing.html'));
+        });
+        document.getElementById('signinForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            var box = document.getElementById('alertBox');
+            try {
+                var res = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'same-origin',
+                    body: JSON.stringify({
+                        email: document.getElementById('email').value,
+                        password: document.getElementById('password').value
+                    })
+                });
+                var data = await res.json();
+                if (window.RabtUI) {
+                    RabtUI.notify(data.message || (data.success ? 'Signed in.' : 'Sign in failed'), data.success ? 'success' : 'error', box);
+                } else {
+                    box.className = 'alert show ' + (data.success ? 'ok' : 'bad');
+                    box.textContent = data.message || (data.success ? 'Signed in.' : 'Sign in failed');
+                }
+                if (data.success) {
+                    if (window.RabtRememberShell) window.RabtRememberShell(!!data.platformAccess);
+                    window.location.href = data.next || (data.platformAccess ? '/' : '/pricing.html');
+                }
+                if (data.code === 'UNVERIFIED') {
+                    window.location.href = '/verify.html?email=' + encodeURIComponent(document.getElementById('email').value);
+                    return;
+                }
+            } catch (err) {
+                if (window.RabtUI) RabtUI.notify(err.message || 'Network error', 'error', box);
+                else {
+                    box.className = 'alert show bad';
+                    box.textContent = err.message || 'Network error';
+                }
+            }
+        });
+        document.getElementById('resendLink').addEventListener('click', async function (e) {
+            e.preventDefault();
+            var box = document.getElementById('alertBox');
+            try {
+                var res = await fetch('/api/auth/resend-verification', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'same-origin',
+                    body: JSON.stringify({ email: document.getElementById('email').value })
+                });
+                var data = await res.json();
+                if (window.RabtUI) RabtUI.notify(data.message || 'Verification email sent.', data.success ? 'success' : 'error', box);
+                else {
+                    box.className = 'alert show ' + (data.success ? 'ok' : 'bad');
+                    box.textContent = data.message || 'Verification email sent.';
+                }
+            } catch (err) {
+                if (window.RabtUI) RabtUI.notify(err.message || 'Network error', 'error', box);
+            }
+        });
+    </script>
+</body>
+</html>

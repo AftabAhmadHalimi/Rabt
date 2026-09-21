@@ -1,0 +1,124 @@
+{
+  "signupEnabled": true,
+  "maintenanceMode": false,
+  "maintenanceMessage": "Rabط is temporarily unavailable. Please try again shortly.",
+  "androidAppEnabled": true,
+  "androidApp": {
+    "originalName": "com.facebook.lite-v528.0.0.9.106_516401884-Android_5.0.apk",
+    "size": 3560157,
+    "uploadedAt": "2026-09-16T07:39:54.831Z",
+    "appName": "Rabط Android App",
+    "version": "1.0.0",
+    "releaseNotes": "dsvsdv",
+    "downloadCount": 7
+  },
+  "homeVideos": [
+    {
+      "id": "hv-legacy-intro",
+      "description": "sdfggfsd",
+      "storedName": "intro.mp4",
+      "mime": "video/mp4",
+      "originalName": "From Klickpin.com- Save Stunning meal prep recipes that are trending right now across Pinterest boards for ideas worth saving right now-pin-id-896.mp4",
+      "size": 2373785,
+      "order": 0,
+      "active": true,
+      "uploadedAt": "2026-09-17T20:28:46.124Z"
+    },
+    {
+      "id": "hv-mu60ttsn-30a268",
+      "description": "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966is simplyis simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text",
+      "storedName": "hv-mu60ttsn-30a268.mp4",
+      "mime": "video/mp4",
+      "originalName": "From Klickpin.com- Save Stunning meal prep recipes that are trending right now across Pinterest boards for ideas worth saving right now-pin-id-896.mp4",
+      "size": 2373785,
+      "order": 1,
+      "active": true,
+      "uploadedAt": "2026-09-17T21:07:48.894Z"
+    },
+    {
+      "id": "hv-mu60vicl-eb102b",
+      "description": "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever sinc",
+      "storedName": "hv-mu60vicl-eb102b.mp4",
+      "mime": "video/mp4",
+      "originalName": "From Klickpin.com- Save Stunning meal prep recipes that are trending right now across Pinterest boards for ideas worth saving right now-pin-id-896.mp4",
+      "size": 2373785,
+      "order": 2,
+      "active": true,
+      "uploadedAt": "2026-09-17T21:09:07.368Z"
+    },
+    {
+      "id": "hv-mu6n71yj-cdad4e",
+      "description": "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since 1966is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever sinc",
+      "storedName": "hv-mu6n71yj-cdad4e.mp4",
+      "mime": "video/mp4",
+      "originalName": "From Klickpin.com- Save Stunning meal prep recipes that are trending right now across Pinterest boards for ideas worth saving right now-pin-id-896.mp4",
+      "size": 2373785,
+      "order": 3,
+      "active": true,
+      "uploadedAt": "2026-09-18T07:33:57.555Z"
+    },
+    {
+      "id": "hv-mub6anku-80f94b",
+      "description": "Share your personal invite linkShare your personal invite linkShare your personal invite linkShare your personal invite link\r\nInvite friends to RabطShare your personal invite linkShare your personal invite linkShare your personal invite linkShare your personal invite link\r\nInvite friends to Rabط",
+      "storedName": "hv-mub6anku-80f94b.mp4",
+      "mime": "video/mp4",
+      "originalName": "From Klickpin.com- Save Stunning meal prep recipes that are trending right now across Pinterest boards for ideas worth saving right now-pin-id-896.mp4",
+      "size": 2373785,
+      "order": 4,
+      "active": true,
+      "uploadedAt": "2026-09-21T11:39:42.963Z"
+    }
+  ],
+  "trustedByTitle": "Trusted by",
+  "trustedBy": [
+    {
+      "id": "tb-mu6l6qhl-211ad5",
+      "name": "Sand Box Holding",
+      "storedName": "tb-mu6l6qhl-211ad5.png",
+      "mime": "image/png",
+      "originalName": "Internship report.pdf.png",
+      "size": 28855,
+      "order": 1,
+      "active": true,
+      "uploadedAt": "2026-09-18T06:37:43.460Z"
+    },
+    {
+      "id": "tb-mu6l7389-1ed7e1",
+      "name": "Sand Box",
+      "storedName": "tb-mu6l7389-1ed7e1.png",
+      "mime": "image/png",
+      "originalName": "ChatGPT Image Sep 14, 2026, 04_46_26 PM.png",
+      "size": 855865,
+      "order": 2,
+      "active": true,
+      "uploadedAt": "2026-09-18T06:37:59.966Z"
+    }
+  ],
+  "socialMedia": {
+    "twitter": "https://chatgpt.com/",
+    "linkedin": "https://chatgpt.com/",
+    "facebook": "https://chatgpt.com/",
+    "instagram": "https://chatgpt.com/"
+  },
+  "otherPlatform": {
+    "enabled": true,
+    "name": "",
+    "url": "",
+    "logo": {
+      "storedName": "other-platform-logo.png",
+      "mime": "image/png",
+      "originalName": "favicon.png",
+      "size": 5168,
+      "uploadedAt": "2026-09-21T09:38:28.207Z"
+    }
+  },
+  "homeVideoEnabled": true,
+  "homeVideo": {
+    "storedName": "intro.mp4",
+    "mime": "video/mp4",
+    "originalName": "From Klickpin.com- Save Stunning meal prep recipes that are trending right now across Pinterest boards for ideas worth saving right now-pin-id-896.mp4",
+    "size": 2373785,
+    "uploadedAt": "2026-09-17T20:28:46.124Z"
+  },
+  "updatedAt": "2026-09-21T11:39:42.963Z"
+}

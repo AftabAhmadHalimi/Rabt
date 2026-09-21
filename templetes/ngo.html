@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HopeForAll - NGO Email Marketing Template</title>
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+        /* Email Client Reset */
+        .ExternalClass, .ReadMsgBody {
+            width: 100%;
+            background-color: #fef9e8;
+        }
+        
+        body, table, td, p, a, div, span {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font-family: 'Rubik', sans-serif;
+            line-height: 1.5;
+        }
+        
+        /* Outlook.com Fix */
+        .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {
+            line-height: 100%;
+        }
+        
+        /* Mobile Responsive */
+        @media only screen and (max-width: 600px) {
+            table[class="container"] {
+                width: 100% !important;
+            }
+            
+            td[class="hero-content"] {
+                padding: 30px 20px !important;
+            }
+            
+            td[class="content-padding"] {
+                padding: 30px 20px !important;
+            }
+            
+            td[class="footer-padding"] {
+                padding: 30px 20px !important;
+            }
+            
+            img[class="responsive-img"] {
+                width: 100% !important;
+                height: auto !important;
+            }
+            
+            table[class="impact-row"] {
+                width: 100% !important;
+                display: block !important;
+            }
+            
+            td[class="impact-cell"] {
+                display: block !important;
+                width: 100% !important;
+                padding: 20px !important;
+                margin-bottom: 20px !important;
+                text-align: center !important;
+            }
+            
+            td[class="stats-cell"] {
+                display: block !important;
+                width: 100% !important;
+                padding: 20px !important;
+                margin-bottom: 15px !important;
+                text-align: center !important;
+            }
+            
+            .mobile-center {
+                text-align: center !important;
+            }
+            
+            .social-icons td {
+                padding: 0 8px !important;
+            }
+            
+            .footer-links td {
+                display: inline-block !important;
+                padding: 5px 8px !important;
+            }
+            
+            .donation-buttons td {
+                display: block !important;
+                margin-bottom: 10px !important;
+            }
+        }
+        
+        /* iOS Fix */
+        @media only screen and (max-device-width: 480px) {
+            .mobile-font {
+                font-size: 16px !important;
+            }
+        }
+    </style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #fef9e8;">
+    <center style="width: 100%; table-layout: fixed;">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#fef9e8" style="background-color: #fef9e8;">
+              <tr>
+                <td align="center" style="padding: 40px 20px;">
+                    
+                    <!-- Main Container - Max Width 600px -->
+                    <table class="container" width="600" border="0" cellpadding="0" cellspacing="0" style="width: 100%; max-width: 600px; background-color: #ffffff; border-radius: 20px; box-shadow: 0 2px 15px rgba(0,0,0,0.08);">
+                        
+                        <!-- ========== HEADER SECTION ========== -->
+                        <tr>
+                            <td style="background: linear-gradient(135deg, #2d6a4f 0%, #1b4d3e 100%); padding: 35px 30px; border-radius: 20px 20px 0 0;">
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td align="center">
+                                            <h1 style="margin: 0; color: #ffffff; font-size: 30px; font-weight: 800; letter-spacing: -0.3px;">
+                                                🌿 Hope<span style="font-weight: 500; color: #a7e0b0;">ForAll</span>
+                                            </h1>
+                                            <p style="margin: 12px 0 0; color: #d0e6d5; font-size: 14px;">
+                                                Empowering Communities • Changing Lives
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        
+                        <!-- ========== HERO IMAGE SECTION ========== -->
+                        <tr>
+                            <td style="padding: 0;">
+                                <img class="responsive-img" src="https://images.unsplash.com/photo-1593113630400-ea4288922497?w=600&h=350&fit=crop&auto=format" 
+                                     width="600" 
+                                     height="350" 
+                                     style="width: 100%; max-width: 600px; height: auto; display: block;" 
+                                     alt="Children in community program">
+                            </td>
+                        </tr>
+                        
+                        <!-- ========== MAIN CONTENT ========== -->
+                        <tr>
+                            <td class="content-padding" style="padding: 40px 35px;">
+                                
+                                <!-- Welcome Message -->
+                                <h2 style="margin: 0 0 12px 0; color: #2d6a4f; font-size: 26px; font-weight: 700;">
+                                    Together, We Make a Difference {{first_name}}! 💚
+                                </h2>
+                                <p style="margin: 0 0 25px 0; color: #4a5568; font-size: 16px; line-height: 1.6;">
+                                    Your support is transforming lives and building brighter futures. Thanks to compassionate people like you, we're creating lasting change in communities around the world.
+                                </p>
+                                
+                                <!-- ========== IMPACT STATS SECTION ========== -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 40px;">
+                                    <tr>
+                                        <td align="center">
+                                            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                                                <tr>
+                                                    <td class="stats-cell" width="33%" style="background: #f0f9f0; border-radius: 16px; padding: 20px;">
+                                                        <p style="margin: 0; font-size: 36px; font-weight: 800; color: #2d6a4f;">50K+</p>
+                                                        <p style="margin: 5px 0 0; font-size: 12px; color: #4a5568;">Lives Impacted</p>
+                                                    </td>
+                                                    <td width="15" style="width: 15px;">&nbsp;</td>
+                                                    <td class="stats-cell" width="33%" style="background: #f0f9f0; border-radius: 16px; padding: 20px;">
+                                                        <p style="margin: 0; font-size: 36px; font-weight: 800; color: #2d6a4f;">25+</p>
+                                                        <p style="margin: 5px 0 0; font-size: 12px; color: #4a5568;">Countries Reached</p>
+                                                    </td>
+                                                    <td width="15" style="width: 15px;">&nbsp;</td>
+                                                    <td class="stats-cell" width="33%" style="background: #f0f9f0; border-radius: 16px; padding: 20px;">
+                                                        <p style="margin: 0; font-size: 36px; font-weight: 800; color: #2d6a4f;">100+</p>
+                                                        <p style="margin: 5px 0 0; font-size: 12px; color: #4a5568;">Active Programs</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- ========== OUR IMPACT STORY 1 ========== -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 40px;">
+                                    <tr>
+                                        <td>
+                                            <img class="responsive-img" src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=530&h=280&fit=crop&auto=format" 
+                                                 width="530" 
+                                                 height="280" 
+                                                 style="width: 100%; max-width: 530px; height: auto; border-radius: 16px; display: block; margin-bottom: 20px;" 
+                                                 alt="Education program">
+                                            <h3 style="margin: 0 0 12px 0; color: #2d6a4f; font-size: 22px; font-weight: 700;">
+                                                📚 Education for Every Child
+                                            </h3>
+                                            <p style="margin: 0 0 15px 0; color: #4a5568; font-size: 15px; line-height: 1.6;">
+                                                Your donations have helped us build 15 new schools and provide educational materials to over 10,000 children in underserved communities. Every child deserves the opportunity to learn and grow.
+                                            </p>
+                                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="padding: 5px 0;">
+                                                        <p style="margin: 0; color: #2d6a4f;">✓ 15 new schools built</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 5px 0;">
+                                                        <p style="margin: 0; color: #2d6a4f;">✓ 10,000+ children receiving education</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 5px 0;">
+                                                        <p style="margin: 0; color: #2d6a4f;">✓ 500 teachers trained</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- ========== OUR IMPACT STORY 2 ========== -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 40px;">
+                                    <tr>
+                                        <td>
+                                            <img class="responsive-img" src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=530&h=280&fit=crop&auto=format" 
+                                                 width="530" 
+                                                 height="280" 
+                                                 style="width: 100%; max-width: 530px; height: auto; border-radius: 16px; display: block; margin-bottom: 20px;" 
+                                                 alt="Healthcare program">
+                                            <h3 style="margin: 0 0 12px 0; color: #2d6a4f; font-size: 22px; font-weight: 700;">
+                                                🏥 Healthcare for All
+                                            </h3>
+                                            <p style="margin: 0 0 15px 0; color: #4a5568; font-size: 15px; line-height: 1.6;">
+                                                Our mobile health clinics have provided essential medical care to over 25,000 people in remote areas. With your help, we're bringing healthcare to those who need it most.
+                                            </p>
+                                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="padding: 5px 0;">
+                                                        <p style="margin: 0; color: #2d6a4f;">✓ 5 mobile clinics operating</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 5px 0;">
+                                                        <p style="margin: 0; color: #2d6a4f;">✓ 25,000+ patients treated</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 5px 0;">
+                                                        <p style="margin: 0; color: #2d6a4f;">✓ 100+ medical professionals volunteering</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- ========== SUCCESS STORY / TESTIMONIAL SECTION ========== -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin: 40px 0; background: linear-gradient(135deg, #f0f9f0 0%, #e6f3e6 100%); border-radius: 20px;">
+                                    <tr>
+                                        <td style="padding: 35px;">
+                                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td align="center">
+                                                        <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=80&h=80&fit=crop&auto=format" 
+                                                             width="80" 
+                                                             height="80" 
+                                                             style="width: 80px; height: 80px; border-radius: 50%; display: inline-block; margin-bottom: 15px; object-fit: cover;" 
+                                                             alt="Success story">
+                                                        <p style="margin: 0 0 15px 0; font-size: 40px; color: #2d6a4f;">❝</p>
+                                                        <p style="margin: 0 0 20px 0; color: #2d3748; font-size: 16px; line-height: 1.6; font-style: italic;">
+                                                            "Before HopeForAll, my children couldn't go to school. Now, thanks to your support, they're learning and dreaming of a better future. You've given us hope."
+                                                        </p>
+                                                        <p style="margin: 0; font-weight: 700; color: #2d6a4f;">— Maria, Mother of 3</p>
+                                                        <p style="margin: 5px 0 0; font-size: 12px; color: #718096;">Kenya</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- ========== CURRENT CAMPAIGNS SECTION ========== -->
+                                <h3 style="margin: 30px 0 20px 0; color: #2d6a4f; font-size: 22px; font-weight: 700; text-align: center;">
+                                    🌍 Our Current Campaigns
+                                </h3>
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 40px;">
+                                    <tr>
+                                        <td align="center">
+                                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td width="50%" style="padding: 0 8px 0 0;">
+                                                        <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?w=260&h=180&fit=crop&auto=format" 
+                                                             width="260" 
+                                                             height="180" 
+                                                             style="width: 100%; max-width: 260px; height: auto; border-radius: 12px;" 
+                                                             alt="Clean water project">
+                                                        <p style="margin: 10px 0 5px; font-weight: 700; color: #2d6a4f;">💧 Clean Water Initiative</p>
+                                                        <p style="margin: 0; font-size: 12px; color: #718096;">Goal: $50,000</p>
+                                                    </td>
+                                                    <td width="50%" style="padding: 0 0 0 8px;">
+                                                        <img src="https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=260&h=180&fit=crop&auto=format" 
+                                                             width="260" 
+                                                             height="180" 
+                                                             style="width: 100%; max-width: 260px; height: auto; border-radius: 12px;" 
+                                                             alt="Food security program">
+                                                        <p style="margin: 10px 0 5px; font-weight: 700; color: #2d6a4f;">🍲 Food Security Program</p>
+                                                        <p style="margin: 0; font-size: 12px; color: #718096;">Goal: $35,000</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- ========== DONATION CTA SECTION ========== -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin: 35px 0 20px;">
+                                    <tr>
+                                        <td align="center">
+                                            <h3 style="margin: 0 0 15px 0; color: #2d6a4f; font-size: 24px; font-weight: 700;">
+                                                Make a Difference Today
+                                            </h3>
+                                            <p style="margin: 0 0 25px 0; color: #4a5568; font-size: 15px; text-align: center;">
+                                                Your donation, no matter the size, helps us reach more communities and transform more lives.
+                                            </p>
+                                            <table border="0" cellpadding="0" cellspacing="0" style="margin: 0 auto;" class="donation-buttons">
+                                                <tr>
+                                                    <td style="padding: 0 5px;">
+                                                        <table border="0" cellpadding="0" cellspacing="0">
+                                                            <tr>
+                                                                <td align="center" bgcolor="#2d6a4f" style="background-color: #2d6a4f; border-radius: 50px;">
+                                                                    <a href="#" style="display: inline-block; padding: 14px 28px; color: #ffffff; font-size: 16px; font-weight: 700; text-decoration: none; border-radius: 50px;">
+                                                                        💚 Donate $25
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                    <td style="padding: 0 5px;">
+                                                        <table border="0" cellpadding="0" cellspacing="0">
+                                                            <tr>
+                                                                <td align="center" bgcolor="#40916c" style="background-color: #40916c; border-radius: 50px;">
+                                                                    <a href="#" style="display: inline-block; padding: 14px 28px; color: #ffffff; font-size: 16px; font-weight: 700; text-decoration: none; border-radius: 50px;">
+                                                                        💚 Donate $50
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                    <td style="padding: 0 5px;">
+                                                        <table border="0" cellpadding="0" cellspacing="0">
+                                                            <tr>
+                                                                <td align="center" bgcolor="#52b788" style="background-color: #52b788; border-radius: 50px;">
+                                                                    <a href="#" style="display: inline-block; padding: 14px 28px; color: #ffffff; font-size: 16px; font-weight: 700; text-decoration: none; border-radius: 50px;">
+                                                                        💚 Donate $100
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <p style="margin: 20px 0 0; font-size: 12px; color: #94a3b8;">
+                                                Your donation is tax-deductible • 100% goes to our programs
+                                            </p>
+                                            <p style="margin: 10px 0 0; font-size: 13px;">
+                                                <a href="#" style="color: #2d6a4f; text-decoration: underline;">Other Amount →</a>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- ========== VOLUNTEER SECTION ========== -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin: 30px 0; background-color: #fef9e8; border-radius: 16px;">
+                                    <tr>
+                                        <td style="padding: 25px; text-align: center;">
+                                            <p style="margin: 0 0 8px 0; font-size: 32px;">🙋‍♀️</p>
+                                            <h4 style="margin: 0 0 10px 0; color: #2d6a4f; font-size: 18px; font-weight: 700;">
+                                                Become a Volunteer
+                                            </h4>
+                                            <p style="margin: 0 0 15px 0; color: #4a5568; font-size: 14px;">
+                                                Join our global community of volunteers and be part of the change.
+                                            </p>
+                                            <table border="0" cellpadding="0" cellspacing="0" style="margin: 0 auto;">
+                                                <tr>
+                                                    <td align="center" bgcolor="#2d6a4f" style="background-color: #2d6a4f; border-radius: 50px;">
+                                                        <a href="#" style="display: inline-block; padding: 10px 24px; color: #ffffff; font-size: 14px; font-weight: 600; text-decoration: none; border-radius: 50px;">
+                                                            Learn More About Volunteering
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- ========== DIVIDER ========== -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin: 30px 0 20px;">
+                                    <tr>
+                                        <td style="border-top: 2px solid #e8f0e8;">&nbsp;</td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- ========== NEWSLETTER SIGNUP ========== -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="text-align: center;">
+                                            <p style="margin: 0 0 10px 0; font-size: 14px; color: #2d6a4f; font-weight: 600;">
+                                                Stay connected with our mission
+                                            </p>
+                                            <p style="margin: 0; font-size: 12px; color: #718096;">
+                                                Follow us for updates on our programs and impact stories
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                        </tr>
+                        
+                        <!-- ========== FOOTER SECTION ========== -->
+                        <tr>
+                            <td class="footer-padding" style="background-color: #1b4d3e; padding: 40px 35px; border-radius: 0 0 20px 20px;">
+                                
+                                <!-- Social Links -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 25px;">
+                                    <tr>
+                                        <td align="center">
+                                            <table border="0" cellpadding="0" cellspacing="0" class="social-icons">
+                                                <tr>
+                                                    <td style="padding: 0 12px;">
+                                                        <a href="#" style="color: #a7e0b0; text-decoration: none; font-size: 22px;">📘</a>
+                                                    </td>
+                                                    <td style="padding: 0 12px;">
+                                                        <a href="#" style="color: #a7e0b0; text-decoration: none; font-size: 22px;">🐦</a>
+                                                    </td>
+                                                    <td style="padding: 0 12px;">
+                                                        <a href="#" style="color: #a7e0b0; text-decoration: none; font-size: 22px;">📷</a>
+                                                    </td>
+                                                    <td style="padding: 0 12px;">
+                                                        <a href="#" style="color: #a7e0b0; text-decoration: none; font-size: 22px;">🎥</a>
+                                                    </td>
+                                                    <td style="padding: 0 12px;">
+                                                        <a href="#" style="color: #a7e0b0; text-decoration: none; font-size: 22px;">💬</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- Footer Links -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 25px;">
+                                    <tr>
+                                        <td align="center">
+                                            <table border="0" cellpadding="0" cellspacing="0" class="footer-links">
+                                                <tr>
+                                                    <td style="padding: 0 12px;">
+                                                        <a href="#" style="color: #a7e0b0; text-decoration: none; font-size: 12px;">Our Mission</a>
+                                                    </td>
+                                                    <td style="padding: 0 12px;">
+                                                        <a href="#" style="color: #a7e0b0; text-decoration: none; font-size: 12px;">Impact Reports</a>
+                                                    </td>
+                                                    <td style="padding: 0 12px;">
+                                                        <a href="#" style="color: #a7e0b0; text-decoration: none; font-size: 12px;">Get Involved</a>
+                                                    </td>
+                                                    <td style="padding: 0 12px;">
+                                                        <a href="#" style="color: #a7e0b0; text-decoration: none; font-size: 12px;">Contact Us</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- Organization Info & Legal -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td align="center" style="color: #8bbd8b; font-size: 11px; line-height: 1.6;">
+                                            <p style="margin: 0 0 8px 0;">
+                                                © 2024 HopeForAll International. 501(c)(3) Non-Profit Organization
+                                            </p>
+                                            <p style="margin: 0 0 12px 0;">
+                                                123 Hope Street, Portland, OR 97201, United States
+                                            </p>
+                                            <p style="margin: 0 0 8px 0;">
+                                                EIN: 85-1234567
+                                            </p>
+                                            <p style="margin: 0;">
+                                                <a href="#" style="color: #a7e0b0; text-decoration: underline;">Unsubscribe</a> 
+                                                &nbsp;|&nbsp; 
+                                                <a href="#" style="color: #a7e0b0; text-decoration: underline;">Privacy Policy</a>
+                                                &nbsp;|&nbsp;
+                                                <a href="#" style="color: #a7e0b0; text-decoration: underline;">View Online</a>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    <!-- End Main Container -->
+                    
+                    <!-- Preheader Text for Better Deliverability -->
+                    <div style="display: none; max-height: 0px; overflow: hidden; visibility: hidden;">
+                        HopeForAll - Together we're changing lives. See how your support is making a difference in communities worldwide. Join us in creating lasting change.
+                    </div>
+                    
+                </td>
+            </tr>
+        </table>
+    </center>
+</body>
+</html>

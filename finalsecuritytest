@@ -1,0 +1,365 @@
+Please perform the final **Production Security Hardening** for Rabط.
+
+The goal is to fully and properly fix all remaining security issues identified in the previous security audit.
+
+### 1. Credential Rotation
+
+Identify all credentials that may have previously been stored in plaintext, project files, logs, or Git history.
+
+Audit for:
+
+* SMTP passwords
+* Telegram API credentials
+* Telegram API hash
+* Telegram sessions
+* JWT secrets
+* Authentication secrets
+* API keys
+* Encryption keys
+* Database credentials
+* Any other sensitive secrets
+
+If a credential was ever committed to Git, assume that it has been compromised.
+
+Modify the system so that:
+
+* New credentials are loaded from environment variables or a secure Secret Manager.
+* Old credentials are no longer used.
+* Secrets are never stored in source code.
+* Secrets are never stored in frontend JavaScript.
+* Secrets are never returned in API responses.
+* Secrets are never written to logs.
+* `.env` and secret files are included in `.gitignore`.
+* No real production secrets remain in the repository.
+
+If an external credential cannot be rotated automatically by the application, clearly mark it in the final report as:
+
+`MANUAL ACTION REQUIRED`
+
+### 2. Backup Encryption
+
+Secure all Rabط backups.
+
+Audit and protect:
+
+* Database backups
+* User files
+* Uploaded files
+* Campaign data
+* Contact data
+* Configuration backups
+* Session backups
+* Generated exports
+
+Sensitive backups must never be stored as plaintext.
+
+Use strong encryption such as **AES-256-GCM**, or another secure encryption architecture already used by the application.
+
+The encryption key must never:
+
+* Be committed to Git
+* Be stored in source code
+* Be stored inside the backup
+* Be sent to the browser
+* Be written to logs
+
+The encryption key must come from an environment variable or secure Secret Manager.
+
+Store backups outside the public web root.
+
+For example:
+
+`storage/backups/`
+
+or another private location that cannot be directly accessed through HTTP.
+
+Create automated tests that verify:
+
+1. A backup can be created.
+2. The backup is encrypted.
+3. The backup cannot be read without the encryption key.
+4. The backup can be successfully restored with the correct encryption key.
+
+### 3. Protect `config/`
+
+Ensure that no file inside `config/` can be accessed directly through HTTP.
+
+The following must never be public:
+
+* `config/sessions.json`
+* `config/apiConfig.json`
+* `config/tenants/`
+* Sensitive JSON/configuration files
+* Secret files
+* Authentication data
+
+If someone requests:
+
+`/config/...`
+
+the server must return:
+
+`404` or `403`
+
+No configuration file should be exposed through:
+
+`express.static()`
+
+or any other public static file server.
+
+### 4. Protect `storage/`
+
+All user files inside `storage/` must remain private.
+
+This includes:
+
+* Email attachments
+* WhatsApp media
+* Telegram media
+* PDFs
+* Documents
+* Images
+* Videos
+* Contact imports
+* Campaign files
+* Payment receipts
+* Profile images
+* APK files
+* Exports
+
+No user file should be downloadable through a direct public URL.
+
+For example:
+
+`/storage/user123/file.pdf`
+
+must NOT work.
+
+File downloads must only happen through an authenticated endpoint such as:
+
+`GET /api/files/:id/download`
+
+Before returning a file, verify:
+
+1. Authentication
+2. Tenant identification
+3. File existence
+4. File ownership
+5. User permission
+6. Safe file path validation
+
+Also prevent all forms of Path Traversal.
+
+### 5. File System Permissions
+
+Restrict operating-system access to:
+
+```text
+config/
+storage/
+backups/
+```
+
+The Web Server must not expose these directories as public static directories.
+
+Only the Rabط application process should have the minimum required read/write permissions.
+
+Do NOT use overly permissive permissions such as:
+
+`777`
+
+If the server runs on Linux, review and apply appropriate Production file and directory permissions.
+
+Document the permissions that were applied.
+
+### 6. Web Server Configuration
+
+Audit Nginx, Apache, Express, or any other Web Server configuration.
+
+Ensure these paths cannot be publicly accessed:
+
+```text
+/config
+/storage
+/backups
+/.env
+/.git
+```
+
+The following must never be downloadable through HTTP:
+
+```text
+.env
+.git/*
+config/*
+storage/*
+backups/*
+```
+
+Also verify that no alternative URL, path normalization, encoded path, or traversal technique can bypass these restrictions.
+
+### 7. Git Security Audit
+
+Audit the entire repository for old or accidentally committed secrets.
+
+Search for:
+
+```text
+password
+secret
+token
+api_key
+apiKey
+smtp
+telegram
+session
+jwt
+private_key
+```
+
+Check both the current working tree and Git history where possible.
+
+Verify that real production secrets are not still present in Git history.
+
+If a real secret was previously committed:
+
+* Rotate the credential.
+* Remove the secret from the current files.
+* Update `.gitignore`.
+* If appropriate, securely remove the secret from Git history.
+* Create a proper repository backup before rewriting Git history.
+* Document exactly what was found and what action was taken.
+
+Do not claim a secret has been removed from Git history unless the history was actually checked and cleaned.
+
+### 8. `.gitignore`
+
+Ensure sensitive files are ignored:
+
+```text
+.env
+.env.*
+config/tenants/
+storage/
+backups/
+*.key
+*.pem
+*.secret
+```
+
+Do not accidentally ignore important source files that must remain under version control.
+
+Review the final `.gitignore` carefully.
+
+### 9. Automated Security Tests
+
+Add automated security tests for private resource protection.
+
+At minimum, test:
+
+```text
+GET /config/apiConfig.json
+GET /config/sessions.json
+GET /storage/userA/file.pdf
+GET /storage/userB/file.pdf
+GET /backups/backup.enc
+GET /.env
+```
+
+Expected result:
+
+```text
+404 / 403
+```
+
+Also test all of the following:
+
+* User A cannot download User B's files.
+* User A cannot download backups.
+* User A cannot read configuration files.
+* User A cannot read `.env`.
+* Files cannot be downloaded without authentication.
+* A fake file ID cannot access another user's file.
+* Path Traversal attacks fail.
+* Backup cannot be read without the encryption key.
+* Backup can be restored with the correct encryption key.
+* Secrets are not returned in API responses.
+* Secrets are not written to logs.
+* Direct public storage URLs return `404` or `403`.
+* Cross-tenant access attempts fail.
+* Changing `userId`, `tenantId`, file IDs, campaign IDs, schedule IDs, or receipt IDs cannot bypass authorization.
+
+### 10. Production Security Checklist
+
+Before declaring the security hardening complete, verify all of the following:
+
+* HTTPS is enabled.
+* `COOKIE_SECURE=true`
+* Cookies use Secure / HttpOnly / SameSite protection.
+* Old credentials have been rotated.
+* Git secrets have been audited.
+* Sensitive Git history has been reviewed.
+* Backups are encrypted.
+* `config/` is private.
+* `storage/` is private.
+* `backups/` is private.
+* `.env` is not publicly accessible.
+* `.git` is not publicly accessible.
+* User files do not have public URLs.
+* File downloads perform ownership checks.
+* Tenant isolation is enforced.
+* Cross-user security tests pass.
+* Logs contain no secrets or private message content.
+* Sensitive APIs use `Cache-Control: private, no-store`.
+* WebSocket events are tenant-isolated.
+* Temporary files are protected.
+* Exported files are protected.
+* Uploaded files cannot execute server-side code.
+* Path Traversal protection is working.
+* Production file permissions are restricted.
+
+### 11. Final Security Report
+
+After completing the work, create or update:
+
+`SECURITY-REPORT.md`
+
+The report must contain:
+
+1. Credentials discovered
+2. Credentials rotated
+3. Credentials requiring manual rotation
+4. Backup encryption implementation
+5. `config/` protection
+6. `storage/` protection
+7. File download security
+8. Git secret audit
+9. File system permissions
+10. Web server security
+11. Automated security tests
+12. Test results
+13. Remaining Production risks
+14. Manual actions still required
+
+### Important
+
+Do not simply hide sensitive information in the Frontend.
+
+Security must be enforced throughout the entire architecture:
+
+**Authentication → Authorization → Tenant Isolation → Backend → Database → Storage → File System → Backup**
+
+Before declaring this task complete:
+
+* Actually run the security tests.
+* Do not assume that a fix works without testing it.
+* Record the real test results in `SECURITY-REPORT.md`.
+* Clearly distinguish between fixes that were actually implemented and actions that require manual intervention.
+
+If something requires manual action, mark it exactly as:
+
+`MANUAL ACTION REQUIRED`
+
+and explain precisely what needs to be done.
+
+Do not claim Production security is complete if any critical security issue remains unresolved.

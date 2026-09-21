@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Templates — Rabط</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/brand.css">
+    <link rel="stylesheet" href="/templates.css">
+    <script src="/i18n-dict.js"></script>
+    <script src="/i18n.js"></script>
+    <script src="/navbar.js"></script>
+    <script src="/ui-feedback.js"></script>
+    <script src="/email-template-engine.js"></script>
+</head>
+<body>
+    <div class="tpl-page" id="tplLibrary">
+        <header class="tpl-hero">
+            <div>
+                <h1>Templates</h1>
+                <p>Create professional emails faster with ready-made templates.</p>
+            </div>
+            <button type="button" class="tpl-btn tpl-btn-primary" id="createTplBtn">
+                <i class="fa-solid fa-plus"></i> Create Template
+            </button>
+        </header>
+
+        <div class="tpl-controls">
+            <div class="tpl-tabs" id="sourceTabs" role="tablist">
+                <button type="button" class="tpl-tab active" data-source="all">All Templates</button>
+                <button type="button" class="tpl-tab" data-source="system">Ready Templates</button>
+                <button type="button" class="tpl-tab" data-source="mine">My Templates</button>
+            </div>
+            <div class="tpl-toolbar">
+                <div class="tpl-search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="search" id="tplSearch" placeholder="Search templates..." autocomplete="off">
+                </div>
+                <label class="tpl-cat-filter">
+                    <i class="fa-solid fa-filter"></i>
+                    <select id="categoryFilter" aria-label="Filter by category"></select>
+                </label>
+            </div>
+        </div>
+        <div class="tpl-grid" id="tplGrid"></div>
+    </div>
+
+    <div class="tpl-picker" id="tplPicker" hidden>
+        <div class="tpl-picker-card">
+            <div class="tpl-picker-head">
+                <div>
+                    <h2>Create Template</h2>
+                    <p>Start from scratch or choose a ready-made design.</p>
+                </div>
+                <button type="button" class="tpl-icon-btn" id="pickerClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="tpl-picker-actions">
+                <button type="button" class="tpl-start-card" id="startBlank">
+                    <i class="fa-regular fa-file"></i>
+                    <strong>Start from scratch</strong>
+                    <span>Open a clean canvas and add your own blocks.</span>
+                </button>
+            </div>
+            <h3>Choose a template</h3>
+            <div class="tpl-picker-grid" id="pickerGrid"></div>
+        </div>
+    </div>
+
+    <div class="eb" id="tplBuilder" hidden>
+        <header class="eb-bar">
+            <button type="button" class="tpl-btn tpl-btn-ghost" id="builderClose"><i class="fa-solid fa-arrow-left"></i> <span class="eb-hide-sm">Templates</span></button>
+            <input type="text" class="eb-name" id="builderName" maxlength="120" aria-label="Template name">
+            <span class="eb-protect" id="builderProtect" hidden>Ready Template — saving creates your private copy</span>
+            <div class="eb-bar-right">
+                <div class="eb-seg" role="group" aria-label="Canvas size">
+                    <button type="button" class="eb-seg-btn active" id="canvasDesktop">Desktop</button>
+                    <button type="button" class="eb-seg-btn" id="canvasMobile">Mobile</button>
+                </div>
+                <button type="button" class="tpl-btn" id="builderPreview"><i class="fa-regular fa-eye"></i> <span class="eb-hide-sm">Preview</span></button>
+                <button type="button" class="tpl-btn" id="builderUse"><i class="fa-solid fa-paper-plane"></i> <span class="eb-hide-sm">Use Template</span></button>
+                <button type="button" class="tpl-btn tpl-btn-primary" id="builderSave"><i class="fa-solid fa-floppy-disk"></i> <span class="eb-hide-sm">Save</span></button>
+            </div>
+        </header>
+        <div class="eb-body">
+            <aside class="eb-side eb-blocks" id="blockPalette"></aside>
+            <section class="eb-canvas-wrap">
+                <div class="eb-stage" id="ebStage">
+                    <div class="eb-doc" id="blockCanvas"></div>
+                </div>
+            </section>
+            <aside class="eb-side eb-settings" id="blockInspector"></aside>
+        </div>
+        <nav class="eb-mobile-tabs" id="ebMobileTabs" aria-label="Editor sections">
+            <button type="button" class="eb-mobile-tab active" data-eb-tab="blocks"><i class="fa-solid fa-plus"></i> Blocks</button>
+            <button type="button" class="eb-mobile-tab" data-eb-tab="canvas"><i class="fa-regular fa-envelope"></i> Email</button>
+            <button type="button" class="eb-mobile-tab" data-eb-tab="settings"><i class="fa-solid fa-sliders"></i> Settings</button>
+        </nav>
+    </div>
+
+    <div class="tpl-preview" id="tplPreview" hidden>
+        <div class="tpl-preview-card">
+            <div class="tpl-preview-bar">
+                <strong id="previewTitle">Preview</strong>
+                <div class="eb-seg">
+                    <button type="button" class="eb-seg-btn active" id="previewDesktop">Desktop</button>
+                    <button type="button" class="eb-seg-btn" id="previewMobile">Mobile</button>
+                </div>
+                <button type="button" class="tpl-icon-btn" id="previewClose" aria-label="Close preview"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="tpl-frame-wrap" id="previewFrameWrap">
+                <iframe id="previewFrame" title="Email preview" sandbox="allow-same-origin"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script src="/templates.js"></script>
+</body>
+</html>

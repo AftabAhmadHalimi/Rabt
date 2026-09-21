@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Config — Rabط</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/brand.css">
+    <script src="/i18n-dict.js"></script>
+    <script src="/i18n.js"></script>
+    <script src="/navbar.js"></script>
+    <script src="/ui-feedback.js"></script>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{
+            font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+            background:var(--bg-primary);
+            color:var(--text-primary);
+            min-height:100vh;
+        }
+        header{
+            display:flex;justify-content:space-between;align-items:center;
+            padding:10px 14px;
+            border-bottom:1px solid var(--border-color);
+            background:var(--bg-secondary);
+        }
+        .nav{display:flex;gap:14px;align-items:center}
+        .nav a{
+            color:var(--text-secondary);text-decoration:none;
+            padding:10px 14px;border-radius:var(--radius-sm);
+            display:flex;gap:8px;align-items:center;font-size:14px;font-weight:600;
+        }
+        .nav a.active{color:var(--text-primary);background:rgba(255,255,255,0.08)}
+        .wrap{max-width:980px;margin:12px auto;padding:0 14px 20px}
+        .card{
+            background:var(--bg-card);
+            border:1px solid var(--border-color);
+            border-radius:var(--radius);
+            padding:12px 14px;
+        }
+        h1{font-size:18px;margin-bottom:6px}
+        p{color:var(--text-secondary);margin-bottom:20px}
+        .grid{display:grid;grid-template-columns:1fr;gap:16px}
+        label{display:block;font-size:13px;color:var(--text-secondary);margin-bottom:8px;font-weight:700}
+        input, select{
+            width:100%;padding:6px 10px;border-radius:var(--radius-sm);
+            border:1px solid var(--border-color);
+            background:var(--bg-secondary);color:var(--text-primary);
+            outline:none;
+        }
+        .row{display:flex;gap:14px}
+        .row .col{flex:1}
+        .btn{
+            padding:8px 12px;border:none;border-radius:var(--radius-sm);
+            font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
+        }
+        .btn-primary{background:var(--accent);color:#fff}
+        .btn-secondary{background:var(--bg-secondary);color:var(--text-primary);border:1px solid var(--border-color)}
+        .btn-danger{background:rgba(239,68,68,0.14);color:var(--error);border:1px solid rgba(239,68,68,0.35)}
+        .status{
+            display:flex;gap:10px;align-items:center;
+            padding:10px 14px;border-radius:999px;
+            border:1px solid var(--border-color);
+            font-weight:800;font-size:13px;
+        }
+        .status.ok{background:rgba(34,197,94,0.12);border-color:rgba(34,197,94,0.35);color:var(--success)}
+        .status.bad{background:rgba(239,68,68,0.12);border-color:rgba(239,68,68,0.35);color:var(--error)}
+        .hint{color:var(--text-muted);font-size:13px;margin-top:10px}
+        .alert{
+            margin-top:14px;padding:12px 14px;border-radius:var(--radius-sm);
+            border:1px solid var(--border-color);display:none
+        }
+        .alert.show{display:block}
+        .alert.ok{background:rgba(34,197,94,0.08);border-color:rgba(34,197,94,0.3);color:var(--success)}
+        .alert.bad{background:rgba(239,68,68,0.08);border-color:rgba(239,68,68,0.3);color:var(--error)}
+    </style>
+</head>
+<body>
+    <div id="app-navbar"></div>
+
+    <div class="wrap">
+        <div class="card">
+            <h1>Workspace settings</h1>
+            <p>Save Telegram API credentials so Connect works across the Rabط platform. Recipients are added by paste or file upload.</p>
+
+            <form id="apiForm">
+                <div class="grid">
+                    <div>
+                        <label for="telegramApiIdInput">Telegram api_id &amp; api_hash</label>
+                        <div id="tgCredStatus" class="status bad" style="margin-bottom:8px;font-size:12px;padding:8px 12px;border-radius:8px;">
+                            <i class="fa-solid fa-circle-xmark" id="tgCredIcon"></i>
+                            <span id="tgCredText">Not configured — required for Telegram Connect</span>
+                        </div>
+                        <a href="https://my.telegram.org" target="_blank" rel="noopener" class="btn btn-secondary" style="display:inline-flex;align-items:center;gap:8px;margin-bottom:12px;">
+                            <i class="fa-brands fa-telegram"></i> Get from my.telegram.org
+                        </a>
+                        <input id="telegramApiIdInput" type="number" min="1" step="1" placeholder="e.g. 12345678" style="margin-bottom:10px;">
+                    </div>
+                    <div>
+                        <label for="telegramApiHashInput">Telegram api_hash</label>
+                        <input id="telegramApiHashInput" type="password" autocomplete="off" placeholder="Paste api_hash from my.telegram.org">
+                        <div class="hint">Not a bot token. Leave blank to keep the saved hash.</div>
+                    </div>
+
+                    <div style="display:flex;gap:12px;flex-wrap:wrap">
+                        <button type="submit" class="btn btn-primary" id="saveBtn">
+                            <i class="fa-solid fa-floppy-disk"></i> Save
+                        </button>
+                    </div>
+
+                    <div class="alert" id="alertBox"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const apiForm = document.getElementById('apiForm');
+            const telegramApiIdInput = document.getElementById('telegramApiIdInput');
+            const telegramApiHashInput = document.getElementById('telegramApiHashInput');
+            let hasStoredTelegramHash = false;
+
+            const alertBox = document.getElementById('alertBox');
+            const saveBtn = document.getElementById('saveBtn');
+
+            function showAlert(message, ok) {
+                if (window.RabtUI) {
+                    RabtUI.notify(message, ok ? 'success' : 'error', alertBox);
+                    return;
+                }
+                alertBox.textContent = message;
+                alertBox.className = 'alert show ' + (ok ? 'ok' : 'bad');
+            }
+
+            function clearAlert() {
+                alertBox.className = 'alert';
+                alertBox.textContent = '';
+            }
+
+            async function loadConfig() {
+                const res = await fetch('/api/external-api/config');
+                const data = await res.json();
+                if (!data.success) throw new Error(data.message || 'Failed to load config');
+
+                hasStoredTelegramHash = !!(data.config.telegramApiHash && String(data.config.telegramApiHash).length > 0);
+
+                const tid = data.config.telegramApiId;
+                if (tid && Number(tid) > 0) {
+                    telegramApiIdInput.value = String(tid);
+                } else {
+                    telegramApiIdInput.value = '';
+                }
+                if (!telegramApiHashInput.value) {
+                    telegramApiHashInput.placeholder = hasStoredTelegramHash
+                        ? ('Current: ' + data.config.telegramApiHash)
+                        : 'Paste api_hash from my.telegram.org';
+                }
+                const tgCredStatus = document.getElementById('tgCredStatus');
+                const tgCredIcon = document.getElementById('tgCredIcon');
+                const tgCredText = document.getElementById('tgCredText');
+                if (tgCredStatus && tgCredIcon && tgCredText) {
+                    const tgConfigured = !!(tid && Number(tid) > 0 && hasStoredTelegramHash);
+                    if (tgConfigured) {
+                        tgCredStatus.className = 'status ok';
+                        tgCredIcon.className = 'fa-solid fa-check-circle';
+                        tgCredText.textContent = `Telegram API configured (id: ${tid})`;
+                    } else {
+                        tgCredStatus.className = 'status bad';
+                        tgCredIcon.className = 'fa-solid fa-circle-xmark';
+                        tgCredText.textContent = 'Not configured — required for Telegram Connect';
+                    }
+                }
+            }
+
+            apiForm.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                clearAlert();
+
+                const tgIdRaw = (telegramApiIdInput.value || '').trim();
+                const tgHash = (telegramApiHashInput.value || '').trim();
+                const body = {};
+
+                if (tgIdRaw) {
+                    const n = parseInt(tgIdRaw, 10);
+                    if (!Number.isFinite(n) || n <= 0) return showAlert('Telegram api_id must be a positive number', false);
+                    body.telegramApiId = n;
+                }
+                if (tgHash) {
+                    if (tgHash.length < 16) return showAlert('Telegram api_hash looks too short', false);
+                    body.telegramApiHash = tgHash;
+                }
+                if (!body.telegramApiId && !hasStoredTelegramHash && !body.telegramApiHash) {
+                    return showAlert('Please enter Telegram api_id and api_hash', false);
+                }
+
+                saveBtn.disabled = true;
+                saveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+
+                try {
+                    const res = await fetch('/api/external-api/config', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(body)
+                    });
+                    const data = await res.json();
+                    if (!data.success) return showAlert(data.message || 'Save failed', false);
+
+                    showAlert('Telegram API config saved.', true);
+                    telegramApiHashInput.value = '';
+                    await loadConfig();
+                } catch (err) {
+                    showAlert('Network error: ' + err.message, false);
+                } finally {
+                    saveBtn.disabled = false;
+                    saveBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save';
+                }
+            });
+
+            loadConfig().catch(() => {
+                showAlert('Could not load config.', false);
+            });
+        });
+    </script>
+</body>
+</html>
+

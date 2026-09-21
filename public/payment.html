@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" class="flow-motion">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment — Rabط</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/brand.css">
+    <link rel="stylesheet" href="/billing.css">
+    <link rel="stylesheet" href="/flow-motion.css">
+    <script src="/i18n-dict.js"></script>
+    <script src="/i18n.js"></script>
+    <script src="/navbar.js"></script>
+    <script src="/ui-feedback.js"></script>
+    <script src="/flow-motion.js"></script>
+</head>
+<body>
+    <div id="app-navbar"></div>
+    <div class="bill-wrap">
+        <a class="bill-back" href="/pricing.html"><i class="fa-solid fa-arrow-left"></i> Back to pricing</a>
+        <p class="bill-kicker"><i class="fa-solid fa-shield-halved"></i> Secure payment verification</p>
+        <h1>Payment information</h1>
+        <p class="bill-lead">Send the package amount using the Super Admin payment details below, then upload your receipt. Your workspace stays locked until the payment is verified.</p>
+        <div class="bill-pay-grid">
+            <div class="bill-card">
+                <form class="bill-form" id="payForm">
+                    <label for="name">Full name</label>
+                    <input id="name" required autocomplete="name">
+                    <label for="email">Email</label>
+                    <input id="email" type="email" required autocomplete="email">
+                    <label for="phone">Phone number</label>
+                    <input id="phone" required autocomplete="tel" placeholder="+93 700 000 000">
+                    <label for="planId">Selected package</label>
+                    <select id="planId" required></select>
+                    <label for="country">Country</label>
+                    <select id="country" required>
+                        <option value="">Select country</option>
+                        <option>Afghanistan</option><option>Albania</option><option>Algeria</option>
+                        <option>Australia</option><option>Austria</option><option>Bahrain</option>
+                        <option>Bangladesh</option><option>Belgium</option><option>Brazil</option>
+                        <option>Canada</option><option>China</option><option>Denmark</option>
+                        <option>Egypt</option><option>France</option><option>Germany</option>
+                        <option>India</option><option>Indonesia</option><option>Iran</option>
+                        <option>Iraq</option><option>Ireland</option><option>Italy</option>
+                        <option>Japan</option><option>Jordan</option><option>Kenya</option>
+                        <option>Kuwait</option><option>Lebanon</option><option>Malaysia</option>
+                        <option>Netherlands</option><option>Nigeria</option><option>Oman</option>
+                        <option>Pakistan</option><option>Palestine</option><option>Philippines</option>
+                        <option>Poland</option><option>Qatar</option><option>Russia</option>
+                        <option>Saudi Arabia</option><option>Singapore</option><option>South Africa</option>
+                        <option>Spain</option><option>Sweden</option><option>Switzerland</option>
+                        <option>Syria</option><option>Turkey</option><option>Ukraine</option>
+                        <option>United Arab Emirates</option><option>United Kingdom</option>
+                        <option>United States</option><option>Yemen</option><option>Other</option>
+                    </select>
+                    <label for="company">Business / company name (optional)</label>
+                    <input id="company" autocomplete="organization">
+                    <label for="notes">Notes (optional)</label>
+                    <textarea id="notes" placeholder="Transaction ID, sender name, or anything the admin should know"></textarea>
+                    <label for="receipt">Upload payment receipt</label>
+                    <input id="receipt" type="file" accept="image/png,image/jpeg,image/webp,image/gif,application/pdf,.png,.jpg,.jpeg,.webp,.gif,.pdf" required>
+                    <p class="bill-file">PNG, JPG, WEBP, GIF, or PDF. Max 8MB.</p>
+                    <button class="bill-btn" type="submit" id="submitBtn"><i class="fa-solid fa-paper-plane"></i> Submit Payment Verification</button>
+                </form>
+                <div class="bill-alert" id="alertBox"></div>
+            </div>
+            <div>
+                <div class="bill-pay-meta">
+                    <div><div class="k">Selected package</div><div class="v" id="pkgName">—</div></div>
+                    <div><div class="k">Amount to pay</div><div class="v" id="pkgAmount">—</div></div>
+                </div>
+                <div class="bill-card">
+                    <h2 class="bill-instructions-head">
+                        <img src="/hesab-icon.ico" alt="HesabPay" class="bill-hesab-icon" width="24" height="24">
+                        <span>Payment instructions</span>
+                    </h2>
+                    <p class="bill-note" id="instructions">Loading payment details…</p>
+                    <div class="k" style="font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;">Hesab pay account Number</div>
+                    <div class="bill-account" id="accountNumber">—</div>
+                    <div class="bill-qr" id="qrWrap">
+                        <strong>Payment QR Code</strong>
+                        <img id="qrImg" alt="Payment QR code" hidden>
+                        <p class="bill-note" id="qrMissing">No QR code has been configured yet.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var plans = [];
+        var selected = '';
+        function showAlert(msg, ok) {
+            var box = document.getElementById('alertBox');
+            if (window.RabtUI) RabtUI.notify(msg, ok ? 'success' : 'error', box);
+            else { box.className = 'bill-alert show ' + (ok ? 'ok' : 'bad'); box.textContent = msg; }
+        }
+        function currentPlan() {
+            return plans.find(function (p) { return p.id === selected; }) || plans[0];
+        }
+        function paintPlan() {
+            var plan = currentPlan();
+            if (!plan) return;
+            document.getElementById('pkgName').textContent = plan.name;
+            document.getElementById('pkgAmount').textContent = plan.periodLabel || ('$' + plan.amount);
+        }
+        function fillPlans(list, prefer) {
+            plans = list || [];
+            selected = prefer || (plans[0] && plans[0].id) || 'monthly';
+            var sel = document.getElementById('planId');
+            sel.innerHTML = plans.map(function (p) {
+                return '<option value="' + p.id + '"' + (p.id === selected ? ' selected' : '') + '>' +
+                    p.periodLabel + ' — ' + p.name + '</option>';
+            }).join('');
+            paintPlan();
+        }
+        document.getElementById('planId').addEventListener('change', function () {
+            selected = this.value;
+            paintPlan();
+        });
+        document.addEventListener('auth-ready', function (e) {
+            var user = e.detail && e.detail.user;
+            if (!user) return;
+            if (user.accessCode === 'PAYMENT_PENDING') {
+                window.location.replace('/billing-status.html');
+                return;
+            }
+            document.getElementById('name').value = user.name || '';
+            document.getElementById('email').value = user.email || '';
+            if (user.phone) document.getElementById('phone').value = user.phone;
+        });
+        var prefer = new URLSearchParams(location.search).get('plan') || '';
+        try { prefer = prefer || sessionStorage.getItem('rabt_plan') || ''; } catch (_) {}
+        Promise.all([
+            fetch('/api/billing/config', { credentials: 'same-origin' }).then(function (r) { return r.json(); }),
+            fetch('/api/billing/me', { credentials: 'same-origin' }).then(function (r) { return r.json(); })
+        ]).then(function (pair) {
+            var cfg = pair[0];
+            var me = pair[1];
+            if (me && me.data && me.data.access && me.data.access.code === 'PAYMENT_PENDING') {
+                window.location.replace('/billing-status.html');
+                return;
+            }
+            if (!cfg.success) throw new Error(cfg.message || 'Could not load payment details');
+            var data = cfg.data || {};
+            fillPlans(data.plans, prefer);
+            document.getElementById('instructions').textContent = data.instructions ||
+                'Send the exact package amount, then upload a clear photo or PDF of your receipt.';
+            document.getElementById('accountNumber').textContent = data.accountNumber || 'Not configured yet';
+            if (data.qrAvailable) {
+                document.getElementById('qrImg').src = '/api/billing/qr?t=' + Date.now();
+                document.getElementById('qrImg').hidden = false;
+                document.getElementById('qrMissing').hidden = true;
+            }
+        }).catch(function (err) {
+            showAlert(err.message || 'Could not load payment details', false);
+        });
+        document.getElementById('payForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            var btn = document.getElementById('submitBtn');
+            var file = document.getElementById('receipt').files[0];
+            if (!file) { showAlert('Upload a payment receipt photo or PDF.', false); return; }
+            var form = new FormData();
+            form.append('name', document.getElementById('name').value);
+            form.append('email', document.getElementById('email').value);
+            form.append('phone', document.getElementById('phone').value);
+            form.append('planId', document.getElementById('planId').value);
+            form.append('country', document.getElementById('country').value);
+            form.append('company', document.getElementById('company').value);
+            form.append('notes', document.getElementById('notes').value);
+            form.append('receipt', file);
+            btn.disabled = true;
+            try {
+                var res = await fetch('/api/billing/submit', { method: 'POST', credentials: 'same-origin', body: form });
+                var data = await res.json();
+                showAlert(data.message || (data.success ? 'Submitted.' : 'Could not submit'), !!data.success);
+                if (data.success) {
+                    if (window.RabtFlow && window.RabtFlow.celebrate) await window.RabtFlow.celebrate();
+                    window.location.replace('/billing-status.html');
+                }
+            } catch (err) {
+                showAlert(err.message || 'Network error', false);
+            } finally {
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

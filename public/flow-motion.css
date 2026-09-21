@@ -1,0 +1,376 @@
+/* Premium motion for signup + survey (onboarding) */
+html.flow-motion,
+html.flow-motion body {
+    background:
+        radial-gradient(980px 460px at 6% -12%, rgba(91, 79, 255, 0.22), transparent 58%),
+        radial-gradient(820px 420px at 108% 4%, rgba(46, 196, 217, 0.16), transparent 52%),
+        var(--bg-primary) !important;
+}
+
+.flow-orbs {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+.flow-orb {
+    position: absolute;
+    border-radius: 0;
+    filter: blur(42px);
+    opacity: 0.5;
+    will-change: transform;
+    animation: flowOrb 22s ease-in-out infinite;
+}
+.flow-orb.o1 {
+    width: 460px; height: 460px;
+    background: rgba(91, 79, 255, 0.34);
+    top: -140px; left: -100px;
+}
+.flow-orb.o2 {
+    width: 380px; height: 380px;
+    background: rgba(46, 196, 217, 0.26);
+    bottom: -120px; right: -90px;
+    animation-delay: -8s;
+}
+.flow-orb.o3 {
+    width: 240px; height: 240px;
+    background: rgba(124, 92, 255, 0.2);
+    top: 42%; left: 58%;
+    animation-delay: -14s;
+}
+@keyframes flowOrb {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    40% { transform: translate3d(46px, 28px, 0) scale(1.08); }
+    70% { transform: translate3d(-28px, 18px, 0) scale(0.94); }
+}
+
+.wrap, .bill-wrap, .ob-shell {
+    position: relative;
+    z-index: 1;
+}
+
+html.flow-motion .card,
+html.flow-motion .bill-card,
+html.flow-motion .ob-card {
+    background: color-mix(in srgb, var(--bg-card) 86%, transparent);
+    border: 1px solid color-mix(in srgb, #fff 42%, var(--border-color));
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 22px 60px rgba(30, 37, 64, 0.1);
+    animation: flowCardIn 0.78s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+html.flow-motion .bill-card.featured {
+    box-shadow: 0 18px 50px rgba(91, 79, 255, 0.18);
+}
+
+@keyframes flowCardIn {
+    from { opacity: 0; transform: translate3d(0, 28px, 0) scale(0.975); filter: blur(10px); }
+    to { opacity: 1; transform: none; filter: none; }
+}
+
+.flow-stagger {
+    animation: flowItemIn 0.58s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--i, 0) * 45ms + 80ms);
+}
+@keyframes flowItemIn {
+    from { opacity: 0; transform: translate3d(0, 14px, 0); }
+    to { opacity: 1; transform: none; }
+}
+
+html.flow-motion .wrap h1,
+html.flow-motion .bill-wrap > h1,
+html.flow-motion .bill-kicker,
+html.flow-motion .bill-lead,
+html.flow-motion .wrap .hint,
+html.flow-motion .wrap .back,
+html.flow-motion .bill-back {
+    animation: flowItemIn 0.62s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+html.flow-motion .bill-kicker { animation-delay: 40ms; }
+html.flow-motion .wrap h1,
+html.flow-motion .bill-wrap > h1 { animation-delay: 90ms; }
+html.flow-motion .wrap .hint,
+html.flow-motion .bill-lead { animation-delay: 140ms; }
+
+html.flow-motion input,
+html.flow-motion select,
+html.flow-motion textarea {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+html.flow-motion input:focus,
+html.flow-motion select:focus,
+html.flow-motion textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(91, 79, 255, 0.14);
+    transform: translateY(-1px);
+}
+
+html.flow-motion .otp-input {
+    transition: letter-spacing 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+html.flow-motion .otp-input.is-ready {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(91, 79, 255, 0.16), 0 10px 30px rgba(91, 79, 255, 0.12);
+    animation: flowOtpReady 0.45s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+@keyframes flowOtpReady {
+    0% { transform: scale(0.98); }
+    60% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+html.flow-motion .btn,
+html.flow-motion .ob-btn,
+html.flow-motion .bill-btn {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+    box-shadow: 0 10px 22px rgba(91, 79, 255, 0.22);
+}
+html.flow-motion .btn::after,
+html.flow-motion .ob-btn::after,
+html.flow-motion .bill-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.34) 48%, transparent 72%);
+    transform: translateX(-130%);
+    animation: flowShine 3.4s ease-in-out infinite;
+    pointer-events: none;
+}
+@keyframes flowShine {
+    0%, 58% { transform: translateX(-130%); }
+    78%, 100% { transform: translateX(130%); }
+}
+html.flow-motion .btn:hover,
+html.flow-motion .ob-btn:hover,
+html.flow-motion .bill-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 28px rgba(91, 79, 255, 0.28);
+}
+html.flow-motion .btn:active,
+html.flow-motion .ob-btn:active,
+html.flow-motion .bill-btn:active {
+    transform: translateY(1px) scale(0.99);
+}
+html.flow-motion .btn.flow-busy,
+html.flow-motion .ob-btn.flow-busy,
+html.flow-motion .bill-btn.flow-busy {
+    pointer-events: none;
+    filter: saturate(0.92);
+}
+html.flow-motion .btn.flow-busy::before,
+html.flow-motion .ob-btn.flow-busy::before,
+html.flow-motion .bill-btn.flow-busy::before {
+    content: '';
+    width: 16px; height: 16px;
+    margin-right: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-top-color: #fff;
+    border-radius: 0;
+    display: inline-block;
+    vertical-align: -3px;
+    animation: flowSpin 0.7s linear infinite;
+}
+@keyframes flowSpin { to { transform: rotate(360deg); } }
+
+html.flow-motion .bill-card {
+    transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+html.flow-motion .bill-grid .bill-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 50px rgba(91, 79, 255, 0.16);
+}
+html.flow-motion .bill-grid .bill-card {
+    animation: flowCardIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--i, 0) * 90ms);
+}
+
+html.flow-motion .bill-status .icon {
+    animation: flowStatusFloat 3.2s ease-in-out infinite;
+}
+html.flow-motion .bill-status.wait .icon i {
+    animation: flowHour 2.4s linear infinite;
+}
+html.flow-motion .bill-status.ok .icon {
+    animation: flowPop 0.55s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+@keyframes flowStatusFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+@keyframes flowHour { to { transform: rotate(360deg); } }
+@keyframes flowPop {
+    0% { transform: scale(0.7); opacity: 0.4; }
+    70% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
+.flow-celebrate {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    overflow: hidden;
+}
+.flow-celebrate span {
+    position: absolute;
+    left: 50%;
+    top: 42%;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(91, 79, 255, 0.45);
+    border-radius: 0;
+    transform: translate(-50%, -50%) scale(0.4);
+    animation: flowBurst 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.flow-celebrate span:nth-child(2) {
+    width: 42px; height: 42px;
+    border-color: rgba(46, 196, 217, 0.4);
+    animation-delay: 0.05s;
+}
+.flow-celebrate span:nth-child(3) {
+    width: 76px; height: 76px;
+    border-color: rgba(91, 79, 255, 0.22);
+    animation-delay: 0.1s;
+}
+@keyframes flowBurst {
+    to { transform: translate(-50%, -50%) scale(8); opacity: 0; }
+}
+
+/* Homepage guest landing motion */
+html.flow-motion.home-guest,
+html.flow-motion.home-guest body {
+    background:
+        radial-gradient(980px 460px at 6% -12%, rgba(91, 79, 255, 0.22), transparent 58%),
+        radial-gradient(820px 420px at 108% 4%, rgba(46, 196, 217, 0.16), transparent 52%),
+        var(--bg-primary) !important;
+}
+
+html.flow-motion.home-guest .container,
+html.flow-motion.home-guest #guestHome {
+    position: relative;
+    z-index: 1;
+}
+
+html.flow-motion.home-guest #guestHome .land-kicker,
+html.flow-motion.home-guest #guestHome .hero-left h1,
+html.flow-motion.home-guest #guestHome .hero-left .land-lead,
+html.flow-motion.home-guest #guestHome .hero-left .land-sub,
+html.flow-motion.home-guest #guestHome .hero-actions > *,
+html.flow-motion.home-guest #guestHome .section-title,
+html.flow-motion.home-guest #guestHome .land-copy {
+    animation: flowItemIn 0.62s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+html.flow-motion.home-guest #guestHome .land-kicker { animation-delay: 40ms; }
+html.flow-motion.home-guest #guestHome .hero-left h1 { animation-delay: 90ms; }
+html.flow-motion.home-guest #guestHome .hero-left .land-lead { animation-delay: 140ms; }
+html.flow-motion.home-guest #guestHome .hero-left .land-sub { animation-delay: 190ms; }
+html.flow-motion.home-guest #guestHome .hero-actions > *:nth-child(1) { animation-delay: 240ms; }
+html.flow-motion.home-guest #guestHome .hero-actions > *:nth-child(2) { animation-delay: 280ms; }
+
+html.flow-motion.home-guest #guestHome .why-card,
+html.flow-motion.home-guest #guestHome .step-card,
+html.flow-motion.home-guest #guestHome .tool-card,
+html.flow-motion.home-guest #guestHome .how-card,
+html.flow-motion.home-guest #guestHome .cta-banner,
+html.flow-motion.home-guest #guestHome .cta-banner-inline,
+html.flow-motion.home-guest #guestHome .trusted-by {
+    animation: flowCardIn 0.78s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--i, 0) * 70ms + 120ms);
+}
+
+html.flow-motion.home-guest #guestHome .btn {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+}
+
+html.flow-motion.home-guest #guestHome .btn-primary {
+    box-shadow: 0 10px 22px rgba(91, 79, 255, 0.22);
+}
+
+html.flow-motion.home-guest #guestHome .btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.34) 48%, transparent 72%);
+    transform: translateX(-130%);
+    animation: flowShine 3.4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+html.flow-motion.home-guest #guestHome .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 28px rgba(91, 79, 255, 0.28);
+}
+
+html.flow-motion.home-guest #guestHome .btn:active {
+    transform: translateY(1px) scale(0.99);
+}
+
+html.flow-motion.home-guest #guestHome .why-card:hover,
+html.flow-motion.home-guest #guestHome .step-card:hover,
+html.flow-motion.home-guest #guestHome .tool-card:hover,
+html.flow-motion.home-guest #guestHome .how-card:hover {
+    transform: translateY(-3px);
+    transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease;
+    box-shadow: 0 16px 36px rgba(91, 79, 255, 0.12);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .flow-orb,
+    html.flow-motion .card,
+    html.flow-motion .bill-card,
+    html.flow-motion .ob-card,
+    html.flow-motion .btn::after,
+    html.flow-motion .ob-btn::after,
+    html.flow-motion .bill-btn::after,
+    .flow-stagger,
+    html.flow-motion .wrap h1,
+    html.flow-motion .bill-wrap > h1,
+    html.flow-motion .bill-kicker,
+    html.flow-motion .bill-lead,
+    html.flow-motion .wrap .hint,
+    html.flow-motion .wrap .back,
+    html.flow-motion .bill-back,
+    html.flow-motion .bill-status .icon,
+    html.flow-motion .bill-status.wait .icon i {
+        animation: none !important;
+        transition: none !important;
+        filter: none !important;
+        transform: none !important;
+    }
+    html.flow-motion.home-guest #guestHome .land-kicker,
+    html.flow-motion.home-guest #guestHome .hero-left h1,
+    html.flow-motion.home-guest #guestHome .hero-left .land-lead,
+    html.flow-motion.home-guest #guestHome .hero-left .land-sub,
+    html.flow-motion.home-guest #guestHome .hero-actions > *,
+    html.flow-motion.home-guest #guestHome .section-title,
+    html.flow-motion.home-guest #guestHome .land-copy,
+    html.flow-motion.home-guest #guestHome .why-card,
+    html.flow-motion.home-guest #guestHome .step-card,
+    html.flow-motion.home-guest #guestHome .tool-card,
+    html.flow-motion.home-guest #guestHome .how-card,
+    html.flow-motion.home-guest #guestHome .cta-banner,
+    html.flow-motion.home-guest #guestHome .cta-banner-inline,
+    html.flow-motion.home-guest #guestHome .trusted-by,
+    html.flow-motion.home-guest #guestHome .btn::after {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+}
+
+
+/* PLATFORM SHARP CORNERS */
+html body,
+html body *,
+html body *::before,
+html body *::after {
+    border-radius: 0 !important;
+}

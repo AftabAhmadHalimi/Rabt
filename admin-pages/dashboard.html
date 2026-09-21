@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform Control — Super Admin</title>
+    <link rel="icon" type="image/png" href="/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+    <link rel="stylesheet" href="/brand.css">
+    <link rel="stylesheet" href="/super-admin/admin.css">
+</head>
+<body class="sa-body">
+    <div class="sa-shell">
+        <aside class="sa-side">
+            <div class="sa-side-brand">
+                <img src="/logo.png" alt="Rabط">
+                <div>
+                    <strong>Rabط</strong>
+                    <div style="font-size:12px;opacity:.8;">Super Admin</div>
+                </div>
+            </div>
+            <div class="sa-side-label">Control</div>
+            <button type="button" class="sa-nav active" data-view="overview"><i class="fa-solid fa-gauge-high"></i> Overview</button>
+            <button type="button" class="sa-nav" data-view="payments"><i class="fa-solid fa-file-invoice-dollar"></i> Payments <span class="sa-nav-badge" id="paymentsAdminBadge" hidden>0</span></button>
+            <div class="sa-side-label">People</div>
+            <button type="button" class="sa-nav" data-view="users"><i class="fa-solid fa-users"></i> Users</button>
+            <div class="sa-side-label">Operations</div>
+            <button type="button" class="sa-nav" data-view="activity"><i class="fa-solid fa-wave-square"></i> Activity</button>
+            <button type="button" class="sa-nav" data-view="schedules"><i class="fa-solid fa-calendar-check"></i> Schedules</button>
+            <button type="button" class="sa-nav" data-view="lists"><i class="fa-solid fa-address-book"></i> Contact lists</button>
+            <button type="button" class="sa-nav" data-view="marketing-database"><i class="fa-solid fa-database"></i> Marketing Database</button>
+            <button type="button" class="sa-nav" data-view="channels"><i class="fa-solid fa-tower-broadcast"></i> Channels</button>
+            <button type="button" class="sa-nav" data-view="engagement"><i class="fa-solid fa-chart-line"></i> Engagement</button>
+            <div class="sa-side-label">Communications</div>
+            <button type="button" class="sa-nav" data-view="platform"><i class="fa-solid fa-server"></i> Platform SMTP</button>
+            <button type="button" class="sa-nav" data-view="support"><i class="fa-solid fa-comments"></i> Chat with customer <span class="sa-nav-badge" id="supportAdminBadge" hidden>0</span></button>
+            <button type="button" class="sa-nav" data-view="contact"><i class="fa-solid fa-envelope"></i> Contact inbox <span class="sa-nav-badge" id="contactAdminBadge" hidden>0</span></button>
+            <div class="sa-side-label">System</div>
+            <button type="button" class="sa-nav" data-view="settings"><i class="fa-solid fa-sliders"></i> Platform settings</button>
+            <div class="sa-side-foot">
+                <button type="button" class="sa-btn sa-btn-ghost sa-btn-sm" id="logoutBtn" style="width:100%;border-color:rgba(255,255,255,.3);">Sign out</button>
+            </div>
+        </aside>
+        <main class="sa-main">
+            <div class="sa-topbar">
+                <input class="sa-input sa-search" id="globalSearch" placeholder="Find a user by name, email, or id">
+                <div class="sa-topbar-meta">
+                    <span id="clock"></span>
+                    <span class="sa-admin-chip" id="adminChip">Super admin</span>
+                </div>
+            </div>
+            <div id="alertBox" class="sa-alert" style="margin-bottom:14px;"></div>
+
+            <section id="view-overview">
+                <div class="sa-top">
+                    <div>
+                        <h1>Platform overview</h1>
+                        <p>Live control of every Rabط workspace on this server.</p>
+                    </div>
+                    <button type="button" class="sa-btn sa-btn-ghost sa-btn-sm" id="refreshOverview">Refresh</button>
+                </div>
+                <div class="sa-health" id="overviewHealth"></div>
+                <div class="sa-kpis" id="overviewKpis"></div>
+                <div class="sa-card sa-chart-card">
+                    <div class="sa-kpi-chart-head">
+                        <div>
+                            <h2 class="sa-card-title" id="saChartTitle"><i class="fa-solid fa-chart-column"></i> Activity chart</h2>
+                            <p class="sa-kpi-chart-sub" id="saChartSub">Today</p>
+                        </div>
+                        <div class="sa-kpi-range" id="saKpiRange">
+                            <button type="button" class="sa-kpi-range-btn active" data-range="day">Day</button>
+                            <button type="button" class="sa-kpi-range-btn" data-range="week">Weekly</button>
+                            <button type="button" class="sa-kpi-range-btn" data-range="month">Monthly</button>
+                            <button type="button" class="sa-kpi-range-btn" data-range="custom">Custom Date</button>
+                        </div>
+                    </div>
+                    <div class="sa-kpi-custom" id="saKpiCustom">
+                        <label for="saKpiFrom">From</label>
+                        <input class="sa-input" type="date" id="saKpiFrom">
+                        <label for="saKpiTo">To</label>
+                        <input class="sa-input" type="date" id="saKpiTo">
+                        <button type="button" class="sa-btn sa-btn-primary sa-btn-sm" id="saKpiApply">Apply</button>
+                    </div>
+                    <div class="sa-kpi-legend">
+                        <span><span class="sa-kpi-swatch sent"></span>Sent</span>
+                        <span><span class="sa-kpi-swatch failed"></span>Failed</span>
+                        <span class="sa-chart-summary" id="saChartSummary">0 sent · 0 failed</span>
+                    </div>
+                    <div class="sa-chart-frame" id="overviewBars"></div>
+                </div>
+                <div class="sa-card sa-chart-card sa-revenue-chart" style="margin-top:14px;">
+                    <div class="sa-kpi-chart-head">
+                        <div>
+                            <h2 class="sa-card-title" id="saRevenueTitle"><i class="fa-solid fa-dollar-sign"></i> Total revenue</h2>
+                            <p class="sa-kpi-chart-sub" id="saRevenueSub">Approved user payments</p>
+                        </div>
+                        <div class="sa-kpi-range" id="saRevenueRange">
+                            <button type="button" class="sa-kpi-range-btn active" data-range="day">Day</button>
+                            <button type="button" class="sa-kpi-range-btn" data-range="week">Weekly</button>
+                            <button type="button" class="sa-kpi-range-btn" data-range="month">Monthly</button>
+                            <button type="button" class="sa-kpi-range-btn" data-range="custom">Custom Date</button>
+                        </div>
+                    </div>
+                    <div class="sa-kpi-custom" id="saRevenueCustom">
+                        <label for="saRevenueFrom">From</label>
+                        <input class="sa-input" type="date" id="saRevenueFrom">
+                        <label for="saRevenueTo">To</label>
+                        <input class="sa-input" type="date" id="saRevenueTo">
+                        <button type="button" class="sa-btn sa-btn-primary sa-btn-sm" id="saRevenueApply">Apply</button>
+                    </div>
+                    <div class="sa-kpi-legend">
+                        <span><span class="sa-kpi-swatch revenue"></span>Revenue</span>
+                        <span class="sa-chart-summary" id="saRevenueSummary">$0 · 0 payments</span>
+                    </div>
+                    <div class="sa-chart-frame" id="revenueBars"></div>
+                    <div class="sa-revenue-split" id="revenueSplit"></div>
+                </div>
+                <div class="sa-grid-2" style="margin-top:14px;">
+                    <div class="sa-card">
+                        <h2 class="sa-card-title">Newest accounts</h2>
+                        <div class="sa-table-wrap" id="overviewUsers"></div>
+                    </div>
+                    <div class="sa-card">
+                        <h2 class="sa-card-title">Recent verified payments</h2>
+                        <div class="sa-table-wrap" id="overviewPayments"></div>
+                    </div>
+                </div>
+                <div class="sa-card" style="margin-top:14px;">
+                    <h2 class="sa-card-title">Live activity</h2>
+                    <div id="overviewActivity"></div>
+                </div>
+            </section>
+
+            <section id="view-payments" class="sa-hidden">
+                <div class="sa-top">
+                    <div>
+                        <h1>Payment requests</h1>
+                        <p>Review uploaded receipts, then verify and activate the account or reject the request.</p>
+                    </div>
+                    <div class="sa-actions">
+                        <button type="button" class="sa-btn sa-btn-ghost sa-btn-sm" id="payRefresh">Refresh</button>
+                    </div>
+                </div>
+                <div class="sa-toolbar" style="margin-bottom:14px;">
+                    <select class="sa-select sa-input" id="payFilter">
+                        <option value="all" selected>All requests</option>
+                        <option value="pending">Pending</option>
+                        <option value="approved">Approved</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+                <div id="paymentsTable" class="sa-card sa-table-wrap"></div>
+            </section>
+
+            <section id="view-users" class="sa-hidden">
+                <div class="sa-top">
+                    <div>
+                        <h1>Users</h1>
+                        <p>Every account is shown in full below. Search to filter the list.</p>
+                    </div>
+                    <div class="sa-actions">
+                        <button type="button" class="sa-btn sa-btn-ghost sa-btn-sm" id="openSessions"><i class="fa-solid fa-key"></i> Sessions</button>
+                        <a class="sa-btn sa-btn-ghost sa-btn-sm" id="exportUsers" href="/api/super-admin/export/users">Export CSV</a>
+                    </div>
+                </div>
+                <div class="sa-card">
+                    <div class="sa-toolbar">
+                        <input class="sa-input" id="userSearch" placeholder="Search name, email, or id">
+                        <select class="sa-select sa-input" id="userFilter">
+                            <option value="all">All users</option>
+                            <option value="verified">Verified</option>
+                            <option value="pending">OTP pending</option>
+                            <option value="disabled">Disabled</option>
+                            <option value="active">Active sessions</option>
+                        </select>
+                        <button type="button" class="sa-btn sa-btn-ghost sa-btn-sm" id="userRefresh">Refresh</button>
+                    </div>
+                    <div class="sa-toolbar" id="bulkBar">
+                        <button type="button" class="sa-btn sa-btn-ghost sa-btn-sm" data-bulk="verify">Verify</button>
+                        <button type="button" class="sa-btn sa-btn-ghost sa-btn-sm" data-bulk="enable">Enable</button>
+                        <button type="button" class="sa-btn sa-btn-ghost sa-btn-sm" data-bulk="disable">Disable</button>
+                        <button type="button" class="sa-btn sa-btn-ghost sa-btn-sm" data-bulk="revoke">Revoke sessions</button>
+                    </div>
+                </div>
+                <div id="usersTable" class="sa-user-stack"></div>
+            </section>
+
+            <section id="view-sessions" class="sa-hidden">
+                <div class="sa-top">
+                    <div>
+                        <h1>Workspace sessions</h1>
+                        <p>Every signed-in Rabط user. Super admin sessions stay separate.</p>
+                    </div>
+                    <div class="sa-actions">
+                        <button type="button" class="sa-btn sa-btn-ghost sa-btn-sm" id="sessBackUsers"><i class="fa-solid fa-arrow-left"></i> Users</button>
+                        <button type="button" class="sa-btn sa-btn-ghost sa-btn-sm" id="sessRefresh">Refresh</button>
+                        <button type="button" class="sa-btn sa-btn-danger sa-btn-sm" id="sessRevokeAll">Revoke all user sessions</button>
+                    </div>
+                </div>
+                <p class="sa-hint" id="sessMeta"></p>
+                <div class="sa-card sa-table-wrap" id="sessionsTable"></div>
+            </section>
+
+            <section id="view-activity" class="sa-hidden">
+                <div class="sa-top">
+                    <div>
+                        <h1>Activity</h1>
+                        <p>Sends, failures, and campaign events across all workspaces.</p>
+                    </div>
+                    <button type="button" class="sa-btn sa-btn-ghost sa-btn-sm" id="actRefresh">Refresh</button>
+                </div>
+                <div class="sa-toolbar">
+                    <input class="sa-input" id="actSearch" placeholder="Search user, label, or error">
+                    <select class="sa-select sa-input" id="actChannel">
+                        <option value="all">All channels</option>
+                        <option value="email">Email</option>
+                        <option value="whatsapp">WhatsApp</option>
+                        <option value="telegram">Telegram</option>
+                    </select>
+                </div>
+                <div class="sa-card sa-table-wrap" id="activityTable"></div>
+            </section>
+
+            <section id="view-schedules" class="sa-hidden">
+                <div class="sa-top">
+                    <div>
+                        <h1>Schedules</h1>
+                        <p>Every queued campaign across all workspaces.</p>
+                    </div>
+                    <button type="button" class="sa-btn sa-btn-ghost sa-btn-sm" id="schedRefresh">Refresh</button>
+                </div>
+                <div class="sa-card sa-table-wrap" id="schedulesTable"></div>
+            </section>
+
+            <section id="view-lists" class="sa-hidden">
+                <div class="sa-top">
+                    <div>
+                        <h1>Contact lists</h1>
+                        <p>Saved Email and messaging lists for every user.</p>
+                    </div>
+                    <button type="button" class="sa-btn sa-btn-ghost sa-btn-sm" id="listsRefresh">Refresh</button>
+                </div>
+                <div class="sa-card sa-table-wrap" id="listsTable"></div>
+            </section>
+
+            <section id="view-marketing-database" class="sa-hidden">
+                <div class="sa-top">
+                    <div>
+                        <h1>Marketing Database</h1>
+                        <p>Upload shared contact lists for all Rabط users. Lists stay in Marketing Database only — they are not copied to anyone's Contact page.</p>
+                    </div>
+                    <button type="button" class="sa-btn sa-btn-ghost sa-btn-sm" id="marketingRefresh">Refresh</button>
+                </div>
+                <div class="sa-grid-2" style="grid-template-columns: 0.95fr 1.05fr; align-items:start;">
+                    <div class="sa-card">
+                        <h2 class="sa-card-title"><i class="fa-solid fa-cloud-arrow-up"></i> Upload marketing list</h2>
+                        <p class="sa-card-copy">Upload .txt, .xls, or .xlsx files with email addresses or international phone numbers. Users can view and use these lists from Marketing Database only — nothing is saved to their Contact page.</p>
+                        <form id="marketingUploadForm">
+                            <label class="sa-label">List type</label>
+                            <select class="sa-input" id="marketingKind">
+                                <option value="email">Email list</option>
+                                <option value="messaging">WhatsApp / Telegram phone list</option>
+                            </select>
+                            <label class="sa-label">List name</label>
+                            <input class="sa-input" id="marketingName" maxlength="120" placeholder="e.g. Retail leads Afghanistan">
+                            <label class="sa-label">Description (optional)</label>
+                            <textarea class="sa-input" id="marketingDesc" rows="3" maxlength="500" placeholder="Short note shown to users"></textarea>
+                            <label class="sa-label">Contact file</label>
+                            <input class="sa-input" id="marketingFile" type="file" accept=".txt,.xls,.xlsx">
+                            <label class="sa-check" style="margin-top:10px;"><input type="checkbox" id="marketingActive" checked> Visible to all users</label>
+                            <button class="sa-btn sa-btn-primary" type="submit" style="width:auto;margin-top:14px;">Upload marketing list</button>
+                        </form>
+                    </div>
+                    <div class="sa-card sa-table-wrap" id="marketingTable"></div>
+                </div>
+            </section>
+
+            <section id="view-channels" class="sa-hidden">
+                <div class="sa-top">
+                    <div>
+                        <h1>Channels</h1>
+                        <p>Email SMTP, WhatsApp, and Telegram for every workspace. Disconnect live sessions here.</p>
+                    </div>
+                    <button type="button" class="sa-btn sa-btn-ghost sa-btn-sm" id="chanRefresh">Refresh</button>
+                </div>
+                <div class="sa-card sa-table-wrap" id="channelsTable"></div>
+            </section>
+
+            <section id="view-engagement" class="sa-hidden">
+                <div class="sa-top">
+                    <div>
+                        <h1>Engagement</h1>
+                        <p>Opens, clicks, deliveries, and reads tracked across the platform.</p>
+                    </div>
+                    <button type="button" class="sa-btn sa-btn-ghost sa-btn-sm" id="engRefresh">Refresh</button>
+                </div>
+                <div class="sa-kpis" id="engKpis"></div>
+                <div class="sa-card sa-table-wrap" id="engagementTable"></div>
+            </section>
+
+            <section id="view-platform" class="sa-hidden">
+                <div class="sa-top">
+                    <div>
+                        <h1>Platform SMTP</h1>
+                        <p>Save the platform mailbox, then send a professional email to every Rabط user from this server.</p>
+                    </div>
+                    <button type="button" class="sa-btn sa-btn-ghost sa-btn-sm" id="openBroadcasts"><i class="fa-solid fa-envelopes-bulk"></i> Broadcasts</button>
+                </div>
+                <div class="sa-grid-2" style="grid-template-columns: 0.9fr 1.1fr;">
+                    <div class="sa-card">
+                        <h2 style="font-size:16px;margin-bottom:12px;">Mailbox settings</h2>
+                        <form id="smtpForm">
+                            <div class="sa-form-row">
+                                <input class="sa-input" id="smtpHost" placeholder="Host">
+                                <input class="sa-input" id="smtpPort" placeholder="Port" type="number">
+                            </div>
+                            <div class="sa-form-row">
+                                <input class="sa-input" id="smtpUser" placeholder="Username">
+                                <input class="sa-input" id="smtpFrom" placeholder="From name">
+                            </div>
+                            <input class="sa-input" id="smtpPass" type="password" placeholder="Password (leave blank to keep current)">
+                            <label style="display:flex;gap:8px;align-items:center;font-size:13px;margin-bottom:12px;">
+                                <input type="checkbox" id="smtpSecure" checked> Use TLS / port 465
+                            </label>
+                            <div class="sa-actions">
+                                <button class="sa-btn sa-btn-primary" type="submit" style="width:auto;">Save platform SMTP</button>
+                                <button class="sa-btn sa-btn-ghost" type="button" id="smtpTestBtn" style="width:auto;">Send SMTP test</button>
+                            </div>
+                            <input class="sa-input" id="smtpTestTo" type="email" placeholder="Test address for SMTP check" style="margin-top:12px;">
+                        </form>
+                    </div>
+                    <div class="sa-card">
+                        <h2 style="font-size:16px;margin-bottom:6px;">Send professional email</h2>
+                        <p class="sa-hint" id="broadcastCount">Choose who should receive this message.</p>
+                        <form id="broadcastForm">
+                            <label class="sa-label">Send to</label>
+                            <select class="sa-select sa-input" id="broadcastAudience">
+                                <option value="verified">All verified users</option>
+                                <option value="active">All active users (verified and unverified)</option>
+                                <option value="all">Every account, including disabled</option>
+                            </select>
+                            <label class="sa-label">Subject</label>
+                            <input class="sa-input" id="broadcastSubject" placeholder="e.g. New tools are live on Rabط" required>
+                            <label class="sa-label">Heading</label>
+                            <input class="sa-input" id="broadcastHeading" placeholder="Short title shown at the top of the email">
+                            <label class="sa-label">Upload HTML Template</label>
+                            <p class="sa-hint">Optional: upload a <code>.html</code> file to send a full professional email. Then the editor below is not required. Use <code>{{name}}</code> and <code>{{email}}</code> in the template.</p>
+                            <div class="sa-template-row">
+                                <button type="button" class="sa-btn sa-btn-ghost sa-btn-sm" id="broadcastTemplateBtn"><i class="fa-solid fa-code"></i> Upload HTML Template</button>
+                                <button type="button" class="sa-btn sa-btn-ghost sa-btn-sm" id="broadcastTemplateClear" hidden><i class="fa-solid fa-xmark"></i> Clear template</button>
+                            </div>
+                            <input class="sa-file-hidden" id="broadcastTemplateInput" type="file" accept=".html,text/html">
+                            <div id="broadcastTemplateMeta" class="sa-file-list"></div>
+                            <label class="sa-label">Message</label>
+                            <div class="sa-editor-wrap">
+                                <div class="sa-editor-bar" id="broadcastToolbar">
+                                    <button type="button" class="sa-ed-btn" data-cmd="bold" title="Bold"><i class="fa-solid fa-bold"></i></button>
+                                    <button type="button" class="sa-ed-btn" data-cmd="italic" title="Italic"><i class="fa-solid fa-italic"></i></button>
+                                    <button type="button" class="sa-ed-btn" data-cmd="underline" title="Underline"><i class="fa-solid fa-underline"></i></button>
+                                    <button type="button" class="sa-ed-btn" id="broadcastHighlightBtn" title="Highlight"><i class="fa-solid fa-highlighter"></i></button>
+                                    <button type="button" class="sa-ed-btn" id="broadcastLinkBtn" title="Link"><i class="fa-solid fa-link"></i></button>
+                                    <button type="button" class="sa-ed-btn" data-cmd="unlink" title="Remove link"><i class="fa-solid fa-link-slash"></i></button>
+                                    <button type="button" class="sa-ed-btn" data-cmd="insertUnorderedList" title="Bullet list"><i class="fa-solid fa-list-ul"></i></button>
+                                    <button type="button" class="sa-ed-btn" data-cmd="insertOrderedList" title="Numbered list"><i class="fa-solid fa-list-ol"></i></button>
+                                    <button type="button" class="sa-ed-btn" id="broadcastNameBtn" title="Insert name">{{name}}</button>
+                                </div>
+                                <div class="sa-editor" id="broadcastMessage" contenteditable="true" data-placeholder="Write a professional message. Select text to make it bold, highlighted, or a link."></div>
+                            </div>
+                            <label class="sa-label">Attachments</label>
+                            <input class="sa-input" id="broadcastFiles" type="file" multiple>
+                            <div id="broadcastFileList" class="sa-file-list"></div>
+                            <p class="sa-hint">PDF, Office, images, text, or zip — up to 5 files, 10MB each. Use {{name}} or {{email}} in the message.</p>
+                            <label class="sa-label">Send a test first (optional)</label>
+                            <input class="sa-input" id="broadcastTestTo" type="email" placeholder="you@example.com">
+                            <div class="sa-actions">
+                                <button class="sa-btn sa-btn-ghost" type="button" id="broadcastTestBtn" style="width:auto;">Send test</button>
+                                <button class="sa-btn sa-btn-primary" type="submit" style="width:auto;">Send to all selected users</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <section id="view-broadcasts" class="sa-hidden">
+                <div class="sa-top">
+                    <div>
+                        <h1>Broadcast history</h1>
+                        <p>Professional emails sent from Platform SMTP.</p>
+                    </div>
+                    <div class="sa-actions">
+                        <button type="button" class="sa-btn sa-btn-ghost sa-btn-sm" id="bcBackPlatform"><i class="fa-solid fa-arrow-left"></i> Platform SMTP</button>
+                        <button type="button" class="sa-btn sa-btn-ghost sa-btn-sm" id="bcRefresh">Refresh</button>
+                    </div>
+                </div>
+                <div class="sa-card sa-table-wrap" id="broadcastsTable"></div>
+            </section>
+
+            <section id="view-support" class="sa-hidden">
+                <div class="sa-top">
+                    <div>
+                        <h1>Chat with customer</h1>
+                        <p>Receive support messages and reply to any Rabط user in a live chat.</p>
+                    </div>
+                </div>
+                <div class="sa-chat-shell">
+                    <aside class="sa-chat-list">
+                        <input class="sa-input" id="supportSearch" placeholder="Search customer name or email">
+                        <div class="sa-inbox-toolbar">
+                            <label class="sa-inbox-select-all"><input type="checkbox" id="supportSelectAll"> Select all</label>
+                            <button type="button" class="sa-btn sa-btn-ghost sa-btn-sm" id="supportMarkUnread" disabled>Mark unread</button>
+                            <button type="button" class="sa-btn sa-btn-danger sa-btn-sm" id="supportDeleteSelected" disabled>Delete</button>
+                        </div>
+                        <div id="supportThreads"></div>
+                    </aside>
+                    <div class="sa-chat-pane">
+                        <div class="sa-chat-head" id="supportHead">Select a customer to open the chat.</div>
+                        <div class="sa-chat-log" id="supportLog"></div>
+                        <form class="sa-chat-compose" id="supportForm">
+                            <textarea class="sa-input" id="supportText" rows="2" maxlength="2000" placeholder="Write a reply…" disabled></textarea>
+                            <button class="sa-btn sa-btn-primary" type="submit" id="supportSend" disabled>Send</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <section id="view-contact" class="sa-hidden">
+                <div class="sa-top">
+                    <div>
+                        <h1>Contact inbox</h1>
+                        <p>Messages sent from the public Contact page. Read details, reply by email, and update status.</p>
+                    </div>
+                </div>
+                <div class="sa-chat-shell">
+                    <aside class="sa-chat-list">
+                        <input class="sa-input" id="contactSearch" placeholder="Search name, email, or message">
+                        <select class="sa-input" id="contactFilter" style="margin-bottom:10px;">
+                            <option value="all">All messages</option>
+                            <option value="new">New</option>
+                            <option value="read">Read</option>
+                            <option value="replied">Replied</option>
+                            <option value="archived">Archived</option>
+                        </select>
+                        <div class="sa-inbox-toolbar">
+                            <label class="sa-inbox-select-all"><input type="checkbox" id="contactSelectAll"> Select all</label>
+                            <button type="button" class="sa-btn sa-btn-ghost sa-btn-sm" id="contactMarkUnreadBulk" disabled>Mark unread</button>
+                            <button type="button" class="sa-btn sa-btn-ghost sa-btn-sm" id="contactMarkReadBulk" disabled>Mark read</button>
+                            <button type="button" class="sa-btn sa-btn-ghost sa-btn-sm" id="contactArchiveBulk" disabled>Archive</button>
+                            <button type="button" class="sa-btn sa-btn-danger sa-btn-sm" id="contactDeleteBulk" disabled>Delete</button>
+                        </div>
+                        <div id="contactThreads"></div>
+                    </aside>
+                    <div class="sa-chat-pane">
+                        <div class="sa-chat-head" id="contactHead">Select a contact message to open it.</div>
+                        <div class="sa-chat-log" id="contactBody"></div>
+                        <div class="sa-chat-log" id="contactReplies" style="max-height:220px;margin-top:0;"></div>
+                        <form class="sa-chat-compose" id="contactReplyForm">
+                            <textarea class="sa-input" id="contactReplyText" rows="2" maxlength="4000" placeholder="Write your reply to the customer…" disabled></textarea>
+                            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                                <button class="sa-btn sa-btn-primary" type="submit" id="contactReplySend" disabled>Send reply by email</button>
+                                <button class="sa-btn sa-btn-ghost" type="button" id="contactMarkRead" disabled>Mark read</button>
+                                <button class="sa-btn sa-btn-ghost" type="button" id="contactArchive" disabled>Archive</button>
+                                <button class="sa-btn sa-btn-danger sa-btn-sm" type="button" id="contactDelete" disabled>Delete</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <section id="view-settings" class="sa-hidden">
+                <div class="sa-top">
+                    <div>
+                        <h1>Platform settings</h1>
+                        <p>Control signups, website copy, the Android app download, and the super admin password.</p>
+                    </div>
+                </div>
+                <div class="sa-settings-stack">
+                    <div class="sa-card">
+                        <h2 class="sa-card-title">Access</h2>
+                        <form id="settingsForm">
+                            <label class="sa-check"><input type="checkbox" id="setSignup" checked> Allow new user signups</label>
+                            <label class="sa-check"><input type="checkbox" id="setMaintenance"> Maintenance mode (blocks user login and signup)</label>
+                            <label class="sa-label">Maintenance message</label>
+                            <textarea class="sa-input" id="setMaintMsg" rows="3" placeholder="Shown on login and signup while maintenance is on"></textarea>
+                            <button class="sa-btn sa-btn-primary" type="submit" style="width:auto;">Save settings</button>
+                        </form>
+                    </div>
+                    <div class="sa-card">
+                        <h2 class="sa-card-title"><i class="fa-solid fa-file-invoice-dollar"></i> Billing &amp; payment details</h2>
+                        <p class="sa-card-copy">These details appear on the user payment page. Users cannot see this Super Admin screen.</p>
+                        <form id="billingForm">
+                            <label class="sa-label">Monthly price (USD)</label>
+                            <input class="sa-input" id="billMonthly" type="number" min="0" step="0.01" value="14">
+                            <label class="sa-label">3-month price (USD)</label>
+                            <input class="sa-input" id="billQuarterly" type="number" min="0" step="0.01" value="29">
+                            <label class="sa-label">Hesab pay account Number</label>
+                            <input class="sa-input" id="billAccountNumber" placeholder="HesabPay account number">
+                            <label class="sa-label">Payment instructions</label>
+                            <textarea class="sa-input" id="billInstructions" rows="3" placeholder="Shown to the user on the payment page"></textarea>
+                        </form>
+                        <form id="billingQrForm" style="margin-top:18px;">
+                            <label class="sa-label">Payment QR code</label>
+                            <div id="billingQrPreview" class="sa-empty" style="margin-bottom:12px;">No QR uploaded yet.</div>
+                            <input class="sa-input" id="billingQrFile" type="file" accept="image/png,image/jpeg,image/webp,image/gif">
+                            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                                <button class="sa-btn sa-btn-primary" type="submit" style="width:auto;">Upload QR</button>
+                                <button class="sa-btn sa-btn-ghost" type="button" id="billingQrRemove" style="width:auto;">Remove QR</button>
+                            </div>
+                        </form>
+                        <button class="sa-btn sa-btn-primary" type="submit" form="billingForm" style="width:auto;margin-top:18px;">Save payment settings</button>
+                    </div>
+                    <div class="sa-card sa-cms-card">
+                        <h2 class="sa-card-title"><i class="fa-solid fa-pen-nib"></i> CMS — default text</h2>
+                        <p class="sa-card-copy">Edit default copy for the public Home, Pricing, About, and Contact pages. Empty fields keep the built-in text.</p>
+                        <div class="sa-cms-tabs" id="cmsTabs"></div>
+                        <input class="sa-input" id="cmsSearch" placeholder="Search text or key">
+                        <p class="sa-hint" id="cmsMeta"></p>
+                        <form id="cmsForm">
+                            <div id="cmsFields"></div>
+                            <div class="sa-actions" style="margin-top:12px;">
+                                <button class="sa-btn sa-btn-primary" type="submit" style="width:auto;">Save CMS</button>
+                                <button class="sa-btn sa-btn-ghost" type="button" id="cmsResetGroup" style="width:auto;">Reset this section</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="sa-card">
+                        <h2 class="sa-card-title"><i class="fa-brands fa-android"></i> Android app</h2>
+                        <p class="sa-card-copy">Upload the platform APK, set a version, and turn workspace downloads on or off. Only Super Admin can manage this file.</p>
+                        <div id="androidMeta" class="sa-empty" style="margin-bottom:16px;">No APK uploaded yet.</div>
+                        <label class="sa-check"><input type="checkbox" id="androidEnabled"> Turn on Download Android App for paid users</label>
+                        <form id="androidMetaForm" style="margin-top:16px;">
+                            <label class="sa-label">App name</label>
+                            <input class="sa-input" id="androidAppName" placeholder="Rabط Android App">
+                            <label class="sa-label">Version number</label>
+                            <input class="sa-input" id="androidVersion" placeholder="1.0.0">
+                            <label class="sa-label">Release notes</label>
+                            <textarea class="sa-input" id="androidNotes" rows="3" placeholder="What changed in this build"></textarea>
+                            <button class="sa-btn sa-btn-ghost" type="submit" style="width:auto;">Save app details</button>
+                        </form>
+                        <form id="androidUploadForm" style="margin-top:16px;">
+                            <label class="sa-label">APK file</label>
+                            <input class="sa-input" id="androidFile" type="file" accept=".apk,application/vnd.android.package-archive">
+                            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;">
+                                <button class="sa-btn sa-btn-primary" type="submit" style="width:auto;">Upload / Replace APK</button>
+                                <button class="sa-btn sa-btn-ghost" type="button" id="androidRemove" style="width:auto;">Delete APK</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="sa-card">
+                        <h2 class="sa-card-title"><i class="fa-solid fa-clapperboard"></i> Video Showcase</h2>
+                        <p class="sa-card-copy">Manage multiple homepage showcase videos. Set a short description, display order, and active/inactive for each. Active videos appear on the public home page in order. The first video shows without a description; descriptions appear from the second video onward.</p>
+                        <div id="homeVideoList" class="sa-empty" style="margin-bottom:16px;">No showcase videos yet.</div>
+                        <form id="homeVideoAddForm" style="margin-top:8px;padding-top:12px;border-top:1px solid var(--sa-border, #e6eaf2);">
+                            <h3 style="font-size:14px;margin:0 0 10px;">Add video</h3>
+                            <label class="sa-label">Description</label>
+                            <textarea class="sa-input" id="homeVideoDesc" maxlength="1200" rows="4" placeholder="Shown beside videos after the first one on the home page"></textarea>
+                            <label class="sa-label">Display order</label>
+                            <input class="sa-input" id="homeVideoOrder" type="number" min="0" step="1" placeholder="0 = first">
+                            <label class="sa-check" style="margin:10px 0;"><input type="checkbox" id="homeVideoActive" checked> Active on home page</label>
+                            <label class="sa-label">Landscape video (MP4, WEBM, or MOV — max 120MB)</label>
+                            <input class="sa-input" id="homeVideoFile" type="file" accept="video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov" required>
+                            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;">
+                                <button class="sa-btn sa-btn-primary" type="submit" style="width:auto;">Add showcase video</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="sa-card">
+                        <h2 class="sa-card-title"><i class="fa-solid fa-building"></i> Trusted by</h2>
+                        <p class="sa-card-copy">Add company logos shown under Get Started / Sign Up and Sign in on the public home page.</p>
+                        <form id="trustedByTitleForm" style="margin-bottom:14px;">
+                            <label class="sa-label">Section title</label>
+                            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+                                <input class="sa-input" id="trustedByTitle" maxlength="80" placeholder="Trusted by" style="flex:1;min-width:180px;margin:0;">
+                                <button class="sa-btn sa-btn-ghost" type="submit" style="width:auto;">Save title</button>
+                            </div>
+                        </form>
+                        <div id="trustedByList" class="sa-empty" style="margin-bottom:16px;">No trusted companies yet.</div>
+                        <form id="trustedByAddForm" style="margin-top:8px;padding-top:12px;border-top:1px solid var(--sa-border, #e6eaf2);">
+                            <h3 style="font-size:14px;margin:0 0 10px;">Add company</h3>
+                            <label class="sa-label">Company name</label>
+                            <input class="sa-input" id="trustedByName" maxlength="80" placeholder="Company name">
+                            <label class="sa-label">Display order</label>
+                            <input class="sa-input" id="trustedByOrder" type="number" min="0" step="1" placeholder="0 = first">
+                            <label class="sa-check" style="margin:10px 0;"><input type="checkbox" id="trustedByActive" checked> Active on home page</label>
+                            <label class="sa-label">Company logo (PNG, JPG, WEBP, SVG, or GIF — max 5MB)</label>
+                            <input class="sa-input" id="trustedByFile" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml,image/gif,.png,.jpg,.jpeg,.webp,.svg,.gif" required>
+                            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;">
+                                <button class="sa-btn sa-btn-primary" type="submit" style="width:auto;">Add company</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="sa-card">
+                        <h2 class="sa-card-title"><i class="fa-solid fa-share-nodes"></i> Social Media</h2>
+                        <p class="sa-card-copy">Manage social media links shown on the contact page. Leave URL blank to hide a platform.</p>
+                        <form id="socialMediaForm">
+                            <label class="sa-label">Contact Email</label>
+                            <input class="sa-input" id="contactEmail" placeholder="contact@raabt.app">
+                            <label class="sa-label">Twitter URL</label>
+                            <input class="sa-input" id="socialTwitter" placeholder="https://twitter.com/yourhandle">
+                            <label class="sa-label">LinkedIn URL</label>
+                            <input class="sa-input" id="socialLinkedin" placeholder="https://linkedin.com/company/yourcompany">
+                            <label class="sa-label">Facebook URL</label>
+                            <input class="sa-input" id="socialFacebook" placeholder="https://facebook.com/yourpage">
+                            <label class="sa-label">Instagram URL</label>
+                            <input class="sa-input" id="socialInstagram" placeholder="https://instagram.com/yourhandle">
+                            <button class="sa-btn sa-btn-primary" type="submit" style="width:auto;">Save social media links</button>
+                        </form>
+                    </div>
+                    <div class="sa-card">
+                        <h2 class="sa-card-title"><i class="fa-solid fa-user-shield"></i> Admin account</h2>
+                        <p class="sa-card-copy" id="adminWho">Signed in as super admin.</p>
+                        <form id="adminPassForm">
+                            <input class="sa-input" id="curPass" type="password" placeholder="Current password" required>
+                            <input class="sa-input" id="newPass" type="password" placeholder="New password (min 8)" required>
+                            <button class="sa-btn sa-btn-primary" type="submit" style="width:auto;">Update password</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <div class="sa-modal" id="saLocModal" hidden>
+        <div class="sa-modal-card sa-loc-card">
+            <button type="button" class="sa-modal-close" id="saLocClose" aria-label="Close">×</button>
+            <h2 id="saLocName">User</h2>
+            <p class="sa-loc-disclaimer" id="saLocDisclaimer">Approximate location from the member’s IP address (not GPS).</p>
+            <div class="sa-loc-rows" id="saLocRows"></div>
+            <div class="sa-loc-map" id="saLocMap" hidden></div>
+            <p class="sa-loc-map-empty" id="saLocMapEmpty" hidden>No map coordinates are available for this IP.</p>
+        </div>
+    </div>
+    <div class="sa-modal" id="saReceiptModal" hidden>
+        <div class="sa-modal-card sa-receipt-card">
+            <button type="button" class="sa-modal-close" id="saReceiptClose" aria-label="Close">×</button>
+            <h2>Payment receipt</h2>
+            <p class="sa-card-copy" id="saReceiptMeta"></p>
+            <div id="saReceiptBody"></div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script src="/ui-feedback.js"></script>
+    <script src="/super-admin/admin.js"></script>
+</body>
+</html>

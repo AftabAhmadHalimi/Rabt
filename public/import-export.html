@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — Rabط</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/brand.css">
+    <script src="/i18n-dict.js"></script>
+    <script src="/i18n.js"></script>
+    <script src="/navbar.js"></script>
+    <script src="/ui-feedback.js"></script>
+    <script src="/saved-lists.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        .container { max-width: 1040px; margin: 0 auto; padding: 16px 16px 24px; }
+        .page-header {
+            margin-bottom: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 12px;
+        }
+        .page-header-copy { width: 100%; text-align: center; }
+        .page-header h1 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.55;
+            max-width: 560px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .page-head-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            width: 100%;
+        }
+        .header-link {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 11px 16px; border-radius: 8px; font-weight: 600; font-size: 13px;
+            text-decoration: none; font-family: inherit; border: 1px solid var(--border-color);
+            background: var(--bg-card); color: var(--text-primary);
+        }
+        .header-link.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+        .lists-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            align-items: start;
+        }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 14px 16px;
+        }
+        .card-header { margin-bottom: 14px; }
+        .card-title {
+            font-size: 16px; font-weight: 700;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .card-title i { color: var(--accent); }
+        .card.messaging .card-title i { color: var(--whatsapp); }
+        .kind-note { font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 14px; }
+        .form-label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 6px; }
+        .form-input {
+            width: 100%; padding: 12px 14px; font-size: 14px;
+            border: 1px solid var(--border-color); border-radius: 8px;
+            background: var(--bg-secondary); color: var(--text-primary);
+        }
+        .drop-zone {
+            border: 1.5px dashed var(--border-color); border-radius: var(--radius-sm);
+            padding: 22px 16px; text-align: center; cursor: pointer;
+            background: var(--bg-tertiary); margin: 12px 0 10px;
+        }
+        .drop-zone.has-file { border-style: solid; border-color: var(--success); }
+        .drop-zone-icon { font-size: 22px; color: var(--text-muted); margin-bottom: 8px; }
+        .drop-zone-text { font-size: 13px; font-weight: 600; }
+        .drop-zone-hint { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 11px 16px; border: none; border-radius: var(--radius-sm);
+            font-weight: 600; font-size: 13px; cursor: pointer; font-family: inherit;
+        }
+        .btn-primary { background: var(--accent); color: #fff; }
+        .list-empty {
+            text-align: center; color: var(--text-secondary); font-size: 13px; padding: 22px 8px;
+        }
+        .list-empty i { display: block; font-size: 22px; margin-bottom: 8px; color: var(--text-muted); }
+        .list-row {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border-color);
+        }
+        .list-row:last-child { border-bottom: none; }
+        .list-row-main { min-width: 0; flex: 1; }
+        .list-row-name { font-size: 14px; font-weight: 600; }
+        .list-row-meta { font-size: 12px; color: var(--text-secondary); margin-top: 3px; }
+        .list-row-actions { display: flex; gap: 6px; flex-shrink: 0; }
+        .icon-btn {
+            width: 34px; height: 34px; border-radius: 8px;
+            border: 1px solid var(--border-color); background: var(--bg-card);
+            color: var(--text-secondary); cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .icon-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .icon-btn.danger:hover { border-color: var(--error); color: var(--error); }
+        .hidden { display: none !important; }
+        @media (max-width: 768px) {
+            .lists-grid { grid-template-columns: 1fr; }
+            .page-head-actions {
+                width: 100%;
+                margin-inline-start: 0;
+                justify-content: stretch;
+            }
+            .header-link { flex: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div id="app-navbar"></div>
+    <div class="container">
+        <div class="page-header">
+            <div class="page-header-copy">
+                <h1>Contact</h1>
+                <p>Upload recipient files once and reuse them when you compose. Email lists stay separate from WhatsApp and Telegram phone lists.</p>
+            </div>
+            <div class="page-head-actions">
+                <a class="header-link" href="/verified-contact.html"><i class="fa-solid fa-user-check"></i> Verified Contact</a>
+                <a class="header-link primary" href="/marketing-database.html"><i class="fa-solid fa-database"></i> Marketing Database</a>
+            </div>
+        </div>
+        <div class="lists-grid">
+            <section class="card" data-kind="email">
+                <div class="card-header">
+                    <h2 class="card-title"><i class="fa-solid fa-envelope"></i> Email lists</h2>
+                </div>
+                <p class="kind-note">Use these files on the Email page. One email address per line, or an Excel column of addresses.</p>
+                <label class="form-label" for="emailName">List name (optional)</label>
+                <input id="emailName" class="form-input" type="text" maxlength="120" placeholder="e.g. September newsletter">
+                <div class="drop-zone" id="emailDrop" data-kind="email">
+                    <div class="drop-zone-icon"><i class="fa-solid fa-file-arrow-up"></i></div>
+                    <div class="drop-zone-text" id="emailDropText">Drop a .txt / .xls / .xlsx file or click to browse</div>
+                    <div class="drop-zone-hint">Saved only to your account</div>
+                </div>
+                <input type="file" id="emailFile" class="hidden" accept=".txt,.xls,.xlsx">
+                <button type="button" class="btn btn-primary" id="emailUpload"><i class="fa-solid fa-cloud-arrow-up"></i> Upload email list</button>
+                <div id="emailItems" style="margin-top:16px;"></div>
+            </section>
+            <section class="card messaging" data-kind="messaging">
+                <div class="card-header">
+                    <h2 class="card-title"><i class="fa-brands fa-whatsapp"></i> WhatsApp / Telegram lists</h2>
+                </div>
+                <p class="kind-note">Phone numbers for WhatsApp and Telegram. Include country code, one number per line or an Excel column.</p>
+                <label class="form-label" for="msgName">List name (optional)</label>
+                <input id="msgName" class="form-input" type="text" maxlength="120" placeholder="e.g. VIP customers">
+                <div class="drop-zone" id="msgDrop" data-kind="messaging">
+                    <div class="drop-zone-icon"><i class="fa-solid fa-file-arrow-up"></i></div>
+                    <div class="drop-zone-text" id="msgDropText">Drop a .txt / .xls / .xlsx file or click to browse</div>
+                    <div class="drop-zone-hint">Shared between WhatsApp and Telegram only</div>
+                </div>
+                <input type="file" id="msgFile" class="hidden" accept=".txt,.xls,.xlsx">
+                <button type="button" class="btn btn-primary" id="msgUpload"><i class="fa-solid fa-cloud-arrow-up"></i> Upload phone list</button>
+                <div id="msgItems" style="margin-top:16px;"></div>
+            </section>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var panels = {
+                email: {
+                    kind: 'email',
+                    name: document.getElementById('emailName'),
+                    file: document.getElementById('emailFile'),
+                    drop: document.getElementById('emailDrop'),
+                    dropText: document.getElementById('emailDropText'),
+                    upload: document.getElementById('emailUpload'),
+                    items: document.getElementById('emailItems')
+                },
+                messaging: {
+                    kind: 'messaging',
+                    name: document.getElementById('msgName'),
+                    file: document.getElementById('msgFile'),
+                    drop: document.getElementById('msgDrop'),
+                    dropText: document.getElementById('msgDropText'),
+                    upload: document.getElementById('msgUpload'),
+                    items: document.getElementById('msgItems')
+                }
+            };
+
+            function notify(msg, isError) {
+                if (window.RabtUI) RabtUI.toast(msg, isError ? 'error' : 'success');
+            }
+
+            function formatSize(bytes) {
+                if (!bytes) return '0 B';
+                if (bytes < 1024) return bytes + ' B';
+                if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+                return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+            }
+
+            function formatDate(value) {
+                if (!value) return '';
+                try { return new Date(value).toLocaleString(); } catch (_) { return ''; }
+            }
+
+            function bindDrop(panel) {
+                panel.drop.addEventListener('click', function () { panel.file.click(); });
+                panel.drop.addEventListener('dragover', function (e) { e.preventDefault(); panel.drop.classList.add('dragover'); });
+                panel.drop.addEventListener('dragleave', function () { panel.drop.classList.remove('dragover'); });
+                panel.drop.addEventListener('drop', function (e) {
+                    e.preventDefault();
+                    panel.drop.classList.remove('dragover');
+                    var files = e.dataTransfer.files;
+                    if (!files.length) return;
+                    var name = files[0].name.toLowerCase();
+                    if (!name.endsWith('.txt') && !name.endsWith('.xls') && !name.endsWith('.xlsx')) {
+                        notify('Upload a .txt, .xls, or .xlsx file.', true);
+                        return;
+                    }
+                    panel.file.files = files;
+                    panel.drop.classList.add('has-file');
+                    panel.dropText.textContent = files[0].name;
+                });
+                panel.file.addEventListener('change', function () {
+                    if (panel.file.files[0]) {
+                        panel.drop.classList.add('has-file');
+                        panel.dropText.textContent = panel.file.files[0].name;
+                    }
+                });
+            }
+
+            function render(panel, lists) {
+                if (!lists.length) {
+                    panel.items.innerHTML = '<div class="list-empty"><i class="fa-solid fa-folder-open"></i>No files yet. Upload a list to reuse it when you compose.</div>';
+                    return;
+                }
+                panel.items.innerHTML = lists.map(function (item) {
+                    var available = Array.isArray(item.contacts) ? item.contacts.length : (item.recordCount || 0);
+                    return (
+                        '<div class="list-row">' +
+                            '<div class="list-row-main">' +
+                                '<div class="list-row-name">' + RabtLists.escapeHtml(item.name) + '</div>' +
+                                '<div class="list-row-meta">' +
+                                    RabtLists.escapeHtml(item.originalName || '') +
+                                    ' · ' + available + ' verified' +
+                                    ' · ' + formatSize(item.size) +
+                                    (item.createdAt ? ' · ' + formatDate(item.createdAt) : '') +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="list-row-actions">' +
+                                '<button type="button" class="icon-btn" data-download="' + item.id + '" title="Export / download"><i class="fa-solid fa-download"></i></button>' +
+                                '<button type="button" class="icon-btn danger" data-delete="' + item.id + '" title="Delete"><i class="fa-solid fa-trash"></i></button>' +
+                            '</div>' +
+                        '</div>'
+                    );
+                }).join('');
+            }
+
+            async function refresh(kind) {
+                var panel = panels[kind];
+                var lists = await RabtLists.load(kind);
+                render(panel, lists);
+            }
+
+            async function upload(kind) {
+                var panel = panels[kind];
+                var file = panel.file.files[0];
+                if (!file) {
+                    notify('Choose a file first.', true);
+                    return;
+                }
+                panel.upload.disabled = true;
+                try {
+                    var fd = new FormData();
+                    fd.append('kind', kind);
+                    fd.append('file', file);
+                    var name = (panel.name.value || '').trim();
+                    if (name) fd.append('name', name);
+                    var res = await fetch('/api/lists', { method: 'POST', body: fd, credentials: 'same-origin' });
+                    var data = await res.json().catch(function () { return {}; });
+                    if (!res.ok) throw new Error(data.message || 'Upload failed.');
+                    panel.file.value = '';
+                    panel.name.value = '';
+                    panel.drop.classList.remove('has-file');
+                    panel.dropText.textContent = 'Drop a .txt / .xls / .xlsx file or click to browse';
+                    notify('List saved. You can select it when you compose.');
+                    await refresh(kind);
+                } catch (err) {
+                    notify(err.message || 'Upload failed.', true);
+                } finally {
+                    panel.upload.disabled = false;
+                }
+            }
+
+            bindDrop(panels.email);
+            bindDrop(panels.messaging);
+            panels.email.upload.addEventListener('click', function () { upload('email'); });
+            panels.messaging.upload.addEventListener('click', function () { upload('messaging'); });
+
+            document.body.addEventListener('click', async function (e) {
+                var downloadBtn = e.target.closest('[data-download]');
+                var deleteBtn = e.target.closest('[data-delete]');
+                if (downloadBtn) {
+                    window.location.href = '/api/lists/' + encodeURIComponent(downloadBtn.getAttribute('data-download')) + '/download';
+                    return;
+                }
+                if (!deleteBtn) return;
+                var id = deleteBtn.getAttribute('data-delete');
+                var ok = await RabtUI.confirm({
+                    title: 'Delete this list?',
+                    message: 'This removes the saved file from your account. Campaigns already sent are not affected.',
+                    confirmLabel: 'Delete',
+                    danger: true
+                });
+                if (!ok) return;
+                try {
+                    var res = await fetch('/api/lists/' + encodeURIComponent(id), { method: 'DELETE', credentials: 'same-origin' });
+                    var data = await res.json().catch(function () { return {}; });
+                    if (!res.ok) throw new Error(data.message || 'Could not delete.');
+                    notify('List deleted.');
+                    await refresh('email');
+                    await refresh('messaging');
+                } catch (err) {
+                    notify(err.message || 'Could not delete.', true);
+                }
+            });
+
+            refresh('email').catch(function (err) { notify(err.message, true); });
+            refresh('messaging').catch(function (err) { notify(err.message, true); });
+        });
+    </script>
+</body>
+</html>

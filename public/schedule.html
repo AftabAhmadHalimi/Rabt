@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule — Rabط</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/brand.css">
+    <script src="/i18n-dict.js"></script>
+    <script src="/i18n.js"></script>
+    <script src="/navbar.js"></script>
+    <script src="/ui-feedback.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* ── Header ── */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+        }
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo-icon {
+            width: 40px; height: 40px;
+            background: var(--schedule);
+            border-radius: var(--radius-sm);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .logo-icon i { font-size: 20px; color: #fff; }
+        .logo-text { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; }
+
+        .nav { display: flex; align-items: center; gap: 8px; }
+        .nav-link {
+            padding: 10px 20px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px; font-weight: 500;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .nav-link:hover { color: var(--text-primary); background: var(--accent-subtle); }
+        .nav-link.active { color: var(--schedule); background: var(--schedule-subtle); }
+
+        .header-actions { display: flex; gap: 10px; }
+        .theme-toggle {
+            width: 44px; height: 44px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px;
+            transition: all 0.2s ease;
+        }
+        .theme-toggle:hover { background: var(--accent-subtle); border-color: var(--border-hover); }
+
+        /* ── Layout ── */
+        .container { max-width: 1040px; margin: 0 auto; padding: 16px 16px 24px; }
+        .tasks-wrapper { max-width: 100%; margin: 0 auto; }
+
+        /* ── Card ── */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 12px 14px;
+            transition: border-color 0.2s ease;
+        }
+        .card:hover { border-color: var(--border-hover); }
+        .card-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .card-title {
+            font-size: 16px; font-weight: 600;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .card-title i { color: var(--text-secondary); }
+
+        .step-badge {
+            font-size: 11px; padding: 4px 10px;
+            background: var(--schedule);
+            color: #fff;
+            border-radius: 20px; font-weight: 500;
+        }
+
+        /* ── Buttons ── */
+        .btn {
+            padding: 14px 24px; border: none;
+            border-radius: var(--radius-sm);
+            font-size: 15px; font-weight: 600;
+            cursor: pointer;
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+            transition: all 0.2s ease;
+        }
+        .btn-sm { padding: 7px 14px; font-size: 12px; border-radius: 6px; width: auto; }
+        .btn-run { background: var(--success); color: #fff; }
+        .btn-run:hover { opacity: 0.85; }
+        .btn-delete {
+            background: rgba(239,68,68,0.12); color: var(--error);
+            border: 1px solid rgba(239,68,68,0.3);
+        }
+        .btn-delete:hover { background: rgba(239,68,68,0.2); }
+        .btn-cancel-sched {
+            background: rgba(245,158,11,0.12); color: var(--warning);
+            border: 1px solid rgba(245,158,11,0.3);
+        }
+        .btn-cancel-sched:hover { background: rgba(245,158,11,0.2); }
+
+        .alert {
+            padding: 14px 16px; border-radius: var(--radius-sm);
+            font-size: 13px; margin-top: 16px; display: none;
+        }
+        .alert.show { display: block; }
+        .alert-success { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); color: var(--success); }
+        .alert-error   { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: var(--error); }
+
+        .hidden { display: none !important; }
+
+        /* ── Schedule list ── */
+        .schedule-empty {
+            text-align: center; padding: 48px 20px; color: var(--text-muted);
+        }
+        .schedule-empty i { font-size: 44px; margin-bottom: 16px; opacity: 0.25; display: block; }
+        .schedule-empty p { font-size: 14px; }
+
+        .schedule-list { display: flex; flex-direction: column; gap: 14px; }
+
+        .schedule-item {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 18px 20px;
+            transition: border-color 0.2s ease;
+        }
+        .schedule-item:hover { border-color: var(--border-hover); }
+
+        .schedule-item-top {
+            display: flex; align-items: flex-start;
+            justify-content: space-between; gap: 12px; margin-bottom: 12px;
+        }
+        .schedule-item-info { flex: 1; min-width: 0; }
+        .schedule-item-name {
+            font-weight: 600; font-size: 15px; margin-bottom: 4px;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .schedule-item-meta {
+            display: flex; flex-wrap: wrap; gap: 10px;
+            font-size: 12px; color: var(--text-secondary);
+        }
+        .meta-chip { display: inline-flex; align-items: center; gap: 5px; }
+        .meta-chip i { font-size: 10px; }
+
+        .schedule-item-actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+        .status-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 4px 10px; border-radius: 20px;
+            font-size: 11px; font-weight: 600;
+        }
+        .status-badge i { font-size: 8px; }
+        .status-badge.waiting   { background: var(--schedule-subtle); color: var(--schedule); }
+        .status-badge.running   { background: rgba(245,158,11,0.15); color: var(--warning); }
+        .status-badge.completed { background: rgba(34,197,94,0.15); color: var(--success); }
+        .status-badge.failed    { background: rgba(239,68,68,0.15); color: var(--error); }
+        .status-badge.cancelled { background: rgba(166,166,166,0.1); color: var(--text-muted); }
+        .status-badge.missed    { background: rgba(239,68,68,0.1); color: var(--error); }
+
+        .schedule-countdown {
+            font-size: 12px; color: var(--schedule); font-weight: 600; margin-top: 6px;
+        }
+        .schedule-error {
+            margin-top: 8px; padding: 8px 12px;
+            background: rgba(239,68,68,0.08);
+            border-radius: 6px; font-size: 12px; color: var(--error);
+        }
+
+        .type-badge {
+            display: inline-flex; align-items: center; gap: 5px;
+            padding: 3px 8px; border-radius: 12px;
+            font-size: 11px; font-weight: 600;
+        }
+        .type-badge.email    { background: rgba(255,255,255,0.08); color: var(--text-secondary); }
+        .type-badge.whatsapp { background: rgba(37,211,102,0.12); color: var(--whatsapp); }
+        .type-badge.telegram { background: rgba(34,158,217,0.12); color: #229ED9; }
+
+        .refresh-btn {
+            background: transparent; border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm); color: var(--text-secondary);
+            width: 36px; height: 36px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-size: 14px; transition: all 0.2s ease;
+        }
+        .refresh-btn:hover { background: var(--accent-subtle); color: var(--text-primary); }
+
+        @media (max-width: 900px) {
+            .container { padding: 0 20px; }
+            .header { padding: 16px 20px; flex-wrap: wrap; gap: 16px; }
+            .nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div id="app-navbar"></div>
+
+    <div class="container">
+        <div class="tasks-wrapper">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="fa-solid fa-list-check"></i>
+                        Scheduled Tasks
+                    </h2>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <span class="step-badge">Step 2</span>
+                        <button class="refresh-btn" id="refreshBtn" title="Refresh">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div style="margin-bottom:16px;color:var(--text-secondary);font-size:14px;">
+                    <p>Monitor campaigns scheduled from Email, WhatsApp, or Telegram — one queue for the whole platform.</p>
+                </div>
+
+                <div class="schedule-empty hidden" id="scheduleEmpty">
+                    <i class="fa-solid fa-clock"></i>
+                    <p>No schedules yet.<br>Create one on the Email, WhatsApp, or Telegram page.</p>
+                </div>
+
+                <div class="schedule-list" id="scheduleList"></div>
+
+                <div class="alert" id="listAlert"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        // ── Alert helper ───────────────────────────────────────────────────────
+        const listAlert = document.getElementById('listAlert');
+        function showAlert(msg, isError) {
+            if (window.RabtUI) {
+                RabtUI.notify(msg, isError ? 'error' : 'success', listAlert);
+                return;
+            }
+            listAlert.textContent = msg;
+            listAlert.className = `alert show ${isError ? 'alert-error' : 'alert-success'}`;
+            setTimeout(() => { listAlert.className = 'alert'; }, 4000);
+        }
+
+        // ── Schedule list refs ─────────────────────────────────────────────────
+        const scheduleList  = document.getElementById('scheduleList');
+        const scheduleEmpty = document.getElementById('scheduleEmpty');
+
+        function fmtTime(h, m) {
+            return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+        }
+
+        function fmtDate(s) {
+            const fromIso = (iso) => {
+                const d = new Date(iso);
+                if (isNaN(d.getTime())) return '';
+                return d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+            };
+            if (s.status === 'waiting' && s.nextRun) return fromIso(s.nextRun);
+            if (s.date) {
+                const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s.date);
+                if (m) {
+                    const d = new Date(parseInt(m[1], 10), parseInt(m[2], 10) - 1, parseInt(m[3], 10));
+                    return d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+                }
+            }
+            if (s.lastRun) return fromIso(s.lastRun);
+            if (s.nextRun) return fromIso(s.nextRun);
+            return '';
+        }
+
+        function fmtCountdown(nextRun) {
+            if (!nextRun) return '';
+            const diff = new Date(nextRun) - Date.now();
+            if (diff <= 0) return 'Running soon…';
+            const totalMin = Math.round(diff / 60000);
+            const days = Math.floor(totalMin / 1440);
+            const hrs = Math.floor((totalMin % 1440) / 60);
+            const mins = totalMin % 60;
+            const parts = [];
+            if (days > 0) parts.push(days + 'd');
+            if (hrs > 0) parts.push(hrs + 'h');
+            parts.push(mins + 'm');
+            return `Next run in ${parts.join(' ')}`;
+        }
+
+        function statusBadgeHtml(status) {
+            const icon = {
+                waiting: 'fa-clock', running: 'fa-spinner fa-spin',
+                completed: 'fa-check', failed: 'fa-xmark',
+                cancelled: 'fa-ban', missed: 'fa-triangle-exclamation'
+            }[status] || 'fa-circle';
+            const label = status.charAt(0).toUpperCase() + status.slice(1);
+            return `<span class="status-badge ${status}"><i class="fa-solid ${icon}"></i>${label}</span>`;
+        }
+
+        function typeBadgeHtml(type) {
+            if (type === 'email') return `<span class="type-badge email"><i class="fa-solid fa-envelope"></i> Email</span>`;
+            if (type === 'telegram') return `<span class="type-badge telegram"><i class="fa-brands fa-telegram"></i> Telegram</span>`;
+            return `<span class="type-badge whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp</span>`;
+        }
+
+        function renderSchedules(schedules) {
+            console.log('Rendering schedules:', schedules);
+            if (!schedules || !schedules.length) {
+                scheduleEmpty.classList.remove('hidden');
+                scheduleList.innerHTML = '';
+                return;
+            }
+            scheduleEmpty.classList.add('hidden');
+
+            scheduleList.innerHTML = schedules.map(s => {
+                const config = s.config || {};
+                const recipientCount = config.recipientCount || config.phoneCount || config.chatCount || 0;
+                const countdown = (s.status === 'waiting' && s.nextRun) ? fmtCountdown(s.nextRun) : '';
+                const errorHtml = s.lastError
+                    ? `<div class="schedule-error"><i class="fa-solid fa-triangle-exclamation"></i> ${s.lastError}</div>`
+                    : '';
+                const canCancel = s.status === 'waiting';
+                const canRun    = ['waiting','failed','missed','completed','cancelled'].includes(s.status);
+
+                return `
+                <div class="schedule-item" data-id="${s.id}">
+                    <div class="schedule-item-top">
+                        <div class="schedule-item-info">
+                            <div class="schedule-item-name">${s.name}</div>
+                            <div class="schedule-item-meta">
+                                ${typeBadgeHtml(s.type)}
+                                ${fmtDate(s) ? `<span class="meta-chip"><i class="fa-solid fa-calendar-day"></i> ${fmtDate(s)}</span>` : ''}
+                                <span class="meta-chip"><i class="fa-solid fa-clock"></i> ${fmtTime(s.hour, s.minute)}</span>
+                                <span class="meta-chip"><i class="fa-solid fa-rotate"></i> ${s.repeat === 'daily' ? 'Daily' : 'Once'}</span>
+                                ${recipientCount ? `<span class="meta-chip"><i class="fa-solid fa-users"></i> ${recipientCount}</span>` : ''}
+                                ${statusBadgeHtml(s.status)}
+                            </div>
+                            ${countdown ? `<div class="schedule-countdown"><i class="fa-solid fa-hourglass-half"></i> ${countdown}</div>` : ''}
+                            ${errorHtml}
+                        </div>
+                        <div class="schedule-item-actions">
+                            ${canRun    ? `<button class="btn btn-sm btn-run run-btn" data-id="${s.id}" title="Run Now"><i class="fa-solid fa-play"></i></button>` : ''}
+                            ${canCancel ? `<button class="btn btn-sm btn-cancel-sched cancel-btn" data-id="${s.id}" title="Cancel"><i class="fa-solid fa-ban"></i></button>` : ''}
+                            <button class="btn btn-sm btn-delete delete-btn" data-id="${s.id}" title="Delete"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+
+            scheduleList.querySelectorAll('.run-btn').forEach(btn => {
+                btn.addEventListener('click', () => runSchedule(btn.dataset.id));
+            });
+            scheduleList.querySelectorAll('.cancel-btn').forEach(btn => {
+                btn.addEventListener('click', () => cancelSchedule(btn.dataset.id));
+            });
+            scheduleList.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', () => deleteSchedule(btn.dataset.id));
+            });
+        }
+
+        async function loadSchedules() {
+            const refreshBtn = document.getElementById('refreshBtn');
+            try {
+                if (refreshBtn) {
+                    refreshBtn.disabled = true;
+                    refreshBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+                }
+                
+                const res  = await fetch('/api/schedule');
+                const data = await res.json();
+                
+                if (!res.ok) {
+                    throw new Error(data.message || `HTTP ${res.status}`);
+                }
+                
+                if (data.success) {
+                    const order = ['waiting','running','failed','missed','completed','cancelled'];
+                    data.data.sort((a, b) => {
+                        const oa = order.indexOf(a.status);
+                        const ob = order.indexOf(b.status);
+                        if (oa !== ob) return oa - ob;
+                        return new Date(b.createdAt) - new Date(a.createdAt);
+                    });
+                    renderSchedules(data.data);
+                } else {
+                    showAlert(data.message || 'Failed to load schedules', true);
+                }
+            } catch (err) {
+                console.error('Failed to load schedules:', err);
+                showAlert('Failed to load schedules: ' + err.message, true);
+            } finally {
+                if (refreshBtn) {
+                    refreshBtn.disabled = false;
+                    refreshBtn.innerHTML = '<i class="fa-solid fa-arrows-rotate"></i>';
+                }
+            }
+        }
+
+        async function runSchedule(id) {
+            const btn = scheduleList.querySelector(`.run-btn[data-id="${id}"]`);
+            if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>'; }
+            try {
+                const res  = await fetch(`/api/schedule/${id}/run-now`, { method: 'POST' });
+                const data = await res.json();
+                if (!data.success) showAlert(data.message || 'Failed to start.', true);
+                setTimeout(loadSchedules, 1500);
+            } catch (err) {
+                showAlert('Error: ' + err.message, true);
+            } finally {
+                if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-play"></i>'; }
+            }
+        }
+
+        async function cancelSchedule(id) {
+            var ok = await RabtUI.confirm({
+                title: 'Cancel this schedule?',
+                message: 'The campaign will not run at the planned time.',
+                confirmLabel: 'Cancel schedule',
+                cancelLabel: 'Keep it',
+                danger: true
+            });
+            if (!ok) return;
+            try {
+                const res  = await fetch(`/api/schedule/${id}/cancel`, { method: 'POST' });
+                const data = await res.json();
+                showAlert(data.message || (data.success ? 'Cancelled.' : 'Failed'), !data.success);
+                await loadSchedules();
+            } catch (err) {
+                showAlert('Error: ' + err.message, true);
+            }
+        }
+
+        async function deleteSchedule(id) {
+            var ok = await RabtUI.confirm({
+                title: 'Delete this schedule?',
+                message: 'This cannot be undone. The campaign will be removed permanently.',
+                confirmLabel: 'Delete',
+                cancelLabel: 'Keep it',
+                danger: true
+            });
+            if (!ok) return;
+            try {
+                const res  = await fetch(`/api/schedule/${id}`, { method: 'DELETE' });
+                const data = await res.json();
+                if (data.success) await loadSchedules();
+                else showAlert(data.message || 'Failed to delete', true);
+            } catch (err) {
+                showAlert('Error: ' + err.message, true);
+            }
+        }
+
+        // ── Auto-refresh ───────────────────────────────────────────────────────
+        document.getElementById('refreshBtn').addEventListener('click', loadSchedules);
+        setInterval(loadSchedules, 30000);
+        loadSchedules();
+    });
+    </script>
+</body>
+</html>

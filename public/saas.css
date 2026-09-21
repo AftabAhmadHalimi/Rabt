@@ -1,0 +1,1555 @@
+/* Rabط compact SaaS design system — Canva-style density only. */
+html:root {
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+    --space-8: 32px;
+    --radius: 10px;
+    --radius-sm: 8px;
+    --control-h: 32px;
+    --shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+    --shadow-md: 0 6px 16px rgba(15, 23, 42, 0.06);
+}
+
+html.app-shell {
+    overflow-y: auto;
+    scrollbar-gutter: auto;
+}
+
+html.app-shell,
+html.app-shell body {
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+html.app-shell .container,
+html.app-shell .tasks-wrapper,
+html.app-shell .guide-page {
+    padding: 10px 14px 18px !important;
+    max-width: none !important;
+}
+
+html.app-shell .lang-shell {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    min-height: calc(100dvh - var(--app-header-height, 68px)) !important;
+    padding: 16px 16px 32px !important;
+}
+
+html.app-shell .lang-page {
+    max-width: 560px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    text-align: center !important;
+}
+
+html.app-shell.app-page-email .container,
+html.app-shell.app-page-whatsapp .container,
+html.app-shell.app-page-telegram .container {
+    max-width: 1040px !important;
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 16px 16px 24px !important;
+}
+
+html.app-shell.app-page-email .page-header,
+html.app-shell.app-page-whatsapp .page-header,
+html.app-shell.app-page-telegram .page-header {
+    display: block !important;
+    text-align: center !important;
+    margin-bottom: 12px !important;
+}
+
+html.app-shell.app-page-email .page-header p,
+html.app-shell.app-page-whatsapp .page-header p,
+html.app-shell.app-page-telegram .page-header p {
+    max-width: 560px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+html.app-shell.app-page-email .setup-banner,
+html.app-shell.app-page-whatsapp .setup-banner,
+html.app-shell.app-page-telegram .setup-banner {
+    max-width: 1040px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    justify-content: center !important;
+    text-align: center !important;
+}
+
+html.app-shell.app-page-email .grid,
+html.app-shell.app-page-whatsapp .grid,
+html.app-shell.app-page-telegram .grid {
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+html.app-shell.app-page-schedule .container,
+html.app-shell.app-page-contact .container,
+html.app-shell.app-page-verified-contact .container,
+html.app-shell.app-page-marketing-database .container,
+html.app-shell.app-page-templates .tpl-page {
+    max-width: 1040px !important;
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 16px 16px 24px !important;
+}
+
+html.app-shell.app-page-schedule .tasks-wrapper {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+html.app-shell.app-page-contact .page-header,
+html.app-shell.app-page-verified-contact .page-header,
+html.app-shell.app-page-marketing-database .page-header,
+html.app-shell.app-page-templates .tpl-hero {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    text-align: center !important;
+    margin-bottom: 12px !important;
+}
+
+html.app-shell.app-page-contact .page-header p,
+html.app-shell.app-page-verified-contact .page-header p,
+html.app-shell.app-page-marketing-database .page-header p,
+html.app-shell.app-page-templates .tpl-hero p {
+    max-width: 560px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+html.app-shell.app-page-contact .page-header-copy {
+    width: 100% !important;
+    text-align: center !important;
+}
+
+html.app-shell.app-page-contact .page-head-actions {
+    margin-inline-start: 0 !important;
+    justify-content: center !important;
+    width: 100% !important;
+}
+
+html.app-shell.app-page-verified-contact .back-link,
+html.app-shell.app-page-marketing-database .back-link {
+    display: inline-flex !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+html.app-shell.app-page-contact .lists-grid,
+html.app-shell.app-page-verified-contact .card,
+html.app-shell.app-page-marketing-database .card,
+html.app-shell.app-page-templates .tpl-controls,
+html.app-shell.app-page-templates .tpl-grid {
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+html.app-shell .invite-shell {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    min-height: calc(100dvh - var(--app-header-height, 68px)) !important;
+    padding: 16px 16px 32px !important;
+}
+
+html.app-shell .invite-page {
+    max-width: 560px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    text-align: center !important;
+}
+
+html.app-shell .page-header,
+html.app-shell .tpl-hero {
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    gap: 10px !important;
+    margin-bottom: 10px !important;
+    flex-wrap: wrap;
+}
+html.app-shell .page-header h1,
+html.app-shell .invite-page h1,
+html.app-shell .lang-page h1,
+html.app-shell .legal-page h1,
+html.app-shell .tpl-hero h1 {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.03em !important;
+    margin: 0 0 2px !important;
+    color: #0F172A;
+    line-height: 1.2;
+}
+html.app-shell .page-header p,
+html.app-shell .invite-page .lead,
+html.app-shell .lang-page .lead,
+html.app-shell .legal-lead,
+html.app-shell .tpl-hero p {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+    color: #64748B !important;
+    max-width: 640px;
+    margin: 0 !important;
+}
+
+html.app-shell:not(.guest-mode) .card,
+html.app-shell .logs-card,
+html.app-shell .editor-wrapper,
+html.app-shell .invite-card,
+html.app-shell .lang-card,
+html.app-shell .dash-panel,
+html.app-shell .dash-kpi {
+    padding: 10px 12px !important;
+    min-height: 0 !important;
+    border-radius: 0;
+    background: #ffffff;
+}
+
+html.app-shell:not(.guest-mode) .card,
+html.app-shell .wrap .card,
+html.app-shell .logs-card,
+html.app-shell .editor-wrapper,
+html.app-shell .invite-card,
+html.app-shell .lang-card,
+html.app-shell .dash-panel,
+html.app-shell .dash-kpi,
+html.app-shell .tpl-card,
+html.app-shell .kpi-card,
+html.app-shell .kpi-chart-card,
+html.app-shell .tool-card,
+html.app-shell .why-card,
+html.app-shell .step-card,
+html.app-shell .how-card,
+html.app-shell .cta-banner,
+html.app-shell .welcome-bar,
+html.app-shell .bill-card,
+html.app-shell .setup-item,
+html.app-shell .saas-kpi,
+html.app-shell .schedule-item,
+html.app-shell .schedule-list,
+html.app-shell .legal-toc,
+html.app-shell .guide-callout,
+html.app-shell .ob-card,
+html.app-shell .support-chat,
+html.app-shell .support-head,
+html.app-shell .modal,
+html.app-shell .account-section,
+html.app-shell .channels-grid .card,
+html.app-shell .import-kpis .saas-kpi,
+html.app-shell .tpl-kpis .saas-kpi {
+    border: 1.5px solid var(--accent, #5B4FFF) !important;
+    box-shadow: 0 1px 2px rgba(91, 79, 255, 0.08) !important;
+}
+
+html.app-shell .card-header {
+    margin-bottom: 8px !important;
+}
+html.app-shell .card-title {
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    gap: 6px !important;
+}
+
+html.app-shell .card.logs-card {
+    max-height: min(72vh, 640px);
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 56px;
+}
+html.app-shell .logs-empty {
+    padding: 16px 10px !important;
+    font-size: 12px;
+}
+html.app-shell .logs-empty i {
+    font-size: 22px !important;
+    margin-bottom: 8px !important;
+}
+html.app-shell .logs-footer {
+    font-size: 11px !important;
+    padding: 8px 0 0 !important;
+    color: var(--text-muted);
+}
+
+html.app-shell .grid {
+    gap: 10px !important;
+}
+html.app-shell.app-page-email .grid,
+html.app-shell.app-page-whatsapp .grid,
+html.app-shell.app-page-telegram .grid {
+    grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.78fr) !important;
+}
+
+html.app-shell .form-group {
+    margin-bottom: 8px !important;
+}
+html.app-shell .form-label,
+html.app-shell label.form-label {
+    font-size: 11px !important;
+    font-weight: 650 !important;
+    margin-bottom: 4px !important;
+    color: var(--text-secondary) !important;
+}
+html.app-shell .form-input,
+html.app-shell input.form-input,
+html.app-shell select.form-input,
+html.app-shell textarea.form-input,
+html.app-shell .message-editor,
+html.app-shell .wrap input,
+html.app-shell .wrap select,
+html.app-shell .bill-form input,
+html.app-shell .bill-form select,
+html.app-shell .bill-form textarea {
+    min-height: 32px !important;
+    padding: 6px 10px !important;
+    font-size: 13px !important;
+    border-radius: 0;
+}
+html.app-shell textarea.form-input,
+html.app-shell .paste-area,
+html.app-shell .message-editor {
+    min-height: 88px !important;
+}
+html.app-shell .form-hint {
+    font-size: 12px !important;
+    margin-top: 4px !important;
+}
+
+html.app-shell .btn,
+html.app-shell .app-auth-btn,
+html.app-shell .bill-btn,
+html.app-shell .bill-btn-ghost,
+html.app-shell .tpl-btn {
+    min-height: 32px;
+    padding: 6px 10px !important;
+    font-size: 12px !important;
+    border-radius: 0;
+    font-weight: 650 !important;
+}
+html.app-shell .btn-primary,
+html.app-shell .form-actions .btn-primary,
+html.app-shell .dash-cta-btn,
+html.app-shell .tpl-btn-primary,
+html.app-shell .bill-btn {
+    background: var(--accent) !important;
+    color: #fff !important;
+    border-color: var(--accent) !important;
+    width: auto !important;
+    box-shadow: none !important;
+}
+html.app-shell .wrap .btn,
+html.app-shell .wrap .btn-primary {
+    width: 100% !important;
+    min-width: 0 !important;
+}
+html.app-shell .btn-secondary,
+html.app-shell .btn-ghost {
+    background: var(--bg-card) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+}
+html.app-shell .btn-danger { background: var(--error) !important; color: #fff !important; }
+html.app-shell .btn-run {
+    background: var(--success) !important;
+    color: #fff !important;
+}
+html.app-shell .form-actions {
+    gap: 8px !important;
+    margin-top: 12px !important;
+    flex-wrap: wrap;
+}
+
+html.app-shell .editor-area {
+    min-height: 140px !important;
+    padding: 8px 10px !important;
+    font-size: 13px !important;
+}
+html.app-shell .editor-area.library-loaded {
+    min-height: 220px !important;
+}
+html.app-shell .editor-toolbar {
+    padding: 6px !important;
+    gap: 4px;
+}
+html.app-shell .toolbar-btn {
+    width: 32px !important;
+    height: 32px !important;
+}
+
+html.app-shell .drop-zone {
+    padding: 10px !important;
+    min-height: 0 !important;
+}
+html.app-shell .drop-zone-icon {
+    font-size: 16px !important;
+    margin-bottom: 4px !important;
+}
+
+html.app-shell .kpi-hero {
+    margin-bottom: 8px !important;
+    align-items: center !important;
+}
+html.app-shell .kpi-hero h1 { font-size: 18px !important; }
+html.app-shell .kpi-hero p { font-size: 12px !important; }
+html.app-shell .kpi-card {
+    padding: 8px 10px !important;
+    border-radius: 0;
+}
+html.app-shell .kpi-card .label {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 6px !important;
+}
+html.app-shell .kpi-card .value,
+html.app-shell .kpi-engage .value {
+    font-size: 18px !important;
+    font-weight: 750 !important;
+}
+html.app-shell .kpi-card .hint { font-size: 11px !important; margin-top: 2px !important; }
+html.app-shell .kpi-stats,
+html.app-shell .kpi-channels {
+    gap: 8px !important;
+    margin-bottom: 8px !important;
+}
+html.app-shell .kpi-chart-card { padding: 10px 12px !important; margin-bottom: 8px !important; }
+html.app-shell .kpi-chart-frame {
+    min-height: 220px !important;
+    padding: 12px 10px 8px !important;
+}
+html.app-shell .kpi-chart {
+    height: min(32vh, 240px) !important;
+    min-height: 200px !important;
+}
+html.app-shell .welcome-bar {
+    padding: 8px 12px !important;
+    margin-bottom: 10px !important;
+    border-radius: 0;
+}
+html.app-shell .hero h1 { font-size: 22px !important; }
+html.app-shell:not([dir="rtl"]) .hero h1,
+html.app-shell:not([dir="rtl"]) .hero p,
+html.app-shell:not([dir="rtl"]) .land-copy {
+    direction: ltr;
+    unicode-bidi: isolate;
+    overflow-wrap: anywhere;
+}
+html[dir="rtl"].app-shell .hero h1,
+html[dir="rtl"].app-shell .hero p,
+html[dir="rtl"].app-shell .land-copy {
+    direction: rtl;
+    unicode-bidi: isolate;
+    overflow-wrap: anywhere;
+}
+html.app-shell .hero p,
+html.app-shell .hero p.land-lead { font-size: 13px !important; }
+html.app-shell .hero { margin-bottom: 10px !important; }
+html.app-shell .tool-card,
+html.app-shell .why-card,
+html.app-shell .step-card,
+html.app-shell .how-card {
+    padding: 10px 12px !important;
+    border-radius: 0;
+}
+html.app-shell .tool-icon { width: 28px !important; height: 28px !important; font-size: 13px !important; margin-bottom: 6px !important; border-radius: 0; }
+html.app-shell .tool-card h3 { font-size: 13px !important; margin-bottom: 2px !important; }
+html.app-shell .section-title { font-size: 13px !important; margin: 10px 0 8px !important; }
+html.app-shell .cta-banner { padding: 12px !important; }
+html.app-shell .cta-banner h2 { font-size: 16px !important; }
+
+html.app-shell table { font-size: 13px; }
+html.app-shell th,
+html.app-shell td {
+    padding: 6px 8px !important;
+    font-size: 12px !important;
+}
+html.app-shell th {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-muted) !important;
+    background: var(--bg-tertiary);
+}
+
+html.app-shell .status-badge,
+html.app-shell .type-badge,
+html.app-shell .step-badge,
+html.app-shell .tpl-badge,
+html.app-shell .sa-badge,
+html.app-shell .stat-chip {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    padding: 3px 8px !important;
+    border-radius: 0;
+}
+
+html.app-shell .segmented { padding: 3px !important; gap: 2px; }
+html.app-shell .seg-btn { padding: 6px 10px !important; font-size: 12px !important; }
+
+html.app-shell .modal { padding: 0 !important; border-radius: 0; }
+html.app-shell .modal-header,
+html.app-shell .modal-body,
+html.app-shell .modal-footer { padding: 12px 16px !important; }
+html.app-shell .modal-title { font-size: 15px !important; }
+html.app-shell .setup-banner { padding: 8px 12px !important; margin-bottom: 12px !important; font-size: 12px !important; }
+
+html.app-shell .log-list,
+html.app-shell .logs-container,
+html.app-shell .delivery-log,
+html.app-shell .log-entries {
+    min-height: 0 !important;
+    max-height: 100%;
+    overflow: auto;
+    flex: 1;
+}
+
+html.app-shell .attachments-grid {
+    gap: 8px !important;
+}
+html.app-shell .attachment-btn {
+    padding: 8px 10px !important;
+    font-size: 12px !important;
+    min-height: 36px;
+}
+html.app-shell .attachment-btn i { font-size: 14px !important; }
+
+html.app-shell .schedule-empty {
+    padding: 16px 12px !important;
+}
+html.app-shell .schedule-empty i { font-size: 18px !important; margin-bottom: 6px !important; }
+html.app-shell .schedule-item {
+    padding: 8px 10px !important;
+}
+html.app-shell .schedule-list { gap: 8px !important; }
+html.app-shell .schedule-item-name { font-size: 13px !important; }
+html.app-shell .schedule-item-top { margin-bottom: 8px !important; }
+
+html.app-shell .wrap {
+    max-width: 400px;
+    margin: 16px auto !important;
+    padding: 0 12px 24px !important;
+}
+html.app-shell.guest-mode .wrap .card {
+    padding: 16px !important;
+    border-radius: 0;
+}
+html.app-shell.guest-mode .wrap h1 { font-size: 20px !important; }
+html.app-shell.guest-mode .wrap .hint { font-size: 13px !important; margin-bottom: 12px !important; }
+html.app-shell.guest-mode .wrap input {
+    min-height: 32px;
+    padding: 6px 10px;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+html.app-shell .legal-page {
+    padding: 10px 14px 28px !important;
+}
+
+html.app-shell .setup-grid { gap: 8px !important; margin-bottom: 12px !important; }
+html.app-shell .setup-item { padding: 10px 12px !important; }
+html.app-shell .account-link { padding: 10px 12px !important; }
+html.app-shell .account-section { margin-top: 16px !important; }
+html.app-shell .account-section h2 { font-size: 15px !important; margin-bottom: 8px !important; }
+
+html.app-shell .advanced-panel {
+    border: 1px solid var(--border-color);
+    border-radius: 0;
+    background: var(--bg-tertiary);
+    margin: 8px 0 14px;
+    padding: 0;
+}
+html.app-shell .advanced-panel > summary {
+    list-style: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 10px 12px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+html.app-shell .advanced-panel > summary::-webkit-details-marker { display: none; }
+html.app-shell .advanced-panel > summary::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(-45deg);
+    margin-inline-end: 2px;
+}
+html.app-shell .advanced-panel[open] > summary::before { transform: rotate(45deg); }
+html.app-shell .advanced-panel .form-group { padding: 0 12px; }
+html.app-shell .advanced-panel .form-group:last-child { padding-bottom: 12px; }
+
+html.app-shell .saas-stepper {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 0 0 16px;
+    padding: 0;
+    list-style: none;
+}
+html.app-shell .saas-stepper li {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 0;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    font-size: 12px;
+    font-weight: 650;
+    color: var(--text-secondary);
+}
+html.app-shell .saas-stepper li.is-current {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-subtle);
+}
+html.app-shell .saas-stepper li i {
+    width: 18px;
+    height: 18px;
+    border-radius: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-tertiary);
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 800;
+}
+
+html.app-shell .empty-state,
+html.app-shell .list-empty,
+html.app-shell .kpi-empty,
+html.app-shell .sa-empty,
+html.app-shell .tpl-empty {
+    text-align: center;
+    padding: 16px 12px !important;
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+html.app-shell .msg-preview {
+    margin: 8px 0 14px;
+    padding: 10px 12px;
+    border-radius: 0;
+    background: #efeae2;
+    border: 1px solid var(--border-color);
+}
+html.app-shell .msg-preview-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+html.app-shell .wa-bubble,
+html.app-shell .tg-bubble {
+    max-width: 86%;
+    margin-left: auto;
+    background: #d9fdd3;
+    color: #111b21;
+    border-radius: 0;
+    padding: 8px 10px;
+    font-size: 13px;
+    line-height: 1.4;
+    white-space: pre-wrap;
+    word-break: break-word;
+    min-height: 36px;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+}
+html.app-shell .tg-bubble {
+    background: #fff;
+    border-radius: 0;
+}
+html.app-shell .msg-preview.is-empty .wa-bubble,
+html.app-shell .msg-preview.is-empty .tg-bubble {
+    opacity: 0.55;
+}
+
+html.app-shell .email-preview-chrome {
+    background: #eef0f4;
+    border-radius: 0;
+    padding: 10px 8px;
+}
+html.app-shell .email-preview-meta {
+    max-width: 680px;
+    margin: 0 auto 10px;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+html.app-shell .email-preview-frame {
+    display: block;
+    width: 100%;
+    max-width: 680px;
+    height: 360px;
+    margin: 0 auto;
+    border: 0;
+    background: #fff;
+    border-radius: 0;
+    box-shadow: var(--shadow-md);
+}
+
+html.app-shell .settings-workspace {
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 10px 14px;
+    align-items: start;
+}
+html.app-shell .settings-workspace .page-header { grid-column: 1 / -1; }
+html.app-shell .settings-workspace .setup-grid {
+    grid-column: 1;
+    grid-row: 2 / span 4;
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 56px;
+}
+html.app-shell .settings-workspace .channels-grid,
+html.app-shell .settings-workspace .account-section {
+    grid-column: 2;
+}
+
+.saas-skel {
+    background: linear-gradient(90deg, var(--bg-tertiary) 25%, var(--bg-card) 37%, var(--bg-tertiary) 63%);
+    background-size: 400% 100%;
+    animation: saasSkel 1.2s ease infinite;
+    border-radius: 0;
+    min-height: 12px;
+}
+@keyframes saasSkel {
+    0% { background-position: 100% 0; }
+    100% { background-position: 0 0; }
+}
+
+html.app-shell .verified-list,
+html.app-shell .sa-table-wrap,
+html.app-shell .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+html.app-shell table {
+    border-collapse: collapse;
+    width: 100%;
+}
+html.app-shell th {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+html.app-shell td {
+    font-size: 13px;
+}
+
+html.app-shell :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+html.app-shell [hidden] { display: none !important; }
+
+html.app-shell #memberHome .dash-kpis {
+    grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    margin-bottom: 8px !important;
+}
+html.app-shell #memberHome .dash-kpi {
+    padding: 8px 10px !important;
+    min-height: 0 !important;
+}
+html.app-shell #memberHome .dash-kpi .value { font-size: 18px !important; }
+html.app-shell #memberHome .dash-panel {
+    padding: 10px 12px !important;
+    min-height: 0 !important;
+}
+html.app-shell #memberHome .kpi-chart-frame {
+    min-height: 220px !important;
+    padding: 12px 10px 8px !important;
+}
+html.app-shell #memberHome .kpi-chart {
+    height: min(32vh, 240px) !important;
+    min-height: 200px !important;
+}
+html.app-shell #memberHome .dash-welcome h1 { font-size: 18px !important; }
+html.app-shell #memberHome .dash-cta-btn { min-width: 0; }
+@media (max-width: 1180px) {
+    html.app-shell #memberHome .dash-kpis { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+}
+@media (max-width: 1100px) {
+    html.app-shell #memberHome .dash-hero,
+    html.app-shell #memberHome .dash-main,
+    html.app-shell #memberHome .dash-channels {
+        grid-template-columns: 1fr !important;
+    }
+}
+@media (max-width: 720px) {
+    html.app-shell #memberHome .dash-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    html.app-shell #memberHome .kpi-chart-card {
+        overflow: hidden !important;
+        max-width: 100% !important;
+        padding: 8px !important;
+    }
+    html.app-shell #memberHome .kpi-chart-frame {
+        min-height: 0 !important;
+        height: 148px !important;
+        padding: 6px 4px 4px !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        max-width: 100% !important;
+    }
+    html.app-shell #memberHome .kpi-chart {
+        height: 136px !important;
+        min-height: 136px !important;
+        width: 100% !important;
+        min-width: 260px !important;
+        grid-template-columns: 26px minmax(0, 1fr) !important;
+        gap: 3px !important;
+    }
+    html.app-shell #memberHome .kpi-chart-bar {
+        width: min(12px, 60%) !important;
+        max-width: 14px !important;
+    }
+    html.app-shell #memberHome .kpi-chart-yaxis { font-size: 8px !important; }
+    html.app-shell #memberHome .kpi-chart-xlabel { font-size: 7px !important; }
+}
+
+@media (max-width: 1100px) {
+    html.app-shell .kpi-stats,
+    html.app-shell .kpi-channels {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    html.app-shell .grid,
+    html.app-shell.app-page-email .grid,
+    html.app-shell.app-page-whatsapp .grid,
+    html.app-shell.app-page-telegram .grid {
+        grid-template-columns: 1fr !important;
+    }
+    html.app-shell .card.logs-card {
+        position: relative;
+        top: 0;
+        max-height: 420px;
+    }
+}
+@media (max-width: 960px) {
+    html.app-shell .settings-workspace {
+        grid-template-columns: 1fr;
+    }
+    html.app-shell .settings-workspace .setup-grid,
+    html.app-shell .settings-workspace .channels-grid,
+    html.app-shell .settings-workspace .account-section {
+        grid-column: 1;
+        grid-row: auto;
+        position: static;
+    }
+    html.app-shell .settings-workspace .setup-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 900px) {
+    html.app-shell,
+    html.app-shell body {
+        overflow-x: hidden !important;
+        max-width: 100%;
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+    html.app-shell .container,
+    html.app-shell .tasks-wrapper,
+    html.app-shell .lang-shell,
+    html.app-shell .guide-page,
+    html.app-shell .legal-page,
+    html.app-shell .wrap,
+    html.app-shell .bill-wrap {
+        padding: 8px 10px 16px !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+    }
+    html.app-shell .card,
+    html.app-shell .dash-panel,
+    html.app-shell .dash-banner,
+    html.app-shell .invite-card,
+    html.app-shell .lang-card,
+    html.app-shell .bill-card,
+    html.app-shell .tpl-card {
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+    html.app-shell .settings-workspace .setup-grid {
+        grid-template-columns: 1fr !important;
+    }
+    html.app-shell img,
+    html.app-shell svg,
+    html.app-shell video,
+    html.app-shell iframe,
+    html.app-shell canvas {
+        max-width: 100%;
+    }
+    html.app-shell .hero h1,
+    html.app-shell .hero p,
+    html.app-shell .land-copy {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        max-width: 100%;
+    }
+    html.app-shell .land-pills {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        justify-items: stretch;
+        gap: 8px !important;
+    }
+    html.app-shell .land-pill {
+        justify-content: flex-start;
+        min-width: 0 !important;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+@media (max-width: 720px) {
+    html.app-shell .settings-workspace .setup-grid {
+        grid-template-columns: 1fr;
+    }
+    html.app-shell .btn-primary,
+    html.app-shell .form-actions .btn-primary,
+    html.app-shell .hero-actions .btn-primary {
+        min-width: 0 !important;
+    }
+    html.app-shell .datetime-row,
+    html.app-shell .form-row,
+    html.app-shell .smtp-actions,
+    html.app-shell .connection-actions,
+    html.app-shell .page-header-row,
+    html.app-shell .invite-link-row,
+    html.app-shell .attachments-row {
+        flex-direction: column !important;
+        align-items: center !important;
+        flex-wrap: wrap !important;
+    }
+    html.app-shell .datetime-row .form-group,
+    html.app-shell .form-row .form-group {
+        min-width: 0 !important;
+        width: 100% !important;
+        flex: 1 1 auto !important;
+    }
+    html.app-shell .time-picker {
+        display: flex !important;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px !important;
+    }
+    html.app-shell .time-picker .form-input {
+        max-width: none !important;
+        flex: 1 1 72px !important;
+        font-size: 16px !important;
+        min-height: 44px !important;
+        padding: 8px !important;
+    }
+    html.app-shell .sched-date-input {
+        min-height: 44px !important;
+        font-size: 16px !important;
+        padding: 10px 12px !important;
+    }
+    html.app-shell .ampm-toggle {
+        min-width: 0 !important;
+        width: auto !important;
+        flex: 0 0 auto;
+    }
+    html.app-shell .segmented {
+        min-width: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        flex-wrap: wrap;
+    }
+    html.app-shell .seg-btn {
+        height: auto !important;
+        min-height: 40px;
+        white-space: normal;
+        padding: 8px 6px !important;
+        flex: 1 1 auto;
+    }
+    html.app-shell .form-input,
+    html.app-shell input.form-input,
+    html.app-shell select.form-input,
+    html.app-shell textarea.form-input,
+    html.app-shell .message-editor,
+    html.app-shell .wrap input,
+    html.app-shell .wrap select,
+    html.app-shell .invite-link-row input,
+    html.app-shell .verified-search,
+    html.app-shell .bill-form input,
+    html.app-shell .bill-form select,
+    html.app-shell .bill-form textarea,
+    html.app-shell input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]):not([type="file"]),
+    html.app-shell select,
+    html.app-shell textarea {
+        max-width: 100% !important;
+        min-width: 0 !important;
+        font-size: 16px !important;
+    }
+    html.app-shell .form-actions,
+    html.app-shell .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    html.app-shell .form-actions .btn,
+    html.app-shell .form-actions .btn-primary,
+    html.app-shell .hero-actions .btn {
+        width: 100% !important;
+    }
+    html.app-shell .email-preview-frame,
+    html.app-shell .email-preview-chrome,
+    html.app-shell .email-preview-meta {
+        max-width: 100% !important;
+    }
+    html.app-shell .editor-toolbar {
+        flex-wrap: wrap !important;
+    }
+    html.app-shell .saas-stepper {
+        flex-wrap: wrap;
+    }
+    html.app-shell .schedule-item-top {
+        flex-wrap: wrap;
+    }
+    html.app-shell .lists-grid,
+    html.app-shell .verified-columns {
+        grid-template-columns: 1fr !important;
+    }
+}
+@media (max-width: 640px) {
+    html.app-shell #memberHome .kpi-stats,
+    html.app-shell #memberHome .kpi-channels {
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        gap: 4px !important;
+    }
+    html.app-shell #memberHome .kpi-card {
+        padding: 6px 5px !important;
+        min-width: 0 !important;
+    }
+    html.app-shell #memberHome .kpi-card .label {
+        font-size: 8px !important;
+        margin-bottom: 2px !important;
+        line-height: 1.15 !important;
+    }
+    html.app-shell #memberHome .kpi-card .value,
+    html.app-shell #memberHome .kpi-engage .value {
+        font-size: 12px !important;
+    }
+    html.app-shell #memberHome .kpi-card .hint {
+        font-size: 8px !important;
+        margin-top: 2px !important;
+        line-height: 1.2 !important;
+    }
+    html.app-shell #memberHome .kpi-channel-name { font-size: 9px !important; }
+    html.app-shell #memberHome .kpi-channel-detail { font-size: 8px !important; margin-bottom: 4px !important; }
+    html.app-shell #memberHome .kpi-mini { gap: 2px 4px !important; font-size: 8px !important; }
+    html.app-shell #memberHome .kpi-chart-frame {
+        height: 140px !important;
+        padding: 4px !important;
+    }
+    html.app-shell #memberHome .kpi-chart {
+        height: 128px !important;
+        min-height: 128px !important;
+        min-width: 240px !important;
+        grid-template-columns: 24px minmax(0, 1fr) !important;
+    }
+    html.app-shell .tool-grid,
+    html.app-shell .why-grid,
+    html.app-shell .steps-grid,
+    html.app-shell .how-list {
+        grid-template-columns: 1fr !important;
+    }
+    html.app-shell .hero h1,
+    html.app-shell .hero p,
+    html.app-shell .land-copy,
+    html.app-shell .page-header h1,
+    html.app-shell .page-header p {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        max-width: 100%;
+    }
+    html.app-shell .land-pills {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        justify-items: stretch;
+        gap: 8px !important;
+    }
+    html.app-shell .land-pill {
+        justify-content: flex-start;
+        min-width: 0 !important;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    html.app-shell .hero { text-align: start; }
+    html.app-shell .page-header h1 { font-size: 20px !important; }
+    html.app-shell .hero h1 { font-size: 22px !important; }
+    html.app-shell .hero p.land-lead { font-size: 15px !important; }
+    html.app-shell .hero p.land-sub,
+    html.app-shell .land-copy { font-size: 14px !important; }
+    html.app-shell .land-pills { grid-template-columns: 1fr !important; }
+    html.app-shell .form-actions .btn-primary { width: 100% !important; }
+    html.app-shell .support-compose {
+        flex-wrap: wrap;
+        gap: 8px !important;
+        padding: 10px 12px 12px !important;
+    }
+    html.app-shell .support-compose button {
+        min-height: 44px;
+        flex: 1 1 100%;
+    }
+    html.app-shell .bubble { max-width: 92% !important; }
+    html.app-shell #memberHome .dash-kpis {
+        grid-template-columns: 1fr 1fr !important;
+    }
+    html.app-shell #memberHome .dash-quick {
+        width: 100%;
+    }
+    html.app-shell #memberHome .dash-cta-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    html.app-shell #memberHome .dash-cta-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+html[dir="rtl"] .wa-bubble,
+html[dir="rtl"] .tg-bubble {
+    margin-left: 0;
+    margin-right: auto;
+    border-radius: 0;
+}
+html[dir="rtl"] .app-shell .advanced-panel > summary::before {
+    transform: rotate(135deg);
+}
+html[dir="rtl"].app-shell .advanced-panel[open] > summary::before {
+    transform: rotate(45deg);
+}
+
+/* ── Compact workspace language (Rabط accent, Canva density) ── */
+html.app-shell .tpl-card {
+    padding: 0 !important;
+    border: 1.5px solid var(--accent, #5B4FFF) !important;
+    box-shadow: 0 1px 2px rgba(91, 79, 255, 0.08) !important;
+}
+html.app-shell .page-head-actions,
+html.app-shell .tpl-hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+html.app-shell .saas-kpi-row,
+html.app-shell .tpl-kpis,
+html.app-shell .import-kpis {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 10px;
+}
+html.app-shell .saas-kpi,
+html.app-shell .tpl-kpis .saas-kpi,
+html.app-shell .import-kpis .saas-kpi {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px 10px !important;
+    border: 1.5px solid var(--accent, #5B4FFF) !important;
+    border-radius: 0;
+    background: #fff !important;
+    box-shadow: 0 1px 2px rgba(91, 79, 255, 0.08) !important;
+    min-width: 0;
+}
+html.app-shell .saas-kpi i {
+    width: 28px; height: 28px; border-radius: 0; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--accent-subtle, rgba(91,79,255,0.12)); color: var(--accent, #5B4FFF); font-size: 12px;
+}
+html.app-shell .saas-kpi .label { font-size: 11px; color: #64748B; font-weight: 600; margin-bottom: 2px; }
+html.app-shell .saas-kpi .value { font-size: 16px; font-weight: 750; letter-spacing: -0.03em; color: #0F172A; }
+html.app-shell .saas-kpi .hint { font-size: 11px; color: #94A3B8; margin-top: 1px; }
+
+html.app-shell .list-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 2px;
+    border-bottom: 1px solid #F1F5F9;
+    border-radius: 0;
+}
+html.app-shell .list-row-name { font-size: 13px; font-weight: 700; }
+html.app-shell .list-row-meta { font-size: 11px; color: #64748B; margin-top: 1px; }
+html.app-shell .icon-btn {
+    width: 28px; height: 28px; border-radius: 0; border: 1px solid #EEF2F7;
+    background: #fff; color: #475569; cursor: pointer;
+}
+
+html.app-shell .schedule-list {
+    gap: 0 !important;
+    border: 1.5px solid var(--accent, #5B4FFF);
+    border-radius: 0;
+    overflow: hidden;
+    background: #fff;
+}
+html.app-shell .schedule-item {
+    background: #fff !important;
+    border: 0 !important;
+    border-bottom: 1px solid #F1F5F9 !important;
+    border-radius: 0;
+    padding: 8px 10px !important;
+}
+html.app-shell .schedule-item:last-child { border-bottom: 0 !important; }
+html.app-shell .schedule-item-top { margin-bottom: 0 !important; align-items: center !important; }
+html.app-shell .schedule-item-name { font-size: 13px !important; font-weight: 700 !important; }
+html.app-shell .status-badge {
+    background: rgba(34,197,94,0.12);
+    color: #16a34a;
+}
+html.app-shell .status-badge.waiting { background: rgba(91,79,255,0.12); color: var(--accent, #5B4FFF); }
+html.app-shell .status-badge.failed,
+html.app-shell .status-badge.cancelled { background: rgba(239,68,68,0.12); color: #dc2626; }
+html.app-shell .status-badge.running { background: rgba(245,158,11,0.14); color: #d97706; }
+
+html.app-shell .tasks-wrapper { max-width: none !important; margin: 0 !important; }
+
+html.app-shell .setup-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    margin-bottom: 10px !important;
+}
+html.app-shell .setup-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 8px 10px !important;
+    border: 1.5px solid var(--accent, #5B4FFF) !important;
+    border-radius: 0;
+    background: #fff !important;
+    text-decoration: none !important;
+    min-height: 0;
+}
+html.app-shell .setup-item i {
+    width: 28px; height: 28px; border-radius: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--accent-subtle, rgba(91,79,255,0.12)); color: var(--accent, #5B4FFF); font-size: 12px;
+}
+html.app-shell .setup-item strong { display: block; font-size: 13px; }
+html.app-shell .setup-item span { font-size: 11px; color: #64748B; }
+html.app-shell .setup-item.ready { border-color: rgba(34, 197, 94, 0.35) !important; }
+html.app-shell .setup-item.ready span { color: var(--success, #16a34a) !important; }
+html.app-shell .setup-item.needed { border-color: rgba(245, 158, 11, 0.4) !important; }
+html.app-shell .setup-item.needed span { color: #D97706 !important; }
+html.app-shell .setup-item.active {
+    border-color: var(--accent, #5B4FFF) !important;
+    box-shadow: 0 0 0 1px var(--accent, #5B4FFF) !important;
+}
+html.app-shell .setup-item.whatsapp.active {
+    border-color: var(--whatsapp, #25D366) !important;
+    box-shadow: 0 0 0 1px var(--whatsapp, #25D366) !important;
+}
+html.app-shell .setup-item.telegram.active {
+    border-color: var(--telegram, #229ED9) !important;
+    box-shadow: 0 0 0 1px var(--telegram, #229ED9) !important;
+}
+
+html.app-shell .saas-stepper {
+    display: flex !important;
+    gap: 6px !important;
+    margin: 0 0 10px !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+html.app-shell .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px !important;
+}
+html.app-shell .segmented {
+    display: inline-flex;
+    gap: 2px;
+    padding: 3px;
+    background: #F1F5F9;
+    border-radius: 0;
+}
+html.app-shell .seg-btn,
+html.app-shell .tpl-tab {
+    height: 28px;
+    padding: 0 10px !important;
+    border-radius: 0;
+    font-size: 12px !important;
+}
+html.app-shell .seg-btn.active,
+html.app-shell .tpl-tab.active {
+    background: var(--accent, #5B4FFF) !important;
+    color: #fff !important;
+    box-shadow: none !important;
+}
+
+html.app-shell .drop-zone {
+    border: 1.5px dashed #D7DEE8 !important;
+    background: #F8FAFC !important;
+    border-radius: 0;
+    padding: 10px !important;
+}
+
+html.app-shell .wrap {
+    max-width: 400px !important;
+    margin: 16px auto !important;
+}
+html.app-shell .wrap .card {
+    padding: 16px !important;
+    border-radius: 0;
+    box-shadow: 0 1px 2px rgba(15,23,42,0.05) !important;
+}
+html.app-shell .wrap h1 { font-size: 20px !important; letter-spacing: -0.03em; }
+
+html.app-shell .channels-grid {
+    display: grid !important;
+    gap: 8px !important;
+}
+
+html.app-shell .land-kicker { margin-bottom: 6px !important; font-size: 11px !important; }
+html.app-shell .hero p.land-lead { font-size: 14px !important; margin-bottom: 8px !important; }
+html.app-shell .hero p.land-sub { font-size: 13px !important; margin-bottom: 10px !important; }
+html.app-shell .land-pills { margin-bottom: 12px !important; gap: 6px !important; }
+html.app-shell .land-pill { padding: 5px 10px !important; font-size: 12px !important; }
+html.app-shell .land-copy { font-size: 13px !important; margin-bottom: 12px !important; line-height: 1.45 !important; }
+html.app-shell .tool-card p { font-size: 12px !important; line-height: 1.4 !important; margin-bottom: 6px !important; }
+html.app-shell .tool-link { margin-top: 8px !important; font-size: 12px !important; }
+html.app-shell .why-card, html.app-shell .how-card, html.app-shell .step-card { min-height: 0 !important; }
+html.app-shell .why-icon { width: 28px !important; height: 28px !important; font-size: 13px !important; border-radius: 0; }
+html.app-shell .step-num { width: 22px !important; height: 22px !important; font-size: 11px !important; margin-bottom: 6px !important; }
+html.app-shell .cta-banner { margin-top: 12px !important; }
+html.app-shell .cta-banner p { margin-bottom: 10px !important; font-size: 13px !important; }
+html.app-shell .bill-wrap { margin: 12px auto 28px !important; padding: 0 14px !important; }
+html.app-shell .bill-wrap h1 { font-size: 20px !important; margin-bottom: 4px !important; }
+html.app-shell .bill-lead { font-size: 13px !important; margin-bottom: 12px !important; }
+html.app-shell .bill-card { padding: 12px 14px !important; }
+html.app-shell .bill-price { font-size: 24px !important; margin: 4px 0 !important; }
+html.app-shell .tpl-page { padding: 10px 14px 20px !important; max-width: none !important; }
+html.app-shell .tpl-grid { gap: 10px !important; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important; }
+html.app-shell .tpl-thumb { height: 168px !important; }
+html.app-shell .tpl-card-body { padding: 8px 10px 10px !important; gap: 4px !important; }
+html.app-shell .eb-bar { min-height: 44px !important; padding: 6px 10px !important; }
+html.app-shell .eb-body { grid-template-columns: 180px minmax(0, 1fr) 240px !important; }
+html.app-shell .eb-canvas-wrap { padding: 14px 10px 24px !important; }
+
+@media (max-width: 1100px) {
+    html.app-shell .saas-kpi-row,
+    html.app-shell .tpl-kpis,
+    html.app-shell .import-kpis,
+    html.app-shell .setup-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+@media (max-width: 720px) {
+    html.app-shell .container,
+    html.app-shell .tasks-wrapper,
+    html.app-shell .invite-shell,
+    html.app-shell .lang-shell,
+    html.app-shell .guide-page {
+        padding: 8px 10px 16px !important;
+    }
+    html.app-shell .saas-kpi-row,
+    html.app-shell .tpl-kpis,
+    html.app-shell .import-kpis,
+    html.app-shell .setup-grid {
+        grid-template-columns: 1fr !important;
+    }
+    html.app-shell .page-header,
+    html.app-shell .tpl-hero {
+        flex-direction: column !important;
+    }
+    html.app-shell .page-head-actions,
+    html.app-shell .tpl-hero-actions { width: 100%; }
+    html.app-shell .page-head-actions .btn,
+    html.app-shell .tpl-hero-actions .tpl-btn { flex: 1; }
+    html.app-shell .eb-body { display: block !important; grid-template-columns: none !important; }
+    html.app-shell .tool-icon { width: 24px !important; height: 24px !important; font-size: 12px !important; }
+}
+
+@media (max-width: 860px) {
+    html.app-shell .eb-body {
+        display: block !important;
+        grid-template-columns: none !important;
+        position: relative !important;
+    }
+    html.app-shell .eb-blocks,
+    html.app-shell .eb-settings,
+    html.app-shell .eb-canvas-wrap {
+        padding: 10px 10px 16px !important;
+    }
+    html.app-shell .tpl-page { padding: 8px 10px 16px !important; }
+    html.app-shell .tpl-hero h1 { font-size: 16px !important; }
+    html.app-shell .tpl-grid { grid-template-columns: 1fr 1fr !important; gap: 8px !important; }
+    html.app-shell .eb-bar { min-height: 44px !important; padding: 6px 8px !important; }
+}
+
+html.app-shell .app-header .app-auth-btn { padding: 5px 9px !important; min-height: 30px; }
+html.app-shell .kpi-split { gap: 8px !important; margin-bottom: 10px !important; }
+html.app-shell .kpi-activity-icon { width: 26px !important; height: 26px !important; border-radius: 0; }
+html.app-shell .kpi-range-btn { padding: 4px 10px !important; font-size: 12px !important; }
+html.app-shell .support-head { padding: 8px 12px !important; }
+html.app-shell .support-head h1 { font-size: 16px !important; }
+html.app-shell .lang-card { padding: 10px 12px !important; border-radius: 0; }
+html.app-shell .guide-callout { padding: 10px 12px !important; margin-bottom: 10px !important; }
+html.app-shell .ob-card { padding: 16px 14px !important; border-radius: 0; }
+html.app-shell .tpl-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+html.app-shell .tpl-card-actions {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center;
+    gap: 6px !important;
+}
+html.app-shell .tpl-card-actions .tpl-btn {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-height: 30px !important;
+    padding: 5px 8px !important;
+    font-size: 11px !important;
+}
+html.app-shell .tpl-card-actions .tpl-btn[data-act="use"] { flex: 1 1 auto !important; min-width: 0 !important; }
+html.app-shell .verified-toolbar .segmented {
+    border: 1.5px solid var(--accent, #5B4FFF) !important;
+    background: var(--bg-tertiary, #F7F8FC) !important;
+    padding: 3px !important;
+    gap: 2px !important;
+    min-width: 0 !important;
+    width: auto !important;
+}
+html.app-shell .verified-filter,
+html.app-shell .verified-filter.seg-btn {
+    height: 32px !important;
+    min-height: 32px !important;
+    padding: 0 12px !important;
+    font-size: 12px !important;
+    background: transparent !important;
+    color: var(--text-secondary, #6B7389) !important;
+    width: auto !important;
+    flex: 0 0 auto !important;
+}
+html.app-shell .verified-filter.active,
+html.app-shell .verified-filter.seg-btn.active {
+    background: var(--accent, #5B4FFF) !important;
+    color: #fff !important;
+}
+@media (max-width: 720px) {
+    html.app-shell .verified-filter,
+    html.app-shell .verified-filter.seg-btn {
+        flex: 1 1 0 !important;
+        min-height: 40px !important;
+        height: 40px !important;
+    }
+}
+
+html.app-shell .app-hamburger,
+html.app-shell .app-theme-toggle,
+html.app-shell .app-back-btn {
+    background: #EEF0F6 !important;
+    border: 1px solid #B8BECB !important;
+    color: #1E2540 !important;
+    box-shadow: none !important;
+}
+html.app-shell .app-hamburger span {
+    background: #1E2540 !important;
+}
+html[data-theme="dark"].app-shell .app-hamburger,
+html[data-theme="dark"].app-shell .app-theme-toggle,
+html[data-theme="dark"].app-shell .app-back-btn {
+    background: #2A3040 !important;
+    border-color: #4A5270 !important;
+    color: #EEF1FB !important;
+}
+html[data-theme="dark"].app-shell .app-hamburger span {
+    background: #EEF1FB !important;
+}
+
+@media (max-width: 860px) {
+    html.app-shell .tpl-hero {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 8px !important;
+    }
+    html.app-shell .tpl-hero .tpl-btn,
+    html.app-shell .tpl-hero-actions .tpl-btn { width: 100% !important; }
+    html.app-shell .tpl-tab {
+        height: auto !important;
+        min-height: 36px !important;
+        padding: 8px 10px !important;
+        white-space: nowrap !important;
+        flex: 1 0 auto !important;
+    }
+    html.app-shell .tpl-tab.active {
+        background: var(--accent, #5B4FFF) !important;
+        color: #fff !important;
+    }
+    html.app-shell .tpl-search input {
+        height: 40px !important;
+        font-size: 16px !important;
+        min-height: 40px !important;
+    }
+    html.app-shell .tpl-cat-filter select {
+        height: 40px !important;
+        min-height: 40px !important;
+        font-size: 12px !important;
+        max-width: 132px !important;
+    }
+}
+
+@media (max-width: 640px) {
+    html.app-shell .tpl-grid {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+    html.app-shell .tpl-thumb { height: 210px !important; }
+}
+
+
+/* PLATFORM SHARP CORNERS */
+html body,
+html body *,
+html body *::before,
+html body *::after {
+    border-radius: 0 !important;
+}

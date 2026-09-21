@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page.support">Get assistance — Rabط</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/navbar.css">
+    <link rel="stylesheet" href="/brand.css">
+    <script src="/i18n-dict.js"></script>
+    <script src="/i18n.js"></script>
+    <script src="/navbar.js"></script>
+    <script src="/ui-feedback.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; }
+        body {
+            font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary, #f3f5fa);
+            color: var(--text-primary, #1e2540);
+        }
+        .support-page {
+            height: calc(100vh - var(--app-header-height, 60px));
+            height: calc(100dvh - var(--app-header-height, 60px));
+            padding: 16px 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .support-chat {
+            flex: 1;
+            min-height: 0;
+            width: 100%;
+            max-width: 720px;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-card, #fff);
+            border: 1px solid var(--border-color, #e6eaf2);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .support-head {
+            padding: 16px 14px;
+            border-bottom: 1px solid var(--border-color, #e6eaf2);
+            flex-shrink: 0;
+            text-align: center;
+        }
+        .support-head h1 { font-size: 16px; margin-bottom: 4px; }
+        .support-head p {
+            color: var(--text-secondary, #6b7389);
+            font-size: 13px;
+            max-width: 480px;
+            margin: 0 auto;
+            line-height: 1.45;
+        }
+        .support-log {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            padding: 12px 14px 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: #f7f8fc;
+        }
+        .support-empty {
+            margin: auto;
+            text-align: center;
+            color: var(--text-secondary, #6b7389);
+            max-width: 360px;
+            font-size: 14px;
+            line-height: 1.55;
+        }
+        .support-empty i { font-size: 28px; color: #5B4FFF; margin-bottom: 10px; display: block; }
+        .bubble {
+            max-width: min(720px, 78%);
+            padding: 10px 14px;
+            border-radius: 16px;
+            font-size: 14px;
+            line-height: 1.55;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .bubble small {
+            display: block;
+            margin-top: 6px;
+            font-size: 11px;
+            opacity: 0.7;
+        }
+        .bubble.me {
+            margin-left: auto;
+            background: #5B4FFF;
+            color: #fff;
+            border-bottom-right-radius: 4px;
+        }
+        .bubble.them {
+            margin-right: auto;
+            background: #fff;
+            border: 1px solid #e6eaf2;
+            color: #1e2540;
+            border-bottom-left-radius: 4px;
+        }
+        html[dir="rtl"] .bubble.me { margin-left: 0; margin-right: auto; border-bottom-right-radius: 16px; border-bottom-left-radius: 4px; }
+        html[dir="rtl"] .bubble.them { margin-right: 0; margin-left: auto; border-bottom-left-radius: 16px; border-bottom-right-radius: 4px; }
+        .support-compose {
+            display: flex;
+            gap: 10px;
+            padding: 14px 18px 18px;
+            border-top: 1px solid var(--border-color, #e6eaf2);
+            background: #fff;
+            flex-shrink: 0;
+        }
+        .support-compose textarea {
+            flex: 1;
+            min-height: 48px;
+            max-height: 140px;
+            resize: none;
+            border: 1px solid #e6eaf2;
+            border-radius: 12px;
+            padding: 12px 14px;
+            font: inherit;
+            color: inherit;
+            background: #f7f8fc;
+            outline: none;
+        }
+        .support-compose button {
+            border: none;
+            border-radius: 12px;
+            padding: 0 18px;
+            background: #5B4FFF;
+            color: #000;
+            font-weight: 800;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .support-compose button:disabled { opacity: 0.6; cursor: not-allowed; }
+        html.app-shell .support-page { align-items: center !important; padding: 16px 14px !important; }
+        html.app-shell .support-chat {
+            max-width: 720px !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            border-radius: 12px !important;
+        }
+        html.app-shell .support-head { text-align: center !important; padding: 16px 14px !important; }
+        html.app-shell .support-head p { margin-left: auto !important; margin-right: auto !important; }
+    </style>
+</head>
+<body>
+    <div id="app-navbar"></div>
+    <div class="support-page">
+        <div class="support-chat">
+            <div class="support-head">
+                <h1 data-i18n="support.title">Open support chat</h1>
+                <p data-i18n="support.lead">Message the Rabط platform team. Super admin will reply here.</p>
+            </div>
+            <div class="support-log" id="chatLog"></div>
+            <form class="support-compose" id="chatForm">
+                <textarea id="chatText" rows="1" maxlength="2000" placeholder="Write your message…" data-i18n-placeholder="support.placeholder" required></textarea>
+                <button type="submit" id="chatSend" data-i18n="support.send">Send</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        (function () {
+            var log = document.getElementById('chatLog');
+            var form = document.getElementById('chatForm');
+            var input = document.getElementById('chatText');
+            var sendBtn = document.getElementById('chatSend');
+            var lastStamp = '';
+
+            function escapeHtml(value) {
+                return String(value == null ? '' : value)
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;');
+            }
+
+            function fmtWhen(value) {
+                var date = new Date(value);
+                if (Number.isNaN(date.getTime())) return '';
+                return date.toLocaleString();
+            }
+
+            function t(key) {
+                return (window.RabtI18n && window.RabtI18n.t(key)) || key;
+            }
+
+            function render(messages) {
+                var list = messages || [];
+                if (!list.length) {
+                    log.innerHTML = '<div class="support-empty"><i class="fa-solid fa-headset"></i>' + t('support.empty') + '</div>';
+                    lastStamp = '';
+                    return;
+                }
+                var html = list.map(function (msg) {
+                    var mine = msg.from === 'user';
+                    return '<div class="bubble ' + (mine ? 'me' : 'them') + '">' +
+                        escapeHtml(msg.text) +
+                        '<small>' + (mine ? t('support.you') : t('support.team')) + ' · ' + escapeHtml(fmtWhen(msg.at)) + '</small></div>';
+                }).join('');
+                var stamp = list[list.length - 1].id + ':' + list.length;
+                var stick = stamp !== lastStamp;
+                log.innerHTML = html;
+                if (stick) log.scrollTop = log.scrollHeight;
+                lastStamp = stamp;
+            }
+
+            async function loadChat(silent) {
+                try {
+                    var res = await fetch('/api/support/chat', { credentials: 'same-origin' });
+                    var data = await res.json();
+                    if (res.status === 401) {
+                        window.location.replace('/login.html');
+                        return;
+                    }
+                    if (!res.ok || data.success === false) throw new Error(data.message || 'Could not load chat');
+                    render((data.data && data.data.messages) || []);
+                } catch (err) {
+                    if (!silent && window.RabtUI) RabtUI.notify(err.message || 'Could not load chat', 'error');
+                }
+            }
+
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                var text = input.value.trim();
+                if (!text) return;
+                sendBtn.disabled = true;
+                try {
+                    var res = await fetch('/api/support/chat', {
+                        method: 'POST',
+                        credentials: 'same-origin',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ text: text })
+                    });
+                    var data = await res.json();
+                    if (!res.ok || data.success === false) throw new Error(data.message || 'Could not send');
+                    input.value = '';
+                    render((data.data && data.data.messages) || []);
+                } catch (err) {
+                    if (window.RabtUI) RabtUI.notify(err.message || 'Could not send', 'error');
+                } finally {
+                    sendBtn.disabled = false;
+                    input.focus();
+                }
+            });
+
+            input.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    form.requestSubmit();
+                }
+            });
+
+            document.addEventListener('auth-ready', function (e) {
+                if (!e.detail || !e.detail.user) {
+                    window.location.replace('/login.html');
+                    return;
+                }
+                loadChat(false);
+                setInterval(function () { loadChat(true); }, 3000);
+            });
+        })();
+    </script>
+</body>
+</html>

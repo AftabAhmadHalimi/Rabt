@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopHub - E-commerce Email Template</title>
+    <style type="text/css">
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+        /* Email Client Reset */
+        .ExternalClass, .ReadMsgBody {
+            width: 100%;
+            background-color: #faf8f5;
+        }
+        
+        body, table, td, p, a, div, span {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 100%;
+            font-family: 'Rubik', sans-serif;
+            line-height: 1.5;
+        }
+        
+        /* Outlook.com Fix */
+        .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {
+            line-height: 100%;
+        }
+        
+        /* Mobile Responsive */
+        @media only screen and (max-width: 600px) {
+            table[class="container"] {
+                width: 100% !important;
+            }
+            
+            td[class="hero-content"] {
+                padding: 30px 20px !important;
+            }
+            
+            td[class="content-padding"] {
+                padding: 30px 20px !important;
+            }
+            
+            td[class="footer-padding"] {
+                padding: 30px 20px !important;
+            }
+            
+            img[class="responsive-img"] {
+                width: 100% !important;
+                height: auto !important;
+            }
+            
+            table[class="product-row"] {
+                width: 100% !important;
+                display: block !important;
+            }
+            
+            td[class="product-cell"] {
+                display: block !important;
+                width: 100% !important;
+                padding: 15px !important;
+                margin-bottom: 20px !important;
+                text-align: center !important;
+            }
+            
+            td[class="stats-cell"] {
+                display: block !important;
+                width: 100% !important;
+                padding: 15px !important;
+                margin-bottom: 12px !important;
+                text-align: center !important;
+            }
+            
+            .mobile-center {
+                text-align: center !important;
+            }
+            
+            .social-icons td {
+                padding: 0 8px !important;
+            }
+            
+            .footer-links td {
+                display: inline-block !important;
+                padding: 5px 8px !important;
+            }
+            
+            .shop-buttons td {
+                display: block !important;
+                margin-bottom: 12px !important;
+            }
+            
+            .offer-badge {
+                font-size: 12px !important;
+                padding: 8px 16px !important;
+            }
+        }
+        
+        /* iOS Fix */
+        @media only screen and (max-device-width: 480px) {
+            .mobile-font {
+                font-size: 16px !important;
+            }
+        }
+    </style>
+</head>
+<body style="margin: 0; padding: 0; background-color: #faf8f5;">
+    <center style="width: 100%; table-layout: fixed;">
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#faf8f5" style="background-color: #faf8f5;">
+               </tr>
+                <td align="center" style="padding: 40px 20px;">
+                    
+                    <!-- Main Container - Max Width 600px -->
+                    <table class="container" width="600" border="0" cellpadding="0" cellspacing="0" style="width: 100%; max-width: 600px; background-color: #ffffff; border-radius: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+                        
+                        <!-- ========== HEADER SECTION ========== -->
+                        <tr>
+                            <td style="background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%); padding: 30px 30px; border-radius: 24px 24px 0 0;">
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td align="center">
+                                            <h1 style="margin: 0; color: #ffffff; font-size: 32px; font-weight: 800; letter-spacing: -0.5px;">
+                                                🛍️ Shop<span style="font-weight: 500;">Hub</span>
+                                            </h1>
+                                            <p style="margin: 12px 0 0; color: #fff5e6; font-size: 14px;">
+                                                Your Favorite Products • Amazing Deals Daily
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        
+                        <!-- ========== OFFER BANNER ========== -->
+                        <tr>
+                            <td style="padding: 0;">
+                                <img class="responsive-img" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=300&fit=crop&auto=format" 
+                                     width="600" 
+                                     height="300" 
+                                     style="width: 100%; max-width: 600px; height: auto; display: block;" 
+                                     alt="Shopping sale banner">
+                            </td>
+                        </tr>
+                        
+                        <!-- ========== MAIN CONTENT ========== -->
+                        <tr>
+                            <td class="content-padding" style="padding: 40px 35px;">
+                                
+                                <!-- Welcome Message with Flash Sale -->
+                                <div style="background: linear-gradient(135deg, #fff5e6 0%, #ffe6d5 100%); border-radius: 16px; padding: 20px; margin-bottom: 30px; text-align: center;">
+                                    <p style="margin: 0 0 5px 0; font-size: 12px; color: #ff6b6b; font-weight: 700; letter-spacing: 1px;">⚡ FLASH SALE ⚡</p>
+                                    <h2 style="margin: 0 0 8px 0; color: #ff6b6b; font-size: 28px; font-weight: 800;">
+                                        Up to 70% OFF
+                                    </h2>
+                                    <p style="margin: 0; color: #4a5568; font-size: 14px;">
+                                        For a limited time only • Shop now and save big!
+                                    </p>
+                                </div>
+                                
+                                <h2 style="margin: 0 0 12px 0; color: #2d3748; font-size: 24px; font-weight: 700;">
+                                    Hey {{first_name}}! 👋
+                                </h2>
+                                <p style="margin: 0 0 25px 0; color: #4a5568; font-size: 16px; line-height: 1.6;">
+                                    Ready for some retail therapy? We've curated the hottest deals just for you. From fashion to electronics, discover amazing products at unbeatable prices.
+                                </p>
+                                
+                                <!-- ========== STORE STATS SECTION ========== -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 40px;">
+                                    <tr>
+                                        <td align="center">
+                                            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+                                                <tr>
+                                                    <td class="stats-cell" width="33%" style="background: #fff5e6; border-radius: 12px; padding: 15px;">
+                                                        <p style="margin: 0; font-size: 28px; font-weight: 800; color: #ff6b6b;">10K+</p>
+                                                        <p style="margin: 5px 0 0; font-size: 11px; color: #4a5568;">Happy Customers</p>
+                                                    </td>
+                                                    <td width="12" style="width: 12px;">&nbsp;</td>
+                                                    <td class="stats-cell" width="33%" style="background: #fff5e6; border-radius: 12px; padding: 15px;">
+                                                        <p style="margin: 0; font-size: 28px; font-weight: 800; color: #ff6b6b;">500+</p>
+                                                        <p style="margin: 5px 0 0; font-size: 11px; color: #4a5568;">Products</p>
+                                                    </td>
+                                                    <td width="12" style="width: 12px;">&nbsp;</td>
+                                                    <td class="stats-cell" width="33%" style="background: #fff5e6; border-radius: 12px; padding: 15px;">
+                                                        <p style="margin: 0; font-size: 28px; font-weight: 800; color: #ff6b6b;">24/7</p>
+                                                        <p style="margin: 5px 0 0; font-size: 11px; color: #4a5568;">Support</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- ========== FEATURED PRODUCTS SECTION ========== -->
+                                <h3 style="margin: 0 0 20px 0; color: #2d3748; font-size: 22px; font-weight: 700;">
+                                    🔥 Trending Products
+                                </h3>
+                                
+                                <!-- Product 1 - Fashion -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 30px;">
+                                    <tr>
+                                        <td>
+                                            <img class="responsive-img" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=530&h=280&fit=crop&auto=format" 
+                                                 width="530" 
+                                                 height="280" 
+                                                 style="width: 100%; max-width: 530px; height: auto; border-radius: 16px; display: block; margin-bottom: 15px;" 
+                                                 alt="Fashion collection">
+                                            <div style="display: inline-block; background: #ff6b6b; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-bottom: 10px;">
+                                                ⚡ 40% OFF
+                                            </div>
+                                            <h4 style="margin: 0 0 8px 0; color: #2d3748; font-size: 20px; font-weight: 700;">
+                                                Premium Fashion Collection
+                                            </h4>
+                                            <p style="margin: 0 0 12px 0; color: #4a5568; font-size: 14px; line-height: 1.5;">
+                                                Elevate your style with our latest collection. Premium quality fabrics, modern designs, and perfect fit.
+                                            </p>
+                                            <div style="margin-bottom: 12px;">
+                                                <span style="font-size: 24px; font-weight: 800; color: #ff6b6b;">$49.99</span>
+                                                <span style="font-size: 14px; color: #94a3b8; text-decoration: line-through; margin-left: 8px;">$89.99</span>
+                                            </div>
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td align="center" bgcolor="#ff6b6b" style="background-color: #ff6b6b; border-radius: 50px;">
+                                                        <a href="#" style="display: inline-block; padding: 10px 28px; color: #ffffff; font-size: 14px; font-weight: 600; text-decoration: none; border-radius: 50px;">
+                                                            🛒 Shop Now
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- Product 2 - Electronics -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 30px;">
+                                    <tr>
+                                        <td>
+                                            <img class="responsive-img" src="https://images.unsplash.com/photo-1498049794561-7780e7231661?w=530&h=280&fit=crop&auto=format" 
+                                                 width="530" 
+                                                 height="280" 
+                                                 style="width: 100%; max-width: 530px; height: auto; border-radius: 16px; display: block; margin-bottom: 15px;" 
+                                                 alt="Electronics">
+                                            <div style="display: inline-block; background: #ff6b6b; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-bottom: 10px;">
+                                                🔥 BEST SELLER
+                                            </div>
+                                            <h4 style="margin: 0 0 8px 0; color: #2d3748; font-size: 20px; font-weight: 700;">
+                                                Wireless Headphones Pro
+                                            </h4>
+                                            <p style="margin: 0 0 12px 0; color: #4a5568; font-size: 14px; line-height: 1.5;">
+                                                Premium sound quality, 30-hour battery life, and noise cancellation technology.
+                                            </p>
+                                            <div style="margin-bottom: 12px;">
+                                                <span style="font-size: 24px; font-weight: 800; color: #ff6b6b;">$79.99</span>
+                                                <span style="font-size: 14px; color: #94a3b8; text-decoration: line-through; margin-left: 8px;">$149.99</span>
+                                            </div>
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td align="center" bgcolor="#ff6b6b" style="background-color: #ff6b6b; border-radius: 50px;">
+                                                        <a href="#" style="display: inline-block; padding: 10px 28px; color: #ffffff; font-size: 14px; font-weight: 600; text-decoration: none; border-radius: 50px;">
+                                                            🛒 Shop Now
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- Product 3 - Home Decor -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 40px;">
+                                    <tr>
+                                        <td>
+                                            <img class="responsive-img" src="https://images.unsplash.com/photo-1484101403633-562f891dc89a?w=530&h=280&fit=crop&auto=format" 
+                                                 width="530" 
+                                                 height="280" 
+                                                 style="width: 100%; max-width: 530px; height: auto; border-radius: 16px; display: block; margin-bottom: 15px;" 
+                                                 alt="Home decor">
+                                            <div style="display: inline-block; background: #ff6b6b; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; margin-bottom: 10px;">
+                                                🎁 LIMITED TIME
+                                            </div>
+                                            <h4 style="margin: 0 0 8px 0; color: #2d3748; font-size: 20px; font-weight: 700;">
+                                                Modern Home Decor Set
+                                            </h4>
+                                            <p style="margin: 0 0 12px 0; color: #4a5568; font-size: 14px; line-height: 1.5;">
+                                                Transform your space with our elegant home decor collection. Includes 5-piece set.
+                                            </p>
+                                            <div style="margin-bottom: 12px;">
+                                                <span style="font-size: 24px; font-weight: 800; color: #ff6b6b;">$89.99</span>
+                                                <span style="font-size: 14px; color: #94a3b8; text-decoration: line-through; margin-left: 8px;">$159.99</span>
+                                            </div>
+                                            <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td align="center" bgcolor="#ff6b6b" style="background-color: #ff6b6b; border-radius: 50px;">
+                                                        <a href="#" style="display: inline-block; padding: 10px 28px; color: #ffffff; font-size: 14px; font-weight: 600; text-decoration: none; border-radius: 50px;">
+                                                            🛒 Shop Now
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- ========== CATEGORY GRID SECTION ========== -->
+                                <h3 style="margin: 30px 0 20px 0; color: #2d3748; font-size: 22px; font-weight: 700;">
+                                    📂 Shop by Category
+                                </h3>
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 40px;">
+                                    <tr>
+                                        <td align="center">
+                                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td width="50%" style="padding: 0 5px;">
+                                                        <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=260&h=180&fit=crop&auto=format" 
+                                                             width="260" 
+                                                             height="180" 
+                                                             style="width: 100%; max-width: 260px; height: auto; border-radius: 12px;" 
+                                                             alt="Fashion">
+                                                        <p style="margin: 12px 0 0; font-weight: 700; color: #ff6b6b;">👗 Fashion</p>
+                                                        <p style="margin: 5px 0 0; font-size: 11px; color: #718096;">Up to 50% off</p>
+                                                    </td>
+                                                    <td width="50%" style="padding: 0 5px;">
+                                                        <img src="https://images.unsplash.com/photo-1550009158-9ebf69173e03?w=260&h=180&fit=crop&auto=format" 
+                                                             width="260" 
+                                                             height="180" 
+                                                             style="width: 100%; max-width: 260px; height: auto; border-radius: 12px;" 
+                                                             alt="Electronics">
+                                                        <p style="margin: 12px 0 0; font-weight: 700; color: #ff6b6b;">📱 Electronics</p>
+                                                        <p style="margin: 5px 0 0; font-size: 11px; color: #718096;">Best deals</p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding: 15px 5px 0;">
+                                                        <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=260&h=180&fit=crop&auto=format" 
+                                                             width="260" 
+                                                             height="180" 
+                                                             style="width: 100%; max-width: 260px; height: auto; border-radius: 12px;" 
+                                                             alt="Home & Living">
+                                                        <p style="margin: 12px 0 0; font-weight: 700; color: #ff6b6b;">🏠 Home & Living</p>
+                                                        <p style="margin: 5px 0 0; font-size: 11px; color: #718096;">New arrivals</p>
+                                                    </td>
+                                                    <td style="padding: 15px 5px 0;">
+                                                        <img src="https://images.unsplash.com/photo-1441985122302-d8f2e14f7a24?w=260&h=180&fit=crop&auto=format" 
+                                                             width="260" 
+                                                             height="180" 
+                                                             style="width: 100%; max-width: 260px; height: auto; border-radius: 12px;" 
+                                                             alt="Accessories">
+                                                        <p style="margin: 12px 0 0; font-weight: 700; color: #ff6b6b;">💎 Accessories</p>
+                                                        <p style="margin: 5px 0 0; font-size: 11px; color: #718096;">Limited stock</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- ========== CUSTOMER REVIEWS ========== -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin: 40px 0; background: linear-gradient(135deg, #fff5e6 0%, #ffe6d5 100%); border-radius: 20px;">
+                                    <tr>
+                                        <td style="padding: 30px;">
+                                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td align="center">
+                                                        <p style="margin: 0 0 10px 0; font-size: 32px;">⭐⭐⭐⭐⭐</p>
+                                                        <p style="margin: 0 0 20px 0; color: #2d3748; font-size: 16px; line-height: 1.6; font-style: italic;">
+                                                            "Amazing quality and fast shipping! I'm in love with my new headphones. Best purchase I've made this year!"
+                                                        </p>
+                                                        <img src="https://randomuser.me/api/portraits/women/45.jpg" 
+                                                             width="60" 
+                                                             height="60" 
+                                                             style="width: 60px; height: 60px; border-radius: 50%; display: inline-block; margin-bottom: 8px;" 
+                                                             alt="Customer">
+                                                        <p style="margin: 0; font-weight: 700; color: #ff6b6b;">Emily Parker</p>
+                                                        <p style="margin: 5px 0 0; font-size: 11px; color: #718096;">Verified Buyer</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- ========== EXCLUSIVE OFFER SECTION ========== -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin: 35px 0 20px;">
+                                    <tr>
+                                        <td align="center">
+                                            <div style="background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%); border-radius: 20px; padding: 30px; text-align: center;">
+                                                <p style="margin: 0 0 10px 0; font-size: 32px;">🎁</p>
+                                                <h3 style="margin: 0 0 12px 0; color: #ffffff; font-size: 24px; font-weight: 800;">
+                                                    Get 20% OFF Your Next Order
+                                                </h3>
+                                                <p style="margin: 0 0 20px 0; color: #fff5e6; font-size: 14px;">
+                                                    Use code: <strong style="font-size: 18px;">WELCOME20</strong>
+                                                </p>
+                                                <table border="0" cellpadding="0" cellspacing="0" style="margin: 0 auto;">
+                                                    <tr>
+                                                        <td align="center" bgcolor="#ffffff" style="background-color: #ffffff; border-radius: 50px;">
+                                                            <a href="#" style="display: inline-block; padding: 12px 32px; color: #ff6b6b; font-size: 14px; font-weight: 700; text-decoration: none; border-radius: 50px;">
+                                                                Shop Now & Save →
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <p style="margin: 15px 0 0; font-size: 11px; color: #fff5e6;">
+                                                    Valid for first-time customers only • Minimum purchase $50
+                                                </p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- ========== FREE SHIPPING BANNER ========== -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin: 30px 0; background-color: #f1f5f9; border-radius: 12px;">
+                                    <tr>
+                                        <td style="padding: 20px; text-align: center;">
+                                            <p style="margin: 0; font-size: 24px;">🚚</p>
+                                            <h4 style="margin: 8px 0 5px 0; color: #2d3748; font-size: 16px; font-weight: 700;">
+                                                Free Shipping on Orders Over $50
+                                            </h4>
+                                            <p style="margin: 0; font-size: 12px; color: #64748b;">
+                                                Plus 30-day money-back guarantee
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- ========== DIVIDER ========== -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin: 30px 0 20px;">
+                                    <tr>
+                                        <td style="border-top: 2px solid #f0e5db;">&nbsp;</td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- ========== QUICK LINKS ========== -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td style="text-align: center;">
+                                            <p style="margin: 0 0 10px 0; font-size: 13px; color: #ff6b6b; font-weight: 600;">
+                                                Need Help?
+                                            </p>
+                                            <p style="margin: 0; font-size: 12px;">
+                                                <a href="#" style="color: #ff6b6b; text-decoration: underline;">Track Order</a> &nbsp;|&nbsp;
+                                                <a href="#" style="color: #ff6b6b; text-decoration: underline;">Returns</a> &nbsp;|&nbsp;
+                                                <a href="#" style="color: #ff6b6b; text-decoration: underline;">Contact Support</a>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                        </tr>
+                        
+                        <!-- ========== FOOTER SECTION ========== -->
+                        <tr>
+                            <td class="footer-padding" style="background-color: #2d3748; padding: 35px 35px; border-radius: 0 0 24px 24px;">
+                                
+                                <!-- Social Links -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 25px;">
+                                    <tr>
+                                        <td align="center">
+                                            <table border="0" cellpadding="0" cellspacing="0" class="social-icons">
+                                                <tr>
+                                                    <td style="padding: 0 10px;">
+                                                        <a href="#" style="color: #ffd966; text-decoration: none; font-size: 20px;">📘</a>
+                                                    </td>
+                                                    <td style="padding: 0 10px;">
+                                                        <a href="#" style="color: #ffd966; text-decoration: none; font-size: 20px;">🐦</a>
+                                                    </td>
+                                                    <td style="padding: 0 10px;">
+                                                        <a href="#" style="color: #ffd966; text-decoration: none; font-size: 20px;">📷</a>
+                                                    </td>
+                                                    <td style="padding: 0 10px;">
+                                                        <a href="#" style="color: #ffd966; text-decoration: none; font-size: 20px;">🎥</a>
+                                                    </td>
+                                                    <td style="padding: 0 10px;">
+                                                        <a href="#" style="color: #ffd966; text-decoration: none; font-size: 20px;">💬</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- Footer Links -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 25px;">
+                                    <tr>
+                                        <td align="center">
+                                            <table border="0" cellpadding="0" cellspacing="0" class="footer-links">
+                                                <tr>
+                                                    <td style="padding: 0 8px;">
+                                                        <a href="#" style="color: #cbd5e1; text-decoration: none; font-size: 11px;">About Us</a>
+                                                    </td>
+                                                    <td style="padding: 0 8px;">
+                                                        <a href="#" style="color: #cbd5e1; text-decoration: none; font-size: 11px;">Shop</a>
+                                                    </td>
+                                                    <td style="padding: 0 8px;">
+                                                        <a href="#" style="color: #cbd5e1; text-decoration: none; font-size: 11px;">Deals</a>
+                                                    </td>
+                                                    <td style="padding: 0 8px;">
+                                                        <a href="#" style="color: #cbd5e1; text-decoration: none; font-size: 11px;">Returns</a>
+                                                    </td>
+                                                    <td style="padding: 0 8px;">
+                                                        <a href="#" style="color: #cbd5e1; text-decoration: none; font-size: 11px;">FAQs</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <!-- Store Info & Legal -->
+                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td align="center" style="color: #94a3b8; font-size: 11px; line-height: 1.6;">
+                                            <p style="margin: 0 0 8px 0;">
+                                                © 2024 ShopHub. All rights reserved.
+                                            </p>
+                                            <p style="margin: 0 0 12px 0;">
+                                                123 Commerce Street, Suite 100, San Francisco, CA 94105
+                                            </p>
+                                            <p style="margin: 0 0 8px 0;">
+                                                💳 Secure Payment • 🔒 SSL Encrypted • 🚚 Fast Shipping
+                                            </p>
+                                            <p style="margin: 0;">
+                                                <a href="#" style="color: #ffd966; text-decoration: underline;">Unsubscribe</a> 
+                                                &nbsp;|&nbsp; 
+                                                <a href="#" style="color: #ffd966; text-decoration: underline;">Privacy Policy</a>
+                                                &nbsp;|&nbsp;
+                                                <a href="#" style="color: #ffd966; text-decoration: underline;">Terms of Service</a>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </td>
+                        </tr>
+                        
+                    </table>
+                    <!-- End Main Container -->
+                    
+                    <!-- Preheader Text for Better Deliverability -->
+                    <div style="display: none; max-height: 0px; overflow: hidden; visibility: hidden;">
+                        ShopHub - Up to 70% OFF flash sale! Free shipping on orders over $50. Shop the latest trends in fashion, electronics, and home decor. Limited time offers!
+                    </div>
+                    
+                </td>
+            </tr>
+        </table>
+    </center>
+</body>
+</html>
